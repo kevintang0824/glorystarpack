@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="640" height="480" role="img" aria-label="Luxury Glass Cream Jar with Gold Lid product image"><defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7f7f4"/><stop offset="1" stop-color="#d9e1e0"/></linearGradient>
+  <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#dfe9ea"/><stop offset="1" stop-color="#9c7a42" stop-opacity=".55"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e6b8"/><stop offset="1" stop-color="#c8a96e"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000" flood-opacity=".18"/></filter>
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<rect width="640" height="480" rx="0" fill="url(#bg)"/>
+<ellipse cx="320" cy="408" rx="190" ry="34" fill="#000" opacity=".12" filter="url(#soft)"/>
+<circle cx="520" cy="86" r="58" fill="#fff" opacity=".24"/>
+<circle cx="112" cy="120" r="34" fill="#fff" opacity=".18"/>
+<text x="40" y="432" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#1a1a1a" opacity=".42">Glass</text>
+<text x="40" y="456" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#1a1a1a" opacity=".34">30ml · OEM</text><g filter="url(#shadow)" transform="rotate(-4 320 260)"><ellipse cx="320" cy="184" rx="112" ry="30" fill="url(#gold)"/><rect x="210" y="174" width="220" height="52" rx="18" fill="url(#gold)"/><rect x="228" y="218" width="184" height="130" rx="28" fill="url(#body)"/><ellipse cx="320" cy="218" rx="92" ry="20" fill="#fff" opacity=".45"/><rect x="274" y="270" width="92" height="44" rx="8" fill="#fff" opacity=".62"/><path d="M292 294h56" stroke="#9c7a42" stroke-width="3" opacity=".35"/><path d="M302 302h36" stroke="#9c7a42" stroke-width="2" opacity=".24"/></g><text x="600" y="456" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#1a1a1a" opacity=".28">GloryStarPack</text></svg>

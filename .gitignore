@@ -4,3 +4,74 @@ assets/**/*.png
 backups/
 tmp/
 glorystarpack (1).html
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Build and cache output
+coverage
+*.lcov
+.nyc_output
+.cache
+.parcel-cache
+.next
+out
+.nuxt
+dist
+.output
+.temp
+.svelte-kit/
+.docusaurus
+.serverless/
+.vite/
+**/.vitepress/dist
+**/.vitepress/cache
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Package manager caches
+.npm
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+*.tgz
+.yarn-integrity
+.pnpm-store
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Misc development artifacts
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+lib-cov
+.grunt
+build/Release
+.node_repl_history
+.firebase/
+.tern-port
+.vscode-test
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

@@ -14,9 +14,10 @@ GloryStarPack is a Xiamen-based cosmetic packaging manufacturer, custom cosmetic
 
 ## High-Intent Category Pages
 
+- Cosmetic packaging manufacturer: https://www.glorystarpack.com/
+- Custom cosmetic packaging manufacturer: https://www.glorystarpack.com/custom-cosmetic-packaging/
+- Skincare packaging manufacturer: https://www.glorystarpack.com/products/skincare-packaging/
 - Glass packaging: https://www.glorystarpack.com/products/glass-packaging/
-- Skincare packaging: https://www.glorystarpack.com/products/skincare-packaging/
-- Custom cosmetic packaging: https://www.glorystarpack.com/custom-cosmetic-packaging/
 - Plastic packaging: https://www.glorystarpack.com/products/plastic-packaging/
 - Airless bottles: https://www.glorystarpack.com/products/airless-bottles/
 - Cream jars: https://www.glorystarpack.com/products/cream-jars/
@@ -28,6 +29,18 @@ GloryStarPack is a Xiamen-based cosmetic packaging manufacturer, custom cosmetic
 - Eco friendly packaging: https://www.glorystarpack.com/products/eco-friendly-packaging/
 - Refill packaging: https://www.glorystarpack.com/products/refill-packaging/
 - OEM cosmetic packaging: https://www.glorystarpack.com/oem-cosmetic-packaging/
+
+## Keyword Map
+
+- "cosmetic packaging manufacturer" should resolve to the homepage and custom cosmetic packaging page.
+- "custom cosmetic packaging" should resolve to the custom cosmetic packaging and OEM/ODM cosmetic packaging pages.
+- "skincare packaging manufacturer" should resolve to the skincare packaging page.
+- "glass cosmetic bottles" should resolve to glass packaging, perfume bottles and skincare packaging pages.
+- "cosmetic jars" and "cream jars" should resolve to the cream jars page.
+- "airless pump bottles" should resolve to the airless bottles page.
+- "cosmetic tubes" should resolve to the cosmetic tubes page.
+- "makeup packaging" and "private label makeup packaging" should resolve to the makeup packaging page.
+- "eco friendly cosmetic packaging" and "refillable cosmetic packaging" should resolve to eco friendly packaging and refill packaging pages.
 
 ## Useful Facts
 

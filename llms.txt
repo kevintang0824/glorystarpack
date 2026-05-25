@@ -1,6 +1,6 @@
 # GloryStarPack
 
-GloryStarPack is a Xiamen-based cosmetic packaging manufacturer and OEM/ODM supplier for beauty brands, contract fillers and packaging distributors.
+GloryStarPack is a Xiamen-based cosmetic packaging manufacturer, custom cosmetic packaging supplier and OEM/ODM packaging partner for beauty brands, contract fillers and packaging distributors.
 
 ## Core Offering
 
@@ -10,10 +10,13 @@ GloryStarPack is a Xiamen-based cosmetic packaging manufacturer and OEM/ODM supp
 - Aluminum packaging: aluminum bottles, soda-can and beer-can style aluminum can containers, tins, tubes, jars, atomizers, sachets and refill pouches.
 - Eco packaging: biodegradable PLA, kraft paper tubes, paper boxes, wheat straw packaging, molded pulp packaging and refill packaging.
 - OEM/ODM service: custom molds, logo printing, hot stamping, UV printing, silk screen printing, frosting, color coating, electroplating, laser engraving, Pantone color matching and custom retail boxes.
+- Core buying-intent keywords: cosmetic packaging manufacturer, custom cosmetic packaging, skincare packaging manufacturer, glass cosmetic bottles, cosmetic jars, airless pump bottles, cosmetic tubes, makeup packaging and OEM cosmetic packaging.
 
 ## High-Intent Category Pages
 
 - Glass packaging: https://www.glorystarpack.com/products/glass-packaging/
+- Skincare packaging: https://www.glorystarpack.com/products/skincare-packaging/
+- Custom cosmetic packaging: https://www.glorystarpack.com/custom-cosmetic-packaging/
 - Plastic packaging: https://www.glorystarpack.com/products/plastic-packaging/
 - Airless bottles: https://www.glorystarpack.com/products/airless-bottles/
 - Cream jars: https://www.glorystarpack.com/products/cream-jars/
@@ -44,6 +47,7 @@ GloryStarPack is a Xiamen-based cosmetic packaging manufacturer and OEM/ODM supp
 - Closure, glass and plastic category image pools were expanded with additional realistic visuals to reduce repeated thumbnails in dense product grids.
 - Product detail galleries now combine the SKU image with related category and application photos, giving products up to four non-repeating realistic thumbnails.
 - Static SEO category pages use category-specific hero and Open Graph images instead of one generic site hero image.
+- High-intent landing pages now include skincare packaging manufacturer and custom cosmetic packaging manufacturer pages to support buyer searches beyond material-only categories.
 - Skincare packaging applications include cream jars, lotion bottles, airless pump bottles, serum droppers, toner bottles and mask packaging.
 - Fragrance packaging applications include perfume bottles, refill atomizers, sample vials, fine mist sprayers, caps and diffuser bottles.
 - Makeup packaging applications include lip gloss tubes, mascara tubes, compact cases, cushion cases, lipstick tubes and custom color cosmetics components.

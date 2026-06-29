@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cosmetic Packaging Manufacturer | GloryStarPack</title>
-<meta name="description" content="GloryStarPack is a cosmetic packaging manufacturer and OEM/ODM supplier for glass bottles, cosmetic jars, airless pump bottles, tubes, makeup packaging, aluminum, bamboo and eco refill packaging.">
+<meta name="description" content="Cosmetic packaging manufacturer for glass bottles, jars, airless pump bottles, tubes, makeup packaging, aluminum, bamboo, refill and OEM/ODM projects.">
 <meta name="keywords" content="cosmetic packaging manufacturer, cosmetic packaging supplier, custom cosmetic packaging, OEM cosmetic packaging, ODM cosmetic packaging, glass cosmetic bottles, glass cream jars, serum dropper bottles, child resistant dropper bottles, airless pump bottles, eye cream airless pump bottles, cosmetic jars, plastic cosmetic jars, cosmetic tubes, PCR cosmetic tubes, lip oil tubes, mascara tubes, nail polish bottle supplier, cuticle oil pen packaging, deodorant packaging, aluminum aerosol cans, aluminum cosmetic cans, beer can style aluminum packaging, refillable perfume atomizer, refill pouches, skincare packaging, makeup packaging, perfume bottle packaging, bamboo cosmetic packaging, aluminum cosmetic packaging, refillable cosmetic packaging, eco friendly cosmetic packaging">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="GloryStarPack">
@@ -68,6 +68,9 @@
         "nail polish bottles",
         "skincare packaging",
         "makeup packaging",
+        "private label cosmetic packaging",
+        "cosmetic packaging MOQ",
+        "cosmetic packaging quote",
         "bamboo cosmetic packaging",
         "aluminum cosmetic packaging",
         "aluminum cosmetic cans",
@@ -84,7 +87,7 @@
           {
             "@type": "OfferCatalog",
             "name": "Glass Cosmetic Packaging",
-            "url": "https://www.glorystarpack.com/products/glass-packaging/",
+            "url": "https://www.glorystarpack.com/products/glass-cosmetic-bottles/",
             "itemListElement": [
               {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Glass cream jars"}},
               {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Serum dropper bottles"}},
@@ -95,7 +98,7 @@
           {
             "@type": "OfferCatalog",
             "name": "Plastic Cosmetic Packaging",
-            "url": "https://www.glorystarpack.com/products/plastic-packaging/",
+            "url": "https://www.glorystarpack.com/products/airless-pump-bottles/",
             "itemListElement": [
               {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Airless pump bottles"}},
               {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "PET and HDPE lotion bottles"}},
@@ -138,6 +141,17 @@
           },
           {
             "@type": "OfferCatalog",
+            "name": "Private Label Cosmetic Packaging",
+            "url": "https://www.glorystarpack.com/private-label-cosmetic-packaging/",
+            "itemListElement": [
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Private label packaging sourcing"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom logo cosmetic packaging"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Packaging sample proofing"}},
+              {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Retail box and insert development"}}
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
             "name": "OEM/ODM Custom Cosmetic Packaging",
             "url": "https://www.glorystarpack.com/oem-cosmetic-packaging/",
             "itemListElement": [
@@ -161,6 +175,8 @@
       ],
       "makesOffer": [
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom cosmetic packaging and OEM packaging customization"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Private label cosmetic packaging service"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Cosmetic packaging sample and MOQ quote support"}},
         {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Glass cosmetic bottles and jars"}},
         {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Plastic airless pump bottles and jars"}},
         {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Cosmetic tubes and makeup packaging components"}}
@@ -434,21 +450,21 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 .cat-card .cnt{font-size:11px;color:var(--muted);margin-top:3px;}
 
 /* PRODUCT GRID & CARD */
-.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-.pc{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;position:relative;transition:all .2s;}
-.pc:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);border-color:var(--gold-light);transform:translateY(-2px);}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.pc{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;position:relative;transition:all .2s;box-shadow:0 1px 0 rgba(31,29,25,.04);}
+.pc:hover{box-shadow:0 10px 28px rgba(31,29,25,.1);border-color:var(--gold-light);transform:translateY(-2px);}
 .pc-badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10px;font-weight:500;padding:3px 8px;border-radius:3px;text-transform:uppercase;}
 .b-hot{background:var(--gold);color:#fff;}
 .b-new{background:#3a7d5c;color:#fff;}
 .b-eco{background:#4a7c59;color:#fff;}
 .b-custom{background:#1a1a1a;color:var(--gold);}
-.pc-img{width:100%;height:210px;background:#f4f1ec;display:flex;align-items:center;justify-content:center;font-size:54px;overflow:hidden;position:relative;}
-.pc-img img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .35s ease;background:#f4f1ec;}
+.pc-img{width:100%;height:auto;aspect-ratio:4/3;min-height:230px;padding:10px;background:linear-gradient(180deg,#faf8f3 0%,#eee8dc 100%);display:flex;align-items:center;justify-content:center;font-size:54px;overflow:hidden;position:relative;}
+.pc-img img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .35s ease;border-radius:4px;}
 .pc:hover .pc-img img{transform:scale(1.025);}
 .pc-img .img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#f4f1ec;font-size:54px;}
-.pc-info{padding:12px 14px 14px;}
-.pc-name{font-size:13px;font-weight:500;color:var(--dark);line-height:1.4;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.pc-specs{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.pc-info{padding:14px 16px 16px;}
+.pc-name{font-size:14px;font-weight:500;color:var(--dark);line-height:1.42;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.pc-specs{font-size:12px;color:var(--muted);margin-bottom:8px;}
 .pc-subitems{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0 2px;}
 .pc-subitems span{font-size:10px;color:var(--gold-dark);background:#faf5ec;border:1px solid #eadcc2;border-radius:12px;padding:3px 7px;line-height:1;}
 .pc-bot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
@@ -500,8 +516,8 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 .quick-filter-row button{border:1px solid var(--border);background:var(--white);color:var(--muted);border-radius:20px;padding:7px 12px;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .quick-filter-row button:hover{border-color:var(--gold);color:var(--gold-dark);background:#faf5ec;}
 .prod-grid.list-view{grid-template-columns:1fr;}
-.prod-grid.list-view .pc{display:grid;grid-template-columns:220px 1fr;min-height:190px;}
-.prod-grid.list-view .pc-img{height:100%;min-height:190px;}
+.prod-grid.list-view .pc{display:grid;grid-template-columns:240px 1fr;min-height:210px;}
+.prod-grid.list-view .pc-img{height:100%;min-height:210px;padding:12px;}
 .prod-grid.list-view .pc-info{display:flex;flex-direction:column;justify-content:center;padding:20px 22px;}
 .prod-grid.list-view .pc-name{font-size:16px;-webkit-line-clamp:1;}
 .prod-grid.list-view .pc-specs{font-size:13px;margin-bottom:12px;}
@@ -533,13 +549,13 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 /* PRODUCT DETAIL */
 .detail-layout{max-width:1280px;margin:0 auto;padding:32px 24px 40px;display:flex;gap:40px;align-items:flex-start;}
 .detail-img-col{flex:0 0 420px;}
-.detail-main-img{width:100%;height:380px;background:#f4f1ec;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:110px;margin-bottom:12px;overflow:hidden;}
-.detail-main-img img{width:100%;height:100%;object-fit:contain;display:block;background:#f4f1ec;}
+.detail-main-img{width:100%;height:460px;padding:18px;background:linear-gradient(180deg,#faf8f3 0%,#eee8dc 100%);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:110px;margin-bottom:12px;overflow:hidden;}
+.detail-main-img img{width:100%;height:100%;object-fit:contain;display:block;border-radius:4px;}
 .detail-thumbs{display:flex;gap:10px;}
 .detail-thumb{width:72px;height:72px;background:#f4f1ec;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;transition:border-color .2s;overflow:hidden;}
-.detail-thumb img{width:100%;height:100%;object-fit:contain;display:block;background:#f4f1ec;}
+.detail-thumb img{width:100%;height:100%;object-fit:contain;display:block;background:#f4f1ec;border-radius:4px;}
 .detail-thumb.active,.detail-thumb:hover{border-color:var(--gold);}
-.detail-info h1{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--dark);line-height:1.3;margin-bottom:12px;}
+.detail-info #det-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--dark);line-height:1.3;margin-bottom:12px;}
 .stars{color:var(--gold);font-size:15px;}
 .detail-rating{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:13px;color:var(--muted);}
 .detail-desc{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border);}
@@ -574,7 +590,7 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 
 /* ABOUT */
 .about-hero{background:linear-gradient(135deg,#1a1a1a,#2d2416);padding:80px 0;text-align:center;}
-.about-hero h1{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#fff;margin-bottom:12px;}
+.about-hero h1,.about-hero h2{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#fff;margin-bottom:12px;}
 .about-hero p{color:#aaa;font-size:15px;max-width:540px;margin:0 auto;}
 .about-tabs-bar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:148px;z-index:100;}
 .about-tabs-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;}
@@ -613,7 +629,7 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 
 /* OEM */
 .oem-hero{background:linear-gradient(135deg,#1a1a1a,#2d2416);padding:70px 0;text-align:center;}
-.oem-hero h1{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:#fff;margin-bottom:12px;}
+.oem-hero h1,.oem-hero h2{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:#fff;margin-bottom:12px;}
 .oem-hero p{color:#aaa;font-size:15px;max-width:560px;margin:0 auto 28px;}
 .oem-hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .step-grid{display:grid;grid-template-columns:repeat(5,1fr);position:relative;margin-bottom:40px;}
@@ -820,6 +836,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cs-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:#fff;line-height:1.12;margin-bottom:14px;}
 .cs-title span{color:var(--gold);}
 .cs-title .cs-green{color:#8ecf9e;}
+.cs-title-sub{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--gold);line-height:1.12;margin:-10px 0 14px;}
 .cs-desc{font-size:14px;color:#aaa;line-height:1.75;max-width:420px;margin-bottom:24px;}
 .cs-stats{display:flex;gap:28px;margin-bottom:28px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);}
 .cs-num{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);line-height:1;}
@@ -919,7 +936,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .seo-cluster-head h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--dark);line-height:1.15;}
 .seo-cluster-head p{font-size:13px;color:var(--muted);line-height:1.7;max-width:620px;}
 .seo-chip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-.seo-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .2s;}
+.seo-chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .2s;text-decoration:none;display:block;}
 .seo-chip:hover{border-color:var(--gold-light);box-shadow:0 8px 20px rgba(28,24,18,.06);transform:translateY(-2px);}
 .seo-chip strong{display:block;font-size:13px;color:var(--dark);margin-bottom:5px;}
 .seo-chip span{display:block;font-size:12px;color:var(--muted);line-height:1.55;}
@@ -1008,7 +1025,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .header-contact{display:none;}
   .cs-slide{height:auto;min-height:520px;}
   .cs-inner{padding:52px 24px 72px;}
-  .cs-title{font-size:36px;}
+  .cs-title,.cs-title-sub{font-size:36px;}
   .cat-grid-large,.prod-grid,.why-split-right,.quality-grid,.svc-grid,.oem-cap-grid,.oem-process-gallery,.news-grid,.prod-fac-grid,.expo-grid,.cert-grid,.team-grid,.buyer-points,.industry-grid,.faq-grid,.case-grid,.guide-grid,.collection-grid,.checklist-grid,.helper-grid,.aeo-grid,.visual-points,.seo-chip-grid{grid-template-columns:1fr;}
   .aeo-head h2{font-size:28px;}
   .visual-copy h2,.seo-cluster-head h2{font-size:28px;}
@@ -1025,14 +1042,15 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .keyword-inner{margin:0 18px;padding:14px;}
   .keyword-strip{padding-bottom:36px;}
   .prod-grid.list-view .pc{grid-template-columns:1fr;}
-  .prod-grid.list-view .pc-img{height:210px;}
+  .pc-img{min-height:210px;}
+  .prod-grid.list-view .pc-img{height:220px;}
   .variant-strip{grid-template-columns:1fr 1fr;}
   .helper-head{align-items:flex-start;flex-direction:column;}
   .helper-item{border-right:none;border-bottom:1px solid var(--border);}
   .page-layout{display:block;padding:22px 18px 48px;}
   .sidebar{position:static;margin-bottom:24px;}
   .detail-layout{padding:24px 18px;gap:24px;}
-  .detail-main-img{height:280px;}
+  .detail-main-img{height:360px;}
   .form-row{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr;gap:24px;}
   .step-grid{grid-template-columns:1fr;gap:18px;}
@@ -1196,7 +1214,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag">✦ Featured Collection</div>
-              <h1 class="cs-title">Cosmetic Packaging Manufacturer<br><span>Luxury Glass Series</span></h1>
+              <h1 class="cs-title">Cosmetic Packaging Manufacturer</h1>
+              <div class="cs-title-sub">Luxury Glass Series</div>
               <p class="cs-desc">Thick-wall borosilicate glass jars, perfume bottles, and serum droppers for premium beauty brands. Full OEM — logo engraving, frosting, gold lids.</p>
               <div class="cs-stats">
                 <div class="cs-stat"><span class="cs-num">380+</span><span class="cs-lbl">Glass SKUs</span></div>
@@ -1651,7 +1670,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   <!-- ⑩ PROCUREMENT CHECKLIST -->
   <div class="checklist-band">
     <div class="section">
-      <div class="sec-head"><h2>Cosmetic Packaging Procurement Checklist</h2><div class="line"></div><a onclick="openModal('quote')">Send Your Requirements →</a></div>
+      <div class="sec-head"><h2>Cosmetic Packaging Procurement Checklist</h2><div class="line"></div><a href="/cosmetic-packaging-moq/">Read MOQ Guide →</a></div>
       <div class="checklist-grid">
         <div class="check-item"><strong>1. Confirm formula compatibility</strong><p>Match glass, PETG, PP, PCR, aluminum or bamboo-lined packaging to the formula type, viscosity and active ingredients.</p></div>
         <div class="check-item"><strong>2. Define decoration method</strong><p>Choose silk screen, hot stamping, UV printing, label, frosting, coating, electroplating or laser engraving before sample approval.</p></div>
@@ -1670,18 +1689,18 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <p>Short, direct buying answers for skincare, fragrance, makeup and personal care teams comparing packaging materials, MOQ, decoration and OEM production.</p>
       </div>
       <div class="aeo-grid">
-        <div class="aeo-card" onclick="go('products','glass')"><h3>What packaging is best for premium skincare?</h3><p><strong>Glass jars and glass bottles</strong> are often best for premium creams, serums and oils because they give strong shelf appeal, high clarity and good formula compatibility.</p></div>
-        <div class="aeo-card" onclick="go('products','plastic-airless')"><h3>When should I choose airless packaging?</h3><p><strong>Airless bottles and airless jars</strong> help protect formulas that are sensitive to air exposure, including serums, eye creams, foundations and active skincare.</p></div>
+        <div class="aeo-card" onclick="location.href='/products/glass-cosmetic-bottles/'"><h3>What packaging is best for premium skincare?</h3><p><strong>Glass jars and glass bottles</strong> are often best for premium creams, serums and oils because they give strong shelf appeal, high clarity and good formula compatibility.</p></div>
+        <div class="aeo-card" onclick="location.href='/products/airless-pump-bottles/'"><h3>When should I choose airless packaging?</h3><p><strong>Airless bottles and airless jars</strong> help protect formulas that are sensitive to air exposure, including serums, eye creams, foundations and active skincare.</p></div>
         <div class="aeo-card" onclick="go('products','plastic-lotion')"><h3>Which option is best for high-volume body care?</h3><p><strong>PET, HDPE and PCR plastic bottles</strong> are practical for shampoo, conditioner, cleanser, body lotion and hand wash because they are lightweight and scalable.</p></div>
         <div class="aeo-card" onclick="go('products','eco')"><h3>Do you offer sustainable cosmetic packaging?</h3><p><strong>Yes.</strong> Options include bamboo, kraft paper, aluminum, PCR plastic, refill pouches, molded pulp, wheat straw and biodegradable PLA packaging.</p></div>
         <div class="aeo-card" onclick="go('oem')"><h3>Can bottles and jars be customized with a logo?</h3><p><strong>Yes.</strong> Decoration options include silk screen printing, hot stamping, UV printing, labels, frosting, color coating, electroplating and laser engraving.</p></div>
-        <div class="aeo-card" onclick="openModal('sample')"><h3>How long do samples and bulk orders take?</h3><p><strong>Stock samples</strong> usually take 7-10 working days. Custom samples take 15-20 working days, and bulk production usually takes 25-35 working days.</p></div>
-        <div class="aeo-card" onclick="go('products','plastic-makeup')"><h3>Which packaging works for private label makeup?</h3><p><strong>Lip gloss tubes, mascara tubes, compact cases and cushion compacts</strong> are common for color cosmetics, with custom applicators, mirrors, pans and decoration.</p></div>
+        <div class="aeo-card" onclick="location.href='/cosmetic-packaging-moq/'"><h3>How long do samples and bulk orders take?</h3><p><strong>Stock samples</strong> usually take 7-10 working days. Custom samples take 15-20 working days, and bulk production usually takes 25-35 working days.</p></div>
+        <div class="aeo-card" onclick="location.href='/private-label-cosmetic-packaging/'"><h3>Which packaging works for private label makeup?</h3><p><strong>Lip gloss tubes, mascara tubes, compact cases and cushion compacts</strong> are common for color cosmetics, with custom applicators, mirrors, pans and decoration.</p></div>
         <div class="aeo-card" onclick="go('products','eco-refill')"><h3>What packaging supports refill programs?</h3><p><strong>Refill pouches, airless cartridges, refillable cream pods and reusable compact cases</strong> help beauty brands reduce rigid packaging volume.</p></div>
         <div class="aeo-card" onclick="go('products','glass-perfume')"><h3>What packaging is used for fragrance samples?</h3><p><strong>Mini glass perfume vials, aluminum atomizers and roll-on bottles</strong> are commonly used for discovery sets, promotional samples and travel fragrance.</p></div>
-        <div class="aeo-card" onclick="go('products','glass-nail')"><h3>Do you supply nail polish bottle packaging?</h3><p><strong>Yes.</strong> Glass nail polish bottles, UV black gel polish bottles, brush caps and cuticle oil pens are available for private label manicure and nail treatment lines.</p></div>
-        <div class="aeo-card" onclick="go('products','alu-can')"><h3>What are aluminum cosmetic cans used for?</h3><p><strong>Aluminum cans</strong> are used for dry shampoo, body mist, bath powder, deodorant spray and novelty beauty gift packaging with recyclable metal shelf appeal.</p></div>
-        <div class="aeo-card" onclick="go('products','plastic-airless')"><h3>Which packaging is best for eye cream?</h3><p><strong>Mini airless pump bottles and airless cream jars</strong> protect high-value eye cream formulas and control dispensing for small-capacity skincare products.</p></div>
+        <div class="aeo-card" onclick="location.href='/products/nail-polish-bottles/'"><h3>Do you supply nail polish bottle packaging?</h3><p><strong>Yes.</strong> Glass nail polish bottles, UV black gel polish bottles, brush caps and cuticle oil pens are available for private label manicure and nail treatment lines.</p></div>
+        <div class="aeo-card" onclick="location.href='/products/aluminum-cosmetic-cans/'"><h3>What are aluminum cosmetic cans used for?</h3><p><strong>Aluminum cans</strong> are used for dry shampoo, body mist, bath powder, deodorant spray and novelty beauty gift packaging with recyclable metal shelf appeal.</p></div>
+        <div class="aeo-card" onclick="location.href='/products/airless-pump-bottles/'"><h3>Which packaging is best for eye cream?</h3><p><strong>Mini airless pump bottles and airless cream jars</strong> protect high-value eye cream formulas and control dispensing for small-capacity skincare products.</p></div>
       </div>
     </div>
   </div>
@@ -1694,22 +1713,24 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <p>Explore high-intent product groups for buyers searching for a cosmetic packaging manufacturer, custom cosmetic packaging supplier, skincare packaging, makeup packaging, glass bottles, cosmetic jars, airless bottles and OEM packaging service.</p>
       </div>
       <div class="seo-chip-grid">
-        <div class="seo-chip" onclick="go('products','glass-dropper')"><strong>Glass serum dropper bottles</strong><span>For vitamin C serum, retinol, facial oil, essential oil and active skincare.</span></div>
-        <div class="seo-chip" onclick="go('products','plastic-airless')"><strong>Airless pump bottles</strong><span>For oxidation-sensitive serum, foundation, eye cream and premium skincare.</span></div>
-        <div class="seo-chip" onclick="go('products','glass-jar')"><strong>Cosmetic cream jars</strong><span>Glass, PETG, acrylic, PP, bamboo and aluminum jars for cream and masks.</span></div>
-        <div class="seo-chip" onclick="go('products','plastic-tube')"><strong>Cosmetic tubes</strong><span>PE, ABL, EVOH, bio-PE and aluminum tubes for cleanser, SPF and hand cream.</span></div>
-        <div class="seo-chip" onclick="go('products','glass-perfume')"><strong>Perfume bottle packaging</strong><span>Glass bottles, fragrance vials, atomizers and diffuser bottles for scent lines.</span></div>
-        <div class="seo-chip" onclick="go('products','plastic-makeup')"><strong>Makeup packaging</strong><span>Lip gloss, mascara, compact, cushion and refillable color cosmetic packaging.</span></div>
-        <div class="seo-chip" onclick="go('products','eco-refill')"><strong>Refillable packaging</strong><span>Refill pouches, cartridges, cream pods and reusable airless systems.</span></div>
-        <div class="seo-chip" onclick="go('oem')"><strong>OEM cosmetic packaging</strong><span>Custom molds, logo printing, hot stamping, frosting, coating and retail boxes.</span></div>
-        <div class="seo-chip" onclick="go('products','glass')"><strong>Custom cosmetic packaging supplier</strong><span>Factory-direct bottles, jars, caps and boxes with decoration support for beauty brands.</span></div>
-        <div class="seo-chip" onclick="go('products','plastic')"><strong>Skincare packaging manufacturer</strong><span>Packaging for serum, cream, toner, cleanser, lotion, sunscreen and active skincare.</span></div>
-        <div class="seo-chip" onclick="go('products','plastic-makeup')"><strong>Private label makeup packaging</strong><span>Lip gloss tubes, mascara tubes, compacts, cushion cases and nail polish bottles.</span></div>
-        <div class="seo-chip" onclick="go('products','eco')"><strong>Eco friendly cosmetic packaging</strong><span>Bamboo, paper, aluminum, PCR, refill and biodegradable packaging for clean beauty.</span></div>
-        <div class="seo-chip" onclick="go('products','glass-nail')"><strong>Nail polish bottle supplier</strong><span>Clear, square and UV black glass nail polish bottles with brush caps and cuticle oil packaging.</span></div>
-        <div class="seo-chip" onclick="go('products','alu-can')"><strong>Aluminum cosmetic can packaging</strong><span>Soda-can, beer-can and aerosol-style aluminum containers for beauty and personal care products.</span></div>
-        <div class="seo-chip" onclick="go('products','alu-atomizer')"><strong>Refillable perfume atomizers</strong><span>Aluminum travel atomizers, pocket sprayers and glass perfume sample vials.</span></div>
-        <div class="seo-chip" onclick="go('products','plastic-airless')"><strong>Eye cream airless pump bottles</strong><span>Mini airless bottles, refillable airless jars and twist-lock pumps for active skincare.</span></div>
+        <a class="seo-chip" href="/products/serum-dropper-bottles/"><strong>Glass serum dropper bottles</strong><span>For vitamin C serum, retinol, facial oil, essential oil and active skincare.</span></a>
+        <a class="seo-chip" href="/products/airless-pump-bottles/"><strong>Airless pump bottles</strong><span>For oxidation-sensitive serum, foundation, eye cream and premium skincare.</span></a>
+        <a class="seo-chip" href="/products/cosmetic-jars/"><strong>Cosmetic jars manufacturer</strong><span>Glass, PETG, acrylic, PP, bamboo and aluminum jars for cream, masks and balms.</span></a>
+        <a class="seo-chip" href="/products/cosmetic-tubes/"><strong>Cosmetic tubes</strong><span>PE, ABL, EVOH, bio-PE and aluminum tubes for cleanser, SPF and hand cream.</span></a>
+        <a class="seo-chip" href="/products/perfume-bottles/"><strong>Perfume bottle packaging</strong><span>Glass bottles, fragrance vials, atomizers and diffuser bottles for scent lines.</span></a>
+        <a class="seo-chip" href="/products/makeup-packaging/"><strong>Makeup packaging</strong><span>Lip gloss, mascara, compact, cushion and refillable color cosmetic packaging.</span></a>
+        <a class="seo-chip" href="/products/lip-gloss-tubes/"><strong>Lip gloss tubes manufacturer</strong><span>Clear PETG lip gloss tubes, lip oil tubes, metal caps, wipers and doe-foot applicators.</span></a>
+        <a class="seo-chip" href="/products/refill-packaging/"><strong>Refillable packaging</strong><span>Refill pouches, cartridges, cream pods and reusable airless systems.</span></a>
+        <a class="seo-chip" href="/oem-cosmetic-packaging/"><strong>OEM cosmetic packaging</strong><span>Custom molds, logo printing, hot stamping, frosting, coating and retail boxes.</span></a>
+        <a class="seo-chip" href="/custom-cosmetic-packaging/"><strong>Custom cosmetic packaging supplier</strong><span>Factory-direct bottles, jars, caps and boxes with decoration support for beauty brands.</span></a>
+        <a class="seo-chip" href="/products/skincare-packaging/"><strong>Skincare packaging manufacturer</strong><span>Packaging for serum, cream, toner, cleanser, lotion, sunscreen and active skincare.</span></a>
+        <a class="seo-chip" href="/private-label-cosmetic-packaging/"><strong>Private label makeup packaging</strong><span>Lip gloss tubes, mascara tubes, compacts, cushion cases and nail polish bottles.</span></a>
+        <a class="seo-chip" href="/products/eco-friendly-packaging/"><strong>Eco friendly cosmetic packaging</strong><span>Bamboo, paper, aluminum, PCR, refill and biodegradable packaging for clean beauty.</span></a>
+        <a class="seo-chip" href="/products/nail-polish-bottles/"><strong>Nail polish bottle supplier</strong><span>Clear, square and UV black glass nail polish bottles with brush caps and cuticle oil packaging.</span></a>
+        <a class="seo-chip" href="/products/aluminum-cosmetic-cans/"><strong>Aluminum cosmetic can packaging</strong><span>Soda-can, beer-can and aerosol-style aluminum containers for beauty and personal care products.</span></a>
+        <a class="seo-chip" href="/#products/alu-atomizer"><strong>Refillable perfume atomizers</strong><span>Aluminum travel atomizers, pocket sprayers and glass perfume sample vials.</span></a>
+        <a class="seo-chip" href="/products/cosmetic-pumps-closures/"><strong>Cosmetic pumps and closures</strong><span>Lotion pumps, treatment pumps, fine mist sprayers, droppers, caps and applicators.</span></a>
+        <a class="seo-chip" href="/products/airless-pump-bottles/"><strong>Eye cream airless pump bottles</strong><span>Mini airless bottles, refillable airless jars and twist-lock pumps for active skincare.</span></a>
       </div>
     </div>
   </div>
@@ -1952,7 +1973,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </div>
     <div class="detail-info">
       <div id="det-badges" style="display:flex;gap:8px;margin-bottom:14px;"></div>
-      <h1 id="det-name">Product Name</h1>
+      <h2 id="det-name">Product Name</h2>
       <div class="detail-rating"><span class="stars">★★★★★</span><span>4.9 / 5.0 · 128 Reviews</span></div>
       <p class="detail-desc" id="det-desc"></p>
       <div class="variant-strip" id="det-subitems"></div>
@@ -1995,7 +2016,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- ======================= PAGE: ABOUT ======================= -->
 <div id="page-about" class="page">
   <div class="about-hero">
-    <h1>About GloryStarPack</h1>
+    <h2>About GloryStarPack</h2>
     <p>A leading cosmetic packaging manufacturer in Xiamen, trusted by beauty brands worldwide for 15+ years.</p>
   </div>
   <div class="about-tabs-bar">
@@ -2092,7 +2113,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- ======================= PAGE: OEM ======================= -->
 <div id="page-oem" class="page">
   <div class="oem-hero">
-    <h1>OEM / ODM Service</h1>
+    <h2>OEM / ODM Service</h2>
     <p>From concept to creation — we bring your packaging vision to life with full customization and expert support at every step.</p>
     <div class="oem-hero-btns">
       <button class="btn-primary" onclick="openModal('quote')">Start Your Project</button>
@@ -2153,7 +2174,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   <div class="breadcrumb-bar"><div class="bc"><a onclick="go('home')">Home</a> › <a onclick="go('news')">News</a> › <span class="cur" id="bc-news">Article</span></div></div>
   <div style="max-width:860px;margin:0 auto;padding:40px 24px 60px;">
     <div id="nd-date" style="font-size:12px;color:var(--gold-dark);margin-bottom:10px;font-weight:500;"></div>
-    <h1 id="nd-title" style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--dark);line-height:1.3;margin-bottom:16px;"></h1>
+    <h2 id="nd-title" style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--dark);line-height:1.3;margin-bottom:16px;"></h2>
     <div style="font-size:12px;color:var(--muted);margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);">By GloryStarPack Editorial Team</div>
     <div id="nd-body" style="font-size:14px;color:var(--text);line-height:1.9;"></div>
     <div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);display:flex;gap:12px;">
@@ -2166,7 +2187,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- ======================= PAGE: CONTACT ======================= -->
 <div id="page-contact" class="page">
   <div class="about-hero" style="padding:60px 0;">
-    <h1>Contact Us</h1>
+    <h2>Contact Us</h2>
     <p>Our team is ready to help. We respond to all inquiries within 24 hours.</p>
   </div>
   <div class="contact-layout">
@@ -2266,6 +2287,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <a onclick="go('about','cert')">Certifications</a>
       <a onclick="go('about','expo')">Exhibitions</a>
       <a href="/cosmetic-packaging-buying-guide/">Buying Guide</a>
+      <a href="/cosmetic-packaging-moq/">MOQ &amp; Quote Guide</a>
+      <a href="/private-label-cosmetic-packaging/">Private Label Packaging</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
@@ -2279,6 +2302,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <h4>Product Category Index</h4>
     <div class="crawl-link-grid">
       <a href="/products/glass-packaging/">Glass Cosmetic Packaging</a>
+      <a href="/products/glass-cosmetic-bottles/">Glass Cosmetic Bottles</a>
+      <a href="/products/serum-dropper-bottles/">Serum Dropper Bottles</a>
+      <a href="/products/airless-pump-bottles/">Airless Pump Bottles Manufacturer</a>
       <a href="/products/skincare-packaging/">Skincare Packaging Manufacturer</a>
       <a href="/custom-cosmetic-packaging/">Custom Cosmetic Packaging</a>
       <a href="/products/glass-packaging/">Glass Dropper Bottles</a>
@@ -2294,7 +2320,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <a href="/products/eco-friendly-packaging/">Eco Friendly Cosmetic Packaging</a>
       <a href="/products/refill-packaging/">Refill Packaging</a>
       <a href="/oem-cosmetic-packaging/">OEM/ODM Cosmetic Packaging</a>
+      <a href="/private-label-cosmetic-packaging/">Private Label Cosmetic Packaging</a>
       <a href="/cosmetic-packaging-buying-guide/">Cosmetic Packaging Buying Guide</a>
+      <a href="/cosmetic-packaging-moq/">Cosmetic Packaging MOQ Guide</a>
       <a href="/#contact">Request Packaging Quote</a>
     </div>
   </nav>
@@ -2861,7 +2889,7 @@ function go(page, sub, skipHash) {
 }
 
 // =========================================================== PRODUCT CARD HTML
-const productPhotoIds = new Set(['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17','p18','p19','p20','p21','p22','p23','p24','p25','p26','p27','p28','p29','p30','p31','p32','p33','p34','p35','p36','p37','p38','p39','p40','p41','p42','p43','p44','p45','p46','p47','p48','p49','p50','p51','p52','p53','p54','p55','p56','p57','p58','p59','p60','p61','p62','p63','p64','p65','p66','p67','p68','p89']);
+const productPhotoIds = new Set(Array.from({length:168}, (_, i) => `p${i + 1}`));
 const PRODUCT_IMAGE_SETS = [
   {cat:'glass-dropper', images:['assets/brand/glass-dropper-rollon-vials-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
   {cat:'glass-rollon', images:['assets/brand/glass-dropper-rollon-vials-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/fragrance-packaging-collection-v2-2026.jpg']},

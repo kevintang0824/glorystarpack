@@ -11,7 +11,15 @@ git status --short
 if [[ -z "$(git status --short)" ]]; then
   echo "No changes to sync."
 else
-  git add index.html assets products oem-cosmetic-packaging custom-cosmetic-packaging private-label-cosmetic-packaging cosmetic-packaging-buying-guide cosmetic-packaging-moq sitemap.xml robots.txt llms.txt .gitignore .nojekyll CNAME sync-to-github.command
+  git add \
+    index.html assets products \
+    oem-cosmetic-packaging custom-cosmetic-packaging private-label-cosmetic-packaging \
+    cosmetic-packaging-buying-guide cosmetic-packaging-moq cosmetic-packaging-supplier-china \
+    wholesale-cosmetic-packaging glass-vs-plastic-cosmetic-packaging airless-bottle-vs-dropper-bottle \
+    serum-packaging-guide sunscreen-packaging-guide cosmetic-logo-printing-methods \
+    cosmetic-packaging-sample-approval-checklist site-index \
+    sitemap.xml image-sitemap.xml robots.txt llms.txt ai-context.json favicon.ico favicon.svg \
+    .gitignore .nojekyll CNAME sync-to-github.command
   git commit -m "$msg"
 fi
 

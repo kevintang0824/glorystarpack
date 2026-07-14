@@ -2,9 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.glorystarpack.com/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/site-index/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/cosmetic-packaging-supplier-china/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.93</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/wholesale-cosmetic-packaging/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.91</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/skincare-packaging/</loc>
@@ -38,13 +56,13 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/glass-packaging/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/plastic-packaging/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -104,15 +122,51 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/cosmetic-packaging-buying-guide/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/cosmetic-packaging-moq/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/glass-vs-plastic-cosmetic-packaging/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/airless-bottle-vs-dropper-bottle/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/serum-packaging-guide/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/sunscreen-packaging-guide/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.83</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/cosmetic-logo-printing-methods/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.83</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.83</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/private-label-cosmetic-packaging/</loc>
@@ -152,7 +206,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/cosmetic-pumps-closures/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.86</priority>
   </url>
@@ -164,14 +218,44 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/cosmetic-packaging-kits/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/home-fragrance-packaging/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/cosmetic-sample-packaging/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/refill-pouch-packaging/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/hotel-amenity-packaging/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/personal-care-packaging/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/mens-grooming-packaging/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
   </url>
 </urlset>

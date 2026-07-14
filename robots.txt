@@ -1,15 +1,11 @@
 User-agent: *
 Allow: /
 Allow: /llms.txt
-Allow: /cosmetic-packaging-buying-guide/
-Allow: /cosmetic-packaging-moq/
-Allow: /private-label-cosmetic-packaging/
-Allow: /products/glass-cosmetic-bottles/
-Allow: /products/serum-dropper-bottles/
-Allow: /products/airless-pump-bottles/
-Allow: /products/lip-gloss-tubes/
-Allow: /products/nail-polish-bottles/
-Allow: /products/aluminum-cosmetic-cans/
-Allow: /products/cosmetic-jars/
-Allow: /products/cosmetic-pumps-closures/
+Allow: /ai-context.json
+Allow: /site-index/
+Disallow: /backups/
+Disallow: /tmp/
+Disallow: /glorystarpack%20(1).html
+
 Sitemap: https://www.glorystarpack.com/sitemap.xml
+Sitemap: https://www.glorystarpack.com/image-sitemap.xml

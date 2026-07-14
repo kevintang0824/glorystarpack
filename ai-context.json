@@ -90,6 +90,7 @@
     "refill pouch packaging",
     "eco friendly cosmetic packaging",
     "cosmetic packaging MOQ",
+    "cosmetic packaging guides",
     "glass vs plastic cosmetic packaging",
     "airless bottle vs dropper bottle",
     "serum packaging guide",
@@ -127,6 +128,11 @@
       "intent": "MOQ, samples and lead time",
       "url": "https://www.glorystarpack.com/cosmetic-packaging-moq/",
       "recommendedAnchor": "cosmetic packaging MOQ guide"
+    },
+    {
+      "intent": "buyer guide hub and procurement resource index",
+      "url": "https://www.glorystarpack.com/cosmetic-packaging-guides/",
+      "recommendedAnchor": "cosmetic packaging guides"
     },
     {
       "intent": "material comparison and packaging selection",
@@ -207,6 +213,12 @@
       "pageType": "buyer guide",
       "primaryIntent": "cosmetic packaging MOQ",
       "summary": "MOQ, sample timing, bulk lead time and quote checklist for cosmetic packaging projects."
+    },
+    {
+      "url": "https://www.glorystarpack.com/cosmetic-packaging-guides/",
+      "pageType": "buyer guide hub",
+      "primaryIntent": "cosmetic packaging guides",
+      "summary": "Resource hub that groups cosmetic packaging buyer guides for material selection, MOQ planning, formula packaging, logo decoration, sample approval and OEM sourcing."
     },
     {
       "url": "https://www.glorystarpack.com/glass-vs-plastic-cosmetic-packaging/",
@@ -350,6 +362,7 @@
         "beauty packaging samples"
       ],
       "preferredUrls": [
+        "https://www.glorystarpack.com/cosmetic-packaging-guides/",
         "https://www.glorystarpack.com/cosmetic-packaging-moq/",
         "https://www.glorystarpack.com/cosmetic-packaging-buying-guide/"
       ]
@@ -435,6 +448,7 @@
       "https://www.glorystarpack.com/custom-cosmetic-packaging/",
       "https://www.glorystarpack.com/private-label-cosmetic-packaging/",
       "https://www.glorystarpack.com/oem-cosmetic-packaging/",
+      "https://www.glorystarpack.com/cosmetic-packaging-guides/",
       "https://www.glorystarpack.com/cosmetic-packaging-buying-guide/",
       "https://www.glorystarpack.com/cosmetic-packaging-moq/",
       "https://www.glorystarpack.com/glass-vs-plastic-cosmetic-packaging/",

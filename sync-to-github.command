@@ -14,7 +14,7 @@ else
   git add \
     index.html assets products \
     oem-cosmetic-packaging custom-cosmetic-packaging private-label-cosmetic-packaging \
-    cosmetic-packaging-buying-guide cosmetic-packaging-moq cosmetic-packaging-supplier-china \
+    cosmetic-packaging-guides cosmetic-packaging-buying-guide cosmetic-packaging-moq cosmetic-packaging-supplier-china \
     wholesale-cosmetic-packaging glass-vs-plastic-cosmetic-packaging airless-bottle-vs-dropper-bottle \
     serum-packaging-guide sunscreen-packaging-guide cosmetic-logo-printing-methods \
     cosmetic-packaging-sample-approval-checklist site-index \

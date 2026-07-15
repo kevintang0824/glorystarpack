@@ -19,7 +19,7 @@
 <link rel="index" href="/site-index/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/favicon.ico" sizes="64x64">
-<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-2026.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-mobile-960.jpg" imagesrcset="assets/brand/cosmetic-packaging-hero-mobile-960.jpg 960w, assets/brand/cosmetic-packaging-hero-2026.jpg 1774w" imagesizes="100vw" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GloryStarPack | Cosmetic Packaging Manufacturer &amp; Supplier">
 <meta property="og:description" content="Explore 316 factory-direct cosmetic packaging products across bottles, jars, tubes, pumps, caps, accessories, refill pouches, hotel amenities, samples, personal care, men's grooming, eco and one-stop kit categories.">
@@ -503,7 +503,8 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"></noscript>
 <style>
 :root{--gold:#c8a96e;--gold-light:#e8d5a3;--gold-dark:#9a7a45;--dark:#1a1a1a;--text:#2c2c2c;--muted:#6b6b6b;--bg:#faf9f7;--white:#fff;--border:#e5e0d8;--nav-bg:#1c1c1c;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -1283,6 +1284,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .menu-toggle{display:inline-flex;}
   .header-contact{display:none;}
   .carousel-track{display:block;transform:none !important;}
+  .cs-bg-1{background:linear-gradient(120deg,rgba(15,15,15,.96) 0%,rgba(28,20,8,.88) 42%,rgba(42,29,10,.58) 72%,rgba(15,15,15,.78) 100%),url("assets/brand/cosmetic-packaging-hero-mobile-960.jpg") center right/cover no-repeat;}
   .cs-slide{display:none;height:auto;min-height:560px;}
   .cs-slide:first-child{display:block;}
   .cs-inner{display:block;padding:48px 22px 72px;height:auto;}
@@ -1693,7 +1695,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="section">
       <div class="visual-grid">
         <div class="visual-media">
-          <img src="assets/brand/cosmetic-packaging-hero-2026.jpg" alt="Premium cosmetic packaging collection with glass jars, serum droppers, airless bottles, perfume bottles, tubes, bamboo caps and aluminum tins" width="1774" height="887" loading="lazy" decoding="async">
+          <img src="assets/brand/cosmetic-packaging-hero-2026.jpg" srcset="assets/brand/cosmetic-packaging-hero-mobile-960.jpg 960w, assets/brand/cosmetic-packaging-hero-2026.jpg 1774w" sizes="(max-width: 760px) 100vw, 50vw" alt="Premium cosmetic packaging collection with glass jars, serum droppers, airless bottles, perfume bottles, tubes, bamboo caps and aluminum tins" width="1774" height="887" loading="eager" decoding="async" fetchpriority="high">
         </div>
         <div class="visual-copy">
           <div class="eyebrow">Packaging Made for Beauty Brands</div>
@@ -4333,10 +4335,16 @@ function scrollTopSmooth() {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
+let backTopTicking = false;
 window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backTop');
-  if (btn) btn.classList.toggle('show', window.scrollY > 520);
-});
+  if (backTopTicking) return;
+  backTopTicking = true;
+  requestAnimationFrame(() => {
+    const btn = document.getElementById('backTop');
+    if (btn) btn.classList.toggle('show', window.scrollY > 520);
+    backTopTicking = false;
+  });
+}, {passive: true});
 
 // =========================================================== CAROUSEL
 let csIdx = 0;
@@ -4344,6 +4352,7 @@ const csTotal = 3;
 const csDuration = 5000; // auto-advance ms
 let csTimer = null;
 const csReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const csSmallScreen = window.matchMedia('(max-width: 760px)').matches;
 
 function csRender() {
   const track = document.getElementById('carouselTrack');
@@ -4371,7 +4380,7 @@ function csGo(i) {
 function csStartProgress() {
   const bar = document.getElementById('csProgress');
   if (!bar) return;
-  if (csReducedMotion) {
+  if (csReducedMotion || csSmallScreen) {
     bar.style.transition = 'none';
     bar.style.width = '100%';
     return;
@@ -4386,7 +4395,7 @@ function csStartProgress() {
 
 function csResetTimer() {
   clearInterval(csTimer);
-  if (csReducedMotion || document.hidden) return;
+  if (csReducedMotion || csSmallScreen || document.hidden) return;
   csTimer = setInterval(() => { csIdx = (csIdx + 1) % csTotal; csRender(); }, csDuration);
 }
 

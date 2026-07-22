@@ -71,6 +71,7 @@ lib-cov
 build/Release
 .node_repl_history
 .firebase/
+.vercel/
 .tern-port
 .vscode-test
 vite.config.js.timestamp-*

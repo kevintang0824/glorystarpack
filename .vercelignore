@@ -1,0 +1,16 @@
+.git/
+.vercel/
+.DS_Store
+**/.DS_Store
+backups/
+tmp/
+assets/**/*.png
+glorystarpack (1).html
+DEPLOYMENT.md
+README.md
+sync-to-github.command
+logs/
+*.log
+.env
+.env.*
+node_modules/

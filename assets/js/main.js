@@ -1249,15 +1249,15 @@ function csStartProgress() {
   if (!bar) return;
   if (csReducedMotion || csSmallScreen) {
     bar.style.transition = 'none';
-    bar.style.width = '100%';
+    bar.style.transform = 'scaleX(1)';
     return;
   }
   bar.style.transition = 'none';
-  bar.style.width = '0%';
-  // Force reflow
-  bar.offsetWidth;
-  bar.style.transition = `width ${csDuration}ms linear`;
-  bar.style.width = '100%';
+  bar.style.transform = 'scaleX(0)';
+  requestAnimationFrame(() => {
+    bar.style.transition = `transform ${csDuration}ms linear`;
+    bar.style.transform = 'scaleX(1)';
+  });
 }
 
 function csResetTimer() {

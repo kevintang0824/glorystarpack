@@ -19,7 +19,8 @@
 <link rel="index" href="/site-index/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/favicon.ico" sizes="64x64">
-<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-mobile-960.jpg" imagesrcset="assets/brand/cosmetic-packaging-hero-mobile-960.jpg 960w, assets/brand/cosmetic-packaging-hero-2026.jpg 1774w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-mobile-960.jpg" media="(max-width: 720px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-2026.jpg" media="(min-width: 721px)" fetchpriority="high">
 <link rel="preload" as="script" href="/assets/js/main.js" fetchpriority="low">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GloryStarPack | Cosmetic Packaging Manufacturer &amp; Supplier">
@@ -1621,7 +1622,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cs-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:all .3s;padding:0;}
 .cs-dot.active{background:var(--gold);width:24px;border-radius:4px;}
 .cs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);}
-.cs-progress-bar{height:100%;background:var(--gold);width:0%;transition:width linear;}
+.cs-progress-bar{height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left center;will-change:transform;}
 
 /* ========== PROCUREMENT MATRIX ========== */
 .procurement-band{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -2028,7 +2029,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 </nav>
 
 <!-- ======================= PAGE: HOME ======================= -->
-<div id="page-home" class="page">
+<div id="page-home" class="page active">
 
   <!-- CAROUSEL (full-width, no hero above it) -->
   <div class="carousel-section">
@@ -2228,7 +2229,10 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="section">
       <div class="visual-grid">
         <div class="visual-media">
-          <img src="assets/brand/cosmetic-packaging-hero-2026.jpg" srcset="assets/brand/cosmetic-packaging-hero-mobile-960.jpg 960w, assets/brand/cosmetic-packaging-hero-2026.jpg 1774w" sizes="(max-width: 760px) 100vw, 50vw" alt="Premium cosmetic packaging collection with glass jars, serum droppers, airless bottles, perfume bottles, tubes, bamboo caps and aluminum tins" width="1774" height="887" loading="eager" decoding="async" fetchpriority="high">
+          <picture>
+            <source media="(max-width: 720px)" srcset="assets/brand/cosmetic-packaging-hero-mobile-960.jpg">
+            <img src="assets/brand/cosmetic-packaging-hero-2026.jpg" alt="Premium cosmetic packaging collection with glass jars, serum droppers, airless bottles, perfume bottles, tubes, bamboo caps and aluminum tins" width="1774" height="887" loading="lazy" decoding="async" fetchpriority="low">
+          </picture>
         </div>
         <div class="visual-copy">
           <div class="eyebrow">Packaging Made for Beauty Brands</div>
@@ -3141,7 +3145,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   <div class="news-page">
     <section class="news-hero" aria-label="Featured packaging updates">
       <article class="news-feature" onclick="go('newsdetail','1')">
-        <img height="1254" width="1254" src="assets/product-photos/p314-0.jpg" alt="Men's grooming gift box with molded pulp insert and matching packaging components" loading="eager">
+        <img height="1254" width="1254" src="assets/product-photos/p314-0.jpg" alt="Men's grooming gift box with molded pulp insert and matching packaging components" loading="lazy" decoding="async" fetchpriority="low">
         <div class="news-feature-body">
           <div class="news-meta"><span class="news-pill">Catalog update</span><span class="news-date">July 5, 2026</span></div>
           <h2><span>36 New Personal Care</span><span>and Grooming Packaging</span><span>SKUs Added</span></h2>
@@ -3151,15 +3155,15 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       </article>
       <aside class="news-side" aria-label="Recent packaging notes">
         <article class="news-side-card" onclick="go('newsdetail','2')">
-          <img height="1254" width="1254" src="assets/product-photos/p282-0.jpg" alt="Mono-material refill pouch with side spout">
+          <img height="1254" width="1254" src="assets/product-photos/p282-0.jpg" alt="Mono-material refill pouch with side spout" loading="lazy" decoding="async" fetchpriority="low">
           <div><span class="news-pill">Refill systems</span><h3>Matching refill pouches with reusable bottles</h3><p>Checklist for pouch structure, cap fit, carton packing and bottle pairing.</p></div>
         </article>
         <article class="news-side-card" onclick="go('newsdetail','3')">
-          <img height="905" width="1738" src="assets/brand/factory-oem-quality-2026.jpg" alt="OEM cosmetic packaging samples and color swatches">
+          <img height="905" width="1738" src="assets/brand/factory-oem-quality-2026.jpg" alt="OEM cosmetic packaging samples and color swatches" loading="lazy" decoding="async" fetchpriority="low">
           <div><span class="news-pill">Buyer guide</span><h3>How to prepare a useful cosmetic packaging RFQ</h3><p>The details that help confirm price, MOQ, sample time and decoration quickly.</p></div>
         </article>
         <article class="news-side-card" onclick="go('newsdetail','4')">
-          <img height="1254" width="1254" src="assets/product-photos/p283-0.jpg" alt="Hotel amenity mini bottle pump set">
+          <img height="1254" width="1254" src="assets/product-photos/p283-0.jpg" alt="Hotel amenity mini bottle pump set" loading="lazy" decoding="async" fetchpriority="low">
           <div><span class="news-pill">Hospitality</span><h3>Hotel amenity kits move toward refill-ready formats</h3><p>Mini bottles, pouches and toiletry kits for spas, hotels and travel retail.</p></div>
         </article>
       </aside>
@@ -3228,7 +3232,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="news-detail-meta"><span id="nd-cat" class="news-pill">Packaging note</span><span id="nd-date"></span><span id="nd-time"></span></div>
     <h2 id="nd-title" class="news-detail-title"></h2>
     <p id="nd-summary" class="news-detail-summary"></p>
-    <figure class="news-detail-figure"><img height="887" width="1774" id="nd-hero-img" src="assets/brand/cosmetic-packaging-hero-2026.jpg" alt="Cosmetic packaging article image"></figure>
+    <figure class="news-detail-figure"><img height="887" width="1774" id="nd-hero-img" src="assets/brand/cosmetic-packaging-hero-2026.jpg" alt="Cosmetic packaging article image" loading="lazy" decoding="async" fetchpriority="low"></figure>
     <div class="news-detail-byline">By GloryStarPack Packaging Desk · Xiamen, Fujian</div>
     <div id="nd-body" class="news-detail-body"></div>
     <div class="news-detail-actions">

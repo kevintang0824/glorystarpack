@@ -19,8 +19,7 @@
 <link rel="index" href="/site-index/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/favicon.ico" sizes="64x64">
-<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-mobile-960.jpg" media="(max-width: 720px)" fetchpriority="high">
-<link rel="preload" as="image" href="assets/brand/cosmetic-packaging-hero-2026.jpg" media="(min-width: 721px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/brand/cosmetic-packaging-hero-2026-1440.avif" type="image/avif" imagesrcset="/assets/brand/cosmetic-packaging-hero-mobile-960.avif 960w, /assets/brand/cosmetic-packaging-hero-2026-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" as="script" href="/assets/js/main.js" fetchpriority="low">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GloryStarPack | Cosmetic Packaging Manufacturer &amp; Supplier">
@@ -1436,6 +1435,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cs-slide{min-width:100%;position:relative;height:500px;overflow:hidden;flex-shrink:0;}
 .cs-bg{position:absolute;inset:0;}
 .cs-bg-1{background:linear-gradient(120deg,rgba(15,15,15,.96) 0%,rgba(28,20,8,.88) 40%,rgba(42,29,10,.66) 70%,rgba(15,15,15,.78) 100%),url("assets/brand/cosmetic-packaging-hero-2026.jpg") center right/cover no-repeat;}
+@supports (background-image:image-set(url("assets/brand/cosmetic-packaging-hero-2026-1440.avif") type("image/avif") 1x)){
+  .cs-bg-1{background-image:linear-gradient(120deg,rgba(15,15,15,.96) 0%,rgba(28,20,8,.88) 40%,rgba(42,29,10,.66) 70%,rgba(15,15,15,.78) 100%),image-set(url("assets/brand/cosmetic-packaging-hero-2026-1440.avif") type("image/avif") 1x,url("assets/brand/cosmetic-packaging-hero-2026.jpg") type("image/jpeg") 1x);}
+}
 .cs-bg-2{background:linear-gradient(120deg,#0a140a 0%,#0e2010 40%,#122816 70%,#0a140a 100%);}
 .cs-bg-3{background:linear-gradient(120deg,#0f0a14 0%,#1a0f20 40%,#22163a 70%,#0f0a14 100%);}
 .cs-bg-1::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 78% 48%,rgba(200,169,110,.16),transparent 34%),linear-gradient(90deg,rgba(15,15,15,.82) 0%,rgba(15,15,15,.52) 44%,rgba(15,15,15,.12) 100%);}
@@ -1739,6 +1741,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .header-contact{display:none;}
   .carousel-track{display:block;transform:none !important;}
   .cs-bg-1{background:linear-gradient(120deg,rgba(15,15,15,.96) 0%,rgba(28,20,8,.88) 42%,rgba(42,29,10,.58) 72%,rgba(15,15,15,.78) 100%),url("assets/brand/cosmetic-packaging-hero-mobile-960.jpg") center right/cover no-repeat;}
+  @supports (background-image:image-set(url("assets/brand/cosmetic-packaging-hero-mobile-960.avif") type("image/avif") 1x)){
+    .cs-bg-1{background-image:linear-gradient(120deg,rgba(15,15,15,.96) 0%,rgba(28,20,8,.88) 42%,rgba(42,29,10,.58) 72%,rgba(15,15,15,.78) 100%),image-set(url("assets/brand/cosmetic-packaging-hero-mobile-960.avif") type("image/avif") 1x,url("assets/brand/cosmetic-packaging-hero-mobile-960.jpg") type("image/jpeg") 1x);}
+  }
   .cs-slide{display:none;height:auto;min-height:560px;}
   .cs-slide:first-child{display:block;}
   .cs-inner{display:block;padding:48px 22px 72px;height:auto;}
@@ -1827,7 +1832,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </div>
     <div class="topbar-right">
       <a onclick="openModal('sample')">Free Samples</a>
-      <a onclick="go('oem')">OEM/ODM</a>
+      <a href="/oem-cosmetic-packaging/">OEM/ODM</a>
       <a onclick="go('about','cert')">Quality Support</a>
       <select class="lang-sel"><option>English</option><option>中文</option><option>Français</option><option>Español</option><option>Deutsch</option><option>日本語</option><option>한국어</option></select>
     </div>
@@ -2778,11 +2783,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <div class="news-panel">
           <h3>Buyer Topics</h3>
           <div class="news-topic-list">
-            <a onclick="location.href='/products/refill-pouch-packaging/'">Refill pouch packaging <span>new</span></a>
-            <a onclick="location.href='/products/cosmetic-sample-packaging/'">Sample and discovery kits <span>guide</span></a>
-            <a onclick="location.href='/products/hotel-amenity-packaging/'">Hotel amenity sets <span>travel</span></a>
-            <a onclick="location.href='/products/personal-care-packaging/'">Hair care and sun care <span>SKUs</span></a>
-            <a onclick="location.href='/products/mens-grooming-packaging/'">Men's grooming packaging <span>range</span></a>
+            <a href="/products/refill-pouch-packaging/">Refill pouch packaging <span>new</span></a>
+            <a href="/products/cosmetic-sample-packaging/">Sample and discovery kits <span>guide</span></a>
+            <a href="/products/hotel-amenity-packaging/">Hotel amenity sets <span>travel</span></a>
+            <a href="/products/personal-care-packaging/">Hair care and sun care <span>SKUs</span></a>
+            <a href="/products/mens-grooming-packaging/">Men's grooming packaging <span>range</span></a>
           </div>
         </div>
         <div class="news-cta-panel">
@@ -2912,23 +2917,23 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="footer-col">
       <h4>Products</h4>
       <a onclick="go('products','hot')">Hot Picks</a>
-      <a onclick="go('products','glass-jar')">Glass Packaging</a>
-      <a onclick="go('products','plastic-pump')">Plastic Packaging</a>
+      <a href="/products/glass-packaging/">Glass Packaging</a>
+      <a href="/products/plastic-packaging/">Plastic Packaging</a>
       <a href="/products/beverage-bottles/">Beverage Bottles</a>
       <a href="/products/wine-bottles/">Wine Bottles</a>
       <a href="/products/liquor-bottles/">Liquor &amp; Spirit Bottles</a>
       <a href="/products/whiskey-bottles/">Whiskey Bottles</a>
       <a href="/products/vodka-bottles/">Vodka Bottles</a>
       <a href="/products/gin-bottles/">Gin Bottles</a>
-      <a onclick="go('products','personal-care')">Personal Care</a>
-      <a onclick="go('products','men-grooming')">Men's Grooming</a>
-      <a onclick="go('products','bamboo-bottle')">Bamboo &amp; Wood</a>
-      <a onclick="go('products','alu-bottle')">Aluminum Products</a>
-      <a onclick="go('products','bio')">Eco Packaging</a>
+      <a href="/products/personal-care-packaging/">Personal Care</a>
+      <a href="/products/mens-grooming-packaging/">Men's Grooming</a>
+      <a href="/products/bamboo-packaging/">Bamboo &amp; Wood</a>
+      <a href="/products/aluminum-packaging/">Aluminum Products</a>
+      <a href="/products/eco-friendly-packaging/">Eco Packaging</a>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a onclick="go('oem')">OEM / ODM</a>
+      <a href="/oem-cosmetic-packaging/">OEM / ODM</a>
       <a onclick="openModal('sample')">Free Samples</a>
       <a onclick="openModal('quote')">Get Quote</a>
       <a onclick="go('about','cert')">Quality Support</a>

@@ -2,9 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.glorystarpack.com/</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/beverage-bottles/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/wine-bottles/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.91</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/liquor-bottles/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.91</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/site-index/</loc>
@@ -86,7 +104,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/perfume-bottles/</loc>
-    <lastmod>2026-06-26</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -194,7 +212,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/nail-polish-bottles/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.86</priority>
   </url>

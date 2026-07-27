@@ -154,7 +154,7 @@ const NEWS = {
   }
 };
 
-const CAT_TITLES = {hot:'🔥 Hot Picks',glass:'Glass Packaging','glass-oil':'Glass Essential Oil Bottle','glass-dropper':'Glass Dropper Bottle','glass-rollon':'Glass Roll On Bottle','glass-spray':'Glass Spray Bottle','glass-ampoule':'Glass Ampoule & Vial','glass-jar':'Glass Cream Jar','glass-lotion':'Glass Lotion Bottle','glass-perfume':'Glass Perfume Bottle','glass-diffuser':'Glass Diffuser Bottle','glass-violet':'Violet Glass Bottle','glass-nail':'Glass Nail Polish Bottle',plastic:'Plastic Packaging','plastic-pump':'Plastic Pump Bottle','plastic-airless':'Airless Bottle','plastic-airless-jar':'Airless Jar','plastic-dual':'Dual Chamber Packaging','plastic-lotion':'Lotion Bottle','plastic-pet':'PET Bottle','plastic-hdpe':'HDPE Bottle','plastic-spray':'Plastic Spray Bottle','plastic-jar':'Plastic Jar','plastic-acrylic':'Acrylic Container','plastic-foam':'Plastic Foam Bottle','plastic-tube':'Plastic Tube','plastic-deodorant':'Deodorant Stick','plastic-makeup':'Makeup Packaging','plastic-travel':'Travel Size Set','plastic-pcr':'PCR & Refill Plastic','plastic-closure':'Pumps, Caps & Accessories','packaging-accessories':'Packaging Accessories','home-fragrance':'Home Fragrance Packaging','spa-body':'Spa & Body Care Packaging','hotel-amenity':'Hotel Amenities & Travel Kits','personal-care':'Personal Care Packaging','men-grooming':'Men’s Grooming Packaging',bamboo:'Bamboo & Wood','bamboo-bottle':'Bamboo Bottles','bamboo-jar':'Bamboo Jars','bamboo-cap':'Bamboo Caps & Lids','bamboo-dropper':'Bamboo Dropper Bottles','bamboo-rollon':'Bamboo Roll On Bottles','bamboo-makeup':'Bamboo Makeup Series',alu:'Aluminum Products','alu-bottle':'Aluminum Bottle','alu-can':'Aluminum Can','alu-tin':'Aluminum Tin','alu-tube':'Aluminum Tube','alu-atomizer':'Aluminum Atomizer','alu-jar':'Aluminum Jar','alu-bag':'Aluminum Bag',eco:'Eco Packaging',bio:'Biodegradable','eco-wheat':'Wheat Straw Packaging','eco-pulp':'Molded Pulp Packaging','eco-refill':'Refill Packaging','paper-tube':'Paper Tube','paper-box':'Paper Boxes & Retail Kits'};
+const CAT_TITLES = {hot:'🔥 Hot Picks',glass:'Glass Packaging','glass-oil':'Glass Essential Oil Bottle','glass-dropper':'Glass Dropper Bottle','glass-rollon':'Glass Roll On Bottle','glass-spray':'Glass Spray Bottle','glass-ampoule':'Glass Ampoule & Vial','glass-jar':'Glass Cream Jar','glass-lotion':'Glass Lotion Bottle','glass-perfume':'Glass Perfume Bottle','glass-diffuser':'Glass Diffuser Bottle','glass-violet':'Violet Glass Bottle','glass-nail':'Glass Nail Polish Bottle',beverage:'Beverage Bottle Packaging','wine-bottle':'Wine Bottles','spirit-bottle':'Liquor & Spirit Bottles','beverage-closure':'Beverage Bottle Closures',plastic:'Plastic Packaging','plastic-pump':'Plastic Pump Bottle','plastic-airless':'Airless Bottle','plastic-airless-jar':'Airless Jar','plastic-dual':'Dual Chamber Packaging','plastic-lotion':'Lotion Bottle','plastic-pet':'PET Bottle','plastic-hdpe':'HDPE Bottle','plastic-spray':'Plastic Spray Bottle','plastic-jar':'Plastic Jar','plastic-acrylic':'Acrylic Container','plastic-foam':'Plastic Foam Bottle','plastic-tube':'Plastic Tube','plastic-deodorant':'Deodorant Stick','plastic-makeup':'Makeup Packaging','plastic-travel':'Travel Size Set','plastic-pcr':'PCR & Refill Plastic','plastic-closure':'Pumps, Caps & Accessories','packaging-accessories':'Packaging Accessories','home-fragrance':'Home Fragrance Packaging','spa-body':'Spa & Body Care Packaging','hotel-amenity':'Hotel Amenities & Travel Kits','personal-care':'Personal Care Packaging','men-grooming':'Men’s Grooming Packaging',bamboo:'Bamboo & Wood','bamboo-bottle':'Bamboo Bottles','bamboo-jar':'Bamboo Jars','bamboo-cap':'Bamboo Caps & Lids','bamboo-dropper':'Bamboo Dropper Bottles','bamboo-rollon':'Bamboo Roll On Bottles','bamboo-makeup':'Bamboo Makeup Series',alu:'Aluminum Products','alu-bottle':'Aluminum Bottle','alu-can':'Aluminum Can','alu-tin':'Aluminum Tin','alu-tube':'Aluminum Tube','alu-atomizer':'Aluminum Atomizer','alu-jar':'Aluminum Jar','alu-bag':'Aluminum Bag',eco:'Eco Packaging',bio:'Biodegradable','eco-wheat':'Wheat Straw Packaging','eco-pulp':'Molded Pulp Packaging','eco-refill':'Refill Packaging','paper-tube':'Paper Tube','paper-box':'Paper Boxes & Retail Kits'};
 
 const CAT_COPY = {
   hot:['Bestselling Cosmetic Packaging', 'Popular stock and custom packaging options for skincare, fragrance, makeup, hair care and sample programs. These products are commonly selected for fast sampling, proven compatibility and flexible decoration.'],
@@ -170,6 +170,10 @@ const CAT_COPY = {
   'glass-diffuser':['Glass Diffuser Bottles', 'Decorative glass diffuser bottles for reed diffuser, aromatherapy, home fragrance and spa retail collections.'],
   'glass-violet':['Violet Glass Bottles', 'Deep violet glass bottles for botanical skincare, essential oils and light-sensitive premium natural formulas.'],
   'glass-nail':['Glass Nail Polish Bottles', 'Clear, square and UV black glass nail polish bottles with brush caps for gel polish, nail lacquer, cuticle oil, nail treatment and private label manicure collections.'],
+  beverage:['Beverage Bottle Packaging Supplier', 'Glass beverage bottles for wine, spirits, sparkling drinks, juice, syrups and specialty beverage projects, with matched corks, caps, closures, decoration and export cartons.'],
+  'wine-bottle':['Wholesale Glass Wine Bottles', 'Bordeaux, Burgundy, sparkling and mini wine bottles in clear, amber and green glass, with cork, ROPP and crown closure options for private label beverage brands.'],
+  'spirit-bottle':['Liquor and Spirit Bottles', 'Heavy-base whiskey bottles, tall vodka bottles, rounded gin bottles, amber craft spirit bottles and mini liquor bottles with bar-top, screw-cap and tamper-evident closure options.'],
+  'beverage-closure':['Beverage Bottle Corks and Closures', 'Bar-top corks, ROPP caps, crown closures, swing-top systems, liners and tamper components matched to wine, spirit and specialty beverage bottle neck finishes.'],
   plastic:['Plastic Cosmetic Packaging Manufacturer', 'Plastic packaging covers airless pump bottles, spray bottles, jars, tubes and travel-size formats for lightweight, scalable beauty packaging.'],
   'plastic-pump':['Airless Pump Bottles', 'Airless pump packaging protects sensitive formulas from oxygen exposure and is widely used for serum, foundation, eye cream, recyclable mono-material systems and anti-aging skincare.'],
   'plastic-airless':['Airless Bottles', 'Airless bottles, mini eye cream pumps, twist-lock pumps, lockable pumps, mono-material PP airless bottles, PLA airless bottles and refillable cartridge systems for serum, eye cream, primer, foundation and formulas sensitive to air exposure.'],
@@ -488,7 +492,7 @@ function setActiveNav(page, sub) {
   const direct = document.querySelector(`.nav-link[data-page="${page}"]`);
   if (direct) direct.classList.add('active');
   if (page === 'products') {
-    const group = sub && (sub.startsWith('glass') ? 'glass' : sub.startsWith('plastic') ? 'plastic' : sub.startsWith('bamboo') ? 'bamboo' : sub.startsWith('alu') ? 'alu' : ['bio','paper-tube','paper-box','eco'].includes(sub) ? 'eco' : '');
+    const group = sub && (sub.startsWith('glass') ? 'glass' : ['beverage','wine-bottle','spirit-bottle','beverage-closure'].includes(sub) ? 'beverage' : sub.startsWith('plastic') ? 'plastic' : sub.startsWith('bamboo') ? 'bamboo' : sub.startsWith('alu') ? 'alu' : ['bio','paper-tube','paper-box','eco'].includes(sub) ? 'eco' : '');
     const productLink = document.querySelector(`.nav-link[data-group="${group}"]`) || document.querySelector('.nav-link[data-page="products"]');
     if (productLink) productLink.classList.add('active');
   }
@@ -519,6 +523,10 @@ function go(page, sub, skipHash, productPage = 1) {
 // =========================================================== PRODUCT CARD HTML
 const productPhotoIds = new Set(Array.from({length:316}, (_, i) => `p${i + 1}`));
 const PRODUCT_IMAGE_SETS = [
+  {cat:'wine-bottle', images:['assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-1440.webp']},
+  {cat:'spirit-bottle', images:['assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-1440.webp']},
+  {cat:'beverage-closure', images:['assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp']},
+  {cat:'beverage', images:['assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp']},
   {cat:'packaging-accessories', images:['assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p263-0.jpg','assets/product-photos/p267-0.jpg','assets/product-photos/p273-0.jpg','assets/product-photos/p274-0.jpg','assets/product-photos/p279-0.jpg','assets/product-photos/p259-0.jpg','assets/product-photos/p260-0.jpg','assets/product-photos/p243-0.jpg','assets/product-photos/p254-0.jpg','assets/product-photos/p258-0.jpg']},
   {cat:'home-fragrance', images:['assets/product-photos/p242-0.jpg','assets/product-photos/p219-0.jpg','assets/product-photos/p217-0.jpg','assets/product-photos/p220-0.jpg']},
   {cat:'spa-body', images:['assets/product-photos/p304-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p225-0.jpg','assets/product-photos/p228-0.jpg','assets/product-photos/p241-0.jpg','assets/product-photos/p233-0.jpg']},
@@ -597,7 +605,10 @@ function productGalleryImages(p) {
 function productSubitems(p) {
   const isAccessory = p.cats.includes('packaging-accessories');
   const isPackagingKit = /Kit|Set/.test(p.name) && !isAccessory;
-  const closure = isAccessory ? 'Matched Component'
+  const closure = p.cats.includes('beverage-closure') ? 'Cork / Cap / Pourer'
+    : p.cats.includes('wine-bottle') ? 'Cork / ROPP'
+    : p.cats.includes('spirit-bottle') ? 'Bar Top / Screw Cap'
+    : isAccessory ? 'Matched Component'
     : isPackagingKit ? 'Complete Set'
     : p.cats.includes('glass-rollon') ? 'Rollerball / Cap'
     : p.cats.includes('glass-dropper') ? 'Pipette Dropper'
@@ -629,7 +640,10 @@ function productSubitems(p) {
     : p.cats.includes('eco-refill') ? 'Spout / Refill Cap'
     : p.cats.includes('paper-box') ? 'Insert / Sleeve'
     : 'Custom Closure';
-  const use = isAccessory ? 'Accessory Matching'
+  const use = p.cats.includes('wine-bottle') ? 'Wine / Sparkling'
+    : p.cats.includes('spirit-bottle') ? 'Whiskey / Spirits'
+    : p.cats.includes('beverage-closure') ? 'Bottle Closure'
+    : isAccessory ? 'Accessory Matching'
     : isPackagingKit ? 'One-Stop Project'
     : p.cats.includes('glass-ampoule') ? 'Sample / Dose'
     : p.cats.includes('glass-diffuser') ? 'Home Fragrance'
@@ -698,7 +712,7 @@ function pcHTML(p, small) {
 function renderHomeGrid() {
   const g = document.getElementById('home-grid');
   if (!g || !hasProductData()) return;
-  const featured = ['p305','p310','p314','p315','p293','p294','p302','p304'];
+  const featured = ['p321','p317','p305','p310','p314','p315','p293','p294'];
   const picked = featured.map(id => PRODS.find(p => p.id === id)).filter(Boolean);
   const fallback = PRODS.filter(p => p.cats.includes('hot') && !featured.includes(p.id)).slice(0, Math.max(0, 8 - picked.length));
   g.innerHTML = [...picked, ...fallback].slice(0,8).map(p => pcHTML(p)).join('');
@@ -725,6 +739,7 @@ function getProductsByCat(cat) {
     if (cat === 'bamboo') return p.cats.some(c => c.startsWith('bamboo'));
     if (cat === 'alu') return p.cats.some(c => c.startsWith('alu'));
     if (cat === 'eco') return p.cats.some(c => ['eco','bio','paper-tube','paper-box'].includes(c));
+    if (cat === 'beverage') return p.cats.includes('beverage');
     return p.cats.includes(cat);
   });
 }

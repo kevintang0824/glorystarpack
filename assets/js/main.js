@@ -372,7 +372,7 @@ const PAGE_META = {
   },
   about: {
     title: 'About GloryStarPack | Cosmetic Packaging Factory in Xiamen',
-    desc: 'Learn about GloryStarPack, an ISO-certified cosmetic packaging manufacturer with 15+ years experience, 20,000 sqm production facility and global export service.'
+    desc: 'Learn about GloryStarPack, a cosmetic packaging supplier in Xiamen with OEM/ODM, project quality review and global export support.'
   },
   oem: {
     title: 'OEM/ODM Cosmetic Packaging Service | Custom Bottles, Jars & Boxes',
@@ -684,14 +684,24 @@ function safeText(value) {
   return String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+const FEATURED_CARD_AVIF = {
+  p7: 'assets/product-photos/p7-0-480.avif',
+  p2: 'assets/product-photos/p2-0-480.avif',
+  p4: 'assets/product-photos/p4-0-480.avif',
+  p40: 'assets/product-photos/p40-0-480.avif'
+};
+
 function pcHTML(p, small) {
   const bc = {hot:'b-hot',new:'b-new',eco:'b-eco',custom:'b-custom'}[p.badge]||'b-hot';
   const bl = {hot:'HOT',new:'NEW',eco:'ECO',custom:'CUSTOM'}[p.badge]||'HOT';
   const img = productImage(p);
+  const responsiveImage = FEATURED_CARD_AVIF[p.id]
+    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(p.name)} cosmetic packaging photo" loading="lazy" decoding="async"></picture>`
+    : `<img src="${img}" alt="${safeText(p.name)} cosmetic packaging photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
   const safeName = p.name.replace(/'/g, "\\'");
   return `<div class="pc fade-in" onclick="showDetail('${p.id}')">
-    <div class="pc-img"><img src="${img}" alt="${safeText(p.name)} cosmetic packaging photo" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="img-fallback" style="display:none;">${p.ic}</span></div>
+    <div class="pc-img">${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span></div>
     <span class="pc-badge ${bc}">${bl}</span>
     <div class="pc-info">
       <div class="pc-name">${p.name}</div>
@@ -712,10 +722,10 @@ function pcHTML(p, small) {
 function renderHomeGrid() {
   const g = document.getElementById('home-grid');
   if (!g || !hasProductData()) return;
-  const featured = ['p321','p317','p305','p310','p314','p315','p293','p294'];
+  const featured = ['p7','p2','p4','p40'];
   const picked = featured.map(id => PRODS.find(p => p.id === id)).filter(Boolean);
-  const fallback = PRODS.filter(p => p.cats.includes('hot') && !featured.includes(p.id)).slice(0, Math.max(0, 8 - picked.length));
-  g.innerHTML = [...picked, ...fallback].slice(0,8).map(p => pcHTML(p)).join('');
+  const fallback = PRODS.filter(p => p.cats.includes('hot') && !featured.includes(p.id)).slice(0, Math.max(0, 4 - picked.length));
+  g.innerHTML = [...picked, ...fallback].slice(0,4).map(p => pcHTML(p)).join('');
 }
 
 // =========================================================== FILTER PRODUCTS
@@ -892,7 +902,7 @@ function showDetail(pid) {
   document.getElementById('det-specs').innerHTML = [
     ['Material', p.mat],['Capacity / Size', p.size],['Finish', p.finish],
     ['MOQ', p.moq + ' pcs per color'],['Sample Time', '7–10 working days'],
-    ['Lead Time', '25–35 days (bulk order)'],['Certification', 'SGS · FDA Compliant']
+    ['Lead Time', '25–35 days (bulk order)'],['Documentation', 'Confirm project-specific requirements with our team']
   ].map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
   // size options
   const sizes = p.size.split('/').map(s => s.trim());
@@ -1230,7 +1240,9 @@ window.addEventListener('scroll', () => {
 
 // =========================================================== CAROUSEL
 let csIdx = 0;
-const csTotal = 3;
+// The homepage hero may use one focused conversion message instead of a carousel.
+// Read the actual slide count so the controls and timer stay safe in both layouts.
+const csTotal = Math.max(1, document.querySelectorAll('.cs-slide').length);
 const csDuration = 5000; // auto-advance ms
 let csTimer = null;
 const csReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1277,7 +1289,7 @@ function csStartProgress() {
 
 function csResetTimer() {
   clearInterval(csTimer);
-  if (csReducedMotion || csSmallScreen || document.hidden) return;
+  if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden) return;
   csTimer = setInterval(() => { csIdx = (csIdx + 1) % csTotal; csRender(); }, csDuration);
 }
 

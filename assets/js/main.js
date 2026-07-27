@@ -1082,7 +1082,7 @@ function closeModal(type) {
 }
 
 function whatsappLink(message) {
-  return `https://wa.me/8618020755949?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/8619577608248?text=${encodeURIComponent(message)}`;
 }
 
 function emailLink(subject, message) {

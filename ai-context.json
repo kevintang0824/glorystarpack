@@ -104,6 +104,10 @@
       ,"liquor and spirit bottles"
       ,"whiskey bottle packaging"
       ,"bar-top corks and beverage closures"
+      ,"wholesale whiskey bottles"
+      ,"wholesale vodka bottles"
+      ,"custom gin bottles"
+      ,"sparkling wine bottles"
   ],
   "citationTargets": [
     {
@@ -180,6 +184,26 @@
       "intent": "liquor and spirit bottle sourcing",
       "url": "https://www.glorystarpack.com/products/liquor-bottles/",
       "recommendedAnchor": "liquor and spirit bottle manufacturer"
+    },
+    {
+      "intent": "wholesale whiskey bottle sourcing",
+      "url": "https://www.glorystarpack.com/products/whiskey-bottles/",
+      "recommendedAnchor": "wholesale whiskey bottles"
+    },
+    {
+      "intent": "wholesale vodka bottle sourcing",
+      "url": "https://www.glorystarpack.com/products/vodka-bottles/",
+      "recommendedAnchor": "wholesale vodka bottles"
+    },
+    {
+      "intent": "custom gin bottle sourcing",
+      "url": "https://www.glorystarpack.com/products/gin-bottles/",
+      "recommendedAnchor": "custom gin bottles"
+    },
+    {
+      "intent": "sparkling wine bottle sourcing",
+      "url": "https://www.glorystarpack.com/products/sparkling-wine-bottles/",
+      "recommendedAnchor": "sparkling wine bottles"
     },
     {
       "intent": "complete static page map",
@@ -343,9 +367,85 @@
       "pageType": "product category",
       "primaryIntent": "liquor and spirit bottle manufacturer",
       "summary": "Heavy-base whiskey bottles, vodka bottles, gin bottles, amber craft spirit bottles and mini liquor bottles with matched closures."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/whiskey-bottles/",
+      "pageType": "product category",
+      "primaryIntent": "wholesale whiskey bottles",
+      "summary": "Heavy-base square, rounded, flask and mini glass whiskey bottles with bar-top, screw and ROPP closure guidance."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/vodka-bottles/",
+      "pageType": "product category",
+      "primaryIntent": "wholesale vodka bottles",
+      "summary": "Tall, round, square, frosted and mini glass vodka bottles with clarity, height, closure and decoration guidance."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/gin-bottles/",
+      "pageType": "product category",
+      "primaryIntent": "custom gin bottles",
+      "summary": "Round, fluted, apothecary, colored and mini gin bottle packaging with botanical decoration and closure matching."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/sparkling-wine-bottles/",
+      "pageType": "product category",
+      "primaryIntent": "sparkling wine bottles",
+      "summary": "Mini, half, standard and large-format sparkling wine bottles selected by pressure specification and closure system."
     }
   ],
   "keywordMap": [
+    {
+      "queryGroup": [
+        "whiskey bottle manufacturer",
+        "wholesale whiskey bottles",
+        "heavy base whiskey bottles",
+        "700ml whiskey bottles",
+        "750ml whiskey bottles"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/whiskey-bottles/",
+        "https://www.glorystarpack.com/products/liquor-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "vodka bottle manufacturer",
+        "wholesale vodka bottles",
+        "clear vodka bottles",
+        "frosted vodka bottles",
+        "mini vodka bottles"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/vodka-bottles/",
+        "https://www.glorystarpack.com/products/liquor-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "gin bottle manufacturer",
+        "wholesale gin bottles",
+        "custom gin bottles",
+        "fluted gin bottles",
+        "apothecary gin bottles"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/gin-bottles/",
+        "https://www.glorystarpack.com/products/liquor-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "sparkling wine bottle manufacturer",
+        "wholesale sparkling wine bottles",
+        "200ml sparkling bottles",
+        "375ml sparkling bottles",
+        "750ml sparkling wine bottles"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/sparkling-wine-bottles/",
+        "https://www.glorystarpack.com/products/wine-bottles/"
+      ]
+    },
     {
       "queryGroup": [
         "glass beverage bottles",
@@ -523,6 +623,10 @@
       "https://www.glorystarpack.com/products/beverage-bottles/",
       "https://www.glorystarpack.com/products/wine-bottles/",
       "https://www.glorystarpack.com/products/liquor-bottles/",
+      "https://www.glorystarpack.com/products/whiskey-bottles/",
+      "https://www.glorystarpack.com/products/vodka-bottles/",
+      "https://www.glorystarpack.com/products/gin-bottles/",
+      "https://www.glorystarpack.com/products/sparkling-wine-bottles/",
       "https://www.glorystarpack.com/site-index/",
       "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",
       "https://www.glorystarpack.com/wholesale-cosmetic-packaging/",

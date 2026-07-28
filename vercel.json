@@ -3,17 +3,17 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/products",
+      "source": "/products/",
       "destination": "/#products/hot",
       "permanent": false
     },
     {
-      "source": "/about",
+      "source": "/about/",
       "destination": "/#about/profile",
       "permanent": false
     },
     {
-      "source": "/contact",
+      "source": "/contact/",
       "destination": "/#contact",
       "permanent": false
     }

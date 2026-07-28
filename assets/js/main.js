@@ -359,8 +359,8 @@ function installCategorySchema(cat, products) {
 
 const PAGE_META = {
   home: {
-    title: 'Cosmetic Packaging Manufacturer | GloryStarPack',
-    desc: 'Factory-direct cosmetic packaging manufacturer supplying custom glass bottles, cosmetic jars, airless pump bottles, cosmetic tubes, makeup packaging and OEM/ODM packaging.'
+    title: 'Custom Glass Bottle Manufacturer | GloryStarPack',
+    desc: 'Factory-direct custom glass bottle manufacturer for spirits, wine, beer, perfume and nail polish, with custom molds, decoration, closures and global shipping.'
   },
   products: {
     title: 'Cosmetic Packaging Products | Bottles, Jars, Tubes, Pumps & Kits',
@@ -722,7 +722,7 @@ function pcHTML(p, small) {
 function renderHomeGrid() {
   const g = document.getElementById('home-grid');
   if (!g || !hasProductData()) return;
-  const featured = ['p7','p2','p4','p40'];
+  const featured = ['p7','p321','p4','p40'];
   const picked = featured.map(id => PRODS.find(p => p.id === id)).filter(Boolean);
   const fallback = PRODS.filter(p => p.cats.includes('hot') && !featured.includes(p.id)).slice(0, Math.max(0, 4 - picked.length));
   g.innerHTML = [...picked, ...fallback].slice(0,4).map(p => pcHTML(p)).join('');

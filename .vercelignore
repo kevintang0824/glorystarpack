@@ -4,8 +4,6 @@
 **/.DS_Store
 backups/
 tmp/
-assets/**/*.png
-!assets/brand/glorystarpack-logo-*.png
 glorystarpack (1).html
 DEPLOYMENT.md
 README.md

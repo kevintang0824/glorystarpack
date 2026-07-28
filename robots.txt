@@ -2,7 +2,6 @@ User-agent: *
 Allow: /
 Allow: /llms.txt
 Allow: /ai-context.json
-Allow: /site-index/
 Disallow: /backups/
 Disallow: /tmp/
 Disallow: /glorystarpack%20(1).html

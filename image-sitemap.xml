@@ -20,6 +20,27 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.glorystarpack.com/products/</loc>
+    <image:image>
+      <image:loc>https://www.glorystarpack.com/assets/brand/wine-spirits-bottle-collection-2026-1440.jpg</image:loc>
+      <image:title>Glass bottle and packaging product directory</image:title>
+      <image:caption>Original unbranded beverage, spirits and beauty packaging collections organized into focused product routes.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.glorystarpack.com/assets/brand/glass-complete-product-assortment-2026.jpg</image:loc>
+      <image:title>Glass cosmetic bottle and jar collection</image:title>
+      <image:caption>Glass cosmetic bottles, jars, droppers, perfume bottles and nail-care packaging for beauty projects.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/about/</loc>
+    <image:image>
+      <image:loc>https://www.glorystarpack.com/assets/brand/factory-oem-quality-2026.jpg</image:loc>
+      <image:title>GloryStarPack packaging project and quality support</image:title>
+      <image:caption>Packaging samples, components and inspection tools used to explain GloryStarPack project and quality support.</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.glorystarpack.com/products/beverage-bottles/</loc>
     <image:image>
       <image:loc>https://www.glorystarpack.com/assets/brand/wine-spirits-bottle-collection-2026-1440.jpg</image:loc>

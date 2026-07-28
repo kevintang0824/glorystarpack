@@ -156,8 +156,27 @@ const NEWS = {
 
 const CAT_TITLES = {hot:'🔥 Hot Picks',glass:'Glass Packaging','glass-oil':'Glass Essential Oil Bottle','glass-dropper':'Glass Dropper Bottle','glass-rollon':'Glass Roll On Bottle','glass-spray':'Glass Spray Bottle','glass-ampoule':'Glass Ampoule & Vial','glass-jar':'Glass Cream Jar','glass-lotion':'Glass Lotion Bottle','glass-perfume':'Glass Perfume Bottle','glass-diffuser':'Glass Diffuser Bottle','glass-violet':'Violet Glass Bottle','glass-nail':'Glass Nail Polish Bottle',beverage:'Beverage Bottle Packaging','wine-bottle':'Wine Bottles','spirit-bottle':'Liquor & Spirit Bottles','beverage-closure':'Beverage Bottle Closures',plastic:'Plastic Packaging','plastic-pump':'Plastic Pump Bottle','plastic-airless':'Airless Bottle','plastic-airless-jar':'Airless Jar','plastic-dual':'Dual Chamber Packaging','plastic-lotion':'Lotion Bottle','plastic-pet':'PET Bottle','plastic-hdpe':'HDPE Bottle','plastic-spray':'Plastic Spray Bottle','plastic-jar':'Plastic Jar','plastic-acrylic':'Acrylic Container','plastic-foam':'Plastic Foam Bottle','plastic-tube':'Plastic Tube','plastic-deodorant':'Deodorant Stick','plastic-makeup':'Makeup Packaging','plastic-travel':'Travel Size Set','plastic-pcr':'PCR & Refill Plastic','plastic-closure':'Pumps, Caps & Accessories','packaging-accessories':'Packaging Accessories','home-fragrance':'Home Fragrance Packaging','spa-body':'Spa & Body Care Packaging','hotel-amenity':'Hotel Amenities & Travel Kits','personal-care':'Personal Care Packaging','men-grooming':'Men’s Grooming Packaging',bamboo:'Bamboo & Wood','bamboo-bottle':'Bamboo Bottles','bamboo-jar':'Bamboo Jars','bamboo-cap':'Bamboo Caps & Lids','bamboo-dropper':'Bamboo Dropper Bottles','bamboo-rollon':'Bamboo Roll On Bottles','bamboo-makeup':'Bamboo Makeup Series',alu:'Aluminum Products','alu-bottle':'Aluminum Bottle','alu-can':'Aluminum Can','alu-tin':'Aluminum Tin','alu-tube':'Aluminum Tube','alu-atomizer':'Aluminum Atomizer','alu-jar':'Aluminum Jar','alu-bag':'Aluminum Bag',eco:'Eco Packaging',bio:'Biodegradable','eco-wheat':'Wheat Straw Packaging','eco-pulp':'Molded Pulp Packaging','eco-refill':'Refill Packaging','paper-tube':'Paper Tube','paper-box':'Paper Boxes & Retail Kits'};
 
+CAT_TITLES['material-glass'] = 'Glass Packaging by Primary Material';
+CAT_TITLES['material-plastic'] = 'Plastic Packaging by Primary Material';
+CAT_TITLES['material-metal'] = 'Aluminum & Metal Packaging';
+CAT_TITLES['material-bamboo-wood'] = 'Bamboo & Wood Packaging';
+CAT_TITLES['material-paper-pulp'] = 'Paper & Molded Pulp Packaging';
+CAT_TITLES['material-flexible'] = 'Flexible Films & Laminates';
+CAT_TITLES['material-bio'] = 'Bio-Based Packaging Materials';
+CAT_TITLES['material-mixed'] = 'Mixed-Material Packaging Kits';
+CAT_TITLES.components = 'Pumps, Caps & Components';
+
 const CAT_COPY = {
   hot:['Bestselling Cosmetic Packaging', 'Popular stock and custom packaging options for skincare, fragrance, makeup, hair care and sample programs. These products are commonly selected for fast sampling, proven compatibility and flexible decoration.'],
+  'material-glass':['Primary-Material Glass Packaging', 'Glass bottles, jars, vials and primary containers grouped by the material of the main visible pack. This collection includes beverage, fragrance, nail care, serum and skincare glass formats.'],
+  'material-plastic':['Primary-Material Plastic Packaging', 'PET, PETG, HDPE, PP, PE, acrylic and other polymer containers grouped by the material of the main visible pack, including pumps, jars, tubes and personal care formats.'],
+  'material-metal':['Primary-Material Aluminum and Metal Packaging', 'Aluminum and metal bottles, cans, tins, tubes, atomizers and containers selected when the main visible pack is metal.'],
+  'material-bamboo-wood':['Primary-Material Bamboo and Wood Packaging', 'Bamboo and wood-led bottles, jars, compacts and closures where the natural outer shell is the main visible packaging material.'],
+  'material-paper-pulp':['Primary-Material Paper and Molded Pulp Packaging', 'Paperboard boxes, kraft tubes, molded pulp inserts and fiber-based packs where paper or pulp forms the main packaging structure.'],
+  'material-flexible':['Primary-Material Flexible Packaging', 'Refill pouches, sachets, barrier laminates, flexible tubes, films and sealing materials grouped by their main flexible packaging structure.'],
+  'material-bio':['Primary-Material Bio-Based Packaging', 'PLA, Bio-PE, wheat straw and other plant-derived material formats grouped by the main material used for the pack.'],
+  'material-mixed':['Mixed-Material Packaging Kits', 'Complete packaging sets, component kits, sample boards and turnkey launch systems that intentionally combine several primary materials.'],
+  components:['Pumps, Caps and Packaging Components', 'Pumps, sprayers, caps, corks, droppers, rollerballs, applicators, liners and matching accessories for glass, plastic, aluminum and mixed-material packaging.'],
   glass:['Glass Cosmetic Packaging Supplier', 'Glass packaging is ideal for premium skincare, perfume, serum, essential oils and formulas that need strong compatibility, high clarity and a luxury hand feel.'],
   'glass-oil':['Glass Essential Oil Bottles', 'Amber, clear and frosted glass dropper bottles, roller bottles and essential oil containers with UV-protective options for aromatherapy and active formulas.'],
   'glass-dropper':['Glass Dropper Bottles', 'Serum dropper bottles, Boston round bottles, child resistant droppers, reducer inserts and pipette bottles for facial oil, retinol, vitamin C serum, essential oil and apothecary-style skincare lines.'],
@@ -221,6 +240,54 @@ const CAT_COPY = {
   'paper-tube':['Paper Tubes', 'Kraft paper tubes, plastic-free paperboard lip balm tubes and push-up tubes for lip balm, deodorant, solid perfume, sunscreen sticks and plastic-reduction projects.'],
   'paper-box':['Paper Boxes and Retail Kits', 'Folding cartons, rigid boxes, magnetic boxes, molded pulp perfume gift boxes, sample cards, retail gift packaging and turnkey launch kits for skincare, fragrance and makeup collections.']
 };
+
+const PRIMARY_MATERIAL_IDS = {
+  'material-glass': [
+    'p1','p4','p7','p9','p15','p17','p33','p34','p35','p36','p37','p38','p39','p40','p53','p54',
+    'p55','p56','p57','p72','p73','p90','p93','p94','p95','p96','p97','p98','p112','p118','p119','p120',
+    'p121','p131','p132','p133','p134','p149','p153','p164','p173','p186','p217','p218','p219','p220','p221','p223',
+    'p224','p277','p289','p290','p299','p305','p316','p317','p318','p319','p320','p321','p322','p323','p324','p325',
+    'p328'
+  ],
+  'material-plastic': [
+    'p2','p10','p14','p16','p18','p19','p20','p22','p23','p41','p42','p43','p44','p45','p46','p47',
+    'p48','p49','p50','p51','p52','p58','p59','p60','p61','p62','p63','p64','p68','p69','p70','p84',
+    'p87','p88','p89','p91','p99','p100','p101','p102','p103','p104','p106','p107','p108','p109','p110','p122',
+    'p123','p124','p125','p127','p128','p130','p135','p136','p137','p138','p139','p140','p141','p150','p151','p152',
+    'p158','p159','p160','p161','p162','p163','p165','p169','p170','p171','p172','p174','p175','p177','p179','p182',
+    'p183','p187','p201','p202','p203','p204','p205','p206','p207','p208','p209','p210','p211','p227','p228','p229',
+    'p230','p232','p237','p238','p240','p241','p243','p244','p245','p246','p247','p248','p249','p253','p257','p262',
+    'p264','p266','p270','p271','p272','p273','p276','p279','p281','p283','p284','p288','p291','p293','p294','p295',
+    'p297','p298','p301','p302','p307','p308','p309','p310','p312','p313','p315'
+  ],
+  'material-metal': [
+    'p5','p11','p27','p75','p76','p77','p78','p113','p114','p117','p142','p143','p144','p154','p155','p156',
+    'p157','p181','p214','p222','p250','p286','p296','p300','p306','p327'
+  ],
+  'material-bamboo-wood': [
+    'p3','p8','p13','p24','p25','p26','p71','p74','p111','p129','p213'
+  ],
+  'material-paper-pulp': [
+    'p12','p29','p30','p81','p82','p85','p86','p116','p145','p146','p166','p167','p193','p194','p195','p215',
+    'p267','p275','p287','p292','p303','p314'
+  ],
+  'material-flexible': [
+    'p21','p28','p31','p65','p67','p83','p92','p105','p115','p126','p148','p168','p196','p199','p200','p231',
+    'p233','p254','p255','p282','p304'
+  ],
+  'material-bio': [
+    'p6','p66','p79','p80','p147','p265'
+  ],
+  'material-mixed': [
+    'p32','p176','p178','p180','p184','p185','p188','p189','p190','p191','p192','p197','p198','p212','p216','p225',
+    'p226','p234','p235','p236','p239','p242','p251','p252','p256','p258','p259','p260','p261','p263','p268','p269',
+    'p274','p278','p280','p285','p311','p326'
+  ]
+};
+
+const PRIMARY_MATERIAL_SETS = Object.fromEntries(
+  Object.entries(PRIMARY_MATERIAL_IDS).map(([key, ids]) => [key, new Set(ids)])
+);
 
 function installProductItemListSchema() {
   if (!hasProductData()) return;
@@ -396,6 +463,52 @@ const PAGE_META = {
   }
 };
 
+const FILTER_SEO_URLS = {
+  glass: '/products/glass-packaging/',
+  'material-glass': '/products/glass-packaging/',
+  beverage: '/products/beverage-bottles/',
+  'wine-bottle': '/products/wine-bottles/',
+  'spirit-bottle': '/products/liquor-bottles/',
+  'glass-oil': '/products/serum-dropper-bottles/',
+  'glass-dropper': '/products/serum-dropper-bottles/',
+  'glass-perfume': '/products/perfume-bottles/',
+  'glass-nail': '/products/nail-polish-bottles/',
+  plastic: '/products/plastic-packaging/',
+  'material-plastic': '/products/plastic-packaging/',
+  'plastic-airless': '/products/airless-pump-bottles/',
+  'plastic-airless-jar': '/products/airless-pump-bottles/',
+  'plastic-tube': '/products/cosmetic-tubes/',
+  'plastic-makeup': '/products/makeup-packaging/',
+  alu: '/products/aluminum-packaging/',
+  'material-metal': '/products/aluminum-packaging/',
+  'alu-can': '/products/aluminum-cosmetic-cans/',
+  bamboo: '/products/bamboo-packaging/',
+  'material-bamboo-wood': '/products/bamboo-packaging/',
+  eco: '/products/eco-friendly-packaging/',
+  'material-paper-pulp': '/products/eco-friendly-packaging/',
+  'material-flexible': '/products/refill-packaging/',
+  'material-bio': '/products/eco-friendly-packaging/',
+  'material-mixed': '/products/cosmetic-packaging-kits/',
+  'eco-refill': '/products/refill-packaging/',
+  components: '/products/cosmetic-pumps-closures/',
+  'plastic-closure': '/products/cosmetic-pumps-closures/',
+  'packaging-accessories': '/products/cosmetic-packaging-accessories/',
+  'home-fragrance': '/products/home-fragrance-packaging/',
+  'hotel-amenity': '/products/hotel-amenity-packaging/',
+  'personal-care': '/products/personal-care-packaging/',
+  'men-grooming': '/products/mens-grooming-packaging/'
+};
+
+function filterCanonicalUrl(sub) {
+  if (FILTER_SEO_URLS[sub]) return FILTER_SEO_URLS[sub];
+  if (sub && sub.startsWith('glass')) return '/products/glass-packaging/';
+  if (sub && sub.startsWith('plastic')) return '/products/plastic-packaging/';
+  if (sub && sub.startsWith('alu')) return '/products/aluminum-packaging/';
+  if (sub && sub.startsWith('bamboo')) return '/products/bamboo-packaging/';
+  if (['bio','eco-wheat','eco-pulp','paper-tube','paper-box'].includes(sub)) return '/products/eco-friendly-packaging/';
+  return '/';
+}
+
 function setMeta(page, sub) {
   const meta = PAGE_META[page] || PAGE_META.home;
   let title = meta.title;
@@ -406,7 +519,7 @@ function setMeta(page, sub) {
     const clean = (CAT_TITLES[sub] || sub).replace(/[^\w\s/&-]/g, '').trim();
     title = `${clean} | Cosmetic Packaging Manufacturer | GloryStarPack`;
     desc = `Browse ${clean.toLowerCase()} options from GloryStarPack, a cosmetic packaging manufacturer with OEM logo printing, custom packaging, samples, factory-direct pricing and worldwide shipping.`;
-    canonical = `https://www.glorystarpack.com/#products/${sub}`;
+    canonical = `https://www.glorystarpack.com${filterCanonicalUrl(sub)}`;
   } else if (page && page !== 'home') {
     canonical = `https://www.glorystarpack.com/#${page}`;
   }
@@ -492,7 +605,13 @@ function setActiveNav(page, sub) {
   const direct = document.querySelector(`.nav-link[data-page="${page}"]`);
   if (direct) direct.classList.add('active');
   if (page === 'products') {
-    const group = sub && (sub.startsWith('glass') ? 'glass' : ['beverage','wine-bottle','spirit-bottle','beverage-closure'].includes(sub) ? 'beverage' : sub.startsWith('plastic') ? 'plastic' : sub.startsWith('bamboo') ? 'bamboo' : sub.startsWith('alu') ? 'alu' : ['bio','paper-tube','paper-box','eco'].includes(sub) ? 'eco' : '');
+    let group = '';
+    if (sub === 'material-glass' || (sub && sub.startsWith('glass'))) group = 'glass';
+    else if (['beverage','wine-bottle','spirit-bottle','beverage-closure'].includes(sub)) group = 'beverage';
+    else if (sub === 'material-plastic' || sub === 'components' || (sub && sub.startsWith('plastic'))) group = 'plastic';
+    else if (sub === 'material-bamboo-wood' || (sub && sub.startsWith('bamboo'))) group = 'bamboo';
+    else if (sub === 'material-metal' || (sub && sub.startsWith('alu'))) group = 'alu';
+    else if (['material-paper-pulp','material-flexible','material-bio','material-mixed','bio','paper-tube','paper-box','eco','eco-wheat','eco-pulp','eco-refill'].includes(sub)) group = 'eco';
     const productLink = document.querySelector(`.nav-link[data-group="${group}"]`) || document.querySelector('.nav-link[data-page="products"]');
     if (productLink) productLink.classList.add('active');
   }
@@ -735,14 +854,33 @@ let currentProductSort = 'default';
 let currentProductView = 'grid';
 const PRODUCTS_PER_PAGE = 8;
 
+function setProductFiltersOpen(sidebar, open) {
+  if (!sidebar) return;
+  sidebar.classList.toggle('filters-open', open);
+  const toggle = sidebar.querySelector('.mobile-filter-toggle');
+  if (!toggle) return;
+  toggle.setAttribute('aria-expanded', String(open));
+  const indicator = toggle.querySelector('span');
+  if (indicator) indicator.textContent = open ? '−' : '+';
+}
+
+function toggleProductFilters(button) {
+  const sidebar = button && button.closest('.sidebar');
+  if (sidebar) setProductFiltersOpen(sidebar, !sidebar.classList.contains('filters-open'));
+}
+
 function filterCat(el, cat) {
   document.querySelectorAll('#page-products .sb-link').forEach(l => l.classList.remove('active'));
   if (el) el.classList.add('active');
   filterCatByKey(cat, 1);
+  if (el && window.matchMedia('(max-width: 720px)').matches) {
+    setProductFiltersOpen(el.closest('.sidebar'), false);
+  }
 }
 
 function getProductsByCat(cat) {
   if (!hasProductData()) return [];
+  if (PRIMARY_MATERIAL_SETS[cat]) return PRODS.filter(p => PRIMARY_MATERIAL_SETS[cat].has(p.id));
   return PRODS.filter(p => {
     if (cat === 'glass') return p.cats.some(c => c.startsWith('glass')) || p.cats.includes('glass');
     if (cat === 'plastic') return p.cats.some(c => c.startsWith('plastic')) || p.cats.includes('plastic');
@@ -750,7 +888,15 @@ function getProductsByCat(cat) {
     if (cat === 'alu') return p.cats.some(c => c.startsWith('alu'));
     if (cat === 'eco') return p.cats.some(c => ['eco','bio','paper-tube','paper-box'].includes(c));
     if (cat === 'beverage') return p.cats.includes('beverage');
+    if (cat === 'components') return p.cats.some(c => ['plastic-closure','beverage-closure','packaging-accessories'].includes(c));
     return p.cats.includes(cat);
+  });
+}
+
+function updateCategoryCounts() {
+  if (!hasProductData()) return;
+  document.querySelectorAll('[data-cat-count]').forEach(el => {
+    el.textContent = getProductsByCat(el.dataset.catCount).length;
   });
 }
 
@@ -787,11 +933,21 @@ function filterCatByKey(cat, page = 1) {
   currentProductCat = cat;
   currentProductPage = page;
   // Update sidebar active
+  let activeSidebarLink = null;
   document.querySelectorAll('#page-products .sb-link').forEach(l => {
     l.classList.remove('active');
     const oc = l.getAttribute('onclick');
-    if (oc && oc.includes("'"+cat+"'")) l.classList.add('active');
+    if (oc && oc.includes("'"+cat+"'")) {
+      l.classList.add('active');
+      activeSidebarLink = l;
+    }
   });
+  const activeGroup = activeSidebarLink && activeSidebarLink.closest('.sb-group');
+  if (activeGroup) {
+    document.querySelectorAll('#page-products .sb-group').forEach(group => {
+      group.open = group === activeGroup;
+    });
+  }
   const title = CAT_TITLES[cat] || cat;
   setMeta('products', cat);
   const t = document.getElementById('prod-title'); if(t) t.textContent = title;
@@ -811,6 +967,7 @@ function filterCatByKey(cat, page = 1) {
     ensureProductData().then(() => filterCatByKey(cat, page)).catch(() => {});
     return;
   }
+  updateCategoryCounts();
   const filtered = getProductsByCat(cat);
   if (c) c.textContent = filtered.length + ' Products';
   installCategorySchema(cat, filtered);

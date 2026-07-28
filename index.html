@@ -1032,6 +1032,8 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 /* PAGE LAYOUT (sidebar + main) */
 .page-layout{max-width:1280px;margin:0 auto;padding:28px 24px 60px;display:flex;gap:28px;align-items:flex-start;}
 .sidebar{flex:0 0 220px;position:sticky;top:148px;}
+.mobile-filter-toggle{display:none;width:100%;align-items:center;justify-content:space-between;padding:12px 15px;border:1px solid var(--border);border-radius:7px;background:var(--dark);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-align:left;}
+.mobile-filter-toggle span{font-size:17px;font-weight:400;line-height:1;}
 .sb-box{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px;}
 .sb-title{background:var(--dark);color:var(--gold-light);font-size:13px;font-weight:500;padding:12px 16px;display:flex;align-items:center;gap:8px;}
 .sb-title::before{content:'';width:3px;height:14px;background:var(--gold);border-radius:2px;flex-shrink:0;}
@@ -1040,6 +1042,18 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 .sb-link:hover,.sb-link.active{background:#faf5ec;color:var(--gold-dark);border-left-color:var(--gold);}
 .sb-link.active{font-weight:500;}
 .sb-link.sub{padding-left:28px;font-size:12px;color:var(--muted);}
+.sb-section-label{padding:10px 16px 7px;background:#f8f6f1;border-bottom:1px solid var(--border);color:#8a806f;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.sb-group{border-bottom:1px solid var(--border);}
+.sb-group:last-of-type{border-bottom:none;}
+.sb-group summary{display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;color:var(--dark);font-size:13px;font-weight:600;list-style:none;transition:background .15s,color .15s;}
+.sb-group summary::-webkit-details-marker{display:none;}
+.sb-group summary::after{content:'+';margin-left:auto;color:var(--gold-dark);font-size:16px;font-weight:400;line-height:1;}
+.sb-group[open] summary{background:#fbf8f2;color:var(--gold-dark);}
+.sb-group[open] summary::after{content:'−';}
+.sb-group .sb-link{padding-left:30px;background:#fff;font-size:12px;}
+.sb-group .sb-link:hover,.sb-group .sb-link.active{background:#faf5ec;}
+.sb-link.material-all{color:var(--dark);font-weight:600;}
+.sb-count{margin-left:auto;min-width:27px;padding:2px 6px;border:1px solid #e3dac9;border-radius:10px;background:#fff;color:#8a806f;font-size:10px;font-weight:600;text-align:center;}
 .main-content{flex:1;min-width:0;}
 
 /* SECTION HEADER */
@@ -1057,6 +1071,24 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 .quick-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px;}
 .quick-filter-row button{border:1px solid var(--border);background:var(--white);color:var(--muted);border-radius:20px;padding:7px 12px;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
 .quick-filter-row button:hover{border-color:var(--gold);color:var(--gold-dark);background:#faf5ec;}
+.filter-kicker{margin:2px 0 10px;color:#8a806f;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+.material-browser{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px;margin:0 0 20px;}
+.material-card{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;min-width:0;padding:12px 13px;border:1px solid var(--border);border-radius:8px;background:var(--white);color:var(--dark);font-family:'DM Sans',sans-serif;text-align:left;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.material-card:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(31,31,28,.07);transform:translateY(-1px);}
+.material-card strong{display:block;margin-bottom:2px;font-size:13px;font-weight:600;}
+.material-card small{display:block;overflow:hidden;color:var(--muted);font-size:10px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap;}
+.material-card .sb-count{margin-left:0;}
+.material-swatch{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid #ddd3c1;border-radius:50%;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:700;letter-spacing:.04em;}
+.swatch-glass{background:linear-gradient(135deg,#fff 10%,#dceaf0 48%,#fff 82%);color:#31586a;}
+.swatch-plastic{background:linear-gradient(135deg,#fff,#eee9df);color:#6a6256;}
+.swatch-metal{background:linear-gradient(135deg,#f8f8f8,#a9adb1 50%,#f1f1f1);color:#3b4044;}
+.swatch-bamboo{background:linear-gradient(135deg,#ead7a9,#b88745);color:#60451f;}
+.swatch-paper{background:linear-gradient(135deg,#f4e9cd,#c8a66e);color:#6e5229;}
+.swatch-flexible{background:linear-gradient(135deg,#f1f4f5,#b7c2c7 48%,#e9edef);color:#46575e;}
+.swatch-bio{background:linear-gradient(135deg,#e9efd8,#a7bc75);color:#465c24;}
+.swatch-mixed{background:linear-gradient(135deg,#e8e2d6,#b9a783);color:#584c38;}
+.swatch-parts{background:var(--dark);border-color:var(--dark);color:var(--gold-light);}
+.material-note{margin:-8px 0 20px;color:#8a806f;font-size:11px;line-height:1.6;}
 .prod-grid.list-view{grid-template-columns:1fr;}
 .prod-grid.list-view .pc{display:grid;grid-template-columns:240px 1fr;min-height:210px;}
 .prod-grid.list-view .pc-img{height:100%;min-height:210px;padding:12px;}
@@ -1851,6 +1883,16 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .helper-item{border-right:none;border-bottom:1px solid var(--border);}
   .page-layout{display:block;padding:22px 18px 48px;}
   .sidebar{position:static;margin-bottom:24px;}
+  #page-products .mobile-filter-toggle{display:flex;}
+  #page-products .sidebar #product-filter-panel{display:none;margin:8px 0 0;}
+  #page-products .sidebar.filters-open #product-filter-panel{display:block;}
+  #page-products .sidebar .sb-box + .sb-box{display:none;}
+  #page-products .promo{display:block;padding:22px;}
+  #page-products .promo-action{margin:16px 0 0;}
+  .material-browser{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .material-card{grid-template-columns:32px 1fr auto;padding:11px;}
+  .material-swatch{width:32px;height:32px;}
+  .material-card small{display:none;}
   .sec-hdr{align-items:flex-start;flex-direction:column;gap:10px;}
   .view-ctrls{width:100%;flex-wrap:wrap;}
   .sort-sel{max-width:calc(100% - 90px);}
@@ -1950,6 +1992,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="nav-item">
       <button class="nav-link" data-group="glass" aria-haspopup="true" aria-expanded="false">Glass ▾</button>
       <div class="dropdown">
+        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','material-glass')">All Glass Packaging</a>
         <span class="dd-link" onclick="go('products','glass-oil')">Glass Essential Oil Bottle</span>
         <span class="dd-link" onclick="go('products','glass-dropper')">Glass Dropper Bottle</span>
         <span class="dd-link" onclick="go('products','glass-rollon')">Glass Roll On Bottle</span>
@@ -1980,6 +2023,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="nav-item">
       <button class="nav-link" data-group="plastic" aria-haspopup="true" aria-expanded="false">Plastic ▾</button>
       <div class="dropdown">
+        <a class="dd-link" href="/products/plastic-packaging/" onclick="event.preventDefault();go('products','material-plastic')">All Plastic Packaging</a>
         <span class="dd-link" onclick="go('products','plastic-pump')">Plastic Pump Bottle</span>
         <span class="dd-link" onclick="go('products','plastic-airless')">Airless Bottle</span>
         <span class="dd-link" onclick="go('products','plastic-airless-jar')">Airless Jar</span>
@@ -2004,6 +2048,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="nav-item">
       <button class="nav-link" data-group="bamboo" aria-haspopup="true" aria-expanded="false">Bamboo ▾</button>
       <div class="dropdown">
+        <a class="dd-link" href="/products/bamboo-packaging/" onclick="event.preventDefault();go('products','material-bamboo-wood')">All Bamboo &amp; Wood</a>
         <span class="dd-link" onclick="go('products','bamboo-bottle')">Bamboo Bottles</span>
         <span class="dd-link" onclick="go('products','bamboo-jar')">Bamboo Jars</span>
         <span class="dd-link" onclick="go('products','bamboo-cap')">Bamboo Caps &amp; Lids</span>
@@ -2015,6 +2060,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="nav-item">
       <button class="nav-link" data-group="alu" aria-haspopup="true" aria-expanded="false">Aluminum ▾</button>
       <div class="dropdown">
+        <a class="dd-link" href="/products/aluminum-packaging/" onclick="event.preventDefault();go('products','material-metal')">All Aluminum &amp; Metal</a>
         <span class="dd-link" onclick="go('products','alu-bottle')">Aluminum Bottle</span>
         <span class="dd-link" onclick="go('products','alu-can')">Aluminum Can</span>
         <span class="dd-link" onclick="go('products','alu-tin')">Aluminum Tin</span>
@@ -2027,6 +2073,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="nav-item">
       <button class="nav-link" data-group="eco" aria-haspopup="true" aria-expanded="false">Eco ▾</button>
       <div class="dropdown">
+        <a class="dd-link" href="/products/eco-friendly-packaging/" onclick="event.preventDefault();go('products','eco')">All Sustainable Packaging</a>
         <span class="dd-link" onclick="go('products','bio')">Biodegradable</span>
         <span class="dd-link" onclick="go('products','eco-wheat')">Wheat Straw Packaging</span>
         <span class="dd-link" onclick="go('products','eco-pulp')">Molded Pulp Packaging</span>
@@ -2530,72 +2577,125 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <span class="cur" id="bc-prod">Hot Picks</span></div></div>
   <div class="page-layout">
     <aside class="sidebar">
-      <div class="sb-box">
-        <div class="sb-title">Product Categories</div>
-        <div class="sb-link active" onclick="filterCat(this,'hot')">🔥 Hot Picks</div>
-        <div class="sb-link" onclick="filterCat(this,'glass')">🫙 Glass Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-oil')">Glass Essential Oil Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-dropper')">Glass Dropper Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-rollon')">Glass Roll On Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-spray')">Glass Spray Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-ampoule')">Glass Ampoule &amp; Vial</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-jar')">Glass Cream Jar</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-lotion')">Glass Lotion Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-perfume')">Glass Perfume Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-diffuser')">Glass Diffuser Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-violet')">Violet Glass Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'glass-nail')">Glass Nail Polish Bottle</div>
-        <div class="sb-link" onclick="filterCat(this,'beverage')">🍷 Beverage Bottles</div>
-        <div class="sb-link sub" onclick="filterCat(this,'wine-bottle')">Wine Bottles</div>
-        <div class="sb-link sub" onclick="filterCat(this,'spirit-bottle')">Liquor &amp; Spirit Bottles</div>
-        <div class="sb-link sub" onclick="filterCat(this,'beverage-closure')">Corks, Caps &amp; Closures</div>
-        <div class="sb-link" onclick="filterCat(this,'plastic')">🧴 Plastic Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-pump')">Plastic Pump Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-airless')">Airless Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-airless-jar')">Airless Jar</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-dual')">Dual Chamber Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-lotion')">Lotion Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-pet')">PET Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-hdpe')">HDPE Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-spray')">Plastic Spray Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-jar')">Plastic Jar</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-acrylic')">Acrylic Container</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-foam')">Plastic Foam Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-tube')">Plastic Tube</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-deodorant')">Deodorant Stick</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-makeup')">Makeup Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-travel')">Travel Size Set</div>
-        <div class="sb-link sub" onclick="filterCat(this,'personal-care')">Personal Care, Hair &amp; Sun Care</div>
-        <div class="sb-link sub" onclick="filterCat(this,'men-grooming')">Men's Grooming Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-pcr')">PCR &amp; Refill Plastic</div>
-        <div class="sb-link sub" onclick="filterCat(this,'plastic-closure')">Pumps, Caps &amp; Accessories</div>
-        <div class="sb-link sub" onclick="filterCat(this,'packaging-accessories')">Packaging Accessories</div>
-        <div class="sb-link" onclick="filterCat(this,'home-fragrance')">🕯️ Home Fragrance</div>
-        <div class="sb-link sub" onclick="filterCat(this,'spa-body')">Spa &amp; Body Care</div>
-        <div class="sb-link sub" onclick="filterCat(this,'hotel-amenity')">Hotel Amenities &amp; Travel Kits</div>
-        <div class="sb-link" onclick="filterCat(this,'bamboo')">🎋 Bamboo &amp; Wood</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bamboo-bottle')">Bamboo Bottles</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bamboo-jar')">Bamboo Jars</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bamboo-cap')">Bamboo Caps &amp; Lids</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bamboo-dropper')">Bamboo Dropper Bottles</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bamboo-rollon')">Bamboo Roll On Bottles</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bamboo-makeup')">Bamboo Makeup</div>
-        <div class="sb-link" onclick="filterCat(this,'alu')">🔩 Aluminum</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-bottle')">Aluminum Bottle</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-can')">Aluminum Can</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-tin')">Aluminum Tin</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-tube')">Aluminum Tube</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-atomizer')">Aluminum Atomizer</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-jar')">Aluminum Jar</div>
-        <div class="sb-link sub" onclick="filterCat(this,'alu-bag')">Aluminum Bag</div>
-        <div class="sb-link" onclick="filterCat(this,'eco')">🌱 Eco Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'bio')">Biodegradable</div>
-        <div class="sb-link sub" onclick="filterCat(this,'eco-wheat')">Wheat Straw Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'eco-pulp')">Molded Pulp Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'eco-refill')">Refill Packaging</div>
-        <div class="sb-link sub" onclick="filterCat(this,'paper-tube')">Paper Tube</div>
-        <div class="sb-link sub" onclick="filterCat(this,'paper-box')">Paper Box</div>
-        <div class="sb-link" onclick="go('oem')">⚙️ OEM/ODM Service</div>
+      <button class="mobile-filter-toggle" type="button" aria-controls="product-filter-panel" aria-expanded="false" onclick="toggleProductFilters(this)">Browse product categories <span aria-hidden="true">+</span></button>
+      <div class="sb-box" id="product-filter-panel">
+        <div class="sb-title">Product Finder</div>
+        <div class="sb-link active" onclick="filterCat(this,'hot')"><span>★ Hot Picks</span><span class="sb-count" data-cat-count="hot">—</span></div>
+        <div class="sb-section-label">Shop by material</div>
+
+        <details class="sb-group" open>
+          <summary>🫙 Glass Packaging</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-glass')"><span>All Glass Products</span><span class="sb-count" data-cat-count="material-glass">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'beverage')">Beverage &amp; Spirit Glass</div>
+          <div class="sb-link sub" onclick="filterCat(this,'wine-bottle')">Wine Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'spirit-bottle')">Liquor &amp; Spirit Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-oil')">Essential Oil Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-dropper')">Dropper Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-rollon')">Roll On Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-spray')">Spray Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-ampoule')">Ampoules &amp; Vials</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-jar')">Cream Jars</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-lotion')">Lotion Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-perfume')">Perfume Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-diffuser')">Diffuser Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-violet')">Violet Glass</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-nail')">Nail Polish Bottles</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>🧴 Plastic Packaging</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-plastic')"><span>All Plastic Products</span><span class="sb-count" data-cat-count="material-plastic">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-pet')">PET &amp; PETG Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-hdpe')">HDPE Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-lotion')">Lotion Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-pump')">Pump Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-airless')">Airless Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-airless-jar')">Airless Jars</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-dual')">Dual Chamber Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-spray')">Spray Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-foam')">Foam Pump Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-jar')">PP &amp; PETG Jars</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-acrylic')">Acrylic Containers</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-tube')">PE &amp; Barrier Tubes</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-deodorant')">Deodorant Sticks</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-makeup')">Makeup Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-travel')">Travel &amp; Sample Sets</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>🔩 Aluminum &amp; Metal</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-metal')"><span>All Metal Products</span><span class="sb-count" data-cat-count="material-metal">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-bottle')">Aluminum Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-can')">Aluminum Cans</div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-tin')">Aluminum Tins</div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-tube')">Aluminum Tubes</div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-atomizer')">Perfume Atomizers</div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-jar')">Aluminum Jars</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>🎋 Bamboo &amp; Wood</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-bamboo-wood')"><span>All Bamboo Products</span><span class="sb-count" data-cat-count="material-bamboo-wood">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'bamboo-bottle')">Bamboo Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'bamboo-jar')">Bamboo Jars</div>
+          <div class="sb-link sub" onclick="filterCat(this,'bamboo-cap')">Bamboo Caps &amp; Lids</div>
+          <div class="sb-link sub" onclick="filterCat(this,'bamboo-dropper')">Bamboo Dropper Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'bamboo-rollon')">Bamboo Roll On Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'bamboo-makeup')">Bamboo Makeup</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>📦 Paper &amp; Molded Pulp</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-paper-pulp')"><span>All Paper &amp; Pulp</span><span class="sb-count" data-cat-count="material-paper-pulp">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'paper-tube')">Paper Tubes</div>
+          <div class="sb-link sub" onclick="filterCat(this,'paper-box')">Paper Boxes &amp; Retail Kits</div>
+          <div class="sb-link sub" onclick="filterCat(this,'eco-pulp')">Molded Pulp Packaging</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>◫ Flexible Films &amp; Laminates</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-flexible')"><span>All Flexible Packaging</span><span class="sb-count" data-cat-count="material-flexible">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'alu-bag')">Sachets, Films &amp; Pouches</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>🌾 Bio-Based Materials</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-bio')"><span>All Bio-Based Products</span><span class="sb-count" data-cat-count="material-bio">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'bio')">Biodegradable Materials</div>
+          <div class="sb-link sub" onclick="filterCat(this,'eco-wheat')">Wheat Straw Packaging</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>▦ Mixed-Material Kits</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'material-mixed')"><span>All Mixed Kits</span><span class="sb-count" data-cat-count="material-mixed">—</span></div>
+        </details>
+
+        <div class="sb-section-label">Sustainable options</div>
+        <details class="sb-group">
+          <summary>♻ Recycled &amp; Refill</summary>
+          <div class="sb-link sub" onclick="filterCat(this,'eco')">All Sustainable Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-pcr')">PCR &amp; Refill Plastic</div>
+          <div class="sb-link sub" onclick="filterCat(this,'eco-refill')">Refill Systems</div>
+        </details>
+
+        <div class="sb-section-label">Components &amp; applications</div>
+        <details class="sb-group">
+          <summary>⚙️ Pumps, Caps &amp; Components</summary>
+          <div class="sb-link material-all" onclick="filterCat(this,'components')"><span>All Components</span><span class="sb-count" data-cat-count="components">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'plastic-closure')">Pumps, Caps &amp; Sprayers</div>
+          <div class="sb-link sub" onclick="filterCat(this,'beverage-closure')">Corks &amp; Beverage Closures</div>
+          <div class="sb-link sub" onclick="filterCat(this,'packaging-accessories')">Applicators &amp; Accessories</div>
+        </details>
+
+        <details class="sb-group">
+          <summary>Product Use</summary>
+          <div class="sb-link sub" onclick="filterCat(this,'home-fragrance')">Home Fragrance</div>
+          <div class="sb-link sub" onclick="filterCat(this,'personal-care')">Personal, Hair &amp; Sun Care</div>
+          <div class="sb-link sub" onclick="filterCat(this,'men-grooming')">Men's Grooming</div>
+          <div class="sb-link sub" onclick="filterCat(this,'spa-body')">Spa &amp; Body Care</div>
+          <div class="sb-link sub" onclick="filterCat(this,'hotel-amenity')">Hotel Amenities</div>
+        </details>
+        <div class="sb-link" onclick="go('oem')">OEM/ODM Service <span>→</span></div>
       </div>
       <div class="sb-box">
         <div class="sb-title">Quick Contact</div>
@@ -2609,7 +2709,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </aside>
     <div class="main-content">
       <div class="promo">
-        <div class="promo-text"><h3>✦ 2026 Bestselling Packaging</h3><p>All products eligible for custom logo &amp; OEM/ODM. Free samples available.</p></div>
+        <div class="promo-text"><h3>Browse 328 Products by Material</h3><p>Start with the container material, then narrow by bottle type, closure, application and decoration requirement.</p></div>
         <div class="promo-action"><button class="btn-primary" onclick="openModal('sample')">Request Sample</button></div>
       </div>
       <div class="sec-hdr">
@@ -2621,29 +2721,41 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         </div>
       </div>
       <div class="cat-copy" id="cat-copy"></div>
-      <div class="quick-filter-row" aria-label="Quick product filters">
+      <div class="filter-kicker">Primary material</div>
+      <div class="material-browser" aria-label="Browse products by primary material">
+        <button class="material-card" type="button" onclick="go('products','material-glass')"><span class="material-swatch swatch-glass">GL</span><span><strong>Glass</strong><small>Bottles, jars, vials</small></span><span class="sb-count" data-cat-count="material-glass">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-plastic')"><span class="material-swatch swatch-plastic">PL</span><span><strong>Plastic</strong><small>PET, PETG, HDPE, PP</small></span><span class="sb-count" data-cat-count="material-plastic">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-metal')"><span class="material-swatch swatch-metal">MT</span><span><strong>Aluminum &amp; Metal</strong><small>Bottles, tins, tubes</small></span><span class="sb-count" data-cat-count="material-metal">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-bamboo-wood')"><span class="material-swatch swatch-bamboo">BW</span><span><strong>Bamboo &amp; Wood</strong><small>Shells, caps, components</small></span><span class="sb-count" data-cat-count="material-bamboo-wood">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-paper-pulp')"><span class="material-swatch swatch-paper">PP</span><span><strong>Paper &amp; Pulp</strong><small>Boxes, tubes, inserts</small></span><span class="sb-count" data-cat-count="material-paper-pulp">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-flexible')"><span class="material-swatch swatch-flexible">FL</span><span><strong>Flexible Films</strong><small>Pouches, sachets, laminates</small></span><span class="sb-count" data-cat-count="material-flexible">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-bio')"><span class="material-swatch swatch-bio">BI</span><span><strong>Bio-Based</strong><small>PLA, Bio-PE, wheat straw</small></span><span class="sb-count" data-cat-count="material-bio">—</span></button>
+        <button class="material-card" type="button" onclick="go('products','material-mixed')"><span class="material-swatch swatch-mixed">MX</span><span><strong>Mixed-Material Kits</strong><small>Complete sets and systems</small></span><span class="sb-count" data-cat-count="material-mixed">—</span></button>
+      </div>
+      <p class="material-note">Each product appears once in the primary-material view. Product-type and application filters may overlap for multi-component packaging systems.</p>
+      <div class="filter-kicker">Product type &amp; application</div>
+      <div class="quick-filter-row" aria-label="Quick product type and application filters">
+        <button onclick="go('products','spirit-bottle')">Liquor Bottles</button>
+        <button onclick="go('products','wine-bottle')">Wine Bottles</button>
+        <button onclick="go('products','glass-perfume')">Perfume Bottles</button>
+        <button onclick="go('products','glass-nail')">Nail Polish Bottles</button>
         <button onclick="go('products','glass-dropper')">Serum Droppers</button>
         <button onclick="go('products','glass-rollon')">Roll On Bottles</button>
         <button onclick="go('products','glass-ampoule')">Ampoules &amp; Vials</button>
         <button onclick="go('products','plastic-airless')">Airless Pumps</button>
-        <button onclick="go('products','plastic-dual')">Dual Chamber</button>
+        <button onclick="go('products','plastic-pump')">Plastic Pump Bottles</button>
+        <button onclick="go('products','plastic-pet')">PET &amp; PETG Bottles</button>
+        <button onclick="go('products','plastic-hdpe')">HDPE Bottles</button>
         <button onclick="go('products','plastic-tube')">Cosmetic Tubes</button>
         <button onclick="go('products','plastic-makeup')">Makeup Packaging</button>
-        <button onclick="go('products','personal-care')">Personal Care</button>
-        <button onclick="go('products','men-grooming')">Men's Grooming</button>
+        <button onclick="go('products','plastic-closure')">Pumps &amp; Caps</button>
         <button onclick="go('products','home-fragrance')">Home Fragrance</button>
         <button onclick="go('products','hotel-amenity')">Hotel Amenities</button>
-        <button onclick="go('products','spa-body')">Spa Body Care</button>
-        <button onclick="go('products','wine-bottle')">Wine Bottles</button>
-        <button onclick="go('products','spirit-bottle')">Liquor Bottles</button>
-        <button onclick="go('products','glass-nail')">Nail Polish Bottles</button>
+        <button onclick="go('products','personal-care')">Personal Care</button>
+        <button onclick="go('products','men-grooming')">Men's Grooming</button>
         <button onclick="go('products','alu-can')">Aluminum Cans</button>
         <button onclick="go('products','alu-atomizer')">Perfume Atomizers</button>
-        <button onclick="go('products','plastic-closure')">Pumps &amp; Caps</button>
-        <button onclick="go('products','packaging-accessories')">Accessories</button>
-        <button onclick="go('products','plastic-deodorant')">Deodorant Sticks</button>
         <button onclick="go('products','eco-refill')">Refill Packaging</button>
-        <button onclick="go('products','alu-bag')">Sachets &amp; Pouches</button>
         <button onclick="go('products','paper-box')">Gift Boxes</button>
       </div>
       <div class="prod-grid" id="products-grid"></div>
@@ -3122,12 +3234,12 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <a href="/cosmetic-packaging-supplier-china/">Cosmetic Packaging Supplier China</a>
       <a href="/wholesale-cosmetic-packaging/">Wholesale Cosmetic Packaging</a>
       <a href="/custom-cosmetic-packaging/">Custom Cosmetic Packaging</a>
-      <a href="/products/glass-packaging/">Glass Dropper Bottles</a>
+      <a href="/products/serum-dropper-bottles/">Glass Dropper Bottles</a>
       <a href="/products/perfume-bottles/">Glass Perfume Bottles</a>
       <a href="/products/cream-jars/">Glass Cream Jars</a>
       <a href="/products/plastic-packaging/">Plastic Cosmetic Packaging</a>
       <a href="/products/airless-bottles/">Airless Pump Bottles</a>
-      <a href="/products/cream-jars/">Plastic Cosmetic Jars</a>
+      <a href="/products/cosmetic-jars/">Cosmetic Jars</a>
       <a href="/products/cosmetic-tubes/">Cosmetic Tubes</a>
       <a href="/products/personal-care-packaging/">Personal Care Packaging</a>
       <a href="/products/mens-grooming-packaging/">Men's Grooming Packaging</a>

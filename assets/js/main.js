@@ -164,6 +164,11 @@ CAT_TITLES['material-paper-pulp'] = 'Paper & Molded Pulp Packaging';
 CAT_TITLES['material-flexible'] = 'Flexible Films & Laminates';
 CAT_TITLES['material-bio'] = 'Bio-Based Packaging Materials';
 CAT_TITLES['material-mixed'] = 'Mixed-Material Packaging Kits';
+CAT_TITLES['beer-bottle'] = 'Glass Beer & Growler Bottles';
+CAT_TITLES['glass-decanter'] = 'Glass Decanter & Flask Bottles';
+CAT_TITLES['juice-soda-bottle'] = 'Glass Juice & Soda Bottles';
+CAT_TITLES['oil-vinegar-bottle'] = 'Glass Oil & Vinegar Bottles';
+CAT_TITLES['sauce-syrup-bottle'] = 'Glass Sauce & Syrup Bottles';
 CAT_TITLES.components = 'Pumps, Caps & Components';
 
 const CAT_COPY = {
@@ -176,6 +181,11 @@ const CAT_COPY = {
   'material-flexible':['Primary-Material Flexible Packaging', 'Refill pouches, sachets, barrier laminates, flexible tubes, films and sealing materials grouped by their main flexible packaging structure.'],
   'material-bio':['Primary-Material Bio-Based Packaging', 'PLA, Bio-PE, wheat straw and other plant-derived material formats grouped by the main material used for the pack.'],
   'material-mixed':['Mixed-Material Packaging Kits', 'Complete packaging sets, component kits, sample boards and turnkey launch systems that intentionally combine several primary materials.'],
+  'beer-bottle':['Glass Beer and Growler Bottle Shapes', 'Explore custom longneck, stubby, growler and crown-finish glass bottle concepts for beer, cider, kombucha and carbonated beverage projects. Pressure targets, filling conditions and closure fit are confirmed by project.'],
+  'glass-decanter':['Custom Glass Decanters and Flask Bottles', 'Heavy spirit decanters, flat pocket flasks and fluted-neck beverage decanters developed around capacity, closure, decoration, filling process and export packing requirements.'],
+  'juice-soda-bottle':['Glass Juice, Dairy and Soda Bottles', 'Custom clear and colored glass bottles for juice, milk, cold brew, tea, soda, tonic water and specialty beverage programs, with crown, lug and screw finishes available by project.'],
+  'oil-vinegar-bottle':['Glass Oil and Vinegar Bottle Shapes', 'Tall Dorica and square Marasca-style glass bottle concepts for olive oil, vinegar, infused oil, dressing and gourmet food packaging.'],
+  'sauce-syrup-bottle':['Glass Sauce and Syrup Bottle Shapes', 'Woozy sauce bottles and fluted-neck syrup decanters for hot sauce, marinades, dressings, syrup and liquid seasoning packaging.'],
   components:['Pumps, Caps and Packaging Components', 'Pumps, sprayers, caps, corks, droppers, rollerballs, applicators, liners and matching accessories for glass, plastic, aluminum and mixed-material packaging.'],
   glass:['Glass Cosmetic Packaging Supplier', 'Glass packaging is ideal for premium skincare, perfume, serum, essential oils and formulas that need strong compatibility, high clarity and a luxury hand feel.'],
   'glass-oil':['Glass Essential Oil Bottles', 'Amber, clear and frosted glass dropper bottles, roller bottles and essential oil containers with UV-protective options for aromatherapy and active formulas.'],
@@ -247,7 +257,7 @@ const PRIMARY_MATERIAL_IDS = {
     'p55','p56','p57','p72','p73','p90','p93','p94','p95','p96','p97','p98','p112','p118','p119','p120',
     'p121','p131','p132','p133','p134','p149','p153','p164','p173','p186','p217','p218','p219','p220','p221','p223',
     'p224','p277','p289','p290','p299','p305','p316','p317','p318','p319','p320','p321','p322','p323','p324','p325',
-    'p328'
+    'p328','p329','p330','p331','p332','p333','p334','p335','p336','p337','p338','p339','p340','p341','p342','p343'
   ],
   'material-plastic': [
     'p2','p10','p14','p16','p18','p19','p20','p22','p23','p41','p42','p43','p44','p45','p46','p47',
@@ -295,7 +305,7 @@ function installProductItemListSchema() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     '@id': 'https://www.glorystarpack.com/#product-list',
-    name: 'Cosmetic Packaging Products',
+    name: 'Glass Bottle and Packaging Products',
     itemListElement: PRODS.map((p, i) => ({
       '@type': 'ListItem',
       position: i + 1,
@@ -469,6 +479,11 @@ const FILTER_SEO_URLS = {
   beverage: '/products/beverage-bottles/',
   'wine-bottle': '/products/wine-bottles/',
   'spirit-bottle': '/products/liquor-bottles/',
+  'beer-bottle': '/products/beer-bottles/',
+  'glass-decanter': '/products/beverage-bottles/',
+  'juice-soda-bottle': '/products/beverage-bottles/',
+  'oil-vinegar-bottle': '/products/glass-packaging/',
+  'sauce-syrup-bottle': '/products/glass-packaging/',
   'glass-oil': '/products/serum-dropper-bottles/',
   'glass-dropper': '/products/serum-dropper-bottles/',
   'glass-perfume': '/products/perfume-bottles/',
@@ -517,8 +532,16 @@ function setMeta(page, sub) {
   let robots = 'index, follow, max-image-preview:large';
   if (page === 'products' && sub) {
     const clean = (CAT_TITLES[sub] || sub).replace(/[^\w\s/&-]/g, '').trim();
-    title = `${clean} | Cosmetic Packaging Manufacturer | GloryStarPack`;
-    desc = `Browse ${clean.toLowerCase()} options from GloryStarPack, a cosmetic packaging manufacturer with OEM logo printing, custom packaging, samples, factory-direct pricing and worldwide shipping.`;
+    const glassBottleSub = [
+      'material-glass','glass','beverage','wine-bottle','spirit-bottle','beer-bottle',
+      'glass-decanter','juice-soda-bottle','oil-vinegar-bottle','sauce-syrup-bottle'
+    ].includes(sub);
+    title = glassBottleSub
+      ? `${clean} | Custom Glass Bottle Manufacturer | GloryStarPack`
+      : `${clean} | Cosmetic Packaging Manufacturer | GloryStarPack`;
+    desc = glassBottleSub
+      ? `Browse ${clean.toLowerCase()} from GloryStarPack, with custom bottle shapes, closure matching, decoration, samples, export packing and worldwide shipping.`
+      : `Browse ${clean.toLowerCase()} options from GloryStarPack, a cosmetic packaging manufacturer with OEM logo printing, custom packaging, samples, factory-direct pricing and worldwide shipping.`;
     canonical = `https://www.glorystarpack.com${filterCanonicalUrl(sub)}`;
   } else if (page && page !== 'home') {
     canonical = `https://www.glorystarpack.com/#${page}`;
@@ -607,7 +630,8 @@ function setActiveNav(page, sub) {
   if (page === 'products') {
     let group = '';
     if (sub === 'material-glass' || (sub && sub.startsWith('glass'))) group = 'glass';
-    else if (['beverage','wine-bottle','spirit-bottle','beverage-closure'].includes(sub)) group = 'beverage';
+    else if (['beverage','wine-bottle','spirit-bottle','beer-bottle','juice-soda-bottle','beverage-closure'].includes(sub)) group = 'beverage';
+    else if (['oil-vinegar-bottle','sauce-syrup-bottle'].includes(sub)) group = 'glass';
     else if (sub === 'material-plastic' || sub === 'components' || (sub && sub.startsWith('plastic'))) group = 'plastic';
     else if (sub === 'material-bamboo-wood' || (sub && sub.startsWith('bamboo'))) group = 'bamboo';
     else if (sub === 'material-metal' || (sub && sub.startsWith('alu'))) group = 'alu';
@@ -640,8 +664,16 @@ function go(page, sub, skipHash, productPage = 1) {
 }
 
 // =========================================================== PRODUCT CARD HTML
-const productPhotoIds = new Set(Array.from({length:316}, (_, i) => `p${i + 1}`));
+const productPhotoIds = new Set([
+  ...Array.from({length:316}, (_, i) => `p${i + 1}`),
+  ...Array.from({length:15}, (_, i) => `p${i + 329}`)
+]);
 const PRODUCT_IMAGE_SETS = [
+  {cat:'beer-bottle', images:['assets/brand/glass-beer-bottle-collection-2026.jpg','assets/product-photos/p336-0.jpg','assets/product-photos/p337-0.jpg','assets/product-photos/p338-0.jpg']},
+  {cat:'glass-decanter', images:['assets/product-photos/p334-0.jpg','assets/product-photos/p333-0.jpg','assets/product-photos/p343-0.jpg']},
+  {cat:'juice-soda-bottle', images:['assets/product-photos/p338-0.jpg','assets/product-photos/p339-0.jpg']},
+  {cat:'oil-vinegar-bottle', images:['assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg']},
+  {cat:'sauce-syrup-bottle', images:['assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg']},
   {cat:'wine-bottle', images:['assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-1440.webp']},
   {cat:'spirit-bottle', images:['assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-1440.webp']},
   {cat:'beverage-closure', images:['assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp']},
@@ -727,6 +759,11 @@ function productSubitems(p) {
   const closure = p.cats.includes('beverage-closure') ? 'Cork / Cap / Pourer'
     : p.cats.includes('wine-bottle') ? 'Cork / ROPP'
     : p.cats.includes('spirit-bottle') ? 'Bar Top / Screw Cap'
+    : p.cats.includes('glass-growler') ? 'Screw Cap / Swing Top'
+    : p.cats.includes('beer-bottle') ? 'Crown / Swing Top'
+    : p.cats.includes('juice-soda-bottle') ? 'Crown / Lug / Screw'
+    : p.cats.includes('oil-vinegar-bottle') ? 'ROPP / Pourer'
+    : p.cats.includes('sauce-syrup-bottle') ? 'Lug / Orifice Cap'
     : isAccessory ? 'Matched Component'
     : isPackagingKit ? 'Complete Set'
     : p.cats.includes('glass-rollon') ? 'Rollerball / Cap'
@@ -761,6 +798,10 @@ function productSubitems(p) {
     : 'Custom Closure';
   const use = p.cats.includes('wine-bottle') ? 'Wine / Sparkling'
     : p.cats.includes('spirit-bottle') ? 'Whiskey / Spirits'
+    : p.cats.includes('beer-bottle') ? 'Beer / Kombucha'
+    : p.cats.includes('juice-soda-bottle') ? 'Juice / Soda'
+    : p.cats.includes('oil-vinegar-bottle') ? 'Oil / Vinegar'
+    : p.cats.includes('sauce-syrup-bottle') ? 'Sauce / Syrup'
     : p.cats.includes('beverage-closure') ? 'Bottle Closure'
     : isAccessory ? 'Accessory Matching'
     : isPackagingKit ? 'One-Stop Project'
@@ -807,7 +848,12 @@ const FEATURED_CARD_AVIF = {
   p7: 'assets/product-photos/p7-0-480.avif',
   p2: 'assets/product-photos/p2-0-480.avif',
   p4: 'assets/product-photos/p4-0-480.avif',
-  p40: 'assets/product-photos/p40-0-480.avif'
+  p40: 'assets/product-photos/p40-0-480.avif',
+  p328: 'assets/brand/glass-beer-bottle-collection-2026-768.avif',
+  ...Object.fromEntries(Array.from({length:15}, (_, i) => {
+    const id = `p${i + 329}`;
+    return [id, `assets/product-photos/${id}-0-480.avif`];
+  }))
 };
 
 function pcHTML(p, small) {
@@ -815,8 +861,8 @@ function pcHTML(p, small) {
   const bl = {hot:'HOT',new:'NEW',eco:'ECO',custom:'CUSTOM'}[p.badge]||'HOT';
   const img = productImage(p);
   const responsiveImage = FEATURED_CARD_AVIF[p.id]
-    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(p.name)} cosmetic packaging photo" loading="lazy" decoding="async"></picture>`
-    : `<img src="${img}" alt="${safeText(p.name)} cosmetic packaging photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
+    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(p.name)} packaging product photo" loading="lazy" decoding="async"></picture>`
+    : `<img src="${img}" alt="${safeText(p.name)} packaging product photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
   const safeName = p.name.replace(/'/g, "\\'");
   return `<div class="pc fade-in" onclick="showDetail('${p.id}')">
@@ -895,6 +941,9 @@ function getProductsByCat(cat) {
 
 function updateCategoryCounts() {
   if (!hasProductData()) return;
+  document.querySelectorAll('[data-total-products]').forEach(el => {
+    el.textContent = PRODS.length;
+  });
   document.querySelectorAll('[data-cat-count]').forEach(el => {
     el.textContent = getProductsByCat(el.dataset.catCount).length;
   });

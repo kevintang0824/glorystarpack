@@ -106,6 +106,9 @@
     "cosmetic logo printing methods",
     "cosmetic packaging sample approval checklist",
     "glass beverage bottles",
+    "Hock and Riesling wine bottles",
+    "glass spirit decanters",
+    "glass flask bottles",
     "wholesale wine bottles",
     "liquor and spirit bottles",
     "whiskey bottle packaging",
@@ -113,7 +116,12 @@
     "wholesale whiskey bottles",
     "wholesale vodka bottles",
     "custom gin bottles",
-    "sparkling wine bottles"
+    "sparkling wine bottles",
+    "longneck and stubby beer bottles",
+    "glass growler bottles",
+    "glass juice and soda bottles",
+    "Dorica and Marasca oil bottles",
+    "Woozy sauce bottles"
   ],
   "citationTargets": [
     {
@@ -365,7 +373,7 @@
       "url": "https://www.glorystarpack.com/products/beverage-bottles/",
       "pageType": "product category",
       "primaryIntent": "glass beverage bottle supplier",
-      "summary": "Glass beverage bottle hub for beer, wine, spirits, sparkling drinks, juice and specialty beverages with matching corks, caps, decoration and export packing."
+      "summary": "Glass beverage bottle hub for beer, wine, spirits, sparkling drinks, juice and specialty beverages, including longneck, stubby, growler, Hock, flask and decanter shape families with matching corks, caps, decoration and export packing."
     },
     {
       "url": "https://www.glorystarpack.com/products/beer-bottles/",
@@ -377,13 +385,13 @@
       "url": "https://www.glorystarpack.com/products/wine-bottles/",
       "pageType": "product category",
       "primaryIntent": "wholesale glass wine bottles",
-      "summary": "Bordeaux, Burgundy, sparkling and mini glass wine bottles with glass color, neck finish, cork and cap selection guidance."
+      "summary": "Bordeaux, Burgundy, Hock, Riesling, dessert, sparkling and mini glass wine bottles with glass color, neck finish, cork and cap selection guidance."
     },
     {
       "url": "https://www.glorystarpack.com/products/liquor-bottles/",
       "pageType": "product category",
       "primaryIntent": "liquor and spirit bottle manufacturer",
-      "summary": "Heavy-base whiskey bottles, vodka bottles, gin bottles, amber craft spirit bottles and mini liquor bottles with matched closures."
+      "summary": "Heavy-base whiskey bottles, Nordic rounds, glass decanters, flat flasks, heritage moonshine bottles, vodka bottles, gin bottles and mini liquor bottles with matched closures."
     },
     {
       "url": "https://www.glorystarpack.com/products/whiskey-bottles/",

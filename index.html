@@ -1993,6 +1993,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <button class="nav-link" data-group="glass" aria-haspopup="true" aria-expanded="false">Glass ▾</button>
       <div class="dropdown">
         <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','material-glass')">All Glass Packaging</a>
+        <a class="dd-link" href="/products/beer-bottles/" onclick="event.preventDefault();go('products','beer-bottle')">Glass Beer &amp; Growler Bottles</a>
+        <a class="dd-link" href="/products/liquor-bottles/" onclick="event.preventDefault();go('products','glass-decanter')">Glass Decanter &amp; Flask Bottles</a>
+        <a class="dd-link" href="/products/beverage-bottles/" onclick="event.preventDefault();go('products','juice-soda-bottle')">Glass Juice &amp; Soda Bottles</a>
+        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','oil-vinegar-bottle')">Glass Oil &amp; Vinegar Bottles</a>
+        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','sauce-syrup-bottle')">Glass Sauce &amp; Syrup Bottles</a>
         <span class="dd-link" onclick="go('products','glass-oil')">Glass Essential Oil Bottle</span>
         <span class="dd-link" onclick="go('products','glass-dropper')">Glass Dropper Bottle</span>
         <span class="dd-link" onclick="go('products','glass-rollon')">Glass Roll On Bottle</span>
@@ -2589,6 +2594,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
           <div class="sb-link sub" onclick="filterCat(this,'beverage')">Beverage &amp; Spirit Glass</div>
           <div class="sb-link sub" onclick="filterCat(this,'wine-bottle')">Wine Bottles</div>
           <div class="sb-link sub" onclick="filterCat(this,'spirit-bottle')">Liquor &amp; Spirit Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'beer-bottle')">Beer &amp; Growler Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'glass-decanter')">Decanter &amp; Flask Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'juice-soda-bottle')">Juice &amp; Soda Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'oil-vinegar-bottle')">Oil &amp; Vinegar Bottles</div>
+          <div class="sb-link sub" onclick="filterCat(this,'sauce-syrup-bottle')">Sauce &amp; Syrup Bottles</div>
           <div class="sb-link sub" onclick="filterCat(this,'glass-oil')">Essential Oil Bottles</div>
           <div class="sb-link sub" onclick="filterCat(this,'glass-dropper')">Dropper Bottles</div>
           <div class="sb-link sub" onclick="filterCat(this,'glass-rollon')">Roll On Bottles</div>
@@ -2709,7 +2719,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </aside>
     <div class="main-content">
       <div class="promo">
-        <div class="promo-text"><h3>Browse 328 Products by Material</h3><p>Start with the container material, then narrow by bottle type, closure, application and decoration requirement.</p></div>
+        <div class="promo-text"><h3>Browse <span data-total-products>343</span> Products by Material</h3><p>Start with the container material, then narrow by bottle type, closure, application and decoration requirement.</p></div>
         <div class="promo-action"><button class="btn-primary" onclick="openModal('sample')">Request Sample</button></div>
       </div>
       <div class="sec-hdr">
@@ -2737,6 +2747,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <div class="quick-filter-row" aria-label="Quick product type and application filters">
         <button onclick="go('products','spirit-bottle')">Liquor Bottles</button>
         <button onclick="go('products','wine-bottle')">Wine Bottles</button>
+        <button onclick="go('products','beer-bottle')">Beer &amp; Growler Bottles</button>
+        <button onclick="go('products','glass-decanter')">Decanter &amp; Flask Bottles</button>
+        <button onclick="go('products','juice-soda-bottle')">Juice &amp; Soda Bottles</button>
+        <button onclick="go('products','oil-vinegar-bottle')">Oil &amp; Vinegar Bottles</button>
+        <button onclick="go('products','sauce-syrup-bottle')">Sauce &amp; Syrup Bottles</button>
         <button onclick="go('products','glass-perfume')">Perfume Bottles</button>
         <button onclick="go('products','glass-nail')">Nail Polish Bottles</button>
         <button onclick="go('products','glass-dropper')">Serum Droppers</button>
@@ -2850,7 +2865,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <div class="about-img-box">
           <img fetchpriority="low" decoding="async" height="905" width="1738" src="assets/brand/factory-oem-quality-2026.jpg" alt="GloryStarPack cosmetic packaging factory sample room with bottles, caps and quality samples" loading="lazy">
           <div class="about-proof-grid" aria-label="Factory proof points">
-            <div class="about-proof"><strong>328</strong><span>Online product options</span></div>
+            <div class="about-proof"><strong data-total-products>343</strong><span>Online product options</span></div>
             <div class="about-proof"><strong>OEM</strong><span>Custom project support</span></div>
             <div class="about-proof"><strong>QC</strong><span>Sample and fit review</span></div>
           </div>
@@ -2864,7 +2879,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         </div>
       </div>
       <div class="about-nums">
-        <div class="about-num"><div class="n">328</div><div class="l">Product Options</div></div>
+        <div class="about-num"><div class="n" data-total-products>343</div><div class="l">Product Options</div></div>
         <div class="about-num"><div class="n">6</div><div class="l">Core Material Groups</div></div>
         <div class="about-num"><div class="n">OEM</div><div class="l">Decoration Support</div></div>
         <div class="about-num"><div class="n">QC</div><div class="l">Fit &amp; Sample Review</div></div>
@@ -3006,7 +3021,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </section>
 
     <div class="news-signal-row" aria-label="Current packaging signals">
-      <div class="news-signal"><strong>328 SKUs</strong><span>Expanded catalog coverage for beauty, beverage, bottles, jars, tubes, closures, samples and kits.</span></div>
+      <div class="news-signal"><strong><span data-total-products>343</span> SKUs</strong><span>Expanded catalog coverage for beauty, beverage, bottles, jars, tubes, closures, samples and kits.</span></div>
       <div class="news-signal"><strong>5 new pages</strong><span>Fresh landing pages for samples, refill pouches, amenities and grooming.</span></div>
       <div class="news-signal"><strong>Fast RFQ</strong><span>Material, capacity, finish, MOQ and destination now guide quote intake.</span></div>
       <div class="news-signal"><strong>AI-ready</strong><span>LLM and schema updates help search engines understand packaging categories.</span></div>

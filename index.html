@@ -17,8 +17,9 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="sitemap" type="application/xml" href="/image-sitemap.xml">
 <link rel="index" href="/site-index/">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="alternate icon" href="/favicon.ico" sizes="64x64">
+<link rel="icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png" sizes="192x192">
+<link rel="alternate icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64 128x128 256x256">
 <link rel="preload" as="image" href="/assets/brand/custom-glass-bottle-hero-2026-1600.avif" type="image/avif" imagesrcset="/assets/brand/custom-glass-bottle-hero-2026-960.avif 960w, /assets/brand/custom-glass-bottle-hero-2026-1600.avif 1600w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" as="script" href="/assets/js/main.js" fetchpriority="low">
 <meta property="og:type" content="website">
@@ -58,8 +59,8 @@
       "foundingLocation": "Xiamen, Fujian, China",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.glorystarpack.com/favicon.svg",
-        "contentUrl": "https://www.glorystarpack.com/favicon.svg",
+        "url": "https://www.glorystarpack.com/assets/brand/glorystarpack-logo-mark-2026.png",
+        "contentUrl": "https://www.glorystarpack.com/assets/brand/glorystarpack-logo-mark-2026.png",
         "width": 512,
         "height": 512,
         "caption": "GloryStarPack"
@@ -900,10 +901,10 @@ a,button{cursor:pointer;}
 /* HEADER */
 header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:500;box-shadow:0 1px 8px rgba(0,0,0,.06);}
 .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:72px;gap:28px;}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;flex-shrink:0;}
-.logo-icon{width:44px;height:44px;background:var(--dark);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:22px;}
-.logo-text .brand{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--dark);letter-spacing:.04em;line-height:1;display:block;}
-.logo-text .sub{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;display:block;}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;cursor:pointer;flex-shrink:0;}
+.logo-mark{width:48px;height:48px;display:block;object-fit:contain;flex:0 0 48px;}
+.logo-text .brand{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;color:#123b67;letter-spacing:.115em;line-height:1.08;display:block;}
+.logo-text .sub{font-size:9px;color:#8a682d;letter-spacing:.105em;text-transform:uppercase;display:block;margin-top:4px;}
 .header-search{flex:1;max-width:420px;position:relative;}
 .header-search input{width:100%;padding:9px 16px 9px 40px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--bg);outline:none;transition:border-color .2s;}
 .header-search input:focus{border-color:var(--gold);}
@@ -1312,7 +1313,8 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 /* FOOTER */
 footer{background:var(--dark);color:#aaa;padding:0;}
 .footer-inner{max-width:1280px;margin:0 auto;padding:42px 24px 34px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
-.footer-brand .brand-nm{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;margin-bottom:4px;}
+.footer-logo-lockup{display:inline-flex;align-items:center;justify-content:center;width:178px;margin-bottom:11px;padding:10px 12px;background:#f7f3eb;border:1px solid rgba(200,169,110,.34);border-radius:10px;text-decoration:none;}
+.footer-logo-lockup img{display:block;width:100%;height:auto;}
 .footer-brand .tagline{font-size:11px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
 .footer-brand p{font-size:13px;line-height:1.7;color:#888;max-width:280px;}
 .footer-contacts{margin-top:20px;}
@@ -1449,13 +1451,23 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 @supports (background-image:image-set(url("assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.webp") type("image/webp") 1x)){
   .cs-bg-3{background-image:image-set(url("assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.webp") type("image/webp") 1x,url("assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.jpg") type("image/jpeg") 1x);}
 }
+.cs-bg-4{background:#e8e5df url("assets/brand/plastic-complete-product-assortment-2026.jpg") center 48%/cover no-repeat;}
+@supports (background-image:image-set(url("assets/brand/plastic-complete-product-assortment-2026-1600.avif") type("image/avif") 1x)){
+  .cs-bg-4{background-image:image-set(url("assets/brand/plastic-complete-product-assortment-2026-1600.avif") type("image/avif") 1x,url("assets/brand/plastic-complete-product-assortment-2026.jpg") type("image/jpeg") 1x);}
+}
+.cs-bg-5{background:#d8d2c6 url("assets/brand/cosmetic-closures-components-v2-2026.jpg") center 48%/cover no-repeat;}
+@supports (background-image:image-set(url("assets/brand/cosmetic-closures-components-v2-2026-1600.avif") type("image/avif") 1x)){
+  .cs-bg-5{background-image:image-set(url("assets/brand/cosmetic-closures-components-v2-2026-1600.avif") type("image/avif") 1x,url("assets/brand/cosmetic-closures-components-v2-2026.jpg") type("image/jpeg") 1x);}
+}
 .cs-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,12,12,.96) 0%,rgba(16,14,11,.82) 36%,rgba(16,14,11,.28) 68%,rgba(12,12,12,.18) 100%);}
 .cs-bg-1::after{background:radial-gradient(circle at 78% 48%,rgba(200,169,110,.14),transparent 32%),linear-gradient(90deg,rgba(10,10,10,.92) 0%,rgba(15,13,10,.72) 42%,rgba(10,10,10,.05) 78%);}
+.cs-bg-4::after,.cs-bg-5::after{background:linear-gradient(90deg,rgba(7,24,43,.97) 0%,rgba(12,43,74,.88) 38%,rgba(12,43,74,.28) 69%,rgba(7,24,43,.08) 100%);}
 .cs-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 52px;height:100%;display:flex;align-items:center;gap:44px;}
 .cs-content{flex:1;min-width:0;max-width:640px;}
 .cs-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);color:var(--gold-light);padding:5px 14px;border-radius:20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;}
 .cs-tag-green{background:rgba(74,124,89,.2);border-color:rgba(74,124,89,.4);color:#8ecf9e;}
 .cs-tag-dark{background:rgba(200,169,110,.08);border-color:rgba(200,169,110,.2);color:var(--gold);}
+.cs-tag-blue{background:rgba(28,76,119,.28);border-color:rgba(145,188,226,.36);color:#c7def2;}
 .cs-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4vw,52px);font-weight:600;color:#fff;line-height:1.08;margin-bottom:14px;max-width:680px;}
 .cs-title span{color:var(--gold);}
 .cs-title .cs-green{color:#8ecf9e;}
@@ -1488,6 +1500,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cs-dot.active::before{width:24px;border-radius:4px;background:var(--gold);}
 .cs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);}
 .cs-progress-bar{height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left center;will-change:transform;}
+.mobile-capability-links{display:none;}
 
 /* GLASS APPLICATION LEDGER */
 .glass-applications{background:#ede9e1;border-top:1px solid #ded7ca;border-bottom:1px solid #ded7ca;padding:64px 0;scroll-margin-top:150px;}
@@ -1795,6 +1808,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .cs-desc{max-width:100%;}
   .cs-arrow,.cs-dots,.cs-progress{display:none;}
   .cs-stats{gap:16px;}
+  .mobile-capability-links{display:grid;grid-template-columns:1fr 1fr;background:#102f50;border-top:1px solid rgba(255,255,255,.12);}
+  .mobile-capability-links a{display:flex;flex-direction:column;gap:3px;padding:14px 17px;color:#fff;text-decoration:none;border-right:1px solid rgba(255,255,255,.12);}
+  .mobile-capability-links a:last-child{border-right:0;}
+  .mobile-capability-links strong{font-size:12px;letter-spacing:.02em;}
+  .mobile-capability-links span{font-size:9px;line-height:1.35;letter-spacing:.07em;text-transform:uppercase;color:#c7def2;}
   .source-grid{grid-template-columns:1fr;}
   .home-intro-head,.home-section-head,.home-faq-head{display:block;}
   .home-intro h2,.home-oem h2,.factory-copy h2,.home-faq-head h2{font-size:29px;}
@@ -1892,13 +1910,13 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- ========== HEADER ========== -->
 <header>
   <div class="header-inner">
-    <div class="logo" onclick="go('home')">
-      <div class="logo-icon">★</div>
+    <a class="logo" href="/#home" onclick="event.preventDefault();go('home')">
+      <img class="logo-mark" src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">
       <div class="logo-text">
-        <span class="brand">GloryStarPack</span>
+        <span class="brand">GLORYSTARPACK</span>
         <span class="sub">Custom Glass Bottle Manufacturer</span>
       </div>
-    </div>
+    </a>
     <div class="header-search">
       <span class="search-ico">🔍</span>
       <input type="text" id="searchInput" placeholder="Search products (e.g. glass bottle, bamboo jar...)" onkeydown="if(event.key==='Enter')doSearch(this.value)">
@@ -2029,9 +2047,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 
   <!-- CONVERSION HERO -->
   <div class="carousel-section">
-    <div class="carousel-wrap" role="region" aria-roledescription="carousel" aria-label="GloryStarPack custom glass bottle collections">
+    <div class="carousel-wrap" role="region" aria-roledescription="carousel" aria-label="GloryStarPack glass, plastic bottle and dispensing collections">
       <div class="carousel-track" id="carouselTrack">
-        <section class="cs-slide" aria-label="1 of 3">
+        <section class="cs-slide" aria-label="1 of 5">
           <div class="cs-bg cs-bg-1"></div>
           <div class="cs-inner">
             <div class="cs-content">
@@ -2050,7 +2068,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
             </div>
           </div>
         </section>
-        <section class="cs-slide" aria-label="2 of 3">
+        <section class="cs-slide" aria-label="2 of 5">
           <div class="cs-bg cs-bg-2"></div>
           <div class="cs-inner">
             <div class="cs-content">
@@ -2069,7 +2087,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
             </div>
           </div>
         </section>
-        <section class="cs-slide" aria-label="3 of 3">
+        <section class="cs-slide" aria-label="3 of 5">
           <div class="cs-bg cs-bg-3"></div>
           <div class="cs-inner">
             <div class="cs-content">
@@ -2088,16 +2106,60 @@ footer{background:var(--dark);color:#aaa;padding:0;}
             </div>
           </div>
         </section>
+        <section class="cs-slide" aria-label="4 of 5">
+          <div class="cs-bg cs-bg-4"></div>
+          <div class="cs-inner">
+            <div class="cs-content">
+              <div class="cs-tag cs-tag-blue">Plastic bottles &amp; airless packs</div>
+              <h2 class="cs-title">Plastic Bottles Built Around <span>Formula &amp; Fill</span></h2>
+              <p class="cs-desc">Source PET, PETG, HDPE, PP and airless formats for skincare, hair care and personal care, with the bottle, neck and dispensing route reviewed together.</p>
+              <div class="cs-stats" aria-label="Plastic packaging highlights">
+                <div class="cs-stat"><span class="cs-num">PET / HDPE</span><span class="cs-lbl">Material routes</span></div>
+                <div class="cs-stat"><span class="cs-num">5–750ml</span><span class="cs-lbl">Common formats</span></div>
+                <div class="cs-stat"><span class="cs-num">PCR</span><span class="cs-lbl">Options by model</span></div>
+              </div>
+              <div class="cs-btns">
+                <a class="cs-btn-primary" href="/products/plastic-packaging/">Explore Plastic Bottles</a>
+                <a class="cs-btn-ghost" href="/products/airless-pump-bottles/">Explore Airless Packaging</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="cs-slide" aria-label="5 of 5">
+          <div class="cs-bg cs-bg-5"></div>
+          <div class="cs-inner">
+            <div class="cs-content">
+              <div class="cs-tag cs-tag-blue">Pumps, sprayers &amp; closures</div>
+              <h2 class="cs-title">Dispensing Components <span>Matched to the Pack</span></h2>
+              <p class="cs-desc">Coordinate lotion pumps, fine-mist sprayers, foamers, treatment pumps, droppers and caps with the exact neck finish, formula, dose and dip-tube requirement.</p>
+              <div class="cs-stats" aria-label="Dispensing component highlights">
+                <div class="cs-stat"><span class="cs-num">Pump</span><span class="cs-lbl">Lotion &amp; treatment</span></div>
+                <div class="cs-stat"><span class="cs-num">Mist / Foam</span><span class="cs-lbl">Dispensing routes</span></div>
+                <div class="cs-stat"><span class="cs-num">Fit</span><span class="cs-lbl">Neck &amp; dip tube</span></div>
+              </div>
+              <div class="cs-btns">
+                <a class="cs-btn-primary" href="/products/cosmetic-pumps-closures/">Explore Pumps &amp; Closures</a>
+                <a class="cs-btn-ghost" href="/products/cosmetic-packaging-accessories/">Explore Components</a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <button class="cs-arrow cs-arrow-prev" type="button" onclick="csMove(-1)" aria-label="Previous glass bottle collection">‹</button>
-      <button class="cs-arrow cs-arrow-next" type="button" onclick="csMove(1)" aria-label="Next glass bottle collection">›</button>
-      <div class="cs-dots" aria-label="Choose a glass bottle collection">
+      <button class="cs-arrow cs-arrow-prev" type="button" onclick="csMove(-1)" aria-label="Previous packaging collection">‹</button>
+      <button class="cs-arrow cs-arrow-next" type="button" onclick="csMove(1)" aria-label="Next packaging collection">›</button>
+      <div class="cs-dots" aria-label="Choose a packaging collection">
         <button class="cs-dot active" type="button" onclick="csGo(0)" aria-label="Show custom glass bottle collection" aria-current="true"></button>
         <button class="cs-dot" type="button" onclick="csGo(1)" aria-label="Show spirits and wine bottle collection" aria-current="false"></button>
         <button class="cs-dot" type="button" onclick="csGo(2)" aria-label="Show perfume and nail polish bottle collection" aria-current="false"></button>
+        <button class="cs-dot" type="button" onclick="csGo(3)" aria-label="Show plastic bottle and airless packaging collection" aria-current="false"></button>
+        <button class="cs-dot" type="button" onclick="csGo(4)" aria-label="Show pumps, sprayers and closures collection" aria-current="false"></button>
       </div>
       <div class="cs-progress" aria-hidden="true"><div class="cs-progress-bar" id="csProgress"></div></div>
     </div>
+  </div>
+  <div class="mobile-capability-links" aria-label="Additional packaging capabilities">
+    <a href="/products/plastic-packaging/"><strong>Plastic Bottles</strong><span>PET · HDPE · Airless</span></a>
+    <a href="/products/cosmetic-pumps-closures/"><strong>Pumps &amp; Closures</strong><span>Lotion · Mist · Foam</span></a>
   </div>
 
   <!-- SUPPLIER SNAPSHOT -->
@@ -2994,9 +3056,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="brand-nm">GloryStarPack</div>
+      <a class="footer-logo-lockup" href="/" aria-label="GloryStarPack home">
+        <img src="/assets/brand/glorystarpack-logo-full-480-2026.png" width="480" height="400" alt="GloryStarPack" loading="lazy" decoding="async">
+      </a>
       <div class="tagline">Custom Glass Bottle Manufacturer</div>
-      <p>Xiamen-based supplier specializing in liquor, wine, beer, perfume, nail polish and cosmetic glass bottles, with OEM/ODM decoration, closures and global shipping.</p>
+      <p>Xiamen-based supplier specializing in liquor, wine, beer, perfume, nail polish and cosmetic glass bottles, supported by plastic bottles, dispensing pumps, OEM/ODM decoration and export packing.</p>
       <div class="footer-contacts">
         <div>📞 +86 195-7760-8248</div>
         <div>✉ kevin@glorystarpack.com</div>

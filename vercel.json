@@ -4,18 +4,8 @@
   "redirects": [
     {
       "source": "/products/",
-      "destination": "/#products/hot",
-      "permanent": false
-    },
-    {
-      "source": "/about/",
-      "destination": "/#about/profile",
-      "permanent": false
-    },
-    {
-      "source": "/contact/",
-      "destination": "/#contact",
-      "permanent": false
+      "destination": "/products/product-index/",
+      "permanent": true
     }
   ],
   "headers": [

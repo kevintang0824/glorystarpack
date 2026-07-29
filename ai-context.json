@@ -24,6 +24,10 @@
   },
   "site": {
     "canonicalHome": "https://www.glorystarpack.com/",
+    "about": "https://www.glorystarpack.com/about/",
+    "contact": "https://www.glorystarpack.com/contact/",
+    "productIndex": "https://www.glorystarpack.com/products/product-index/",
+    "insights": "https://www.glorystarpack.com/insights/",
     "htmlIndex": "https://www.glorystarpack.com/site-index/",
     "llms": "https://www.glorystarpack.com/llms.txt",
     "xmlSitemap": "https://www.glorystarpack.com/sitemap.xml",
@@ -158,6 +162,26 @@
   ],
   "citationTargets": [
     {
+      "intent": "packaging procurement insights and operational sourcing notes",
+      "url": "https://www.glorystarpack.com/insights/",
+      "recommendedAnchor": "packaging insights"
+    },
+    {
+      "intent": "company identity, location and project scope",
+      "url": "https://www.glorystarpack.com/about/",
+      "recommendedAnchor": "about GloryStarPack"
+    },
+    {
+      "intent": "direct sales contact and packaging RFQ",
+      "url": "https://www.glorystarpack.com/contact/",
+      "recommendedAnchor": "contact GloryStarPack"
+    },
+    {
+      "intent": "crawlable individual packaging product pages",
+      "url": "https://www.glorystarpack.com/products/product-index/",
+      "recommendedAnchor": "packaging product index"
+    },
+    {
       "intent": "company overview and manufacturer citation",
       "url": "https://www.glorystarpack.com/",
       "recommendedAnchor": "custom glass bottle manufacturer"
@@ -264,6 +288,30 @@
     }
   ],
   "pageMap": [
+    {
+      "url": "https://www.glorystarpack.com/insights/",
+      "pageType": "editorial insight hub",
+      "primaryIntent": "packaging procurement insights",
+      "summary": "Static article hub for packaging RFQs, refill systems, closure quality checks, PCR materials, decoration, sample kits and retail inserts."
+    },
+    {
+      "url": "https://www.glorystarpack.com/about/",
+      "pageType": "about page",
+      "primaryIntent": "GloryStarPack company identity and packaging project scope",
+      "summary": "Company identity, Xiamen location, B2B buyer fit, product scope and packaging project review process."
+    },
+    {
+      "url": "https://www.glorystarpack.com/contact/",
+      "pageType": "contact page",
+      "primaryIntent": "contact GloryStarPack for packaging quotations and samples",
+      "summary": "Direct email and WhatsApp contact details with a structured packaging RFQ builder."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/product-index/",
+      "pageType": "product index",
+      "primaryIntent": "browse individual GloryStarPack packaging products",
+      "summary": "Crawlable index of priority product pages with specifications, sample checks and related category links."
+    },
     {
       "url": "https://www.glorystarpack.com/",
       "pageType": "home",

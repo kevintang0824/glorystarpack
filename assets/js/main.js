@@ -957,6 +957,34 @@ function safeText(value) {
   return String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+const INDEXABLE_PRODUCT_IDS = new Set([
+  'p1','p2','p4','p7','p18','p33','p34','p39','p43','p53',
+  'p124','p131','p132','p150','p151','p164','p289','p293',
+  'p294','p305','p315','p329','p331','p334','p335','p337',
+  'p340','p344','p350','p351','p352','p363','p365','p367',
+  'p369','p371','p372','p374','p380','p381'
+]);
+
+const PRODUCT_NAME_OVERRIDES = {
+  p2: 'Plastic Airless Pump Bottle',
+  p7: 'Glass Serum Dropper Bottle'
+};
+
+function productDisplayName(p) {
+  return PRODUCT_NAME_OVERRIDES[p?.id] || p?.name || '';
+}
+
+function productSeoUrl(p) {
+  if (!p || !INDEXABLE_PRODUCT_IDS.has(p.id)) return '';
+  const slug = String(p.name || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return `/products/${slug}-${p.id}/`;
+}
+
 const FEATURED_CARD_AVIF = {
   p7: 'assets/product-photos/p7-0-480.avif',
   p2: 'assets/product-photos/p2-0-480.avif',
@@ -973,17 +1001,25 @@ function pcHTML(p, small) {
   const bc = {hot:'b-hot',new:'b-new',eco:'b-eco',custom:'b-custom'}[p.badge]||'b-hot';
   const bl = {hot:'HOT',new:'NEW',eco:'ECO',custom:'CUSTOM'}[p.badge]||'HOT';
   const img = productImage(p);
+  const displayName = productDisplayName(p);
   const responsiveImage = FEATURED_CARD_AVIF[p.id]
-    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(p.name)} packaging product photo" width="480" height="480" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='flex';"></picture>`
-    : `<img src="${img}" alt="${safeText(p.name)} packaging product photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
+    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(displayName)} packaging product photo" width="480" height="480" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='flex';"></picture>`
+    : `<img src="${img}" alt="${safeText(displayName)} packaging product photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
-  const safeName = p.name.replace(/'/g, "\\'");
+  const safeName = displayName.replace(/'/g, "\\'");
   const moqLabel = isConceptProduct(p) ? 'Planning MOQ' : 'MOQ';
-  return `<div class="pc fade-in" onclick="showDetail('${p.id}')">
-    <div class="pc-img">${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span></div>
+  const seoUrl = productSeoUrl(p);
+  const imageMarkup = seoUrl
+    ? `<a class="pc-primary-link" href="${seoUrl}" onclick="event.stopPropagation()" aria-label="View ${safeText(displayName)} product page">${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span></a>`
+    : `${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span>`;
+  const nameMarkup = seoUrl
+    ? `<a class="pc-name" href="${seoUrl}" onclick="event.stopPropagation()">${safeText(displayName)}</a>`
+    : `<div class="pc-name">${safeText(displayName)}</div>`;
+  return `<article class="pc fade-in" onclick="showDetail('${p.id}')">
+    <div class="pc-img">${imageMarkup}</div>
     <span class="pc-badge ${bc}">${bl}</span>
     <div class="pc-info">
-      <div class="pc-name">${p.name}</div>
+      ${nameMarkup}
       <div class="pc-specs">${p.mat} · ${p.size}</div>
       <div class="pc-subitems">${chips}</div>
       <div class="pc-bot">
@@ -994,7 +1030,7 @@ function pcHTML(p, small) {
         </div>
       </div>
     </div>
-  </div>`;
+  </article>`;
 }
 
 // =========================================================== HOME GRID
@@ -1568,10 +1604,39 @@ let csIdx = 0;
 const csTotal = Math.max(1, document.querySelectorAll('.cs-slide').length);
 const csDuration = 5000; // auto-advance ms
 let csTimer = null;
+let csPreloadTimer = null;
 const csReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const csSmallScreen = window.matchMedia('(max-width: 760px)').matches;
 
+function csEnsureBackground(index) {
+  if (index <= 0) return;
+  const slide = document.querySelectorAll('.cs-slide')[index];
+  const background = slide?.querySelector('.cs-bg[data-bg-desktop]');
+  if (!background || background.dataset.loaded === 'true') return;
+  const modernSource = csSmallScreen ? background.dataset.bgMobile : background.dataset.bgDesktop;
+  const fallbackSource = background.dataset.bgFallback;
+  const modernType = modernSource?.endsWith('.avif') ? 'image/avif' : 'image/webp';
+  const supportsModern = modernSource && CSS.supports(
+    'background-image',
+    `image-set(url("${modernSource}") type("${modernType}") 1x)`
+  );
+  const selectedSource = supportsModern ? modernSource : fallbackSource;
+  if (!selectedSource) return;
+  background.style.backgroundImage = `url("${selectedSource}"), url("${selectedSource}")`;
+  background.dataset.loaded = 'true';
+}
+
+function csScheduleNextBackground() {
+  clearTimeout(csPreloadTimer);
+  if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden) return;
+  csPreloadTimer = setTimeout(
+    () => csEnsureBackground((csIdx + 1) % csTotal),
+    Math.max(800, csDuration - 1500)
+  );
+}
+
 function csRender() {
+  csEnsureBackground(csIdx);
   const track = document.getElementById('carouselTrack');
   if (track) track.style.transform = `translateX(-${csIdx * 100}%)`;
   document.querySelectorAll('.cs-dot').forEach((d, i) => {
@@ -1580,6 +1645,7 @@ function csRender() {
     d.setAttribute('aria-current', active ? 'true' : 'false');
   });
   csStartProgress();
+  csScheduleNextBackground();
 }
 
 function csMove(dir) {
@@ -1612,8 +1678,10 @@ function csStartProgress() {
 
 function csResetTimer() {
   clearInterval(csTimer);
+  clearTimeout(csPreloadTimer);
   if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden) return;
   csTimer = setInterval(() => { csIdx = (csIdx + 1) % csTotal; csRender(); }, csDuration);
+  csScheduleNextBackground();
 }
 
 function csInit() {

@@ -184,14 +184,14 @@ const CAT_COPY = {
   'material-flexible':['Primary-Material Flexible Packaging', 'Refill pouches, sachets, barrier laminates, flexible tubes, films and sealing materials grouped by their main flexible packaging structure.'],
   'material-bio':['Primary-Material Bio-Based Packaging', 'PLA, Bio-PE, wheat straw and other plant-derived material formats grouped by the main material used for the pack.'],
   'material-mixed':['Mixed-Material Packaging Kits', 'Complete packaging sets, component kits, sample boards and turnkey launch systems that intentionally combine several primary materials.'],
-  'beer-bottle':['Glass Beer and Growler Bottle Shapes', 'Explore custom longneck, stubby, growler and crown-finish glass bottle concepts for beer, cider, kombucha and carbonated beverage projects. Pressure targets, filling conditions and closure fit are confirmed by project.'],
+  'beer-bottle':['Glass Beer, Ale and Kombucha Bottle Shapes', 'Explore custom longneck, stubby, Belgian-style, wide-mouth kombucha, growler and crown-finish glass bottle concepts for beer, cider, fermented drinks and carbonated beverage projects. Pressure targets, filling conditions and closure fit are confirmed by project.'],
   'glass-decanter':['Custom Glass Decanters and Flask Bottles', 'Heavy spirit decanters, flat pocket flasks and fluted-neck beverage decanters developed around capacity, closure, decoration, filling process and export packing requirements.'],
-  'juice-soda-bottle':['Glass Juice, Dairy and Soda Bottles', 'Custom clear and colored glass bottles for juice, milk, cold brew, tea, soda, tonic water and specialty beverage programs, with crown, lug and screw finishes available by project.'],
-  'oil-vinegar-bottle':['Glass Oil and Vinegar Bottle Shapes', 'Tall Dorica and square Marasca-style glass bottle concepts for olive oil, vinegar, infused oil, dressing and gourmet food packaging.'],
-  'sauce-syrup-bottle':['Glass Sauce and Syrup Bottle Shapes', 'Woozy sauce bottles and fluted-neck syrup decanters for hot sauce, marinades, dressings, syrup and liquid seasoning packaging.'],
-  'glass-food':['Glass Food Bottles and Jars', 'French square, milk, sauce, spice, Mason, honey, straight-sided, vinegar, oil and syrup glass packaging grouped for food and beverage sourcing. Filling temperature, closure, liner and thermal process are confirmed for each project.'],
-  'food-jar':['Glass Food, Honey and Spice Jars', 'Paragon spice jars, Mason jars, hexagonal honey jars and straight-sided wide-mouth food jars for seasonings, preserves, spreads, confectionery and pantry collections.'],
-  'glass-apothecary':['Glass Apothecary and Supplement Bottles', 'Boston round, French square, amber packer and Blake-style glass bottle concepts for supplements, botanical extracts, wellness products and apothecary-inspired packaging. Compliance and closure requirements are confirmed by destination market and product.'],
+  'juice-soda-bottle':['Glass Juice, Dairy and Specialty Beverage Bottles', 'Custom clear and colored glass bottles for juice, milk, mineral water, cold brew, tea, kombucha, soda, tonic water and specialty beverage programs, with crown, lug, ROPP and screw finishes available by project.'],
+  'oil-vinegar-bottle':['Glass Oil and Vinegar Bottle Shapes', 'Tall Dorica, square Marasca and curved amphora-style glass bottle concepts for olive oil, vinegar, infused oil, dressing and gourmet food packaging.'],
+  'sauce-syrup-bottle':['Glass Sauce and Syrup Bottle Shapes', 'Woozy sauce bottles, handled maple-style bottles and fluted-neck syrup decanters for hot sauce, marinades, dressings, syrup and liquid seasoning packaging.'],
+  'glass-food':['Glass Food Bottles and Jars', 'French square, milk, sauce, spice, pantry, honey, jam, straight-sided, vinegar, oil and syrup glass packaging grouped for food and beverage sourcing. Filling temperature, closure, liner and thermal process are confirmed for each project.'],
+  'food-jar':['Glass Food, Honey and Spice Jars', 'Paragon spice jars, clamp-lid pantry jars, mini jam jars, round honey jars, square shaker jars, Mason jars and straight-sided wide-mouth food jars for seasonings, preserves, spreads, confectionery and pantry collections.'],
+  'glass-apothecary':['Glass Apothecary, Supplement and Wellness Bottles', 'Boston round, French square, amber packer, crimp vial, ointment jar and syrup bottle concepts for supplements, botanical extracts, wellness products and apothecary-inspired packaging. Compliance and closure requirements are confirmed by destination market and product.'],
   components:['Pumps, Caps and Packaging Components', 'Pumps, sprayers, caps, corks, droppers, rollerballs, applicators, liners and matching accessories for glass, plastic, aluminum and mixed-material packaging.'],
   glass:['Glass Cosmetic Packaging Supplier', 'Glass packaging is ideal for premium skincare, perfume, serum, essential oils and formulas that need strong compatibility, high clarity and a luxury hand feel.'],
   'glass-oil':['Glass Essential Oil Bottles', 'Amber, clear and frosted glass dropper bottles, roller bottles and essential oil containers with UV-protective options for aromatherapy and active formulas.'],
@@ -201,13 +201,13 @@ const CAT_COPY = {
   'glass-ampoule':['Glass Ampoules and Vials', 'Small glass ampoules, vials and tester bottles for concentrated serum, essential oil samples, beauty boosters and single-dose skincare.'],
   'glass-jar':['Glass Cream Jars', 'Thick-wall glass cream jars, refillable glass jars, solid perfume jars and glass lotion bottles for face cream, eye cream, body butter, masks and premium skincare collections.'],
   'glass-lotion':['Glass Lotion Bottles', 'Glass pump bottles, foundation pump bottles, treatment pump bottles and toner bottles for lotion, essence water, hand wash, body care, hotel amenities and refill-focused spa collections.'],
-  'glass-perfume':['Glass Perfume Bottles', 'Perfume bottles with fine mist pumps, thick-bottom heavy bases, crimp collars, refill atomizers and custom caps for fragrance, body mist and luxury scent lines.'],
+  'glass-perfume':['Glass Perfume Bottles', 'Square, cylindrical and sculpted oval perfume bottles with fine mist pumps, thick-bottom heavy bases, crimp collars, refill atomizers and custom caps for fragrance, body mist and luxury scent lines.'],
   'glass-diffuser':['Glass Diffuser Bottles', 'Decorative glass diffuser bottles for reed diffuser, aromatherapy, home fragrance and spa retail collections.'],
   'glass-violet':['Violet Glass Bottles', 'Deep violet glass bottles for botanical skincare, essential oils and light-sensitive premium natural formulas.'],
-  'glass-nail':['Glass Nail Polish Bottles', 'Clear, square and UV black glass nail polish bottles with brush caps for gel polish, nail lacquer, cuticle oil, nail treatment and private label manicure collections.'],
-  beverage:['Beverage Bottle Packaging Supplier', 'Glass beverage bottles for wine, spirits, sparkling drinks, juice, syrups and specialty beverage projects, with matched corks, caps, closures, decoration and export cartons.'],
-  'wine-bottle':['Wholesale Glass Wine Bottles', 'Bordeaux, Burgundy, sparkling and mini wine bottles in clear, amber and green glass, with cork, ROPP and crown closure options for private label beverage brands.'],
-  'spirit-bottle':['Liquor and Spirit Bottles', 'Heavy-base whiskey bottles, tall vodka bottles, rounded gin bottles, amber craft spirit bottles and mini liquor bottles with bar-top, screw-cap and tamper-evident closure options.'],
+  'glass-nail':['Glass Nail Polish Bottles', 'Clear, square, slim rectangular and UV black glass nail polish bottles with brush caps for gel polish, nail lacquer, cuticle oil, nail treatment and private label manicure collections.'],
+  beverage:['Beverage Bottle Packaging Supplier', 'Glass and PET beverage bottles for wine, spirits, ale, kombucha, mineral water, cold brew, juice, syrups and specialty beverage projects, with matched corks, caps, closures, decoration and export cartons.'],
+  'wine-bottle':['Wholesale Glass Wine Bottles', 'Bordeaux, Burgundy, rosé, fortified, sparkling, Hock and mini wine bottles in clear, amber and green glass, with cork, BVS, ROPP and crown closure options for private label beverage brands.'],
+  'spirit-bottle':['Liquor and Spirit Bottles', 'Heavy-base whiskey bottles, tall grappa and liqueur bottles, oval flasks, vodka bottles, rounded gin bottles, amber craft spirit bottles and mini liquor bottles with bar-top, screw-cap and tamper-evident closure options.'],
   'beverage-closure':['Beverage Bottle Corks and Closures', 'Bar-top corks, ROPP caps, crown closures, swing-top systems, liners and tamper components matched to wine, spirit and specialty beverage bottle neck finishes.'],
   plastic:['Plastic Cosmetic Packaging Manufacturer', 'Plastic packaging covers airless pump bottles, spray bottles, jars, tubes and travel-size formats for lightweight, scalable beauty packaging.'],
   'plastic-pump':['Airless Pump Bottles', 'Airless pump packaging protects sensitive formulas from oxygen exposure and is widely used for serum, foundation, eye cream, recyclable mono-material systems and anti-aging skincare.'],
@@ -264,7 +264,9 @@ const PRIMARY_MATERIAL_IDS = {
     'p121','p131','p132','p133','p134','p149','p153','p164','p173','p186','p217','p218','p219','p220','p221','p223',
     'p224','p277','p289','p290','p299','p305','p316','p317','p318','p319','p320','p321','p322','p323','p324','p325',
     'p328','p329','p330','p331','p332','p333','p334','p335','p336','p337','p338','p339','p340','p341','p342','p343',
-    'p344','p345','p346','p347','p348','p349','p350','p351','p352','p353','p354'
+    'p344','p345','p346','p347','p348','p349','p350','p351','p352','p353','p354',
+    'p363','p364','p365','p366','p367','p368','p369','p370','p371','p372','p373','p374','p375','p376',
+    'p377','p378','p379','p380','p381'
   ],
   'material-plastic': [
     'p2','p10','p14','p16','p18','p19','p20','p22','p23','p41','p42','p43','p44','p45','p46','p47',
@@ -276,7 +278,7 @@ const PRIMARY_MATERIAL_IDS = {
     'p230','p232','p237','p238','p240','p241','p243','p244','p245','p246','p247','p248','p249','p253','p257','p262',
     'p264','p266','p270','p271','p272','p273','p276','p279','p281','p283','p284','p288','p291','p293','p294','p295',
     'p297','p298','p301','p302','p307','p308','p309','p310','p312','p313','p315',
-    'p355','p356','p357','p358','p359','p360'
+    'p355','p356','p357','p358','p359','p360','p382','p383','p384','p385','p387'
   ],
   'material-metal': [
     'p5','p11','p27','p75','p76','p77','p78','p113','p114','p117','p142','p143','p144','p154','p155','p156',
@@ -299,7 +301,7 @@ const PRIMARY_MATERIAL_IDS = {
   'material-mixed': [
     'p32','p176','p178','p180','p184','p185','p188','p189','p190','p191','p192','p197','p198','p212','p216','p225',
     'p226','p234','p235','p236','p239','p242','p251','p252','p256','p258','p259','p260','p261','p263','p268','p269',
-    'p274','p278','p280','p285','p311','p326'
+    'p274','p278','p280','p285','p311','p326','p386'
   ]
 };
 
@@ -354,7 +356,7 @@ function installProductItemListSchema() {
 function isConceptProduct(p) {
   if (!p) return false;
   const productNumber = Number(String(p.id).replace(/\D/g, ''));
-  return (productNumber >= 329 && productNumber <= 362)
+  return (productNumber >= 329 && productNumber <= 387)
     || /\bconcept\b|\bcustom (?:bottle|jar|container|closure|dispensing)[ -](?:shape[ -])?family\b/i.test(`${p.desc} ${p.tab}`);
 }
 
@@ -694,22 +696,22 @@ function go(page, sub, skipHash, productPage = 1) {
 // =========================================================== PRODUCT CARD HTML
 const productPhotoIds = new Set([
   ...Array.from({length:316}, (_, i) => `p${i + 1}`),
-  ...Array.from({length:34}, (_, i) => `p${i + 329}`)
+  ...Array.from({length:59}, (_, i) => `p${i + 329}`)
 ]);
 const PRODUCT_IMAGE_SETS = [
-  {cat:'beer-bottle', images:['assets/brand/glass-beer-bottle-collection-2026.jpg','assets/product-photos/p336-0.jpg','assets/product-photos/p337-0.jpg','assets/product-photos/p338-0.jpg']},
-  {cat:'glass-decanter', images:['assets/product-photos/p334-0.jpg','assets/product-photos/p333-0.jpg','assets/product-photos/p343-0.jpg']},
-  {cat:'juice-soda-bottle', images:['assets/product-photos/p348-0.jpg','assets/product-photos/p355-0.jpg','assets/product-photos/p338-0.jpg','assets/product-photos/p339-0.jpg']},
-  {cat:'oil-vinegar-bottle', images:['assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg']},
-  {cat:'sauce-syrup-bottle', images:['assets/product-photos/p349-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg','assets/product-photos/p362-0.jpg']},
-  {cat:'glass-food', images:['assets/product-photos/p344-0.jpg','assets/product-photos/p348-0.jpg','assets/product-photos/p349-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg']},
-  {cat:'food-jar', images:['assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p362-0.jpg']},
-  {cat:'glass-apothecary', images:['assets/product-photos/p344-0.jpg','assets/product-photos/p345-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p347-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p34-0.jpg']},
-  {cat:'wine-bottle', images:['assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-1440.webp']},
-  {cat:'spirit-bottle', images:['assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-1440.webp']},
-  {cat:'beverage-closure', images:['assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp']},
-  {cat:'beverage', images:['assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp']},
-  {cat:'packaging-accessories', images:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p263-0.jpg','assets/product-photos/p267-0.jpg','assets/product-photos/p273-0.jpg','assets/product-photos/p274-0.jpg','assets/product-photos/p279-0.jpg','assets/product-photos/p259-0.jpg','assets/product-photos/p260-0.jpg','assets/product-photos/p243-0.jpg','assets/product-photos/p254-0.jpg','assets/product-photos/p258-0.jpg']},
+  {cat:'beer-bottle', images:['assets/product-photos/p367-0.jpg','assets/product-photos/p368-0.jpg','assets/brand/glass-beer-bottle-collection-2026.jpg','assets/product-photos/p336-0.jpg','assets/product-photos/p337-0.jpg','assets/product-photos/p338-0.jpg']},
+  {cat:'glass-decanter', images:['assets/product-photos/p366-0.jpg','assets/product-photos/p334-0.jpg','assets/product-photos/p333-0.jpg','assets/product-photos/p343-0.jpg']},
+  {cat:'juice-soda-bottle', images:['assets/product-photos/p369-0.jpg','assets/product-photos/p370-0.jpg','assets/product-photos/p368-0.jpg','assets/product-photos/p382-0.jpg','assets/product-photos/p348-0.jpg','assets/product-photos/p355-0.jpg','assets/product-photos/p338-0.jpg','assets/product-photos/p339-0.jpg']},
+  {cat:'oil-vinegar-bottle', images:['assets/product-photos/p372-0.jpg','assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg']},
+  {cat:'sauce-syrup-bottle', images:['assets/product-photos/p371-0.jpg','assets/product-photos/p349-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg','assets/product-photos/p362-0.jpg']},
+  {cat:'glass-food', images:['assets/product-photos/p371-0.jpg','assets/product-photos/p372-0.jpg','assets/product-photos/p373-0.jpg','assets/product-photos/p374-0.jpg','assets/product-photos/p375-0.jpg','assets/product-photos/p376-0.jpg','assets/product-photos/p344-0.jpg','assets/product-photos/p348-0.jpg','assets/product-photos/p349-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg']},
+  {cat:'food-jar', images:['assets/product-photos/p373-0.jpg','assets/product-photos/p374-0.jpg','assets/product-photos/p375-0.jpg','assets/product-photos/p376-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p362-0.jpg']},
+  {cat:'glass-apothecary', images:['assets/product-photos/p377-0.jpg','assets/product-photos/p378-0.jpg','assets/product-photos/p379-0.jpg','assets/product-photos/p344-0.jpg','assets/product-photos/p345-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p347-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p34-0.jpg']},
+  {cat:'wine-bottle', images:['assets/product-photos/p363-0.jpg','assets/product-photos/p364-0.jpg','assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-1440.webp']},
+  {cat:'spirit-bottle', images:['assets/product-photos/p365-0.jpg','assets/product-photos/p366-0.jpg','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-1440.webp']},
+  {cat:'beverage-closure', images:['assets/product-photos/p385-0.jpg','assets/product-photos/p386-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp']},
+  {cat:'beverage', images:['assets/product-photos/p363-0.jpg','assets/product-photos/p365-0.jpg','assets/product-photos/p367-0.jpg','assets/product-photos/p369-0.jpg','assets/product-photos/p382-0.jpg','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp']},
+  {cat:'packaging-accessories', images:['assets/product-photos/p384-0.jpg','assets/product-photos/p385-0.jpg','assets/product-photos/p386-0.jpg','assets/product-photos/p387-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p263-0.jpg','assets/product-photos/p267-0.jpg','assets/product-photos/p273-0.jpg','assets/product-photos/p274-0.jpg','assets/product-photos/p279-0.jpg','assets/product-photos/p259-0.jpg','assets/product-photos/p260-0.jpg','assets/product-photos/p243-0.jpg','assets/product-photos/p254-0.jpg','assets/product-photos/p258-0.jpg']},
   {cat:'home-fragrance', images:['assets/product-photos/p242-0.jpg','assets/product-photos/p219-0.jpg','assets/product-photos/p217-0.jpg','assets/product-photos/p220-0.jpg']},
   {cat:'spa-body', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p225-0.jpg','assets/product-photos/p228-0.jpg','assets/product-photos/p241-0.jpg','assets/product-photos/p233-0.jpg']},
   {cat:'hotel-amenity', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p284-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p275-0.jpg','assets/product-photos/p271-0.jpg','assets/product-photos/p229-0.jpg','assets/product-photos/p230-0.jpg','assets/product-photos/p236-0.jpg','assets/product-photos/p234-0.jpg']},
@@ -720,22 +722,22 @@ const PRODUCT_IMAGE_SETS = [
   {cat:'glass-ampoule', images:['assets/brand/glass-dropper-rollon-vials-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg']},
   {cat:'glass-spray', images:['assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg']},
   {cat:'glass-lotion', images:['assets/product-photos/p290-0.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
-  {cat:'glass-nail', images:['assets/brand/makeup-lip-mascara-components-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg']},
-  {cat:'plastic-pet', images:['assets/product-photos/p355-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg']},
-  {cat:'plastic-hdpe', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
+  {cat:'glass-nail', images:['assets/product-photos/p381-0.jpg','assets/brand/makeup-lip-mascara-components-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg']},
+  {cat:'plastic-pet', images:['assets/product-photos/p382-0.jpg','assets/product-photos/p355-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg']},
+  {cat:'plastic-hdpe', images:['assets/product-photos/p383-0.jpg','assets/product-photos/p356-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-cap', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/closures-complete-product-assortment-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-dropper', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/closures-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-rollon', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg']},
-  {cat:'plastic-closure', images:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p266-0.jpg','assets/product-photos/p268-0.jpg','assets/product-photos/p269-0.jpg','assets/product-photos/p274-0.jpg','assets/brand/closures-complete-product-assortment-2026.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/cosmetic-closures-components-2026.jpg','assets/brand/oem-decoration-process-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-closure', images:['assets/product-photos/p384-0.jpg','assets/product-photos/p385-0.jpg','assets/product-photos/p387-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p266-0.jpg','assets/product-photos/p268-0.jpg','assets/product-photos/p269-0.jpg','assets/product-photos/p274-0.jpg','assets/brand/closures-complete-product-assortment-2026.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/cosmetic-closures-components-2026.jpg','assets/brand/oem-decoration-process-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
   {cat:'plastic-travel', images:['assets/product-photos/p311-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p316-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p303-0.jpg','assets/product-photos/p284-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p283-0.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg']},
   {cat:'eco-refill', images:['assets/product-photos/p295-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p282-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p272-0.jpg','assets/product-photos/p264-0.jpg','assets/product-photos/p280-0.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/refill-eco-packaging-collection-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
-  {cat:'plastic-pump', images:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg']},
-  {cat:'plastic-spray', images:['assets/product-photos/p359-0.jpg','assets/product-photos/p244-0.jpg','assets/product-photos/p245-0.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-pump', images:['assets/product-photos/p387-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg']},
+  {cat:'plastic-spray', images:['assets/product-photos/p384-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p244-0.jpg','assets/product-photos/p245-0.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
   {cat:'plastic-airless', images:['assets/product-photos/p315-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p281-0.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
   {cat:'plastic-airless-jar', images:['assets/brand/airless-refill-system-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
-  {cat:'plastic-lotion', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p278-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-lotion', images:['assets/product-photos/p387-0.jpg','assets/product-photos/p356-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p278-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
   {cat:'plastic-jar', images:['assets/product-photos/p307-0.jpg','assets/product-photos/p264-0.jpg','assets/product-photos/p265-0.jpg','assets/product-photos/p278-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
-  {cat:'plastic-foam', images:['assets/product-photos/p310-0.jpg','assets/product-photos/p293-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-foam', images:['assets/product-photos/p384-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p293-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
   {cat:'plastic-deodorant', images:['assets/product-photos/p308-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p296-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
   {cat:'alu-bag', images:['assets/product-photos/p282-0.jpg','assets/product-photos/p285-0.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/aluminum-complete-product-assortment-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
   {cat:'alu-can', images:['assets/product-photos/p286-0.jpg','assets/brand/aluminum-complete-product-assortment-2026.jpg','assets/brand/aluminum-packaging-collection-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg']},
@@ -745,7 +747,7 @@ const PRODUCT_IMAGE_SETS = [
   {cat:'alu-tube', images:['assets/product-photos/p304-0.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg','assets/brand/aluminum-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-collection-2026.jpg']},
   {cat:'plastic-makeup', images:['assets/product-photos/p291-0.jpg','assets/product-photos/p290-0.jpg','assets/product-photos/p287-0.jpg','assets/product-photos/p270-0.jpg','assets/brand/makeup-lip-mascara-components-2026.jpg','assets/brand/makeup-complete-product-assortment-2026.jpg','assets/brand/closures-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-makeup', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/makeup-complete-product-assortment-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
-  {cat:'glass-perfume', images:['assets/brand/fragrance-packaging-collection-v2-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg']},
+  {cat:'glass-perfume', images:['assets/product-photos/p380-0.jpg','assets/brand/fragrance-packaging-collection-v2-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg']},
   {cat:'glass', images:['assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/glass-packaging-collection-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg','assets/brand/fragrance-packaging-collection-v2-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
   {cat:'bamboo', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/bamboo-packaging-collection-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
   {cat:'alu', images:['assets/brand/aluminum-complete-product-assortment-2026.jpg','assets/brand/aluminum-packaging-collection-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg','assets/brand/fragrance-packaging-collection-v2-2026.jpg','assets/brand/closures-complete-product-assortment-2026.jpg']},
@@ -754,7 +756,7 @@ const PRODUCT_IMAGE_SETS = [
   {cat:'eco-pulp', images:['assets/product-photos/p314-0.jpg','assets/product-photos/p303-0.jpg','assets/product-photos/p292-0.jpg','assets/product-photos/p285-0.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg','assets/brand/oem-retail-export-packing-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg']},
   {cat:'bio', images:['assets/brand/paper-eco-complete-product-assortment-2026.jpg','assets/brand/refill-eco-packaging-collection-2026.jpg','assets/brand/bamboo-packaging-collection-v2-2026.jpg']},
   {cat:'eco', images:['assets/product-photos/p303-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p282-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p287-0.jpg','assets/product-photos/p292-0.jpg','assets/product-photos/p265-0.jpg','assets/product-photos/p272-0.jpg','assets/product-photos/p264-0.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/bamboo-packaging-collection-v2-2026.jpg']},
-  {cat:'plastic', images:['assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p283-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg','assets/brand/makeup-complete-product-assortment-2026.jpg']}
+  {cat:'plastic', images:['assets/product-photos/p382-0.jpg','assets/product-photos/p383-0.jpg','assets/product-photos/p384-0.jpg','assets/product-photos/p385-0.jpg','assets/product-photos/p387-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p283-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg','assets/brand/makeup-complete-product-assortment-2026.jpg']}
 ];
 
 const PRODUCT_DETAIL_IMAGE_SETS = {
@@ -776,7 +778,32 @@ const PRODUCT_DETAIL_IMAGE_SETS = {
   p359:['assets/product-photos/p359-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p356-0.jpg'],
   p360:['assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p355-0.jpg'],
   p361:['assets/product-photos/p361-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p335-0.jpg'],
-  p362:['assets/product-photos/p362-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p351-0.jpg']
+  p362:['assets/product-photos/p362-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p351-0.jpg'],
+  p363:['assets/product-photos/p363-0.jpg','assets/product-photos/p364-0.jpg','assets/product-photos/p329-0.jpg','assets/brand/wine-bottle-collection-original-2026-768.webp'],
+  p364:['assets/product-photos/p364-0.jpg','assets/product-photos/p363-0.jpg','assets/product-photos/p330-0.jpg','assets/brand/wine-bottle-collection-original-2026-768.webp'],
+  p365:['assets/product-photos/p365-0.jpg','assets/product-photos/p366-0.jpg','assets/product-photos/p331-0.jpg','assets/product-photos/p334-0.jpg'],
+  p366:['assets/product-photos/p366-0.jpg','assets/product-photos/p365-0.jpg','assets/product-photos/p333-0.jpg','assets/product-photos/p334-0.jpg'],
+  p367:['assets/product-photos/p367-0.jpg','assets/product-photos/p335-0.jpg','assets/product-photos/p336-0.jpg','assets/brand/glass-beer-bottle-collection-2026.jpg'],
+  p368:['assets/product-photos/p368-0.jpg','assets/product-photos/p367-0.jpg','assets/product-photos/p337-0.jpg','assets/product-photos/p339-0.jpg'],
+  p369:['assets/product-photos/p369-0.jpg','assets/product-photos/p339-0.jpg','assets/product-photos/p338-0.jpg','assets/product-photos/p348-0.jpg'],
+  p370:['assets/product-photos/p370-0.jpg','assets/product-photos/p339-0.jpg','assets/product-photos/p348-0.jpg','assets/product-photos/p369-0.jpg'],
+  p371:['assets/product-photos/p371-0.jpg','assets/product-photos/p343-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p349-0.jpg'],
+  p372:['assets/product-photos/p372-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg','assets/product-photos/p354-0.jpg'],
+  p373:['assets/product-photos/p373-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p350-0.jpg'],
+  p374:['assets/product-photos/p374-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p353-0.jpg'],
+  p375:['assets/product-photos/p375-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg'],
+  p376:['assets/product-photos/p376-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p350-0.jpg'],
+  p377:['assets/product-photos/p377-0.jpg','assets/product-photos/p119-0.jpg','assets/product-photos/p54-0.jpg','assets/product-photos/p55-0.jpg'],
+  p378:['assets/product-photos/p378-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p36-0.jpg','assets/product-photos/p153-0.jpg'],
+  p379:['assets/product-photos/p379-0.jpg','assets/product-photos/p347-0.jpg','assets/product-photos/p345-0.jpg','assets/product-photos/p289-0.jpg'],
+  p380:['assets/product-photos/p380-0.jpg','assets/product-photos/p132-0.jpg','assets/product-photos/p15-0.jpg','assets/product-photos/p4-0.jpg'],
+  p381:['assets/product-photos/p381-0.jpg','assets/product-photos/p118-0.jpg','assets/product-photos/p40-0.jpg','assets/product-photos/p164-0.jpg'],
+  p382:['assets/product-photos/p382-0.jpg','assets/product-photos/p355-0.jpg','assets/product-photos/p339-0.jpg','assets/product-photos/p369-0.jpg'],
+  p383:['assets/product-photos/p383-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p356-0.jpg','assets/product-photos/p202-0.jpg'],
+  p384:['assets/product-photos/p384-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p245-0.jpg','assets/product-photos/p244-0.jpg'],
+  p385:['assets/product-photos/p385-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p382-0.jpg','assets/product-photos/p339-0.jpg'],
+  p386:['assets/product-photos/p386-0.jpg','assets/brand/glass-beer-bottle-collection-2026.jpg','assets/product-photos/p337-0.jpg','assets/product-photos/p361-0.jpg'],
+  p387:['assets/product-photos/p387-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p170-0.jpg']
 };
 
 function productImage(p, offset = 0) {
@@ -818,7 +845,11 @@ function productSubitems(p) {
     p359:'Fine-Mist Sprayer',
     p360:'28mm PCO Cap',
     p361:'26mm Crown Cap',
-    p362:'Lug Twist-Off Cap'
+    p362:'Lug Twist-Off Cap',
+    p384:'Foaming Trigger Sprayer',
+    p385:'38mm Beverage Cap',
+    p386:'Swing-Top Closure Set',
+    p387:'Lock-Down Lotion Pump'
   };
   const componentUses = {
     p357:'Lotion / Personal Care',
@@ -826,7 +857,11 @@ function productSubitems(p) {
     p359:'Hair / Body Mist',
     p360:'PET Beverage Closure',
     p361:'Beer / Sparkling Drink',
-    p362:'Food Jar / Beverage'
+    p362:'Food Jar / Beverage',
+    p384:'Foaming Application',
+    p385:'Juice / Tea Bottle',
+    p386:'Beer / Kombucha Bottle',
+    p387:'Personal Care Bottle'
   };
   const closure = componentNames[p.id] || (p.cats.includes('beverage-closure') ? 'Cork / Cap / Pourer'
     : p.cats.includes('wine-bottle') ? 'Cork / ROPP'
@@ -928,7 +963,7 @@ const FEATURED_CARD_AVIF = {
   p4: 'assets/product-photos/p4-0-480.avif',
   p40: 'assets/product-photos/p40-0-480.avif',
   p328: 'assets/brand/glass-beer-bottle-collection-2026-768.avif',
-  ...Object.fromEntries(Array.from({length:34}, (_, i) => {
+  ...Object.fromEntries(Array.from({length:59}, (_, i) => {
     const id = `p${i + 329}`;
     return [id, `assets/product-photos/${id}-0-480.avif`];
   }))
@@ -966,7 +1001,7 @@ function pcHTML(p, small) {
 function renderHomeGrid() {
   const g = document.getElementById('home-grid');
   if (!g || !hasProductData()) return;
-  const featured = ['p7','p321','p4','p40'];
+  const featured = ['p7','p363','p4','p381'];
   const picked = featured.map(id => PRODS.find(p => p.id === id)).filter(Boolean);
   const fallback = PRODS.filter(p => p.cats.includes('hot') && !featured.includes(p.id)).slice(0, Math.max(0, 4 - picked.length));
   g.innerHTML = [...picked, ...fallback].slice(0,4).map(p => pcHTML(p)).join('');
@@ -1208,7 +1243,7 @@ function showDetail(pid) {
 
   go('detail');
   const productTitle = `${p.name} | OEM Cosmetic Packaging Supplier | GloryStarPack`;
-  const productDesc = `${p.desc} MOQ ${p.moq} pcs. Material: ${p.mat}. Finish: ${p.finish}. Request samples or OEM customization from GloryStarPack.`;
+  const productDesc = `${p.desc} ${conceptProduct ? `Planning MOQ ${p.moq} pcs; confirm by project.` : `MOQ ${p.moq} pcs.`} Material: ${p.mat}. Finish: ${p.finish}. Request samples or OEM customization from GloryStarPack.`;
   document.title = productTitle;
   const descEl = document.querySelector('meta[name="description"]');
   if (descEl) descEl.setAttribute('content', productDesc);

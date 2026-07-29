@@ -134,7 +134,27 @@
     "fine mist sprayers for hair and body care",
     "beverage caps and closures",
     "Dorica and Marasca oil bottles",
-    "Woozy sauce bottles"
+    "Woozy sauce bottles",
+    "tapered rose wine bottles",
+    "fortified wine bottles",
+    "grappa and liqueur bottles",
+    "Belgian ale bottles",
+    "glass kombucha bottles",
+    "glass mineral water bottles",
+    "amber cold brew bottles",
+    "glass maple syrup bottles",
+    "amphora olive oil bottles",
+    "clamp lid pantry jars",
+    "glass honey spice and portion jars",
+    "glass crimp vials and ointment jars",
+    "sculpted glass perfume bottles",
+    "slim rectangular nail polish bottles",
+    "wide neck PET juice bottles",
+    "HDPE packer bottles",
+    "foaming trigger sprayers",
+    "38mm tamper evident caps",
+    "wire bail swing top closures",
+    "lock down lotion pumps"
   ],
   "citationTargets": [
     {
@@ -344,13 +364,31 @@
       "url": "https://www.glorystarpack.com/products/glass-cosmetic-bottles/",
       "pageType": "product category",
       "primaryIntent": "glass cosmetic bottles supplier",
-      "summary": "Glass cosmetic bottles for serums, toners, lotions, perfume, essential oil, roll-on products and vials."
+      "summary": "Glass cosmetic bottles for serums, toners, lotions, sculpted perfume bottles, slim rectangular nail polish bottles, essential oils, roll-ons and vials."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/perfume-bottles/",
+      "pageType": "product category",
+      "primaryIntent": "custom glass perfume bottles",
+      "summary": "Clear, frosted, colored and sculpted oval glass perfume bottles with fragrance pump, collar, cap and decoration matching."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/nail-polish-bottles/",
+      "pageType": "product category",
+      "primaryIntent": "glass nail polish bottles supplier",
+      "summary": "Square, round, UV black and slim rectangular glass nail polish bottles with brush, wiper, stem and cap matching."
     },
     {
       "url": "https://www.glorystarpack.com/products/glass-packaging/",
       "pageType": "product category",
       "primaryIntent": "custom glass bottle manufacturer",
-      "summary": "Custom glass bottle and jar category for food, beverage, supplement, fragrance and cosmetic packaging, including French square bottles, amber packers, food jars, droppers and perfume bottles."
+      "summary": "Custom glass bottle and jar category for food, beverage, supplement, fragrance and cosmetic packaging, including handled syrup bottles, amphora oil bottles, pantry, honey, spice and portion jars, vials, ointment jars, droppers, perfume and nail bottles."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/plastic-packaging/",
+      "pageType": "product category",
+      "primaryIntent": "custom plastic bottles supplier",
+      "summary": "PET, HDPE, PCR, airless and pump packaging, including wide-neck juice and smoothie bottles, HDPE apothecary packers and matched lock-down pumps."
     },
     {
       "url": "https://www.glorystarpack.com/products/airless-pump-bottles/",
@@ -362,7 +400,7 @@
       "url": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
       "pageType": "product category",
       "primaryIntent": "cosmetic pumps and closures",
-      "summary": "Pumps, caps, sprayers, droppers, collars, liners and closure systems for cosmetic packaging."
+      "summary": "Pumps, caps, sprayers, droppers, collars, liners and closure systems, including foaming triggers, 38mm tamper-evident caps, wire-bail swing tops and lock-down lotion pumps."
     },
     {
       "url": "https://www.glorystarpack.com/products/cosmetic-packaging-kits/",
@@ -392,25 +430,25 @@
       "url": "https://www.glorystarpack.com/products/beverage-bottles/",
       "pageType": "product category",
       "primaryIntent": "glass beverage bottle supplier",
-      "summary": "Glass beverage bottle hub for beer, wine, spirits, sparkling drinks, juice and specialty beverages, including longneck, stubby, growler, Hock, flask and decanter shape families with matching corks, caps, decoration and export packing."
+      "summary": "Glass and PET beverage bottle hub for beer, wine, spirits, sparkling drinks, mineral water, cold brew, juice and smoothies, with matched corks, caps, swing tops, decoration and export packing."
     },
     {
       "url": "https://www.glorystarpack.com/products/beer-bottles/",
       "pageType": "product category",
       "primaryIntent": "wholesale glass beer bottles",
-      "summary": "Amber, green and clear glass beer bottles in long-neck, stubby and specialty formats with crown, swing-top and project-specific closure guidance."
+      "summary": "Amber, green and clear glass beer bottles in long-neck, stubby, Belgian-style ale and wide-mouth kombucha formats with crown, swing-top and project-specific closure guidance."
     },
     {
       "url": "https://www.glorystarpack.com/products/wine-bottles/",
       "pageType": "product category",
       "primaryIntent": "wholesale glass wine bottles",
-      "summary": "Bordeaux, Burgundy, Hock, Riesling, dessert, sparkling and mini glass wine bottles with glass color, neck finish, cork and cap selection guidance."
+      "summary": "Bordeaux, Burgundy, Hock, Riesling, tapered rosé, high-shoulder fortified, dessert, sparkling and mini glass wine bottles with closure guidance."
     },
     {
       "url": "https://www.glorystarpack.com/products/liquor-bottles/",
       "pageType": "product category",
       "primaryIntent": "liquor and spirit bottle manufacturer",
-      "summary": "Heavy-base whiskey bottles, Nordic rounds, glass decanters, flat flasks, heritage moonshine bottles, vodka bottles, gin bottles and mini liquor bottles with matched closures."
+      "summary": "Heavy-base whiskey bottles, Nordic rounds, glass decanters, tall grappa and liqueur bottles, oval flasks, heritage moonshine, vodka, gin and mini liquor bottles with matched closures."
     },
     {
       "url": "https://www.glorystarpack.com/products/whiskey-bottles/",
@@ -541,6 +579,71 @@
       "preferredUrls": [
         "https://www.glorystarpack.com/products/liquor-bottles/",
         "https://www.glorystarpack.com/products/beverage-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "rose wine bottles",
+        "fortified wine bottles",
+        "grappa bottles",
+        "liqueur glass bottles",
+        "oval spirit flask bottles"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/wine-bottles/",
+        "https://www.glorystarpack.com/products/liquor-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "Belgian ale bottles",
+        "glass kombucha bottles",
+        "glass mineral water bottles",
+        "amber cold brew bottles",
+        "wide neck PET juice bottles"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/beverage-bottles/",
+        "https://www.glorystarpack.com/products/beer-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "glass maple syrup bottles",
+        "amphora olive oil bottles",
+        "clamp lid pantry jars",
+        "glass honey jars",
+        "glass spice shaker jars",
+        "mini glass jam jars"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/glass-packaging/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "sculpted glass perfume bottles",
+        "oval perfume bottles",
+        "slim rectangular nail polish bottles",
+        "glass nail polish bottle supplier"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/perfume-bottles/",
+        "https://www.glorystarpack.com/products/nail-polish-bottles/",
+        "https://www.glorystarpack.com/products/glass-cosmetic-bottles/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "foaming trigger sprayer",
+        "38mm tamper evident cap",
+        "wire bail swing top closure",
+        "lock down lotion pump",
+        "HDPE packer bottle"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
+        "https://www.glorystarpack.com/products/plastic-packaging/"
       ]
     },
     {
@@ -687,6 +790,12 @@
       "https://www.glorystarpack.com/products/vodka-bottles/",
       "https://www.glorystarpack.com/products/gin-bottles/",
       "https://www.glorystarpack.com/products/sparkling-wine-bottles/",
+      "https://www.glorystarpack.com/products/glass-packaging/",
+      "https://www.glorystarpack.com/products/glass-cosmetic-bottles/",
+      "https://www.glorystarpack.com/products/perfume-bottles/",
+      "https://www.glorystarpack.com/products/nail-polish-bottles/",
+      "https://www.glorystarpack.com/products/plastic-packaging/",
+      "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
       "https://www.glorystarpack.com/site-index/",
       "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",
       "https://www.glorystarpack.com/wholesale-cosmetic-packaging/",

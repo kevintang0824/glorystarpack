@@ -169,6 +169,9 @@ CAT_TITLES['glass-decanter'] = 'Glass Decanter & Flask Bottles';
 CAT_TITLES['juice-soda-bottle'] = 'Glass Juice & Soda Bottles';
 CAT_TITLES['oil-vinegar-bottle'] = 'Glass Oil & Vinegar Bottles';
 CAT_TITLES['sauce-syrup-bottle'] = 'Glass Sauce & Syrup Bottles';
+CAT_TITLES['glass-food'] = 'Glass Food Bottles & Jars';
+CAT_TITLES['food-jar'] = 'Glass Food, Honey & Spice Jars';
+CAT_TITLES['glass-apothecary'] = 'Glass Apothecary & Supplement Bottles';
 CAT_TITLES.components = 'Pumps, Caps & Components';
 
 const CAT_COPY = {
@@ -186,6 +189,9 @@ const CAT_COPY = {
   'juice-soda-bottle':['Glass Juice, Dairy and Soda Bottles', 'Custom clear and colored glass bottles for juice, milk, cold brew, tea, soda, tonic water and specialty beverage programs, with crown, lug and screw finishes available by project.'],
   'oil-vinegar-bottle':['Glass Oil and Vinegar Bottle Shapes', 'Tall Dorica and square Marasca-style glass bottle concepts for olive oil, vinegar, infused oil, dressing and gourmet food packaging.'],
   'sauce-syrup-bottle':['Glass Sauce and Syrup Bottle Shapes', 'Woozy sauce bottles and fluted-neck syrup decanters for hot sauce, marinades, dressings, syrup and liquid seasoning packaging.'],
+  'glass-food':['Glass Food Bottles and Jars', 'French square, milk, sauce, spice, Mason, honey, straight-sided, vinegar, oil and syrup glass packaging grouped for food and beverage sourcing. Filling temperature, closure, liner and thermal process are confirmed for each project.'],
+  'food-jar':['Glass Food, Honey and Spice Jars', 'Paragon spice jars, Mason jars, hexagonal honey jars and straight-sided wide-mouth food jars for seasonings, preserves, spreads, confectionery and pantry collections.'],
+  'glass-apothecary':['Glass Apothecary and Supplement Bottles', 'Boston round, French square, amber packer and Blake-style glass bottle concepts for supplements, botanical extracts, wellness products and apothecary-inspired packaging. Compliance and closure requirements are confirmed by destination market and product.'],
   components:['Pumps, Caps and Packaging Components', 'Pumps, sprayers, caps, corks, droppers, rollerballs, applicators, liners and matching accessories for glass, plastic, aluminum and mixed-material packaging.'],
   glass:['Glass Cosmetic Packaging Supplier', 'Glass packaging is ideal for premium skincare, perfume, serum, essential oils and formulas that need strong compatibility, high clarity and a luxury hand feel.'],
   'glass-oil':['Glass Essential Oil Bottles', 'Amber, clear and frosted glass dropper bottles, roller bottles and essential oil containers with UV-protective options for aromatherapy and active formulas.'],
@@ -257,7 +263,8 @@ const PRIMARY_MATERIAL_IDS = {
     'p55','p56','p57','p72','p73','p90','p93','p94','p95','p96','p97','p98','p112','p118','p119','p120',
     'p121','p131','p132','p133','p134','p149','p153','p164','p173','p186','p217','p218','p219','p220','p221','p223',
     'p224','p277','p289','p290','p299','p305','p316','p317','p318','p319','p320','p321','p322','p323','p324','p325',
-    'p328','p329','p330','p331','p332','p333','p334','p335','p336','p337','p338','p339','p340','p341','p342','p343'
+    'p328','p329','p330','p331','p332','p333','p334','p335','p336','p337','p338','p339','p340','p341','p342','p343',
+    'p344','p345','p346','p347','p348','p349','p350','p351','p352','p353','p354'
   ],
   'material-plastic': [
     'p2','p10','p14','p16','p18','p19','p20','p22','p23','p41','p42','p43','p44','p45','p46','p47',
@@ -268,11 +275,12 @@ const PRIMARY_MATERIAL_IDS = {
     'p183','p187','p201','p202','p203','p204','p205','p206','p207','p208','p209','p210','p211','p227','p228','p229',
     'p230','p232','p237','p238','p240','p241','p243','p244','p245','p246','p247','p248','p249','p253','p257','p262',
     'p264','p266','p270','p271','p272','p273','p276','p279','p281','p283','p284','p288','p291','p293','p294','p295',
-    'p297','p298','p301','p302','p307','p308','p309','p310','p312','p313','p315'
+    'p297','p298','p301','p302','p307','p308','p309','p310','p312','p313','p315',
+    'p355','p356','p357','p358','p359','p360'
   ],
   'material-metal': [
     'p5','p11','p27','p75','p76','p77','p78','p113','p114','p117','p142','p143','p144','p154','p155','p156',
-    'p157','p181','p214','p222','p250','p286','p296','p300','p306','p327'
+    'p157','p181','p214','p222','p250','p286','p296','p300','p306','p327','p361','p362'
   ],
   'material-bamboo-wood': [
     'p3','p8','p13','p24','p25','p26','p71','p74','p111','p129','p213'
@@ -324,7 +332,11 @@ function installProductItemListSchema() {
         additionalProperty: [
           {'@type': 'PropertyValue', name: 'Capacity', value: p.size},
           {'@type': 'PropertyValue', name: 'Finish', value: p.finish},
-          {'@type': 'PropertyValue', name: 'MOQ', value: `${p.moq} pcs`}
+          {
+            '@type': 'PropertyValue',
+            name: isConceptProduct(p) ? 'Planning MOQ' : 'MOQ',
+            value: `${p.moq} pcs${isConceptProduct(p) ? '; confirm by project' : ''}`
+          }
         ]
       }
     }))
@@ -339,8 +351,16 @@ function installProductItemListSchema() {
   script.textContent = JSON.stringify(data);
 }
 
+function isConceptProduct(p) {
+  if (!p) return false;
+  const productNumber = Number(String(p.id).replace(/\D/g, ''));
+  return (productNumber >= 329 && productNumber <= 362)
+    || /\bconcept\b|\bcustom (?:bottle|jar|container|closure|dispensing)[ -](?:shape[ -])?family\b/i.test(`${p.desc} ${p.tab}`);
+}
+
 function installCurrentProductSchema(p) {
   if (!p) return;
+  const isConcept = isConceptProduct(p);
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -353,19 +373,23 @@ function installCurrentProductSchema(p) {
     material: p.mat,
     brand: {'@type': 'Brand', name: 'GloryStarPack'},
     manufacturer: {'@id': 'https://www.glorystarpack.com/#organization'},
-    offers: {
+    additionalProperty: [
+      {'@type': 'PropertyValue', name: 'Capacity', value: p.size},
+      {'@type': 'PropertyValue', name: 'Finish', value: p.finish},
+      isConcept
+        ? {'@type': 'PropertyValue', name: 'Supply Status', value: 'Custom development; availability and sample timing confirmed by project'}
+        : {'@type': 'PropertyValue', name: 'Sample Time', value: '7-10 working days'}
+    ]
+  };
+  if (!isConcept) {
+    data.offers = {
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
       priceCurrency: 'USD',
       businessFunction: 'https://schema.org/Sell',
       eligibleQuantity: {'@type': 'QuantitativeValue', value: Number(p.moq), unitText: 'pcs'}
-    },
-    additionalProperty: [
-      {'@type': 'PropertyValue', name: 'Capacity', value: p.size},
-      {'@type': 'PropertyValue', name: 'Finish', value: p.finish},
-      {'@type': 'PropertyValue', name: 'Sample Time', value: '7-10 working days'}
-    ]
-  };
+    };
+  }
   let script = document.getElementById('current-product-schema');
   if (!script) {
     script = document.createElement('script');
@@ -484,6 +508,9 @@ const FILTER_SEO_URLS = {
   'juice-soda-bottle': '/products/beverage-bottles/',
   'oil-vinegar-bottle': '/products/glass-packaging/',
   'sauce-syrup-bottle': '/products/glass-packaging/',
+  'glass-food': '/products/glass-packaging/',
+  'food-jar': '/products/glass-packaging/',
+  'glass-apothecary': '/products/glass-packaging/',
   'glass-oil': '/products/serum-dropper-bottles/',
   'glass-dropper': '/products/serum-dropper-bottles/',
   'glass-perfume': '/products/perfume-bottles/',
@@ -534,7 +561,8 @@ function setMeta(page, sub) {
     const clean = (CAT_TITLES[sub] || sub).replace(/[^\w\s/&-]/g, '').trim();
     const glassBottleSub = [
       'material-glass','glass','beverage','wine-bottle','spirit-bottle','beer-bottle',
-      'glass-decanter','juice-soda-bottle','oil-vinegar-bottle','sauce-syrup-bottle'
+      'glass-decanter','juice-soda-bottle','oil-vinegar-bottle','sauce-syrup-bottle',
+      'glass-food','food-jar','glass-apothecary'
     ].includes(sub);
     title = glassBottleSub
       ? `${clean} | Custom Glass Bottle Manufacturer | GloryStarPack`
@@ -631,7 +659,7 @@ function setActiveNav(page, sub) {
     let group = '';
     if (sub === 'material-glass' || (sub && sub.startsWith('glass'))) group = 'glass';
     else if (['beverage','wine-bottle','spirit-bottle','beer-bottle','juice-soda-bottle','beverage-closure'].includes(sub)) group = 'beverage';
-    else if (['oil-vinegar-bottle','sauce-syrup-bottle'].includes(sub)) group = 'glass';
+    else if (['oil-vinegar-bottle','sauce-syrup-bottle','glass-food','food-jar','glass-apothecary'].includes(sub)) group = 'glass';
     else if (sub === 'material-plastic' || sub === 'components' || (sub && sub.startsWith('plastic'))) group = 'plastic';
     else if (sub === 'material-bamboo-wood' || (sub && sub.startsWith('bamboo'))) group = 'bamboo';
     else if (sub === 'material-metal' || (sub && sub.startsWith('alu'))) group = 'alu';
@@ -666,23 +694,26 @@ function go(page, sub, skipHash, productPage = 1) {
 // =========================================================== PRODUCT CARD HTML
 const productPhotoIds = new Set([
   ...Array.from({length:316}, (_, i) => `p${i + 1}`),
-  ...Array.from({length:15}, (_, i) => `p${i + 329}`)
+  ...Array.from({length:34}, (_, i) => `p${i + 329}`)
 ]);
 const PRODUCT_IMAGE_SETS = [
   {cat:'beer-bottle', images:['assets/brand/glass-beer-bottle-collection-2026.jpg','assets/product-photos/p336-0.jpg','assets/product-photos/p337-0.jpg','assets/product-photos/p338-0.jpg']},
   {cat:'glass-decanter', images:['assets/product-photos/p334-0.jpg','assets/product-photos/p333-0.jpg','assets/product-photos/p343-0.jpg']},
-  {cat:'juice-soda-bottle', images:['assets/product-photos/p338-0.jpg','assets/product-photos/p339-0.jpg']},
-  {cat:'oil-vinegar-bottle', images:['assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg']},
-  {cat:'sauce-syrup-bottle', images:['assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg']},
+  {cat:'juice-soda-bottle', images:['assets/product-photos/p348-0.jpg','assets/product-photos/p355-0.jpg','assets/product-photos/p338-0.jpg','assets/product-photos/p339-0.jpg']},
+  {cat:'oil-vinegar-bottle', images:['assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg']},
+  {cat:'sauce-syrup-bottle', images:['assets/product-photos/p349-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg','assets/product-photos/p362-0.jpg']},
+  {cat:'glass-food', images:['assets/product-photos/p344-0.jpg','assets/product-photos/p348-0.jpg','assets/product-photos/p349-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg']},
+  {cat:'food-jar', images:['assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p362-0.jpg']},
+  {cat:'glass-apothecary', images:['assets/product-photos/p344-0.jpg','assets/product-photos/p345-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p347-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p34-0.jpg']},
   {cat:'wine-bottle', images:['assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-1440.webp']},
   {cat:'spirit-bottle', images:['assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-1440.webp']},
-  {cat:'beverage-closure', images:['assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp']},
+  {cat:'beverage-closure', images:['assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp']},
   {cat:'beverage', images:['assets/brand/wine-spirits-bottle-collection-2026-768.webp','assets/brand/wine-bottle-collection-original-2026-768.webp','assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp']},
-  {cat:'packaging-accessories', images:['assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p263-0.jpg','assets/product-photos/p267-0.jpg','assets/product-photos/p273-0.jpg','assets/product-photos/p274-0.jpg','assets/product-photos/p279-0.jpg','assets/product-photos/p259-0.jpg','assets/product-photos/p260-0.jpg','assets/product-photos/p243-0.jpg','assets/product-photos/p254-0.jpg','assets/product-photos/p258-0.jpg']},
+  {cat:'packaging-accessories', images:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p263-0.jpg','assets/product-photos/p267-0.jpg','assets/product-photos/p273-0.jpg','assets/product-photos/p274-0.jpg','assets/product-photos/p279-0.jpg','assets/product-photos/p259-0.jpg','assets/product-photos/p260-0.jpg','assets/product-photos/p243-0.jpg','assets/product-photos/p254-0.jpg','assets/product-photos/p258-0.jpg']},
   {cat:'home-fragrance', images:['assets/product-photos/p242-0.jpg','assets/product-photos/p219-0.jpg','assets/product-photos/p217-0.jpg','assets/product-photos/p220-0.jpg']},
-  {cat:'spa-body', images:['assets/product-photos/p304-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p225-0.jpg','assets/product-photos/p228-0.jpg','assets/product-photos/p241-0.jpg','assets/product-photos/p233-0.jpg']},
-  {cat:'hotel-amenity', images:['assets/product-photos/p302-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p284-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p275-0.jpg','assets/product-photos/p271-0.jpg','assets/product-photos/p229-0.jpg','assets/product-photos/p230-0.jpg','assets/product-photos/p236-0.jpg','assets/product-photos/p234-0.jpg']},
-  {cat:'personal-care', images:['assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p296-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p300-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p303-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p305-0.jpg','assets/product-photos/p306-0.jpg','assets/product-photos/p307-0.jpg','assets/product-photos/p308-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p311-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p314-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p316-0.jpg']},
+  {cat:'spa-body', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p225-0.jpg','assets/product-photos/p228-0.jpg','assets/product-photos/p241-0.jpg','assets/product-photos/p233-0.jpg']},
+  {cat:'hotel-amenity', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p284-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p275-0.jpg','assets/product-photos/p271-0.jpg','assets/product-photos/p229-0.jpg','assets/product-photos/p230-0.jpg','assets/product-photos/p236-0.jpg','assets/product-photos/p234-0.jpg']},
+  {cat:'personal-care', images:['assets/product-photos/p359-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p296-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p300-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p303-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p305-0.jpg','assets/product-photos/p306-0.jpg','assets/product-photos/p307-0.jpg','assets/product-photos/p308-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p311-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p314-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p316-0.jpg']},
   {cat:'men-grooming', images:['assets/product-photos/p305-0.jpg','assets/product-photos/p306-0.jpg','assets/product-photos/p307-0.jpg','assets/product-photos/p308-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p311-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p314-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p316-0.jpg']},
   {cat:'glass-dropper', images:['assets/product-photos/p305-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p289-0.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
   {cat:'glass-rollon', images:['assets/product-photos/p316-0.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/fragrance-packaging-collection-v2-2026.jpg']},
@@ -690,18 +721,19 @@ const PRODUCT_IMAGE_SETS = [
   {cat:'glass-spray', images:['assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg']},
   {cat:'glass-lotion', images:['assets/product-photos/p290-0.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
   {cat:'glass-nail', images:['assets/brand/makeup-lip-mascara-components-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg','assets/brand/glass-dropper-rollon-vials-2026.jpg']},
-  {cat:'plastic-pet', images:['assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg']},
-  {cat:'plastic-hdpe', images:['assets/product-photos/p313-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-pet', images:['assets/product-photos/p355-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/glass-lotion-toner-nail-2026.jpg']},
+  {cat:'plastic-hdpe', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-cap', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/closures-complete-product-assortment-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-dropper', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg','assets/brand/closures-complete-product-assortment-2026.jpg']},
   {cat:'bamboo-rollon', images:['assets/brand/bamboo-packaging-collection-v2-2026.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg']},
-  {cat:'plastic-closure', images:['assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p266-0.jpg','assets/product-photos/p268-0.jpg','assets/product-photos/p269-0.jpg','assets/product-photos/p274-0.jpg','assets/brand/closures-complete-product-assortment-2026.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/cosmetic-closures-components-2026.jpg','assets/brand/oem-decoration-process-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-closure', images:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p291-0.jpg','assets/product-photos/p289-0.jpg','assets/product-photos/p266-0.jpg','assets/product-photos/p268-0.jpg','assets/product-photos/p269-0.jpg','assets/product-photos/p274-0.jpg','assets/brand/closures-complete-product-assortment-2026.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/cosmetic-closures-components-2026.jpg','assets/brand/oem-decoration-process-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
   {cat:'plastic-travel', images:['assets/product-photos/p311-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p316-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p303-0.jpg','assets/product-photos/p284-0.jpg','assets/product-photos/p285-0.jpg','assets/product-photos/p283-0.jpg','assets/brand/travel-sample-complete-product-assortment-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/glass-complete-product-assortment-2026.jpg']},
   {cat:'eco-refill', images:['assets/product-photos/p295-0.jpg','assets/product-photos/p299-0.jpg','assets/product-photos/p282-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p272-0.jpg','assets/product-photos/p264-0.jpg','assets/product-photos/p280-0.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/refill-eco-packaging-collection-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
-  {cat:'plastic-pump', images:['assets/product-photos/p310-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg']},
+  {cat:'plastic-pump', images:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p310-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p315-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg']},
+  {cat:'plastic-spray', images:['assets/product-photos/p359-0.jpg','assets/product-photos/p244-0.jpg','assets/product-photos/p245-0.jpg','assets/brand/cosmetic-closures-components-v2-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
   {cat:'plastic-airless', images:['assets/product-photos/p315-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p281-0.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg']},
   {cat:'plastic-airless-jar', images:['assets/brand/airless-refill-system-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg']},
-  {cat:'plastic-lotion', images:['assets/product-photos/p309-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p278-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
+  {cat:'plastic-lotion', images:['assets/product-photos/p356-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p309-0.jpg','assets/product-photos/p313-0.jpg','assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p298-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p283-0.jpg','assets/product-photos/p278-0.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
   {cat:'plastic-jar', images:['assets/product-photos/p307-0.jpg','assets/product-photos/p264-0.jpg','assets/product-photos/p265-0.jpg','assets/product-photos/p278-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/skincare-packaging-application-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
   {cat:'plastic-foam', images:['assets/product-photos/p310-0.jpg','assets/product-photos/p293-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg']},
   {cat:'plastic-deodorant', images:['assets/product-photos/p308-0.jpg','assets/product-photos/p312-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p296-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/refill-sample-complete-product-assortment-2026.jpg','assets/brand/paper-eco-complete-product-assortment-2026.jpg']},
@@ -725,6 +757,28 @@ const PRODUCT_IMAGE_SETS = [
   {cat:'plastic', images:['assets/product-photos/p293-0.jpg','assets/product-photos/p294-0.jpg','assets/product-photos/p295-0.jpg','assets/product-photos/p297-0.jpg','assets/product-photos/p301-0.jpg','assets/product-photos/p302-0.jpg','assets/product-photos/p304-0.jpg','assets/product-photos/p281-0.jpg','assets/product-photos/p288-0.jpg','assets/product-photos/p283-0.jpg','assets/brand/plastic-complete-product-assortment-2026.jpg','assets/brand/pet-hdpe-bottle-family-2026.jpg','assets/brand/airless-packaging-collection-2026.jpg','assets/brand/airless-refill-system-2026.jpg','assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg','assets/brand/makeup-complete-product-assortment-2026.jpg']}
 ];
 
+const PRODUCT_DETAIL_IMAGE_SETS = {
+  p344:['assets/product-photos/p344-0.jpg','assets/product-photos/p345-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p347-0.jpg'],
+  p345:['assets/product-photos/p345-0.jpg','assets/product-photos/p344-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p347-0.jpg'],
+  p346:['assets/product-photos/p346-0.jpg','assets/product-photos/p347-0.jpg','assets/product-photos/p345-0.jpg','assets/product-photos/p344-0.jpg'],
+  p347:['assets/product-photos/p347-0.jpg','assets/product-photos/p346-0.jpg','assets/product-photos/p344-0.jpg','assets/product-photos/p345-0.jpg'],
+  p348:['assets/product-photos/p348-0.jpg','assets/product-photos/p339-0.jpg','assets/product-photos/p355-0.jpg','assets/product-photos/p354-0.jpg'],
+  p349:['assets/product-photos/p349-0.jpg','assets/product-photos/p342-0.jpg','assets/product-photos/p343-0.jpg','assets/product-photos/p354-0.jpg'],
+  p350:['assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg'],
+  p351:['assets/product-photos/p351-0.jpg','assets/product-photos/p352-0.jpg','assets/product-photos/p353-0.jpg','assets/product-photos/p350-0.jpg'],
+  p352:['assets/product-photos/p352-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p353-0.jpg'],
+  p353:['assets/product-photos/p353-0.jpg','assets/product-photos/p351-0.jpg','assets/product-photos/p350-0.jpg','assets/product-photos/p352-0.jpg'],
+  p354:['assets/product-photos/p354-0.jpg','assets/product-photos/p340-0.jpg','assets/product-photos/p341-0.jpg','assets/product-photos/p349-0.jpg'],
+  p355:['assets/product-photos/p355-0.jpg','assets/product-photos/p348-0.jpg','assets/product-photos/p339-0.jpg','assets/product-photos/p338-0.jpg'],
+  p356:['assets/product-photos/p356-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p359-0.jpg'],
+  p357:['assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p356-0.jpg'],
+  p358:['assets/product-photos/p358-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p359-0.jpg','assets/product-photos/p356-0.jpg'],
+  p359:['assets/product-photos/p359-0.jpg','assets/product-photos/p357-0.jpg','assets/product-photos/p358-0.jpg','assets/product-photos/p356-0.jpg'],
+  p360:['assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p355-0.jpg'],
+  p361:['assets/product-photos/p361-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p362-0.jpg','assets/product-photos/p335-0.jpg'],
+  p362:['assets/product-photos/p362-0.jpg','assets/product-photos/p360-0.jpg','assets/product-photos/p361-0.jpg','assets/product-photos/p351-0.jpg']
+};
+
 function productImage(p, offset = 0) {
   const variant = Math.max(0, Math.min(4, Number(offset) || 0));
   const hasDedicatedPhoto = productPhotoIds.has(p.id);
@@ -740,7 +794,9 @@ function productImage(p, offset = 0) {
 }
 
 function productGalleryImages(p) {
-  const labels = ['Front View', 'Application View', 'Packaging Set', 'Detail View'];
+  const labels = ['Product View', 'Related Option', 'Matching Family', 'Component Option'];
+  const curated = PRODUCT_DETAIL_IMAGE_SETS[p.id];
+  if (curated) return curated.map((src, index) => ({label: labels[index], src}));
   const sources = [productImage(p)];
   PRODUCT_IMAGE_SETS
     .filter(set => p.cats.includes(set.cat))
@@ -756,7 +812,23 @@ function productGalleryImages(p) {
 function productSubitems(p) {
   const isAccessory = p.cats.includes('packaging-accessories');
   const isPackagingKit = /Kit|Set/.test(p.name) && !isAccessory;
-  const closure = p.cats.includes('beverage-closure') ? 'Cork / Cap / Pourer'
+  const componentNames = {
+    p357:'External-Spring Pump',
+    p358:'High-Output Pump',
+    p359:'Fine-Mist Sprayer',
+    p360:'28mm PCO Cap',
+    p361:'26mm Crown Cap',
+    p362:'Lug Twist-Off Cap'
+  };
+  const componentUses = {
+    p357:'Lotion / Personal Care',
+    p358:'1L-5L Refill Jug',
+    p359:'Hair / Body Mist',
+    p360:'PET Beverage Closure',
+    p361:'Beer / Sparkling Drink',
+    p362:'Food Jar / Beverage'
+  };
+  const closure = componentNames[p.id] || (p.cats.includes('beverage-closure') ? 'Cork / Cap / Pourer'
     : p.cats.includes('wine-bottle') ? 'Cork / ROPP'
     : p.cats.includes('spirit-bottle') ? 'Bar Top / Screw Cap'
     : p.cats.includes('glass-growler') ? 'Screw Cap / Swing Top'
@@ -764,6 +836,9 @@ function productSubitems(p) {
     : p.cats.includes('juice-soda-bottle') ? 'Crown / Lug / Screw'
     : p.cats.includes('oil-vinegar-bottle') ? 'ROPP / Pourer'
     : p.cats.includes('sauce-syrup-bottle') ? 'Lug / Orifice Cap'
+    : p.cats.includes('food-jar') ? 'Lug / CT Cap'
+    : p.cats.includes('glass-apothecary') ? 'Screw / CRC Option'
+    : p.cats.includes('glass-food') ? 'Lug / Screw Cap'
     : isAccessory ? 'Matched Component'
     : isPackagingKit ? 'Complete Set'
     : p.cats.includes('glass-rollon') ? 'Rollerball / Cap'
@@ -795,14 +870,17 @@ function productSubitems(p) {
     : p.cats.includes('alu-tin') ? 'Screw / Press Lid'
     : p.cats.includes('eco-refill') ? 'Spout / Refill Cap'
     : p.cats.includes('paper-box') ? 'Insert / Sleeve'
-    : 'Custom Closure';
-  const use = p.cats.includes('wine-bottle') ? 'Wine / Sparkling'
+    : 'Custom Closure');
+  const use = componentUses[p.id] || (p.cats.includes('wine-bottle') ? 'Wine / Sparkling'
     : p.cats.includes('spirit-bottle') ? 'Whiskey / Spirits'
     : p.cats.includes('beer-bottle') ? 'Beer / Kombucha'
     : p.cats.includes('juice-soda-bottle') ? 'Juice / Soda'
     : p.cats.includes('oil-vinegar-bottle') ? 'Oil / Vinegar'
     : p.cats.includes('sauce-syrup-bottle') ? 'Sauce / Syrup'
     : p.cats.includes('beverage-closure') ? 'Bottle Closure'
+    : p.cats.includes('food-jar') ? 'Food / Honey / Spice'
+    : p.cats.includes('glass-apothecary') ? 'Supplement / Wellness'
+    : p.cats.includes('glass-food') ? 'Food / Beverage'
     : isAccessory ? 'Accessory Matching'
     : isPackagingKit ? 'One-Stop Project'
     : p.cats.includes('glass-ampoule') ? 'Sample / Dose'
@@ -831,11 +909,11 @@ function productSubitems(p) {
     : p.cats.includes('alu-tube') ? 'Balm / Cream'
     : p.cats.includes('paper-box') ? 'Gift Set'
     : p.cats.includes('alu-bag') ? 'Sample / Refill'
-    : 'Skincare';
+    : 'Skincare');
   return [
     {k:'Capacity', v:p.size},
     {k:'Finish', v:p.finish},
-    {k:'Closure', v:closure},
+    {k:isAccessory || p.cats.includes('beverage-closure') ? 'Component' : 'Closure', v:closure},
     {k:'Best For', v:use}
   ];
 }
@@ -850,7 +928,7 @@ const FEATURED_CARD_AVIF = {
   p4: 'assets/product-photos/p4-0-480.avif',
   p40: 'assets/product-photos/p40-0-480.avif',
   p328: 'assets/brand/glass-beer-bottle-collection-2026-768.avif',
-  ...Object.fromEntries(Array.from({length:15}, (_, i) => {
+  ...Object.fromEntries(Array.from({length:34}, (_, i) => {
     const id = `p${i + 329}`;
     return [id, `assets/product-photos/${id}-0-480.avif`];
   }))
@@ -861,10 +939,11 @@ function pcHTML(p, small) {
   const bl = {hot:'HOT',new:'NEW',eco:'ECO',custom:'CUSTOM'}[p.badge]||'HOT';
   const img = productImage(p);
   const responsiveImage = FEATURED_CARD_AVIF[p.id]
-    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(p.name)} packaging product photo" loading="lazy" decoding="async"></picture>`
+    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(p.name)} packaging product photo" width="480" height="480" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='flex';"></picture>`
     : `<img src="${img}" alt="${safeText(p.name)} packaging product photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
   const safeName = p.name.replace(/'/g, "\\'");
+  const moqLabel = isConceptProduct(p) ? 'Planning MOQ' : 'MOQ';
   return `<div class="pc fade-in" onclick="showDetail('${p.id}')">
     <div class="pc-img">${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span></div>
     <span class="pc-badge ${bc}">${bl}</span>
@@ -873,7 +952,7 @@ function pcHTML(p, small) {
       <div class="pc-specs">${p.mat} · ${p.size}</div>
       <div class="pc-subitems">${chips}</div>
       <div class="pc-bot">
-        <div class="moq-val">MOQ <strong>${p.moq} pcs</strong></div>
+        <div class="moq-val">${moqLabel} <strong>${p.moq} pcs</strong></div>
         <div class="card-actions">
           <button class="card-btn soft" onclick="event.stopPropagation();openModal('sample','${safeName}')">Sample</button>
           <button class="card-btn" onclick="event.stopPropagation();openModal('quote','${safeName}')">Quote</button>
@@ -1105,10 +1184,13 @@ function showDetail(pid) {
   const bl = {hot:'HOT',new:'NEW',eco:'ECO',custom:'CUSTOM'}[p.badge]||'HOT';
   document.getElementById('det-badges').innerHTML = `<span class="pc-badge ${bc}" style="position:static;">${bl}</span>`;
   // specs
+  const conceptProduct = isConceptProduct(p);
   document.getElementById('det-specs').innerHTML = [
     ['Material', p.mat],['Capacity / Size', p.size],['Finish', p.finish],
-    ['MOQ', p.moq + ' pcs per color'],['Sample Time', '7–10 working days'],
-    ['Lead Time', '25–35 days (bulk order)'],['Documentation', 'Confirm project-specific requirements with our team']
+    [conceptProduct ? 'Planning MOQ' : 'MOQ', p.moq + (conceptProduct ? ' pcs; confirm by project' : ' pcs per color')],
+    ['Sample Time', conceptProduct ? 'Confirmed after drawing and tooling review' : '7–10 working days'],
+    ['Lead Time', conceptProduct ? 'Confirmed after sample and tooling approval' : '25–35 days (bulk order)'],
+    ['Documentation', 'Confirm project-specific requirements with our team']
   ].map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
   // size options
   const sizes = p.size.split('/').map(s => s.trim());

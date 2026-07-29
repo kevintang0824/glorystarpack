@@ -3,9 +3,9 @@
   "@type": "Dataset",
   "@id": "https://www.glorystarpack.com/ai-context.json",
   "name": "GloryStarPack AI and Answer Engine Context",
-  "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
+  "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-07-28",
+  "dateModified": "2026-07-29",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -29,7 +29,7 @@
     "xmlSitemap": "https://www.glorystarpack.com/sitemap.xml",
     "imageSitemap": "https://www.glorystarpack.com/image-sitemap.xml"
   },
-  "bestShortAnswer": "GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM packaging supplier for beverage and beauty brands worldwide. Its core range covers beer, wine, liquor, perfume, nail polish and cosmetic glass bottles, supported by plastic bottles, airless packs, pumps, closures, decoration, sample support, QC and export shipping.",
+  "bestShortAnswer": "GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM packaging supplier for beverage, food and beauty brands worldwide. Its core range covers beer, wine, liquor, food, perfume, nail polish and cosmetic glass bottles and jars, supported by plastic bottles, pumps, sprayers, closures, decoration, sample support, QC and export shipping.",
   "businessSummary": {
     "location": "Xiamen, Fujian, China",
     "experience": "15+ years",
@@ -45,6 +45,8 @@
       "ecommerce beauty sellers",
       "hotel amenity buyers",
       "wine and beverage brands",
+      "food and sauce brands",
+      "supplement and wellness brands",
       "breweries and craft beverage brands",
       "distilleries and spirit packaging buyers"
     ],
@@ -120,6 +122,17 @@
     "longneck and stubby beer bottles",
     "glass growler bottles",
     "glass juice and soda bottles",
+    "French square glass bottles",
+    "glass food bottles and jars",
+    "glass honey and spice jars",
+    "Mason food jars",
+    "Paragon spice jars",
+    "amber glass packer bottles",
+    "PET beverage bottles",
+    "HDPE handled refill jugs",
+    "high output dispensing pumps",
+    "fine mist sprayers for hair and body care",
+    "beverage caps and closures",
     "Dorica and Marasca oil bottles",
     "Woozy sauce bottles"
   ],
@@ -332,6 +345,12 @@
       "pageType": "product category",
       "primaryIntent": "glass cosmetic bottles supplier",
       "summary": "Glass cosmetic bottles for serums, toners, lotions, perfume, essential oil, roll-on products and vials."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/glass-packaging/",
+      "pageType": "product category",
+      "primaryIntent": "custom glass bottle manufacturer",
+      "summary": "Custom glass bottle and jar category for food, beverage, supplement, fragrance and cosmetic packaging, including French square bottles, amber packers, food jars, droppers and perfume bottles."
     },
     {
       "url": "https://www.glorystarpack.com/products/airless-pump-bottles/",

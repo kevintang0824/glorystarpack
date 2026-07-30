@@ -1493,43 +1493,55 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cta-btns{display:flex;gap:14px;flex-shrink:0;}
 
 /* ========== CAROUSEL ========== */
-.carousel-section{width:100%;overflow:hidden;position:relative;}
-.carousel-wrap{position:relative;width:100%;}
+.carousel-section{width:100%;overflow:hidden;position:relative;background:#0d0d0c;border-bottom:1px solid rgba(200,169,110,.38);}
+.carousel-wrap{position:relative;width:100%;isolation:isolate;}
 .carousel-track{display:flex;transition:transform .7s cubic-bezier(.77,0,.18,1);will-change:transform;}
-.cs-slide{min-width:100%;position:relative;height:500px;overflow:hidden;flex-shrink:0;}
-.cs-bg{position:absolute;inset:0;background-repeat:no-repeat;background-position:right 3% center,center;background-size:auto 92%,cover;}
-.cs-bg-1{background-color:#111;background-image:url("assets/brand/custom-glass-bottle-hero-2026.jpg"),url("assets/brand/custom-glass-bottle-hero-2026.jpg");background-size:auto 88%,cover;}
+.cs-slide{min-width:100%;position:relative;height:540px;overflow:hidden;flex-shrink:0;background:radial-gradient(circle at 78% 50%,rgba(200,169,110,.13),transparent 28%),linear-gradient(112deg,#0a0a09 0%,#15130f 58%,#211a12 100%);}
+.cs-slide:nth-child(3){background:radial-gradient(circle at 79% 48%,rgba(149,107,116,.16),transparent 30%),linear-gradient(112deg,#0c0b0b 0%,#171112 58%,#221619 100%);}
+.cs-slide:nth-child(4),.cs-slide:nth-child(5){background:radial-gradient(circle at 79% 48%,rgba(89,143,191,.16),transparent 30%),linear-gradient(112deg,#08131f 0%,#0c243a 58%,#12395b 100%);}
+.cs-slide::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:112px 100%;opacity:.22;pointer-events:none;}
+.cs-bg{position:absolute;z-index:1;top:32px;bottom:48px;left:calc(50% + 42px);right:max(72px,calc((100vw - 1380px)/2 + 72px));overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:18px;background-repeat:no-repeat;background-position:center;background-size:contain;box-shadow:0 22px 55px rgba(0,0,0,.34),inset 0 0 0 1px rgba(255,255,255,.035);transform-origin:58% 54%;transition:opacity .42s ease,transform .72s cubic-bezier(.2,.75,.2,1),box-shadow .42s ease;}
+.cs-bg-1{background-color:#111;background-image:url("assets/brand/custom-glass-bottle-hero-2026.jpg");}
 @supports (background-image:image-set(url("assets/brand/custom-glass-bottle-hero-2026-1600.avif") type("image/avif") 1x)){
-  .cs-bg-1{background-image:image-set(url("assets/brand/custom-glass-bottle-hero-2026-1600.avif") type("image/avif") 1x,url("assets/brand/custom-glass-bottle-hero-2026.jpg") type("image/jpeg") 1x),image-set(url("assets/brand/custom-glass-bottle-hero-2026-1600.avif") type("image/avif") 1x,url("assets/brand/custom-glass-bottle-hero-2026.jpg") type("image/jpeg") 1x);}
+  .cs-bg-1{background-image:image-set(url("assets/brand/custom-glass-bottle-hero-2026-1600.avif") type("image/avif") 1x,url("assets/brand/custom-glass-bottle-hero-2026.jpg") type("image/jpeg") 1x);}
 }
-.cs-bg-2{background-color:#15120e;}
+.cs-bg-2{background-color:#15120e;background-size:cover;}
 .cs-bg-3{background-color:#15110f;}
-.cs-bg-4{background-color:#e8e5df;background-size:auto 78%,cover;}
-.cs-bg-5{background-color:#d8d2c6;background-size:auto 78%,cover;}
-.cs-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,12,12,.96) 0%,rgba(16,14,11,.82) 36%,rgba(16,14,11,.28) 68%,rgba(12,12,12,.18) 100%);}
-.cs-bg-1::after{background:radial-gradient(circle at 78% 48%,rgba(200,169,110,.14),transparent 32%),linear-gradient(90deg,rgba(10,10,10,.92) 0%,rgba(15,13,10,.72) 42%,rgba(10,10,10,.05) 78%);}
-.cs-bg-4::after,.cs-bg-5::after{background:linear-gradient(90deg,rgba(7,24,43,.97) 0%,rgba(12,43,74,.88) 38%,rgba(12,43,74,.28) 69%,rgba(7,24,43,.08) 100%);}
-.cs-inner{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:0 52px;height:100%;display:flex;align-items:center;gap:44px;}
-.cs-content{flex:1;min-width:0;max-width:640px;}
-.cs-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.3);color:var(--gold-light);padding:5px 14px;border-radius:20px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;}
+.cs-bg-4{background-color:#e8e5df;background-size:contain;}
+.cs-bg-5{background-color:#d8d2c6;background-size:contain;}
+.cs-bg::before{content:attr(data-label);position:absolute;z-index:2;top:15px;left:16px;padding:7px 10px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(9,9,9,.54);backdrop-filter:blur(10px);color:rgba(255,255,255,.84);font-size:9px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;}
+.cs-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent 28%,rgba(0,0,0,.09));pointer-events:none;}
+.cs-bg-4::before,.cs-bg-5::before{background:rgba(7,31,54,.82);border-color:rgba(255,255,255,.28);}
+.cs-inner{position:relative;z-index:2;max-width:1380px;margin:0 auto;padding:38px 72px 56px;height:100%;display:flex;align-items:center;}
+.cs-content{width:min(47%,540px);min-width:0;position:relative;z-index:3;transition:opacity .38s ease,transform .62s cubic-bezier(.2,.75,.2,1);}
+.cs-slide:not(.is-active) .cs-content{opacity:.3;transform:translateX(-14px);}
+.cs-slide:not(.is-active) .cs-bg{opacity:.58;transform:scale(.982);box-shadow:0 14px 34px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.025);}
+.cs-slide.is-active .cs-content{opacity:1;transform:translateX(0);}
+.cs-slide.is-active .cs-bg{opacity:1;transform:scale(1);}
+.cs-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.32);color:#e3c88f;padding:7px 12px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;}
+.cs-tag::before{content:'';width:18px;height:1px;background:currentColor;opacity:.72;}
 .cs-tag-green{background:rgba(74,124,89,.2);border-color:rgba(74,124,89,.4);color:#8ecf9e;}
 .cs-tag-dark{background:rgba(200,169,110,.08);border-color:rgba(200,169,110,.2);color:var(--gold);}
 .cs-tag-blue{background:rgba(28,76,119,.28);border-color:rgba(145,188,226,.36);color:#c7def2;}
-.cs-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4vw,52px);font-weight:600;color:#fff;line-height:1.08;margin-bottom:14px;max-width:680px;}
+.cs-title{font-family:'Cormorant Garamond',serif;font-size:clamp(43px,3.2vw,54px);font-weight:600;color:#fff;line-height:1.01;letter-spacing:-.025em;margin-bottom:17px;max-width:540px;text-wrap:balance;}
 .cs-title span{color:var(--gold);}
 .cs-title .cs-green{color:#8ecf9e;}
 .cs-title-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,48px);font-weight:600;color:var(--gold);line-height:1.1;margin:-8px 0 14px;}
-.cs-desc{font-size:14px;color:#aaa;line-height:1.75;max-width:420px;margin-bottom:24px;}
-.cs-stats{display:flex;gap:28px;margin-bottom:28px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);}
-.cs-num{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);line-height:1;}
-.cs-lbl{display:block;font-size:10px;color:#666;letter-spacing:.08em;text-transform:uppercase;margin-top:3px;}
+.cs-desc{font-size:14px;color:rgba(255,255,255,.65);line-height:1.72;max-width:500px;margin-bottom:24px;}
+.cs-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:510px;margin-bottom:27px;padding:14px 0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);}
+.cs-stat{min-width:0;padding:0 16px;}
+.cs-stat:first-child{padding-left:0;}
+.cs-stat+.cs-stat{border-left:1px solid rgba(255,255,255,.1);}
+.cs-num{display:block;font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;color:#dfbe7c;line-height:1;white-space:nowrap;}
+.cs-lbl{display:block;font-size:9px;color:rgba(255,255,255,.42);letter-spacing:.09em;text-transform:uppercase;margin-top:5px;white-space:nowrap;}
 .cs-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.cs-btn-primary{background:var(--gold);color:var(--dark);border:none;padding:11px 26px;border-radius:5px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
-.cs-btn-primary:hover{background:var(--gold-dark);color:#fff;transform:translateY(-1px);}
+.cs-btn-primary{background:#d7b36e;color:#17130e;border:1px solid #d7b36e;padding:12px 22px;border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.16);}
+.cs-btn-primary:hover{background:#e3c587;border-color:#e3c587;color:#17130e;transform:translateY(-1px);}
 .cs-btn-green{background:#4a7c59 !important;}
 .cs-btn-green:hover{background:#3a6347 !important;}
-.cs-btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:11px 22px;border-radius:5px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
-.cs-btn-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+.cs-btn-ghost{background:rgba(255,255,255,.025);color:rgba(255,255,255,.74);border:1px solid rgba(255,255,255,.2);padding:12px 20px;border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
+.cs-btn-ghost:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.48);color:#fff;}
+.cs-btn-primary:focus-visible,.cs-btn-ghost:focus-visible,.cs-arrow:focus-visible,.cs-dot:focus-visible{outline:2px solid #fff;outline-offset:3px;}
 .cs-products{flex:0 0 360px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .cs-prod{background:rgba(255,255,255,.05);border:1px solid rgba(200,169,110,.15);border-radius:12px;padding:20px 16px;text-align:center;transition:all .3s;cursor:pointer;}
 .cs-prod:hover{border-color:rgba(200,169,110,.4);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
@@ -1537,16 +1549,16 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cs-prod-img{font-size:48px;margin-bottom:10px;line-height:1;}
 .cs-prod-label{font-size:12px;color:rgba(255,255,255,.8);line-height:1.4;font-weight:500;}
 .cs-prod-label small{font-size:10px;color:#888;font-weight:400;}
-.cs-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50%;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:all .2s;}
-.cs-arrow:hover{background:rgba(200,169,110,.3);border-color:var(--gold);}
-.cs-arrow-prev{left:20px;}
-.cs-arrow-next{right:20px;}
-.cs-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:0;z-index:10;}
-.cs-dot{position:relative;width:32px;height:32px;background:transparent;border:none;cursor:pointer;padding:0;}
+.cs-arrow{position:absolute;bottom:14px;width:34px;height:34px;background:rgba(12,12,11,.58);border:1px solid rgba(255,255,255,.17);border-radius:50%;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:all .2s;backdrop-filter:blur(8px);}
+.cs-arrow:hover{background:rgba(200,169,110,.28);border-color:#d7b36e;}
+.cs-arrow-prev{left:calc(50% - 126px);}
+.cs-arrow-next{right:calc(50% - 126px);}
+.cs-dots{position:absolute;bottom:14px;left:50%;height:34px;transform:translateX(-50%);display:flex;align-items:center;gap:0;z-index:10;padding:0 6px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(12,12,11,.48);backdrop-filter:blur(8px);}
+.cs-dot{position:relative;width:28px;height:32px;background:transparent;border:none;cursor:pointer;padding:0;}
 .cs-dot::before{content:"";position:absolute;top:50%;left:50%;width:8px;height:8px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,255,255,.3);transition:all .3s;}
-.cs-dot.active::before{width:24px;border-radius:4px;background:var(--gold);}
-.cs-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08);}
-.cs-progress-bar{height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left center;will-change:transform;}
+.cs-dot.active::before{width:20px;border-radius:4px;background:#d7b36e;}
+.cs-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,.06);}
+.cs-progress-bar{height:100%;background:#d7b36e;transform:scaleX(0);transform-origin:left center;will-change:transform;}
 .mobile-capability-links{display:none;}
 
 /* GLASS APPLICATION LEDGER */
@@ -1808,6 +1820,16 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .category-feature .cgl-kicker{display:none;}
   .seo-chip-grid{grid-template-columns:repeat(2,1fr);}
   .cs-products{display:none;}
+  .cs-slide{height:520px;}
+  .cs-bg{top:30px;bottom:48px;left:52%;right:28px;}
+  .cs-bg-2{background-size:contain;}
+  .cs-inner{padding:34px 42px 54px;}
+  .cs-content{width:45%;max-width:440px;}
+  .cs-title{font-size:clamp(38px,4.7vw,46px);}
+  .cs-desc{font-size:13px;}
+  .cs-stat{padding:0 10px;}
+  .cs-num{font-size:22px;}
+  .cs-lbl{font-size:8px;}
   .source-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .procurement-head{display:block;}
   .procurement-actions{justify-content:flex-start;margin-top:16px;}
@@ -1842,19 +1864,26 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .menu-toggle{display:inline-flex;}
   .header-contact{display:none;}
   .carousel-track{display:block;transform:none !important;}
-  .cs-bg-1{background-color:#111;background-image:url("assets/brand/custom-glass-bottle-hero-2026-960.jpg"),url("assets/brand/custom-glass-bottle-hero-2026-960.jpg");background-position:center bottom,center;background-size:96% auto,cover;background-repeat:no-repeat;}
+  .cs-bg{top:auto;left:18px;right:18px;bottom:20px;height:246px;border-radius:14px;background-position:center;background-size:contain;}
+  .cs-bg-1{background-color:#111;background-image:url("assets/brand/custom-glass-bottle-hero-2026-960.jpg");}
   @supports (background-image:image-set(url("assets/brand/custom-glass-bottle-hero-2026-960.avif") type("image/avif") 1x)){
-    .cs-bg-1{background-image:image-set(url("assets/brand/custom-glass-bottle-hero-2026-960.avif") type("image/avif") 1x,url("assets/brand/custom-glass-bottle-hero-2026-960.jpg") type("image/jpeg") 1x),image-set(url("assets/brand/custom-glass-bottle-hero-2026-960.avif") type("image/avif") 1x,url("assets/brand/custom-glass-bottle-hero-2026-960.jpg") type("image/jpeg") 1x);}
+    .cs-bg-1{background-image:image-set(url("assets/brand/custom-glass-bottle-hero-2026-960.avif") type("image/avif") 1x,url("assets/brand/custom-glass-bottle-hero-2026-960.jpg") type("image/jpeg") 1x);}
   }
-  .cs-bg-1::after{background:linear-gradient(180deg,rgba(9,9,9,.88) 0%,rgba(11,10,8,.82) 58%,rgba(9,9,9,.4) 78%,rgba(9,9,9,.12) 100%);}
-  .cs-slide{display:none;height:auto;min-height:560px;}
+  .cs-slide{display:none;height:auto;min-height:640px;}
   .cs-slide:first-child{display:block;}
-  .cs-inner{display:block;padding:48px 22px 250px;height:auto;}
-  .cs-content{max-width:100%;}
-  .cs-title,.cs-title-sub{font-size:34px;max-width:100%;}
+  .cs-slide:not(.is-active) .cs-content,.cs-slide:not(.is-active) .cs-bg{opacity:1;transform:none;}
+  .cs-inner{display:block;padding:42px 22px 292px;height:auto;}
+  .cs-content{width:100%;max-width:100%;}
+  .cs-tag{margin-bottom:15px;}
+  .cs-title,.cs-title-sub{font-size:36px;max-width:100%;}
   .cs-desc{max-width:100%;}
   .cs-arrow,.cs-dots,.cs-progress{display:none;}
-  .cs-stats{gap:16px;}
+  .cs-stats{gap:0;max-width:100%;margin-bottom:22px;}
+  .cs-stat{padding:0 10px;}
+  .cs-stat:first-child{padding-left:0;}
+  .cs-num{font-size:23px;}
+  .cs-lbl{font-size:8px;white-space:normal;}
+  .cs-btns>a,.cs-btns>button{min-height:44px;}
   .mobile-capability-links{display:grid;grid-template-columns:1fr 1fr;background:#102f50;border-top:1px solid rgba(255,255,255,.12);}
   .mobile-capability-links a{display:flex;flex-direction:column;gap:3px;padding:14px 17px;color:#fff;text-decoration:none;border-right:1px solid rgba(255,255,255,.12);}
   .mobile-capability-links a:last-child{border-right:0;}
@@ -1942,6 +1971,29 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .news-detail-shell{padding:28px 18px 54px;}
   .news-detail-title{font-size:34px;}
   .news-detail-figure img{height:300px;}
+}
+
+@media (max-width: 420px){
+  .topbar-inner{gap:8px;}
+  .topbar-left,.topbar-right{width:100%;}
+  .topbar-left span:nth-child(3),.topbar-right a:nth-child(3){display:none;}
+  .topbar-right{gap:10px;justify-content:space-between;}
+  .topbar-right a{font-size:11px;}
+  .lang-sel{margin-left:auto;}
+  .header-inner{padding:14px 18px;gap:10px;}
+  .logo{gap:9px;}
+  .logo-mark{width:44px;height:44px;flex-basis:44px;}
+  .logo-text .brand{font-size:15px;}
+  .logo-text .sub{font-size:8px;letter-spacing:.08em;}
+  .header-actions{gap:10px;}
+  .menu-toggle,.btn-quote{flex:1;min-height:44px;}
+  .cs-inner{padding:36px 20px 280px;}
+  .cs-bg{left:16px;right:16px;bottom:18px;height:230px;}
+  .cs-tag{padding:6px 10px;font-size:9px;line-height:1.35;}
+  .cs-title,.cs-title-sub{font-size:34px;}
+  .cs-desc{font-size:13px;}
+  .cs-btns{display:grid;grid-template-columns:1fr;width:100%;}
+  .cs-btns>a,.cs-btns>button{width:100%;}
 }
 </style>
 </head>
@@ -2120,7 +2172,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="carousel-wrap" role="region" aria-roledescription="carousel" aria-label="GloryStarPack glass, plastic bottle and dispensing collections">
       <div class="carousel-track" id="carouselTrack">
         <section class="cs-slide" aria-label="1 of 5">
-          <div class="cs-bg cs-bg-1"></div>
+          <div class="cs-bg cs-bg-1" data-label="01 · Glass systems"></div>
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag">Glass bottle manufacturing · Xiamen, China</div>
@@ -2139,7 +2191,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
           </div>
         </section>
         <section class="cs-slide" aria-label="2 of 5">
-          <div class="cs-bg cs-bg-2" data-bg-desktop="/assets/brand/liquor-spirit-bottle-collection-original-2026-1440.webp" data-bg-mobile="/assets/brand/liquor-spirit-bottle-collection-original-2026-768.webp" data-bg-fallback="/assets/brand/liquor-spirit-bottle-collection-original-2026-1440.jpg"></div>
+          <div class="cs-bg cs-bg-2" data-label="02 · Spirits &amp; wine" data-bg-desktop="/assets/brand/liquor-spirit-bottle-collection-ai-2026-1440.avif" data-bg-mobile="/assets/brand/liquor-spirit-bottle-collection-ai-2026-768.avif" data-bg-fallback="/assets/brand/liquor-spirit-bottle-collection-ai-2026-1440.jpg"></div>
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag">Spirits &amp; wine glass</div>
@@ -2158,7 +2210,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
           </div>
         </section>
         <section class="cs-slide" aria-label="3 of 5">
-          <div class="cs-bg cs-bg-3" data-bg-desktop="/assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.webp" data-bg-mobile="/assets/brand/perfume-fragrance-bottle-collection-original-2026-768.webp" data-bg-fallback="/assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.jpg"></div>
+          <div class="cs-bg cs-bg-3" data-label="03 · Fragrance &amp; nail care" data-bg-desktop="/assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.webp" data-bg-mobile="/assets/brand/perfume-fragrance-bottle-collection-original-2026-768.webp" data-bg-fallback="/assets/brand/perfume-fragrance-bottle-collection-original-2026-1440.jpg"></div>
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag">Fragrance &amp; nail care</div>
@@ -2177,7 +2229,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
           </div>
         </section>
         <section class="cs-slide" aria-label="4 of 5">
-          <div class="cs-bg cs-bg-4" data-bg-desktop="/assets/brand/plastic-complete-product-assortment-2026-1600.avif" data-bg-mobile="/assets/brand/plastic-complete-product-assortment-2026-960.avif" data-bg-fallback="/assets/brand/plastic-complete-product-assortment-2026.jpg"></div>
+          <div class="cs-bg cs-bg-4" data-label="04 · Plastic &amp; airless" data-bg-desktop="/assets/brand/plastic-complete-product-assortment-2026-1600.avif" data-bg-mobile="/assets/brand/plastic-complete-product-assortment-2026-960.avif" data-bg-fallback="/assets/brand/plastic-complete-product-assortment-2026.jpg"></div>
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag cs-tag-blue">Plastic bottles &amp; airless packs</div>
@@ -2196,7 +2248,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
           </div>
         </section>
         <section class="cs-slide" aria-label="5 of 5">
-          <div class="cs-bg cs-bg-5" data-bg-desktop="/assets/brand/cosmetic-closures-components-v2-2026-1600.avif" data-bg-mobile="/assets/brand/cosmetic-closures-components-v2-2026-960.avif" data-bg-fallback="/assets/brand/cosmetic-closures-components-v2-2026.jpg"></div>
+          <div class="cs-bg cs-bg-5" data-label="05 · Pumps &amp; closures" data-bg-desktop="/assets/brand/cosmetic-closures-components-v2-2026-1600.avif" data-bg-mobile="/assets/brand/cosmetic-closures-components-v2-2026-960.avif" data-bg-fallback="/assets/brand/cosmetic-closures-components-v2-2026.jpg"></div>
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag cs-tag-blue">Pumps, sprayers &amp; closures</div>

@@ -1602,9 +1602,10 @@ let csIdx = 0;
 // The homepage hero may use one focused conversion message instead of a carousel.
 // Read the actual slide count so the controls and timer stay safe in both layouts.
 const csTotal = Math.max(1, document.querySelectorAll('.cs-slide').length);
-const csDuration = 5000; // auto-advance ms
+const csDuration = 6500; // allow enough time to read the sourcing details
 let csTimer = null;
 let csPreloadTimer = null;
+let csPaused = false;
 const csReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const csSmallScreen = window.matchMedia('(max-width: 760px)').matches;
 
@@ -1622,13 +1623,13 @@ function csEnsureBackground(index) {
   );
   const selectedSource = supportsModern ? modernSource : fallbackSource;
   if (!selectedSource) return;
-  background.style.backgroundImage = `url("${selectedSource}"), url("${selectedSource}")`;
+  background.style.backgroundImage = `url("${selectedSource}")`;
   background.dataset.loaded = 'true';
 }
 
 function csScheduleNextBackground() {
   clearTimeout(csPreloadTimer);
-  if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden) return;
+  if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden || csPaused) return;
   csPreloadTimer = setTimeout(
     () => csEnsureBackground((csIdx + 1) % csTotal),
     Math.max(800, csDuration - 1500)
@@ -1639,6 +1640,12 @@ function csRender() {
   csEnsureBackground(csIdx);
   const track = document.getElementById('carouselTrack');
   if (track) track.style.transform = `translateX(-${csIdx * 100}%)`;
+  document.querySelectorAll('.cs-slide').forEach((slide, i) => {
+    const active = i === csIdx;
+    slide.classList.toggle('is-active', active);
+    slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+    slide.inert = !active;
+  });
   document.querySelectorAll('.cs-dot').forEach((d, i) => {
     const active = i === csIdx;
     d.classList.toggle('active', active);
@@ -1679,7 +1686,7 @@ function csStartProgress() {
 function csResetTimer() {
   clearInterval(csTimer);
   clearTimeout(csPreloadTimer);
-  if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden) return;
+  if (csTotal <= 1 || csReducedMotion || csSmallScreen || document.hidden || csPaused) return;
   csTimer = setInterval(() => { csIdx = (csIdx + 1) % csTotal; csRender(); }, csDuration);
   csScheduleNextBackground();
 }
@@ -1688,6 +1695,38 @@ function csInit() {
   csRender();
   csResetTimer();
   document.addEventListener('visibilitychange', csResetTimer);
+  const carousel = document.querySelector('.carousel-wrap');
+  if (!carousel) return;
+  carousel.addEventListener('mouseenter', () => {
+    csPaused = true;
+    clearInterval(csTimer);
+    clearTimeout(csPreloadTimer);
+  });
+  carousel.addEventListener('mouseleave', () => {
+    csPaused = false;
+    csResetTimer();
+  });
+  carousel.addEventListener('focusin', () => {
+    csPaused = true;
+    clearInterval(csTimer);
+    clearTimeout(csPreloadTimer);
+  });
+  carousel.addEventListener('focusout', () => {
+    requestAnimationFrame(() => {
+      if (carousel.contains(document.activeElement)) return;
+      csPaused = false;
+      csResetTimer();
+    });
+  });
+  carousel.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      csMove(-1);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      csMove(1);
+    }
+  });
 }
 
 function initFromHash() {

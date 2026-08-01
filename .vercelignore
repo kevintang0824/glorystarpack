@@ -4,6 +4,9 @@
 **/.DS_Store
 backups/
 tmp/
+data/
+scripts/
+.github/
 glorystarpack (1).html
 DEPLOYMENT.md
 README.md

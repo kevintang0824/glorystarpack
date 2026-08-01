@@ -34,7 +34,7 @@
         "description": "Direct sales contact and RFQ preparation page for GloryStarPack packaging projects.",
         "about": {"@id": "https://www.glorystarpack.com/#organization"},
         "isPartOf": {"@id": "https://www.glorystarpack.com/#website"},
-        "dateModified": "2026-07-29"
+        "dateModified": "2026-08-01"
       },
       {
         "@type": "Organization",
@@ -42,6 +42,7 @@
         "name": "GloryStarPack",
         "legalName": "Xiamen GloryStar Packaging Co., Ltd.",
         "url": "https://www.glorystarpack.com/",
+        "sameAs": ["https://glorystarpack.en.alibaba.com/"],
         "email": "kevin@glorystarpack.com",
         "telephone": "+86 195-7760-8248",
         "address": {
@@ -74,7 +75,7 @@
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="40" height="40" alt="" decoding="async">GloryStarPack</a>
+    <a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async" fetchpriority="high">GloryStarPack</a>
     <nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/insights/">Insights</a><a href="/custom-cosmetic-packaging/">Custom Service</a><a href="/about/">About</a></nav>
   </div>
 </header>
@@ -91,7 +92,7 @@
           <div class="fact"><strong>+86 195-7760-8248</strong><span>Phone and WhatsApp</span></div>
           <div class="fact"><strong>Xiamen, China</strong><span>Company location</span></div>
         </div>
-        <div class="actions"><a class="btn" href="mailto:kevin@glorystarpack.com">Email Sales</a><a class="btn alt" href="https://wa.me/8619577608248" target="_blank" rel="noopener">Open WhatsApp</a></div>
+        <div class="actions"><a class="btn" data-inquiry-channel="email" data-inquiry-type="direct" href="mailto:kevin@glorystarpack.com">Email Sales</a><a class="btn alt" data-inquiry-channel="whatsapp" data-inquiry-type="direct" href="https://wa.me/8619577608248" target="_blank" rel="noopener">Open WhatsApp</a></div>
       </div>
       <div class="hero-media"><img src="/assets/brand/oem-packaging-service-2026.jpg" width="1694" height="929" fetchpriority="high" decoding="async" alt="Packaging components and samples arranged for a custom packaging project"></div>
     </div>
@@ -134,7 +135,7 @@
           </div>
           <div class="field"><label for="rfq-decoration">Decoration</label><input id="rfq-decoration" name="decoration" placeholder="e.g. frosting, silk screen, hot stamp"></div>
           <div class="field"><label for="rfq-notes">Formula, timeline or other requirements</label><textarea id="rfq-notes" name="notes"></textarea></div>
-          <div class="actions"><a class="btn" id="rfq-email-link" href="mailto:kevin@glorystarpack.com">Review Email RFQ</a><a class="btn alt" id="rfq-whatsapp-link" href="https://wa.me/8619577608248" target="_blank" rel="noopener">Review WhatsApp RFQ</a></div>
+          <div class="actions"><a class="btn" id="rfq-email-link" data-inquiry-channel="email" data-inquiry-type="rfq-builder" href="mailto:kevin@glorystarpack.com">Review Email RFQ</a><a class="btn alt" id="rfq-whatsapp-link" data-inquiry-channel="whatsapp" data-inquiry-type="rfq-builder" href="https://wa.me/8619577608248" target="_blank" rel="noopener">Review WhatsApp RFQ</a></div>
           <p class="form-note">Include reference drawings or photos as email attachments after the draft opens.</p>
         </form>
       </section>
@@ -156,7 +157,7 @@
     </section>
   </div>
 </main>
-<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated 2026-07-29</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>
+<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated 2026-08-01</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>
 <script>
 (function () {
   const form = document.getElementById('rfq-form');
@@ -169,6 +170,16 @@
 
   function updateLinks() {
     const product = value('product') || 'packaging project';
+    const sourceUrl = new URL(window.location.href);
+    sourceUrl.hash = '';
+    let previousSitePage = '';
+    try {
+      const referrerUrl = new URL(document.referrer);
+      if (referrerUrl.origin === window.location.origin && referrerUrl.pathname !== sourceUrl.pathname) {
+        referrerUrl.hash = '';
+        previousSitePage = referrerUrl.href;
+      }
+    } catch {}
     const lines = [
       'Hello GloryStarPack, I would like a quotation.',
       '',
@@ -181,7 +192,10 @@
       `Decoration: ${value('decoration')}`,
       `Estimated quantity: ${value('quantity')}`,
       `Destination country: ${value('country')}`,
-      `Formula / timeline / notes: ${value('notes')}`
+      `Formula / timeline / notes: ${value('notes')}`,
+      '',
+      `Website page: ${sourceUrl.href}`,
+      ...(previousSitePage ? [`Previous site page: ${previousSitePage}`] : [])
     ];
     const message = lines.join('\n');
     emailLink.href = `mailto:kevin@glorystarpack.com?subject=${encodeURIComponent(`RFQ: ${product}`)}&body=${encodeURIComponent(message)}`;

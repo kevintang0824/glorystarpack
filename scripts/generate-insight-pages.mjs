@@ -1,18 +1,44 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
-const modifiedDate = '2026-07-29';
+const modifiedDate = '2026-08-01';
 const indexModifiedDate = '2026-08-01';
+
+const primarySources = {
+  astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
+  astmCoatingAdhesion: ['https://store.astm.org/d3359-23.html', 'ASTM D3359 coating-adhesion overview', 'Describes tape-test methods and important limits for evaluating coating adhesion, primarily on metallic substrates.'],
+  astmDistribution: ['https://store.astm.org/standards/d4169', 'ASTM D4169 distribution testing overview', 'Provides a framework for evaluating shipping units against distribution hazards.'],
+  astmGlass: ['https://store.astm.org/products-services/standards-and-publications/standards/glass-standards-and-ceramic-standards.html', 'ASTM glass-container standards index', 'Lists active methods covering glass-container sampling, internal pressure, thermal shock and polariscopic examination.'],
+  astmPackaging: ['https://store.astm.org/products-services/standards-and-publications/standards/paper-standards-and-packaging-standards.html', 'ASTM packaging standards index', 'Identifies current packaging methods for closures, shipping units, conditioning and package evaluation.'],
+  euPpwr: ['https://eur-lex.europa.eu/eli/reg/2025/40/oj/eng', 'Regulation (EU) 2025/40 on packaging and packaging waste', 'Sets lifecycle, reuse, refill and waste-prevention requirements, including provisions for accommodation-sector single-use toiletries.'],
+  fdaColors: ['https://www.fda.gov/cosmetics/cosmetic-ingredient-names/color-additives-permitted-use-cosmetics', 'FDA color additives permitted for cosmetics', 'Provides intended-use tables and links to the applicable U.S. color-additive regulations.'],
+  fdaCosmeticGmp: ['https://www.fda.gov/cosmetics/cosmetics-guidance-documents/good-manufacturing-practice-gmp-guidelinesinspection-checklist-cosmetics', 'FDA cosmetic GMP guidelines and inspection checklist', 'Covers control, storage and records for raw and primary packaging materials.'],
+  fdaCosmeticLabeling: ['https://www.fda.gov/cosmetics/cosmetics-labeling-regulations/summary-cosmetics-labeling-requirements', 'FDA summary of cosmetics labeling requirements', 'Summarizes U.S. labeling responsibilities and adulteration or misbranding considerations.'],
+  fdaMicrobiology: ['https://www.fda.gov/cosmetics/potential-contaminants-cosmetics/microbiological-safety-and-cosmetics', 'FDA microbiological safety and cosmetics', 'Explains contamination risks, including packaging that does not adequately protect a cosmetic product.'],
+  ftcGreenGuides: ['https://www.ftc.gov/business-guidance/resources/environmental-claims-summary-green-guides', 'FTC environmental claims summary', 'Explains qualification and substantiation considerations for recycled-content, recyclable and refillable claims in the U.S.'],
+  iso14021: ['https://www.iso.org/standard/14021', 'ISO 14021:2026 environmental claims overview', 'Describes requirements and guidance for self-declared environmental statements used on products, packaging and digital materials.'],
+  iso18602: ['https://www.iso.org/standard/55870.html', 'ISO 18602:2013 packaging-system optimization overview', 'Describes assessment of packaging weight or volume while preserving required packaging functions.'],
+  iso18603: ['https://www.iso.org/standard/55871.html', 'ISO 18603:2013 packaging reuse overview', 'Defines requirements and assessment procedures for packaging intended to be classified as reusable.'],
+  iso18604: ['https://www.iso.org/standard/55872.html', 'ISO 18604:2013 material-recycling overview', 'Defines assessment requirements for packaging intended to be recoverable through material recycling.'],
+  iso22716: ['https://www.iso.org/standard/36437.html', 'ISO 22716:2007 cosmetic GMP overview', 'Describes quality guidance for cosmetic production, control, storage and shipment.'],
+  iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.']
+};
+
+function references(...keys) {
+  return keys.map(key => primarySources[key]);
+}
 
 const insightDefinitions = {
   '1': {
     slug: 'personal-care-grooming-packaging-catalog-update',
     seoTitle: 'Personal Care Packaging Catalog Update | GloryStarPack',
+    sources: references('fdaCosmeticGmp', 'fdaCosmeticLabeling'),
+    sourceNote: 'These regulatory references provide quality and labeling context for buyers; they do not verify online availability or approve a particular GloryStarPack component. Confirm the exact item, formula, label, market and responsible-party requirements for each project.',
     questions: [
       'Which formulas and capacities belong in the same bottle family?',
       'Can pumps, caps, sticks, tins and gift-box components share one finish direction?',
@@ -28,6 +54,8 @@ const insightDefinitions = {
   '2': {
     slug: 'refill-pouches-reusable-bottles',
     seoTitle: 'Refill Pouches and Reusable Bottles | GloryStarPack',
+    sources: references('iso18603', 'iso18602', 'ftcGreenGuides'),
+    sourceNote: 'Reuse, refill and source-reduction claims require a functioning system and support appropriate to the destination market. These references do not establish formula compatibility, recyclability in a specific community or the environmental benefit of a particular package.',
     questions: [
       'Does the pouch volume match the reusable bottle without awkward leftover product?',
       'Is the spout position and cap diameter suitable for the formula viscosity?',
@@ -43,6 +71,24 @@ const insightDefinitions = {
   '3': {
     slug: 'cosmetic-packaging-rfq-guide',
     seoTitle: 'How to Prepare a Packaging RFQ | GloryStarPack',
+    decisionTable: {
+      heading: 'Packaging RFQ field template',
+      intro: 'Use the fields below to separate fixed requirements from preferences. This gives suppliers enough context to compare stock, decorated and custom routes without treating an early preference as an approved specification.',
+      caption: 'Core inputs for a comparable B2B packaging RFQ',
+      columns: ['RFQ field', 'What to state', 'Decision it supports'],
+      rows: [
+        ['Product and formula', 'Fill product, formula category, viscosity or known contact and barrier concerns.', 'Material shortlist and compatibility-review scope.'],
+        ['Pack format and capacity', 'Bottle, jar, tube, airless pack or kit; nominal fill; key dimensions or reference images.', 'Stock model, mold and capacity shortlist.'],
+        ['Closure or dispensing', 'Cap, pump, sprayer, dropper, reducer or applicator; target dose or use action when known.', 'Component matching and sample configuration.'],
+        ['Material and finish', 'Which material, color, clarity or surface requirements are fixed and which remain open.', 'Realistic alternatives without changing mandatory inputs.'],
+        ['Decoration and artwork', 'Preferred process, color count, coverage, artwork status and reference standard.', 'Setup assumptions, proofing route and decorated-sample scope.'],
+        ['Quantity and repeat plan', 'Launch quantity, number of variants and any known repeat or annual demand context.', 'MOQ, production route and component consolidation.'],
+        ['Destination, filling and timing', 'Destination country, filling process, required delivery window and packing route.', 'Documentation, line, export packing and scheduling questions.'],
+        ['Samples and approval evidence', 'Required drawings, production-intent samples, test records and sign-off participants.', 'A clear boundary between screening and final approval.']
+      ]
+    },
+    sources: references('fdaCosmeticGmp', 'iso22716', 'astmDistribution'),
+    sourceNote: 'Use these references to identify quality, storage and distribution questions that may belong in an RFQ. The responsible brand, filler and technical team must choose the requirements and acceptance criteria that apply to the actual product and destination.',
     questions: [
       'What will the package hold, and does the formula create compatibility or barrier requirements?',
       'Which capacity, material, closure, decoration and order quantity should be quoted?',
@@ -58,6 +104,8 @@ const insightDefinitions = {
   '4': {
     slug: 'refill-ready-hotel-amenity-packaging',
     seoTitle: 'Refill-Ready Hotel Amenity Packaging | GloryStarPack',
+    sources: references('euPpwr', 'iso18603', 'fdaCosmeticGmp'),
+    sourceNote: 'Accommodation-sector rules, implementation dates, exemptions and hygiene duties vary by market and operating model. Review the current law for each destination and validate the complete guest-room and back-of-house refill process.',
     questions: [
       'Which guest-facing mini formats and back-of-house refill formats must work together?',
       'How will housekeeping identify formulas and refill containers accurately?',
@@ -73,6 +121,8 @@ const insightDefinitions = {
   '5': {
     slug: 'cosmetic-discovery-kit-packaging',
     seoTitle: 'Cosmetic Discovery Kit Packaging | GloryStarPack',
+    sources: references('fdaCosmeticLabeling', 'fdaCosmeticGmp', 'astmDistribution'),
+    sourceNote: 'These sources frame labeling, quality and distribution considerations; they do not define a universal discovery-kit specification. Small-format labeling, formula safety, assembly and transport tests remain the responsibility of the applicable project parties.',
     questions: [
       'How many formulas, fill volumes and dispensing formats are included?',
       'Will the components sit in a paper tray, molded insert, pouch or retail box?',
@@ -88,6 +138,8 @@ const insightDefinitions = {
   '6': {
     slug: 'pcr-hdpe-personal-care-bottles',
     seoTitle: 'PCR HDPE Bottles for Personal Care | GloryStarPack',
+    sources: references('ftcGreenGuides', 'iso14021', 'iso18604'),
+    sourceNote: 'A PCR percentage, recyclability statement or broader environmental claim should be supported and qualified for the product, component and destination market. These references do not certify any specific bottle or recycling outcome.',
     questions: [
       'What recycled-content target and acceptable color variation should the sample establish?',
       'Does the wall thickness provide the expected squeeze feel and panel stability?',
@@ -103,6 +155,8 @@ const insightDefinitions = {
   '7': {
     slug: 'color-cosmetics-component-systems',
     seoTitle: 'Color Cosmetics Component Systems | GloryStarPack',
+    sources: references('fdaMicrobiology', 'fdaColors', 'fdaCosmeticGmp'),
+    sourceNote: 'Applicator and component trials are only part of product safety and compliance. The responsible brand and technical teams must verify formula safety, intended-use color requirements, microbiological controls, labeling and market-specific obligations.',
     questions: [
       'Does the applicator shape suit the formula and intended application area?',
       'Are the wiper diameter, rod length, cap fit and tube geometry compatible?',
@@ -119,6 +173,8 @@ const insightDefinitions = {
     slug: 'packaging-closure-qc-checklist',
     seoTitle: 'Packaging Closure QC Checklist | GloryStarPack',
     dateModified: '2026-08-01',
+    sources: references('astmClosureTorque', 'astmPackaging', 'iso2859'),
+    sourceNote: 'Select test methods, sampling plans, conditioning and acceptance limits for the exact package and intended use. A standard title or nominal neck designation does not prove that a container and closure are interchangeable or approved.',
     questions: [
       'Is the neck finish, thread, torque, liner or reducer matched to the exact container?',
       'Has dispensing output, spray pattern, dip-tube length or roller flow been reviewed?',
@@ -134,6 +190,8 @@ const insightDefinitions = {
   '9': {
     slug: 'molded-pulp-gift-box-inserts',
     seoTitle: 'Molded Pulp Inserts for Gift Boxes | GloryStarPack',
+    sources: references('astmDistribution', 'iso18602', 'iso18604'),
+    sourceNote: 'These sources support distribution planning and environmental assessment frameworks; they do not certify a molded-pulp insert or guarantee protection. Test the production-intent product, insert, retail pack and export carton together.',
     questions: [
       'Are the insert cavities based on the final decorated bottle and cap dimensions?',
       'What compression, drop and export-shipping conditions must the pack withstand?',
@@ -149,6 +207,8 @@ const insightDefinitions = {
   '10': {
     slug: 'cosmetic-packaging-decoration-methods',
     seoTitle: 'Cosmetic Packaging Decoration Methods | GloryStarPack',
+    sources: references('astmCoatingAdhesion', 'fdaCosmeticLabeling', 'iso22716'),
+    sourceNote: 'ASTM D3359 has substrate and method limitations and should not be applied indiscriminately to every glass, plastic, metal or paper decoration. Agree the relevant adhesion, rub, chemical-exposure, artwork and labeling checks for the actual decorated package.',
     questions: [
       'What substrate, surface curve and handling exposure will the decoration face?',
       'Does the artwork require fine detail, metallic effects, full color or frequent changes?',
@@ -164,7 +224,9 @@ const insightDefinitions = {
   '11': {
     slug: 'custom-glass-bottle-moq-stock-vs-custom-mold',
     seoTitle: 'Custom Glass Bottle MOQ: Stock vs Custom Mold | GloryStarPack',
-    dateModified: '2026-07-30',
+    dateModified: '2026-08-01',
+    sources: references('astmGlass', 'iso2859', 'astmDistribution'),
+    sourceNote: 'Technical standards can inform sampling and performance planning, but they do not set a supplier MOQ, mold charge or lead time. Those commercial inputs must be confirmed for the selected bottle, decoration, quantity and production route.',
     questions: [
       'Is a stock bottle acceptable, or does the brand require a proprietary shape or embossing?',
       'Which bottle, closure, decoration or packing step is likely to set the minimum quantity?',
@@ -180,7 +242,9 @@ const insightDefinitions = {
   '12': {
     slug: 'glass-bottle-neck-finish-closure-guide',
     seoTitle: 'Glass Bottle Neck Finish & Closure Guide | GloryStarPack',
-    dateModified: '2026-07-30',
+    dateModified: '2026-08-01',
+    sources: references('astmClosureTorque', 'astmPackaging', 'astmGlass'),
+    sourceNote: 'These references identify possible packaging and glass-container methods, not a universal neck-finish compatibility table. Use current drawings and test the exact bottle, closure, liner, process and packed product.',
     questions: [
       'What finish drawing or bottle item code identifies the exact neck geometry?',
       'Which closure, liner, gasket, pump or dip-tube version will be used in production?',
@@ -196,7 +260,9 @@ const insightDefinitions = {
   '13': {
     slug: 'glass-bottle-sample-approval-qc-checklist',
     seoTitle: 'Glass Bottle Sample Approval & QC Checklist | GloryStarPack',
-    dateModified: '2026-07-30',
+    dateModified: '2026-08-01',
+    sources: references('astmGlass', 'iso2859', 'astmDistribution'),
+    sourceNote: 'Choose current methods, sampling plans and acceptance criteria that match the intended bottle and use. These references do not turn a visual sample into a performance certificate or replace destination-market review.',
     questions: [
       'Does the approval record identify the exact bottle, closure, decoration and artwork versions?',
       'Have filling-line, sealing, formula and handling checks been defined for the intended use?',
@@ -213,12 +279,29 @@ const insightDefinitions = {
     slug: 'cosmetic-packaging-compatibility-testing-guide',
     seoTitle: 'Cosmetic Packaging Compatibility Testing Guide | GloryStarPack',
     dateModified: '2026-08-01',
+    decisionTable: {
+      heading: 'Compatibility review matrix',
+      intro: 'The responsible technical team should turn each row into project-specific conditions, checkpoints and acceptance criteria. The matrix is a record structure, not a universal pass/fail protocol.',
+      caption: 'Areas to define and document during a packaging compatibility review',
+      columns: ['Review area', 'Define before testing', 'Record at each checkpoint'],
+      rows: [
+        ['Configuration identity', 'Formula batch, container code, material, closure, liner or gasket, decoration, label and packing version.', 'Sample ID, date, orientation, condition and any component substitution.'],
+        ['Formula and contact surfaces', 'Intended formula, contact materials, controls and observation schedule.', 'Color, odor, separation, swelling, softening, cracking, corrosion, tack or residue.'],
+        ['Seal and leakage', 'Closure application, fill level, storage orientations and handling relevant to the intended use.', 'Leak location, product migration, torque or seating observations and seal condition.'],
+        ['Dispensing and user action', 'Target output, priming, spray or foam behavior, dose and use orientation.', 'Output consistency, pattern, actuator return, clogging, drip, opening and closing behavior.'],
+        ['Decoration and label', 'Final substrate, coating, ink, foil, label stock, adhesive and expected product exposure.', 'Adhesion, rub, staining, lifting, color or appearance change and artwork legibility.'],
+        ['Distribution and packing', 'Filled weight, retail insert, divider, carton, orientation and planned route.', 'Movement, abrasion, breakage, deformation and packing-system observations.'],
+        ['Decision and change control', 'Approval owner, required records and changes that trigger re-evaluation.', 'Decision, deviations, photographs, measurements, corrective action and reapproval status.']
+      ]
+    },
     questions: [
       'Does the test use the actual formula and the final bottle, closure, liner, decoration and label construction?',
       'Which storage, orientation, dispensing, transport and appearance checks apply to the intended pack and market?',
       'Who owns the protocol, records observations and approves any component or formula change before production?'
     ],
     note: 'Compatibility approval is configuration-specific. A supplier can support samples, drawings and component information, while the responsible brand, filler or technical team defines and approves testing for the formula, process, shelf life and destination requirements.',
+    sources: references('fdaCosmeticGmp', 'iso22716', 'astmDistribution'),
+    sourceNote: 'These references are starting points, not a universal compatibility protocol. The responsible brand, filler or technical team must select the applicable regulations, standards, conditions and acceptance criteria for the actual formula, package and destination market.',
     resources: [
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
       ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
@@ -229,12 +312,28 @@ const insightDefinitions = {
     slug: 'cosmetic-pump-closure-selection-guide',
     seoTitle: 'Cosmetic Pump & Closure Selection Guide | GloryStarPack',
     dateModified: '2026-08-01',
+    decisionTable: {
+      heading: 'Pump and closure shortlisting matrix',
+      intro: 'Use the application column only to create a shortlist. Final selection still requires the exact bottle finish, component specification, formula, filling method and production-intent sample.',
+      caption: 'Starting points and approval questions for common dispensing components',
+      columns: ['Component route', 'Useful starting applications', 'Match and approve'],
+      rows: [
+        ['Lotion pump', 'Cleanser, shampoo, conditioner, hand wash and body lotion.', 'Neck finish, output, viscosity, lock, dip tube, priming, leakage and actuator return.'],
+        ['Treatment pump', 'Serum, essence and smaller controlled skincare doses.', 'Bottle finish, dose, engine and actuator combination, dip tube, overcap and repeated output.'],
+        ['Fine mist sprayer', 'Toner, facial mist, body mist, hair mist and selected fragrance formats.', 'Finish, formula flow, spray pattern, droplet feel, dose, dip tube, clogging and overcap.'],
+        ['Foam pump', 'Products formulated to dispense as foam.', 'Compatible formula, foam engine, mesh, bottle volume, headspace, dose and output consistency.'],
+        ['Dropper assembly', 'Serum, facial oil and other controlled liquid-dose formats.', 'Thread, collar, bulb, pipette, reducer when used, target dose, bottle depth and cap sealing.'],
+        ['Perfume crimp pump', 'Fine fragrance and compatible alcohol-based spray formats.', 'Glass neck, gasket, pump diameter, crimping setup, spray output, collar, dip tube and overcap.']
+      ]
+    },
     questions: [
       'What exact bottle item code or neck-finish drawing will the pump, cap, dropper or sprayer be matched against?',
       'What formula viscosity, dose, spray pattern, dip-tube length, lock style and filling method are required?',
       'Has the final assembled pack been reviewed for priming, output, leakage, opening, decoration and carton clearance?'
     ],
     note: 'Nominal neck size is only a starting point. Approve the exact bottle, closure, liner or gasket, pump engine, actuator, dip tube, color and overcap as one reorder-ready bill of materials.',
+    sources: references('astmPackaging', 'fdaCosmeticGmp', 'iso22716'),
+    sourceNote: 'Apply only the standards and regulatory requirements relevant to the product, market and test objective. Nominal neck designations and general standards do not replace approval of the exact bottle, closure, liner, pump, formula and filling process.',
     resources: [
       ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
       ['/products/treatment-pump-serum-bottles-p171/', 'Serum Treatment Pump'],
@@ -274,6 +373,46 @@ function escapeHtml(value) {
   })[char]);
 }
 
+function jpegDimensions(buffer) {
+  if (buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+  const startOfFrameMarkers = new Set([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf]);
+  let offset = 2;
+  while (offset + 8 < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    while (buffer[offset] === 0xff) offset += 1;
+    const marker = buffer[offset];
+    offset += 1;
+    if (marker === 0xd9 || marker === 0xda) break;
+    const segmentLength = buffer.readUInt16BE(offset);
+    if (startOfFrameMarkers.has(marker)) {
+      return { height: buffer.readUInt16BE(offset + 3), width: buffer.readUInt16BE(offset + 5) };
+    }
+    if (segmentLength < 2) break;
+    offset += segmentLength;
+  }
+  return null;
+}
+
+function imageDimensions(imagePath) {
+  const filePath = path.join(rootDir, imagePath.slice(1));
+  const dimensions = jpegDimensions(fs.readFileSync(filePath));
+  if (!dimensions) throw new Error(`Could not read JPEG dimensions: ${imagePath}`);
+  return dimensions;
+}
+
+function responsiveImagePath(imagePath, width) {
+  return imagePath.replace(/\.jpe?g$/i, `-${width}.avif`);
+}
+
+function pictureMarkup(article, { sizes, loading = '', priority = false } = {}) {
+  const loadingAttribute = loading ? ` loading="${loading}"` : '';
+  const priorityAttribute = priority ? ' fetchpriority="high"' : '';
+  return `<picture><source type="image/avif" srcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" sizes="${sizes}"><img src="${article.imagePath}" width="${article.imageWidth}" height="${article.imageHeight}"${loadingAttribute}${priorityAttribute} decoding="async" alt="${escapeHtml(article.alt)}"></picture>`;
+}
+
 function truncateWords(value, maxLength) {
   const clean = String(value).replace(/\s+/g, ' ').trim();
   if (clean.length <= maxLength) return clean;
@@ -303,27 +442,46 @@ function isoDate(value) {
   return parsed.toISOString().slice(0, 10);
 }
 
-function extractNews() {
-  const source = fs.readFileSync(path.join(rootDir, 'assets/js/main.js'), 'utf8');
-  const start = source.indexOf('const NEWS = ');
-  const end = source.indexOf('\n};', start);
-  if (start < 0 || end < 0) throw new Error('Unable to locate NEWS data in assets/js/main.js');
-  const expression = source.slice(start + 'const NEWS = '.length, end + 2);
-  return vm.runInNewContext(`(${expression})`, {}, { timeout: 1000 });
+function dateTimeWithShanghaiOffset(value) {
+  return `${value}T09:00:00+08:00`;
 }
 
-const news = extractNews();
+function displayDate(value) {
+  return new Date(`${value}T12:00:00Z`).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC'
+  });
+}
+
+function rssDate(value) {
+  return new Date(dateTimeWithShanghaiOffset(value)).toUTCString();
+}
+
+function xmlEscape(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 const insights = Object.entries(insightDefinitions).map(([id, definition]) => {
-  const article = news[id];
+  const article = INSIGHT_SOURCE[id];
   if (!article) throw new Error(`Missing NEWS article ${id}`);
   const imagePath = `/${article.img.replace(/^\/+/, '')}`;
   if (!fs.existsSync(path.join(rootDir, imagePath.slice(1)))) throw new Error(`Missing image for article ${id}: ${imagePath}`);
+  const dimensions = imageDimensions(imagePath);
   return {
     id,
     ...article,
     ...definition,
     consideration: insightConsiderations[id],
     imagePath,
+    imageWidth: dimensions.width,
+    imageHeight: dimensions.height,
     datePublished: isoDate(article.date),
     dateModified: definition.dateModified ?? modifiedDate
   };
@@ -341,12 +499,37 @@ function commonGraphNodes() {
       name: 'GloryStarPack',
       legalName: 'Xiamen GloryStar Packaging Co., Ltd.',
       url: `${siteUrl}/`,
+      sameAs: ['https://glorystarpack.en.alibaba.com/'],
+      email: 'kevin@glorystarpack.com',
+      telephone: '+86 195-7760-8248',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Xiamen',
+        addressRegion: 'Fujian',
+        addressCountry: 'CN'
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: 'kevin@glorystarpack.com',
+        telephone: '+86 195-7760-8248',
+        areaServed: 'Worldwide',
+        url: `${siteUrl}/contact/`
+      },
       logo: {
         '@type': 'ImageObject',
         url: `${siteUrl}/assets/brand/glorystarpack-logo-mark-2026.png`,
         width: 512,
         height: 512
       }
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#packaging-desk`,
+      name: 'GloryStarPack Packaging Desk',
+      url: `${siteUrl}/about/#packaging-desk`,
+      description: 'The GloryStarPack editorial team that prepares packaging procurement guides from product information, buyer questions and cited primary references.',
+      parentOrganization: { '@id': `${siteUrl}/#organization` }
     },
     {
       '@type': 'WebSite',
@@ -359,7 +542,7 @@ function commonGraphNodes() {
 }
 
 function headerMarkup() {
-  return `<header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="40" height="40" alt="" decoding="async">GloryStarPack</a><nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/glass-bottle-buying-guides/">Glass Guides</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav></div></header>`;
+  return `<header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">GloryStarPack</a><nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/glass-bottle-buying-guides/">Glass Guides</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav></div></header>`;
 }
 
 function footerMarkup() {
@@ -371,8 +554,25 @@ function relatedInsights(article) {
   return [1, 2, 3].map(offset => insights[(index + offset) % insights.length]);
 }
 
+const inquiryCopy = 'Share the application or formula, capacity, material preference, closure or dispensing component, decoration, estimated quantity, destination country, target timing and any reference drawings or photos. Final specifications, MOQ, availability and testing requirements are confirmed for the selected configuration.';
+
+function decisionTableText(table) {
+  if (!table) return '';
+  return [table.heading, table.intro, table.caption, ...table.columns, ...table.rows.flat()].join(' ');
+}
+
+function decisionTableMarkup(table) {
+  if (!table) return '';
+  const headers = table.columns.map(column => `<th scope="col">${escapeHtml(column)}</th>`).join('');
+  const rows = table.rows.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('');
+  return `<h2>${escapeHtml(table.heading)}</h2>
+      <p>${escapeHtml(table.intro)}</p>
+      <div class="decision-table-scroll" role="region" aria-label="${escapeHtml(table.caption)}" tabindex="0"><table class="decision-table"><caption>${escapeHtml(table.caption)}</caption><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
 function articleWordCount(article) {
-  return `${article.body} ${article.consideration} ${article.questions.join(' ')} ${article.note}`
+  const sourceText = (article.sources ?? []).flat().join(' ');
+  return `${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${inquiryCopy} ${sourceText} ${article.sourceNote ?? ''}`
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -384,8 +584,34 @@ function articleReadTime(article) {
   return `${Math.max(1, Math.ceil(articleWordCount(article) / 200))} min read`;
 }
 
+function sectionSlug(value) {
+  return String(value)
+    .replace(/<[^>]+>/g, ' ')
+    .normalize('NFKD')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'section';
+}
+
+function addSectionAnchors(source) {
+  const seen = new Map();
+  const sections = [];
+  const html = source.replace(/<h2>([\s\S]*?)<\/h2>/gi, (match, headingMarkup) => {
+    const label = headingMarkup.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const baseId = sectionSlug(label);
+    const occurrence = (seen.get(baseId) ?? 0) + 1;
+    seen.set(baseId, occurrence);
+    const id = occurrence === 1 ? baseId : `${baseId}-${occurrence}`;
+    sections.push({ id, label });
+    return `<h2 id="${id}">${headingMarkup}</h2>`;
+  });
+  return { html, sections };
+}
+
 function jsonLd(article, canonical, description) {
   const wordCount = articleWordCount(article);
+  const publishedDateTime = dateTimeWithShanghaiOffset(article.datePublished);
+  const modifiedDateTime = dateTimeWithShanghaiOffset(article.dateModified);
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
@@ -395,12 +621,14 @@ function jsonLd(article, canonical, description) {
         url: canonical,
         name: article.seoTitle,
         description,
+        inLanguage: 'en',
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
         breadcrumb: { '@id': `${canonical}#breadcrumbs` },
         mainEntity: { '@id': `${canonical}#article` },
-        datePublished: article.datePublished,
-        dateModified: article.dateModified
+        primaryImageOfPage: `${siteUrl}${article.imagePath}`,
+        datePublished: publishedDateTime,
+        dateModified: modifiedDateTime
       },
       {
         '@type': 'BlogPosting',
@@ -408,12 +636,24 @@ function jsonLd(article, canonical, description) {
         url: canonical,
         headline: article.title,
         description,
-        image: `${siteUrl}${article.imagePath}`,
-        datePublished: article.datePublished,
-        dateModified: article.dateModified,
+        inLanguage: 'en',
+        isAccessibleForFree: true,
+        image: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}${article.imagePath}`,
+          width: article.imageWidth,
+          height: article.imageHeight
+        },
+        datePublished: publishedDateTime,
+        dateModified: modifiedDateTime,
         articleSection: article.cat,
         wordCount,
-        author: { '@id': `${siteUrl}/#organization` },
+        citation: (article.sources ?? []).map(([url, name]) => ({
+          '@type': 'CreativeWork',
+          name,
+          url
+        })),
+        author: { '@id': `${siteUrl}/#packaging-desk` },
         publisher: { '@id': `${siteUrl}/#organization` },
         mainEntityOfPage: { '@id': `${canonical}#webpage` }
       },
@@ -434,12 +674,34 @@ function jsonLd(article, canonical, description) {
 function articlePage(article) {
   const canonical = `${siteUrl}${articlePath(article)}`;
   const description = metaDescription(article);
+  const publishedDateTime = dateTimeWithShanghaiOffset(article.datePublished);
+  const modifiedDateTime = dateTimeWithShanghaiOffset(article.dateModified);
+  const updatedDateMarkup = article.dateModified === article.datePublished
+    ? ''
+    : `<time datetime="${modifiedDateTime}">Updated ${escapeHtml(displayDate(article.dateModified))}</time>`;
   const resourceMarkup = article.resources
     .map(([href, name]) => `<li><a href="${href}">${escapeHtml(name)}</a></li>`)
     .join('');
   const questionsMarkup = article.questions.map(question => `<li>${escapeHtml(question)}</li>`).join('');
+  const sourcesMarkup = (article.sources ?? [])
+    .map(([href, name, description]) => `<li><a href="${escapeHtml(href)}" target="_blank" rel="noopener">${escapeHtml(name)}</a> — ${escapeHtml(description)}</li>`)
+    .join('');
+  const referencesMarkup = sourcesMarkup
+    ? `<h2>Primary references and scope</h2>\n      <ul>${sourcesMarkup}</ul>\n      <p>${escapeHtml(article.sourceNote)}</p>`
+    : '';
+  const articleBody = addSectionAnchors(`${article.body}${article.decisionTable ? `\n      ${decisionTableMarkup(article.decisionTable)}` : ''}
+      <h2>Selection considerations</h2>
+      <p>${escapeHtml(article.consideration)}</p>
+      <h2>Questions to resolve before sampling</h2>
+      <ul>${questionsMarkup}</ul>
+      <div class="article-note"><strong>Procurement note:</strong> ${escapeHtml(article.note)}</div>
+      <h2>What to send with an inquiry</h2>
+      <p>${escapeHtml(inquiryCopy)}</p>${referencesMarkup ? `\n      ${referencesMarkup}` : ''}`);
+  const tableOfContents = articleBody.sections
+    .map(section => `<li><a href="#${section.id}">${escapeHtml(section.label)}</a></li>`)
+    .join('');
   const relatedMarkup = relatedInsights(article)
-    .map(item => `<a class="insight-card" href="${articlePath(item)}"><img src="${item.imagePath}" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(item.alt)}"><div><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.cat)} · ${escapeHtml(item.date)}</span></div></a>`)
+    .map(item => `<a class="insight-card" href="${articlePath(item)}">${pictureMarkup(item, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.cat)} · ${escapeHtml(item.date)}</span></div></a>`)
     .join('');
 
   return `<!DOCTYPE html>
@@ -454,7 +716,8 @@ function articlePage(article) {
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
-  <link rel="preload" as="image" href="${article.imagePath}">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
+  <link rel="preload" as="image" href="${responsiveImagePath(article.imagePath, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 1160px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <link rel="stylesheet" href="/assets/css/insight-page.css">
   <meta property="og:type" content="article">
@@ -464,8 +727,10 @@ function articlePage(article) {
   <meta property="og:site_name" content="GloryStarPack">
   <meta property="og:image" content="${siteUrl}${article.imagePath}">
   <meta property="og:image:alt" content="${escapeHtml(article.alt)}">
-  <meta property="article:published_time" content="${article.datePublished}">
-  <meta property="article:modified_time" content="${article.dateModified}">
+  <meta property="og:image:width" content="${article.imageWidth}">
+  <meta property="og:image:height" content="${article.imageHeight}">
+  <meta property="article:published_time" content="${publishedDateTime}">
+  <meta property="article:modified_time" content="${modifiedDateTime}">
   <meta property="article:section" content="${escapeHtml(article.cat)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(article.seoTitle)}">
@@ -481,19 +746,13 @@ ${headerMarkup()}
     <div class="eyebrow">${escapeHtml(article.cat)}</div>
     <h1>${escapeHtml(article.title)}</h1>
     <p class="lead">${escapeHtml(article.excerpt)}</p>
-    <div class="article-meta"><span>Published ${escapeHtml(article.date)}</span><span>Updated ${escapeHtml(new Date(`${article.dateModified}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))}</span><span>${escapeHtml(articleReadTime(article))}</span><span>By <a href="/about/">GloryStarPack Packaging Desk</a></span></div>
-    <figure class="article-figure"><img src="${article.imagePath}" width="1600" height="800" fetchpriority="high" decoding="async" alt="${escapeHtml(article.alt)}"></figure>
+    <div class="article-meta"><time datetime="${publishedDateTime}">Published ${escapeHtml(displayDate(article.datePublished))}</time>${updatedDateMarkup}<span>${escapeHtml(articleReadTime(article))}</span><span>By <a href="/about/#packaging-desk">GloryStarPack Packaging Desk</a></span></div>
+    <figure class="article-figure">${pictureMarkup(article, { sizes: '(max-width:760px) calc(100vw - 40px), 1160px', priority: true })}</figure>
   </header>
   <div class="wrap main article-shell">
     <article class="article-body">
-      ${article.body}
-      <h2>Selection considerations</h2>
-      <p>${escapeHtml(article.consideration)}</p>
-      <h2>Questions to resolve before sampling</h2>
-      <ul>${questionsMarkup}</ul>
-      <div class="article-note"><strong>Procurement note:</strong> ${escapeHtml(article.note)}</div>
-      <h2>What to send with an inquiry</h2>
-      <p>Share the application or formula, capacity, material preference, closure or dispensing component, decoration, estimated quantity, destination country, target timing and any reference drawings or photos. Final specifications, MOQ, availability and testing requirements are confirmed for the selected configuration.</p>
+      <nav class="article-toc" aria-label="On this page"><strong>On this page</strong><ol>${tableOfContents}</ol></nav>
+      ${articleBody.html}
     </article>
     <aside class="article-sidebar" aria-label="Related procurement resources">
       <div class="card"><div class="eyebrow">Related resources</div><h2>Continue researching</h2><ul>${resourceMarkup}</ul></div>
@@ -531,6 +790,7 @@ function indexPage() {
         description: 'Practical packaging sourcing notes covering RFQs, samples, closures, refill systems, decoration, materials and retail kits.',
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
+        breadcrumb: { '@id': `${canonical}#breadcrumbs` },
         dateModified: indexModifiedDate
       },
       {
@@ -539,10 +799,18 @@ function indexPage() {
         numberOfItems: insights.length,
         itemListElement: itemList
       },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonical}#breadcrumbs`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+          { '@type': 'ListItem', position: 2, name: 'Packaging Insights', item: canonical }
+        ]
+      },
       ...commonGraphNodes()
     ]
   }).replace(/</g, '\\u003c');
-  const cards = insights.map(article => `<a class="insight-card" href="${articlePath(article)}"><img src="${article.imagePath}" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(article.alt)}"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.cat)} · ${escapeHtml(article.date)} · ${escapeHtml(articleReadTime(article))}</span></div></a>`).join('');
+  const cards = insights.map(article => `<a class="insight-card" href="${articlePath(article)}">${pictureMarkup(article, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.cat)} · ${escapeHtml(article.date)} · ${escapeHtml(articleReadTime(article))}</span></div></a>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -555,6 +823,7 @@ function indexPage() {
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <link rel="stylesheet" href="/assets/css/insight-page.css">
   <meta property="og:type" content="website">
@@ -563,11 +832,13 @@ function indexPage() {
   <meta property="og:url" content="${canonical}">
   <meta property="og:site_name" content="GloryStarPack">
   <meta property="og:image" content="${siteUrl}/assets/brand/factory-oem-quality-2026.jpg">
+  <meta property="og:image:alt" content="Packaging samples, drawings and quality tools used for procurement planning">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
 </head>
 <body>
 ${headerMarkup()}
+<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Packaging Insights</span></div>
 <main class="wrap">
   <section class="index-hero"><div class="eyebrow">Packaging desk</div><h1>Packaging Insights &amp; Procurement Notes</h1><p>Use these concise guides to prepare clearer RFQs, compare packaging systems and identify the samples, components and approval checks a project may need. Start with the <a href="/glass-bottle-buying-guides/">glass bottle buying guide center</a> for MOQ, closure matching and sample approval.</p></section>
   <div class="insight-grid">${cards}</div>
@@ -583,9 +854,16 @@ function glassBottleGuideHubPage() {
   const canonical = `${siteUrl}/glass-bottle-buying-guides/`;
   const description = 'Glass bottle buying guides for MOQ planning, stock vs custom molds, neck finish and closure matching, sample approval, QC and export packing.';
   const heroImage = '/assets/brand/liquor-spirit-bottle-collection-ai-2026-1440.jpg';
+  const heroDimensions = imageDimensions(heroImage);
+  const heroImageData = {
+    imagePath: heroImage,
+    imageWidth: heroDimensions.width,
+    imageHeight: heroDimensions.height,
+    alt: 'Assorted custom glass bottles for beverage and spirits packaging projects'
+  };
   const guideIds = new Set(['11', '12', '13']);
   const guides = insights.filter(article => guideIds.has(article.id));
-  const guideCards = guides.map(article => `<a class="insight-card" href="${articlePath(article)}"><img src="${article.imagePath}" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(article.alt)}"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.excerpt)}</span></div></a>`).join('');
+  const guideCards = guides.map(article => `<a class="insight-card" href="${articlePath(article)}">${pictureMarkup(article, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.excerpt)}</span></div></a>`).join('');
   const faqs = [
     {
       question: 'What is the MOQ for custom glass bottles?',
@@ -668,7 +946,8 @@ function glassBottleGuideHubPage() {
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
-  <link rel="preload" as="image" href="${heroImage}">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
+  <link rel="preload" as="image" href="${responsiveImagePath(heroImage, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(heroImage, 640)} 640w, ${responsiveImagePath(heroImage, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <link rel="stylesheet" href="/assets/css/insight-page.css">
   <meta property="og:type" content="website">
@@ -678,6 +957,8 @@ function glassBottleGuideHubPage() {
   <meta property="og:site_name" content="GloryStarPack">
   <meta property="og:image" content="${siteUrl}${heroImage}">
   <meta property="og:image:alt" content="Assorted custom glass bottles for beverage and spirits packaging projects">
+  <meta property="og:image:width" content="${heroDimensions.width}">
+  <meta property="og:image:height" content="${heroDimensions.height}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Glass Bottle Buying Guides | GloryStarPack">
   <meta name="twitter:description" content="${escapeHtml(description)}">
@@ -696,7 +977,7 @@ ${headerMarkup()}
         <p class="lead">Plan the bottle, closure, decoration, samples and packing as one system. These guides help brand, procurement, filling and quality teams ask more precise questions before quotation and bulk approval.</p>
         <div class="actions"><a class="btn" href="/contact/">Build a Glass Bottle RFQ</a><a class="btn alt" href="/products/glass-packaging/">Browse Glass Packaging</a></div>
       </div>
-      <figure class="hero-media"><img src="${heroImage}" width="1440" height="900" fetchpriority="high" decoding="async" alt="Assorted custom glass bottles for beverage and spirits packaging projects"></figure>
+      <figure class="hero-media">${pictureMarkup(heroImageData, { sizes: '(max-width:760px) calc(100vw - 40px), 470px', priority: true })}</figure>
     </div>
   </section>
   <div class="wrap main">
@@ -723,6 +1004,38 @@ ${footerMarkup()}
 `;
 }
 
+function rssFeed() {
+  const lastBuildDate = insights
+    .map(article => article.dateModified)
+    .sort()
+    .at(-1);
+  const items = insights.map(article => {
+    const canonical = `${siteUrl}${articlePath(article)}`;
+    return `    <item>
+      <title>${xmlEscape(article.title)}</title>
+      <link>${xmlEscape(canonical)}</link>
+      <guid isPermaLink="true">${xmlEscape(canonical)}</guid>
+      <pubDate>${rssDate(article.datePublished)}</pubDate>
+      <category>${xmlEscape(article.cat)}</category>
+      <description>${xmlEscape(metaDescription(article))}</description>
+    </item>`;
+  }).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GloryStarPack Packaging Insights</title>
+    <link>${siteUrl}/insights/</link>
+    <description>Practical B2B packaging procurement notes about RFQs, samples, closures, materials, decoration, compatibility and quality approval.</description>
+    <language>en</language>
+    <lastBuildDate>${rssDate(lastBuildDate)}</lastBuildDate>
+    <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>
+${items}
+  </channel>
+</rss>
+`;
+}
+
 function updateGeneratedBlock(filePath, startMarker, endMarker, content, closingPattern, insertion) {
   const source = fs.readFileSync(filePath, 'utf8');
   const block = `${startMarker}\n${content}\n${endMarker}`;
@@ -742,6 +1055,7 @@ for (const article of insights) {
 const indexDir = path.join(rootDir, 'insights');
 fs.mkdirSync(indexDir, { recursive: true });
 fs.writeFileSync(path.join(indexDir, 'index.html'), indexPage());
+fs.writeFileSync(path.join(rootDir, 'feed.xml'), rssFeed());
 const glassGuideHubDir = path.join(rootDir, 'glass-bottle-buying-guides');
 fs.mkdirSync(glassGuideHubDir, { recursive: true });
 fs.writeFileSync(path.join(glassGuideHubDir, 'index.html'), glassBottleGuideHubPage());
@@ -815,4 +1129,4 @@ updateGeneratedBlock(
   '\n\n'
 );
 
-console.log(`Generated ${insights.length} insight pages, 1 insight index page and 1 glass bottle guide hub.`);
+console.log(`Generated ${insights.length} insight pages, 1 insight index page, 1 RSS feed and 1 glass bottle guide hub.`);

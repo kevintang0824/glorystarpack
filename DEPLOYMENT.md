@@ -10,6 +10,36 @@
 - 网站类型：无需构建的纯静态 HTML/CSS/JavaScript
 - 图片目录：`assets/`，约 110MB
 
+## 日常直接更新（推荐）
+
+仓库已经绑定 Vercel 项目 `glorystarpack`。Vercel 的生产分支使用 `main`；该分支每次成功推送后会自动生成生产部署。
+
+1. 在本地完成页面或内容修改。
+2. 执行 `./sync-to-github.command "本次更新说明"`。
+3. 脚本会依次执行语法、SEO、内容、图片和 diff 检查，并在 `backups/时间_before_github_sync/` 保存：
+   - `base-commit.txt`：恢复基准提交；
+   - `working-tree.patch`：所有已跟踪文件的二进制安全补丁；
+   - `untracked-files.tgz`：所有未跟踪但需要发布的文件；
+   - `status.txt` 和 `SHA256SUMS.txt`：范围及完整性记录。
+4. GitHub Actions 会在推送后再次运行同一组只读检查。
+5. 在 Vercel Deployments 中等待生产部署显示 **Ready**。
+6. 执行 `node scripts/check-live-site.mjs`，确认正式域名、robots、sitemap、关键页面和 404。
+7. 执行 `node scripts/submit-indexnow.mjs --all`，通知支持 IndexNow 的搜索引擎。
+8. 内容较多时，在 Google Search Console 的 Sitemaps 报告提交或重新提交 `https://www.glorystarpack.com/sitemap.xml`；首页等少量重点 URL 可使用 URL Inspection 请求编入索引。
+
+Google 把 sitemap 提交视为发现提示，而不是收录保证。不要重复高频请求同一 URL；持续发布可抓取、原创且对采购者有用的内容更重要。
+
+### 从增量备份恢复
+
+先切换到 `base-commit.txt` 记录的提交，再执行：
+
+```bash
+git apply --binary backups/备份目录/working-tree.patch
+tar -xzf backups/备份目录/untracked-files.tgz
+```
+
+恢复前应在新的临时分支操作，避免覆盖当前工作。`backups/` 已被 Git 和 Vercel 排除，不会上传或部署。
+
 ## 1. Vercel 导入 GitHub 仓库
 
 1. 在 Vercel 选择 **Add New → Project**。

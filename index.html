@@ -14,6 +14,7 @@
 <link rel="alternate" hreflang="x-default" href="https://www.glorystarpack.com/">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="GloryStarPack LLMs.txt">
 <link rel="alternate" type="application/json" href="/ai-context.json" title="GloryStarPack AI Context">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="sitemap" type="application/xml" href="/image-sitemap.xml">
 <link rel="index" href="/site-index/">
@@ -47,6 +48,7 @@
       "name": "GloryStarPack",
       "legalName": "Xiamen GloryStar Packaging Co., Ltd.",
       "url": "https://www.glorystarpack.com/",
+      "sameAs": ["https://glorystarpack.en.alibaba.com/"],
       "email": "kevin@glorystarpack.com",
       "telephone": "+86 195-7760-8248",
       "contactPoint": {
@@ -748,7 +750,7 @@
       "url": "https://www.glorystarpack.com/",
       "name": "Custom Glass Bottle Manufacturer",
       "description": "Factory-direct custom glass bottle manufacturer in Xiamen, China, supplying liquor, wine, beer, perfume, nail polish and cosmetic glass bottles with decoration, closures and export support.",
-      "dateModified": "2026-07-30",
+      "dateModified": "2026-08-02",
       "isPartOf": {
         "@id": "https://www.glorystarpack.com/#website"
       },
@@ -770,13 +772,6 @@
         "url": "https://www.glorystarpack.com/assets/brand/custom-glass-bottle-hero-2026.jpg",
         "width": 1600,
         "height": 900
-      },
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": [
-          ".home-faq-item h3",
-          ".home-faq-item p"
-        ]
       }
     },
     {
@@ -919,7 +914,6 @@ a,button{cursor:pointer;}
 .topbar-right{display:flex;gap:14px;align-items:center;}
 .topbar-right a{color:#ccc;font-size:12px;text-decoration:none;transition:color .2s;}
 .topbar-right a:hover{color:var(--gold);}
-.lang-sel{background:transparent;border:1px solid #444;color:#ccc;padding:2px 6px;font-size:11px;border-radius:3px;}
 
 /* HEADER */
 header{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:500;box-shadow:0 1px 8px rgba(0,0,0,.06);}
@@ -1187,163 +1181,6 @@ a.pc-name{text-decoration:none;}
 .tab-pane ul{font-size:14px;color:var(--text);line-height:1.8;padding-left:20px;}
 .tab-pane li{margin-bottom:6px;}
 
-/* ABOUT */
-.about-hero{background:linear-gradient(135deg,#1a1a1a,#2d2416);padding:80px 0;text-align:center;}
-.about-hero h1,.about-hero h2{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#fff;margin-bottom:12px;}
-.about-hero p{color:#aaa;font-size:15px;max-width:540px;margin:0 auto;}
-.about-tabs-bar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:148px;z-index:100;}
-.about-tabs-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;}
-.about-sec{max-width:1280px;margin:0 auto;padding:48px 24px;}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.about-img-box{background:#f4f1ec;border-radius:12px;min-height:360px;border:1px solid var(--border);overflow:hidden;position:relative;box-shadow:0 16px 38px rgba(28,24,18,.08);}
-.about-img-box img{width:100%;height:100%;min-height:360px;display:block;object-fit:cover;}
-.about-proof-grid{position:absolute;left:18px;right:18px;bottom:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.about-proof{background:rgba(255,255,255,.92);border:1px solid rgba(229,224,216,.82);border-radius:8px;padding:10px 12px;backdrop-filter:blur(8px);}
-.about-proof strong{display:block;font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:var(--gold-dark);}
-.about-proof span{display:block;font-size:10px;color:var(--muted);line-height:1.25;margin-top:4px;text-transform:uppercase;letter-spacing:.06em;}
-.about-text h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--dark);margin-bottom:16px;}
-.about-text p{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:14px;}
-.about-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:var(--dark);border-radius:10px;padding:36px 28px;margin:40px 0;}
-.about-num .n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--gold);text-align:center;}
-.about-num .l{font-size:12px;color:#888;text-align:center;margin-top:4px;}
-.cert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
-.cert-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:20px;text-align:center;}
-.cert-card .ic{font-size:28px;margin-bottom:8px;}
-.cert-card .nm{font-size:13px;font-weight:500;color:var(--dark);}
-.cert-card .bd{font-size:11px;color:var(--muted);margin-top:3px;}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.team-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;text-align:center;}
-.team-card .av{height:150px;background:#f4f1ec;display:flex;align-items:center;justify-content:center;font-size:52px;}
-.team-card .ti{padding:14px;}
-.team-card .nm{font-size:14px;font-weight:500;color:var(--dark);}
-.team-card .rl{font-size:12px;color:var(--muted);}
-.expo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.expo-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.expo-img{height:170px;background:#f4f1ec;display:flex;align-items:center;justify-content:center;font-size:52px;}
-.expo-info{padding:16px;}
-.expo-info .date{font-size:11px;color:var(--gold-dark);font-weight:500;margin-bottom:5px;}
-.expo-info h3{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:6px;}
-.expo-info p{font-size:12px;color:var(--muted);line-height:1.6;}
-.prod-fac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.fac-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;}
-.fac-card:hover{border-color:var(--gold-light);box-shadow:0 10px 24px rgba(28,24,18,.08);transform:translateY(-2px);}
-.fac-img{height:172px;background:#f4f1ec;overflow:hidden;}
-.fac-img img{width:100%;height:100%;display:block;object-fit:cover;}
-.fac-info{padding:16px;}
-.fac-info h3{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:6px;}
-.fac-info p{font-size:13px;color:var(--muted);line-height:1.6;}
-
-/* OEM */
-.oem-hero{background:linear-gradient(135deg,#1a1a1a,#2d2416);padding:70px 0;text-align:center;}
-.oem-hero h1,.oem-hero h2{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:#fff;margin-bottom:12px;}
-.oem-hero p{color:#aaa;font-size:15px;max-width:560px;margin:0 auto 28px;}
-.oem-hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.step-grid{display:grid;grid-template-columns:repeat(5,1fr);position:relative;margin-bottom:40px;}
-.step-grid::before{content:'';position:absolute;top:36px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-dark));z-index:0;}
-.step-item{text-align:center;position:relative;z-index:1;}
-.step-num{width:72px;height:72px;background:var(--dark);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);margin:0 auto 14px;}
-.step-item h4{font-size:13px;font-weight:500;color:var(--dark);margin-bottom:5px;}
-.step-item p{font-size:12px;color:var(--muted);line-height:1.5;}
-.oem-cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.oem-cap{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:24px;}
-.oem-cap.img-cap{padding:0;overflow:hidden;transition:all .2s;}
-.oem-cap.img-cap:hover{border-color:var(--gold-light);box-shadow:0 8px 22px rgba(28,24,18,.08);transform:translateY(-2px);}
-.oem-cap-img{width:100%;height:160px;display:block;object-fit:cover;background:#f4f1ec;border-bottom:1px solid var(--border);}
-.oem-cap-body{padding:18px 20px 22px;}
-.oem-cap .ic{font-size:28px;margin-bottom:12px;}
-.oem-cap h3{font-size:15px;font-weight:500;color:var(--dark);margin-bottom:8px;}
-.oem-cap p{font-size:13px;color:var(--muted);line-height:1.7;}
-.oem-process-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:12px 0 44px;}
-.oem-process-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .2s;}
-.oem-process-card:hover{border-color:var(--gold-light);box-shadow:0 8px 22px rgba(28,24,18,.08);transform:translateY(-2px);}
-.oem-process-card img{width:100%;height:150px;display:block;object-fit:cover;background:#f4f1ec;}
-.oem-process-card div{padding:16px;}
-.oem-process-card strong{display:block;font-size:13px;color:var(--dark);margin-bottom:6px;}
-.oem-process-card span{display:block;font-size:12px;color:var(--muted);line-height:1.6;}
-.oem-cta{text-align:center;padding:44px 32px;background:var(--dark);border-radius:10px;margin-top:48px;}
-.oem-cta h2{font-family:'Cormorant Garamond',serif;font-size:32px;color:#fff;margin-bottom:10px;}
-.oem-cta p{color:#888;margin-bottom:24px;}
-
-/* NEWS */
-.news-page{max-width:1280px;margin:0 auto;padding:34px 24px 66px;}
-.news-hero{display:grid;grid-template-columns:minmax(0,1.35fr) 360px;gap:22px;margin-bottom:22px;}
-.news-feature{position:relative;min-height:430px;border-radius:12px;overflow:hidden;background:#1a1a1a;color:#fff;cursor:pointer;box-shadow:0 16px 38px rgba(28,24,18,.14);}
-.news-feature img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .45s ease;}
-.news-feature:hover img{transform:scale(1.035);}
-.news-feature::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,15,13,.88) 0%,rgba(16,15,13,.55) 48%,rgba(16,15,13,.12) 100%);}
-.news-feature-body{position:relative;z-index:1;min-height:430px;max-width:620px;padding:38px;display:flex;flex-direction:column;justify-content:flex-end;}
-.news-meta{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:12px;}
-.news-pill{display:inline-flex;align-items:center;min-height:24px;padding:4px 9px;border-radius:999px;background:rgba(200,169,110,.18);border:1px solid rgba(200,169,110,.42);color:var(--gold-light);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
-.news-date{font-size:12px;color:rgba(255,255,255,.72);}
-.news-feature h2{font-family:'Cormorant Garamond',serif;font-size:42px;line-height:1.08;font-weight:600;margin-bottom:14px;}
-.news-feature h2 a,.news-side-card h3 a,.news-info h3 a{color:inherit;text-decoration:none;}
-.news-feature h2 a:hover,.news-side-card h3 a:hover,.news-info h3 a:hover{color:var(--gold-dark);}
-.news-feature p{color:rgba(255,255,255,.78);font-size:14px;line-height:1.72;max-width:560px;margin-bottom:20px;}
-.news-feature-link{font-size:13px;color:var(--gold-light);font-weight:600;}
-.news-side{display:grid;gap:14px;}
-.news-side-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px;display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;cursor:pointer;transition:all .2s;}
-.news-side-card:hover,.news-card:hover{border-color:var(--gold-light);box-shadow:0 10px 24px rgba(31,29,25,.08);transform:translateY(-2px);}
-.news-side-card img{width:96px;height:78px;object-fit:cover;border-radius:7px;background:#f4f1ec;}
-.news-side-card .news-pill{background:#faf5ec;color:var(--gold-dark);border-color:#eadcc2;margin-bottom:7px;}
-.news-side-card h3{font-size:14px;color:var(--dark);line-height:1.35;font-weight:700;margin-bottom:5px;}
-.news-side-card p{font-size:12px;color:var(--muted);line-height:1.55;}
-.news-signal-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.news-signal{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:8px;padding:15px 16px;}
-.news-signal strong{display:block;font-size:16px;color:var(--dark);margin-bottom:3px;}
-.news-signal span{display:block;font-size:11px;color:var(--muted);line-height:1.55;}
-.news-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:24px;align-items:start;}
-.news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
-.news-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .2s;display:grid;grid-template-rows:auto 1fr;}
-.news-img{height:190px;background:#f4f1ec;overflow:hidden;}
-.news-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;}
-.news-card:hover .news-img img{transform:scale(1.03);}
-.news-info{padding:18px;}
-.news-info .date{font-size:11px;color:var(--gold-dark);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
-.news-info h3{font-size:17px;font-weight:700;color:var(--dark);line-height:1.35;margin-bottom:9px;}
-.news-info p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
-.news-info .read{font-size:12px;color:var(--gold-dark);font-weight:600;}
-.news-sidebar{position:sticky;top:150px;display:grid;gap:14px;}
-.news-panel{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;}
-.news-panel h3{font-size:15px;color:var(--dark);font-weight:700;margin-bottom:12px;}
-.news-topic-list{display:grid;gap:10px;}
-.news-topic-list a{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text);text-decoration:none;}
-.news-topic-list a:last-child{border-bottom:none;padding-bottom:0;}
-.news-topic-list a:hover{color:var(--gold-dark);}
-.news-topic-list span{color:var(--muted);font-size:11px;white-space:nowrap;}
-.news-cta-panel{background:var(--dark);border:1px solid rgba(200,169,110,.3);border-radius:10px;padding:22px;color:#fff;}
-.news-cta-panel h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:8px;}
-.news-cta-panel p{font-size:13px;color:#aaa;line-height:1.7;margin-bottom:16px;}
-.news-detail-shell{max-width:980px;margin:0 auto;padding:34px 24px 64px;}
-.news-detail-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
-.news-detail-meta span:not(.news-pill){font-size:12px;color:var(--muted);}
-.news-detail-title{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:var(--dark);line-height:1.12;margin-bottom:14px;}
-.news-detail-summary{font-size:16px;color:var(--muted);line-height:1.75;max-width:820px;margin-bottom:24px;}
-.news-detail-figure{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:30px;background:#f4f1ec;}
-.news-detail-figure img{width:100%;height:430px;object-fit:cover;display:block;}
-.news-detail-byline{font-size:12px;color:var(--muted);margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border);}
-.news-detail-body{font-size:15px;color:var(--text);line-height:1.9;}
-.news-detail-body p{margin-bottom:18px;}
-.news-detail-body ul{padding-left:20px;margin:0 0 18px;color:var(--text);}
-.news-detail-body li{margin-bottom:8px;}
-.news-detail-actions{margin-top:40px;padding-top:24px;border-top:1px solid var(--border);display:flex;gap:12px;flex-wrap:wrap;}
-
-/* CONTACT */
-.contact-layout{max-width:1280px;margin:0 auto;padding:40px 24px 60px;display:grid;grid-template-columns:1fr 1.4fr;gap:48px;}
-.contact-info h2{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--dark);margin-bottom:14px;}
-.contact-info p{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:28px;}
-.ci-item{display:flex;gap:14px;margin-bottom:20px;}
-.ci-icon{width:44px;height:44px;background:#f4f1ec;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.ci-text .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
-.ci-text .val{font-size:14px;color:var(--dark);font-weight:500;margin-top:2px;}
-.map-box{background:linear-gradient(145deg,#1a1a1a,#2b2418);border:1px solid rgba(200,169,110,.28);border-radius:10px;min-height:200px;margin-top:24px;padding:24px;color:#fff;}
-.map-box h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:12px;color:#fff;}
-.map-box p{font-size:13px;color:#cfc8ba;line-height:1.75;margin-bottom:16px;}
-.map-list{display:grid;gap:8px;}
-.map-list span{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;font-size:12px;color:#d9d2c3;}
-.map-list b{color:var(--gold-light);font-weight:600;}
-.form-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:32px 28px;}
-.form-box h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--dark);margin-bottom:6px;}
-.form-box .sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0;}
 .form-group{margin-bottom:14px;}
 .form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;letter-spacing:.03em;}
@@ -1780,6 +1617,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .resource-card{display:block;border:1px solid var(--border);border-radius:10px;padding:20px;text-decoration:none;background:#faf9f7;transition:all .2s;}
 .resource-card:hover{border-color:var(--gold-light);background:#fffaf1;transform:translateY(-2px);}
+.dd-link:focus-visible,.sb-link:focus-visible,.helper-item:focus-visible{outline:3px solid rgba(200,169,110,.65);outline-offset:2px;}
 .resource-card span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-dark);font-weight:700;margin-bottom:8px;}
 .resource-card strong{display:block;font-size:15px;color:var(--dark);margin-bottom:6px;}
 .resource-card p{font-size:12px;color:var(--muted);line-height:1.65;}
@@ -1798,12 +1636,12 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 @media (max-width: 1024px){
   .header-search{display:none;}
   .cat-grid-large,.prod-grid{grid-template-columns:repeat(3,1fr);}
-  .why-split,.buyer-grid,.contact-layout,.about-grid,.detail-layout{grid-template-columns:1fr;display:grid;}
+  .why-split,.buyer-grid,.detail-layout{grid-template-columns:1fr;display:grid;}
   .trust-showcase{padding:44px 0 46px;}
   .why-split{display:block;margin-top:0;}
   .why-split-left{border-radius:14px 14px 0 0;border-right:1px solid rgba(200,169,110,.22);padding:44px 36px;}
   .why-split-right{border-left:1px solid var(--border);border-radius:0 0 14px 14px;}
-  .why-split-right,.quality-grid,.svc-grid,.oem-cap-grid,.oem-process-gallery,.news-grid,.prod-fac-grid,.expo-grid{grid-template-columns:repeat(2,1fr);}
+  .why-split-right,.quality-grid,.svc-grid{grid-template-columns:repeat(2,1fr);}
   .home-proof-grid,.home-faq-grid{grid-template-columns:repeat(2,1fr);}
   .home-oem-steps{grid-template-columns:repeat(3,1fr);}
   .factory-feature{grid-template-columns:1fr;}
@@ -1835,11 +1673,6 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .procurement-actions{justify-content:flex-start;margin-top:16px;}
   .industry-grid,.case-grid,.guide-grid,.collection-grid,.checklist-grid,.helper-grid{grid-template-columns:repeat(2,1fr);}
   .detail-img-col{flex:auto;}
-  .news-hero,.news-layout{grid-template-columns:1fr;}
-  .news-side{grid-template-columns:repeat(3,1fr);}
-  .news-side-card{grid-template-columns:1fr;}
-  .news-side-card img{width:100%;height:130px;}
-  .news-sidebar{position:static;grid-template-columns:1fr 1fr;}
 }
 
 @media (max-width: 720px){
@@ -1904,7 +1737,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .glass-other-materials{width:100%;margin-left:0;}
   .factory-media,.factory-media img{min-height:240px;}
   .procurement-head h2{font-size:28px;}
-  .cat-grid-large,.prod-grid,.why-split-right,.quality-grid,.svc-grid,.oem-cap-grid,.oem-process-gallery,.news-grid,.prod-fac-grid,.expo-grid,.cert-grid,.team-grid,.buyer-points,.industry-grid,.faq-grid,.case-grid,.guide-grid,.collection-grid,.checklist-grid,.helper-grid,.aeo-grid,.visual-points,.seo-chip-grid{grid-template-columns:1fr;}
+  .cat-grid-large,.prod-grid,.why-split-right,.quality-grid,.svc-grid,.buyer-points,.industry-grid,.faq-grid,.case-grid,.guide-grid,.collection-grid,.checklist-grid,.helper-grid,.aeo-grid,.visual-points,.seo-chip-grid{grid-template-columns:1fr;}
   .aeo-head h2{font-size:28px;}
   .visual-copy h2,.seo-cluster-head h2{font-size:28px;}
   .seo-cluster-head{display:block;}
@@ -1956,21 +1789,6 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   html,body{max-width:100%;overflow-x:hidden;}
   .header-actions{display:flex;width:100%;margin-left:0;gap:10px;justify-content:flex-start;}
   .btn-quote{margin-left:0;padding:9px 14px;font-size:12px;}
-  .news-page{padding:24px 18px 52px;}
-  .about-proof-grid{position:static;grid-template-columns:1fr;padding:12px;background:#fff;}
-  .about-img-box img{min-height:250px;height:250px;}
-  .news-page,.news-hero,.news-feature,.news-feature-body,.news-card{min-width:0;}
-  .news-feature{width:100%;max-width:calc(100vw - 36px);}
-  .news-feature,.news-feature-body{min-height:430px;}
-  .news-feature-body{width:100%;max-width:100%;padding:28px 24px;}
-  .news-feature h2{font-size:28px;max-width:100%;overflow-wrap:anywhere;}
-  .news-feature h2 span{display:block;}
-  .news-feature p,.news-info h3,.news-side-card h3{overflow-wrap:anywhere;}
-  .news-side,.news-signal-row,.news-sidebar{grid-template-columns:1fr;}
-  .news-img{height:210px;}
-  .news-detail-shell{padding:28px 18px 54px;}
-  .news-detail-title{font-size:34px;}
-  .news-detail-figure img{height:300px;}
 }
 
 @media (max-width: 420px){
@@ -1979,7 +1797,6 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .topbar-left span:nth-child(3),.topbar-right a:nth-child(3){display:none;}
   .topbar-right{gap:10px;justify-content:space-between;}
   .topbar-right a{font-size:11px;}
-  .lang-sel{margin-left:auto;}
   .header-inner{padding:14px 18px;gap:10px;}
   .logo{gap:9px;}
   .logo-mark{width:44px;height:44px;flex-basis:44px;}
@@ -2010,8 +1827,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="topbar-right">
       <a href="/contact/" onclick="event.preventDefault();openModal('sample')">Free Samples</a>
       <a href="/oem-cosmetic-packaging/">OEM/ODM</a>
-      <a href="/about/" onclick="event.preventDefault();go('about','cert')">Quality Support</a>
-      <select class="lang-sel" id="languageSelect" name="language" aria-label="Language"><option>English</option><option>中文</option><option>Français</option><option>Español</option><option>Deutsch</option><option>日本語</option><option>한국어</option></select>
+      <a href="/about/#project-capabilities">Quality Support</a>
     </div>
   </div>
 </div>
@@ -2019,7 +1835,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- ========== HEADER ========== -->
 <header>
   <div class="header-inner">
-    <a class="logo" href="/#home" onclick="event.preventDefault();go('home')">
+    <a class="logo" href="/">
       <img class="logo-mark" src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">
       <div class="logo-text">
         <span class="brand">GLORYSTARPACK</span>
@@ -2044,17 +1860,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- ========== NAV ========== -->
 <nav id="siteNav">
   <div class="nav-inner">
-    <div class="nav-item"><button class="nav-link" data-page="home" onclick="go('home')">Home</button></div>
-    <div class="nav-item">
-      <button class="nav-link" data-page="about" aria-haspopup="true" aria-expanded="false">About ▾</button>
-      <div class="dropdown">
-        <span class="dd-link" onclick="go('about','profile')">Company Profile</span>
-        <span class="dd-link" onclick="go('about','production')">Production Facility</span>
-        <span class="dd-link" onclick="go('about','team')">Our Team</span>
-        <span class="dd-link" onclick="go('about','expo')">Exhibitions</span>
-        <span class="dd-link" onclick="go('about','cert')">Quality &amp; Documentation</span>
-      </div>
-    </div>
+    <div class="nav-item"><a class="nav-link" data-page="home" href="/">Home</a></div>
+    <div class="nav-item"><a class="nav-link" href="/about/">About</a></div>
     <div class="nav-item"><button class="nav-link hot" data-page="products" onclick="go('products','hot')">Hot</button></div>
     <div class="nav-item">
       <button class="nav-link" data-group="glass" aria-haspopup="true" aria-expanded="false">Glass ▾</button>
@@ -2157,9 +1964,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <span class="dd-link" onclick="go('products','paper-box')">Paper Box</span>
       </div>
     </div>
-    <div class="nav-item"><button class="nav-link" data-page="oem" onclick="go('oem')">OEM/ODM</button></div>
-    <div class="nav-item"><button class="nav-link" data-page="news" onclick="go('news')">News</button></div>
-    <div class="nav-item"><button class="nav-link" data-page="contact" onclick="go('contact')">Contact</button></div>
+    <div class="nav-item"><a class="nav-link" href="/oem-cosmetic-packaging/">OEM/ODM</a></div>
+    <div class="nav-item"><a class="nav-link" href="/insights/">Insights</a></div>
+    <div class="nav-item"><a class="nav-link" href="/contact/">Contact</a></div>
   </div>
 </nav>
 
@@ -2561,9 +2368,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <div class="home-section-head">
         <div>
           <div class="home-eyebrow">Buyer research routes</div>
-          <h2>Compare bottle routes and approval checks before the RFQ.</h2>
+          <h2>Compare packaging routes and approval checks before the RFQ.</h2>
         </div>
-        <a class="home-section-link" href="/glass-bottle-buying-guides/">Open all glass bottle buying guides →</a>
+        <a class="home-section-link" href="/glass-bottle-buying-guides/">Open the glass bottle guide hub →</a>
       </div>
       <div class="resource-grid">
         <a class="resource-card" href="/products/liquor-bottles/"><span>Spirits sourcing</span><strong>Choose a custom liquor bottle route</strong><p>Compare whiskey, vodka, gin, craft spirit and miniature bottles by shape, glass weight, neck and decoration.</p></a>
@@ -2572,6 +2379,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <a class="resource-card" href="/insights/custom-glass-bottle-moq-stock-vs-custom-mold/"><span>MOQ planning</span><strong>Stock bottle vs custom mold</strong><p>Learn which bottle, closure, decoration and tooling decisions can set the project minimum.</p></a>
         <a class="resource-card" href="/insights/glass-bottle-neck-finish-closure-guide/"><span>Closure matching</span><strong>Match the neck finish and seal</strong><p>Review cork, screw, ROPP, crown, swing-top and fragrance-pump routes before sampling.</p></a>
         <a class="resource-card" href="/insights/glass-bottle-sample-approval-qc-checklist/"><span>Sample approval</span><strong>Freeze the production reference</strong><p>Check dimensions, capacity, closure fit, decoration, filling-line handling and export packing.</p></a>
+        <a class="resource-card" href="/insights/cosmetic-packaging-compatibility-testing-guide/"><span>Compatibility testing</span><strong>Build a configuration-specific test plan</strong><p>Review formula, container, closure, decoration, storage and distribution questions before bulk approval.</p></a>
+        <a class="resource-card" href="/insights/cosmetic-pump-closure-selection-guide/"><span>Dispensing systems</span><strong>Select pumps and closures as a system</strong><p>Compare neck finish, output, dip tube, seal, formula and packing requirements before sampling.</p></a>
+        <a class="resource-card" href="/insights/cosmetic-packaging-rfq-guide/"><span>RFQ preparation</span><strong>Send the inputs needed for a useful quote</strong><p>Organize application, capacity, material, closure, decoration, quantity, destination and timing.</p></a>
       </div>
     </div>
   </section>
@@ -2923,320 +2733,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   </div>
 </div>
 
-<!-- ======================= PAGE: ABOUT ======================= -->
-<div id="page-about" class="page" data-nosnippet>
-  <div class="about-hero">
-    <h2>About GloryStarPack</h2>
-    <p>A leading cosmetic packaging manufacturer in Xiamen, trusted by beauty brands worldwide for 15+ years.</p>
-  </div>
-  <div class="about-tabs-bar">
-    <div class="about-tabs-inner">
-      <button class="tab-btn active" id="abt-btn-profile" onclick="switchAbout(this,'abt-profile')">Company Profile</button>
-      <button class="tab-btn" id="abt-btn-production" onclick="switchAbout(this,'abt-production')">Production</button>
-      <button class="tab-btn" id="abt-btn-team" onclick="switchAbout(this,'abt-team')">Our Team</button>
-      <button class="tab-btn" id="abt-btn-expo" onclick="switchAbout(this,'abt-expo')">Exhibitions</button>
-      <button class="tab-btn" id="abt-btn-cert" onclick="switchAbout(this,'abt-cert')">Quality &amp; Documentation</button>
-    </div>
-  </div>
-  <!-- Profile -->
-  <div id="abt-profile" class="tab-pane active">
-    <div class="about-sec">
-      <div class="about-grid">
-        <div class="about-img-box">
-          <img fetchpriority="low" decoding="async" height="905" width="1738" src="assets/brand/factory-oem-quality-2026.jpg" alt="GloryStarPack cosmetic packaging factory sample room with bottles, caps and quality samples" loading="lazy">
-          <div class="about-proof-grid" aria-label="Factory proof points">
-            <div class="about-proof"><strong data-total-products>387</strong><span>Online product options</span></div>
-            <div class="about-proof"><strong>OEM</strong><span>Custom project support</span></div>
-            <div class="about-proof"><strong>QC</strong><span>Sample and fit review</span></div>
-          </div>
-        </div>
-        <div class="about-text">
-          <h2>Who We Are</h2>
-          <p>GloryStarPack (Xiamen GloryStar Packaging Co., Ltd.) is a Xiamen-based packaging supplier specializing in glass, plastic, bamboo, aluminum and eco-friendly packaging.</p>
-          <p>Our project support covers bottle and closure selection, samples, decoration proofing, component fit review, quality checks and export packing.</p>
-          <p>We coordinate packaging development for beverage, fragrance, nail care, skincare, personal care and private-label projects.</p>
-          <button class="btn-primary" style="margin-top:12px;" onclick="go('contact')">Contact Us Today</button>
-        </div>
-      </div>
-      <div class="about-nums">
-        <div class="about-num"><div class="n" data-total-products>387</div><div class="l">Product Options</div></div>
-        <div class="about-num"><div class="n">6</div><div class="l">Core Material Groups</div></div>
-        <div class="about-num"><div class="n">OEM</div><div class="l">Decoration Support</div></div>
-        <div class="about-num"><div class="n">QC</div><div class="l">Fit &amp; Sample Review</div></div>
-      </div>
-    </div>
-  </div>
-  <!-- Production -->
-  <div id="abt-production" class="tab-pane">
-    <div class="about-sec">
-      <div class="sec-head"><h2>Production Facility</h2><div class="line"></div></div>
-      <div class="prod-fac-grid" style="margin-bottom:28px;">
-        <div class="fac-card"><div class="fac-img"><img fetchpriority="low" decoding="async" height="905" width="1738" src="assets/brand/factory-oem-quality-2026.jpg" alt="Cosmetic packaging factory sample room and product inspection table" loading="lazy"></div><div class="fac-info"><h3>Factory Sample Room</h3><p>Glass, plastic, bamboo, aluminum and accessory samples are grouped by formula use, capacity, closure and decoration method.</p></div></div>
-        <div class="fac-card"><div class="fac-img"><img fetchpriority="low" decoding="async" height="916" width="1717" src="assets/brand/oem-quality-testing-2026.jpg" alt="Cosmetic packaging quality testing with bottles, jars and lab tools" loading="lazy"></div><div class="fac-info"><h3>QC and Compatibility Checks</h3><p>Leakage, closure fit, pump output, drop resistance and formula compatibility checks can be reviewed before shipment.</p></div></div>
-        <div class="fac-card"><div class="fac-img"><img fetchpriority="low" decoding="async" height="1024" width="1536" src="assets/brand/oem-decoration-process-2026.jpg" alt="Cosmetic packaging printing, hot stamping, coating and frosting samples" loading="lazy"></div><div class="fac-info"><h3>Decoration Proofing</h3><p>Silk screen, hot stamping, UV printing, color coating, frosting, electroplating and label tests are sampled before bulk.</p></div></div>
-        <div class="fac-card"><div class="fac-img"><img fetchpriority="low" decoding="async" height="905" width="1738" src="assets/brand/oem-mold-prototype-2026.jpg" alt="Custom cosmetic packaging mold and prototype development" loading="lazy"></div><div class="fac-info"><h3>Mold and Prototype Support</h3><p>Custom bottle shapes, cap structures, refill pods and component assemblies can be developed from drawings or reference samples.</p></div></div>
-        <div class="fac-card"><div class="fac-img"><img fetchpriority="low" decoding="async" height="929" width="1694" src="assets/brand/oem-packaging-service-2026.jpg" alt="OEM cosmetic packaging sample bottles, jars, caps and color swatches" loading="lazy"></div><div class="fac-info"><h3>Component Matching</h3><p>Bottles, jars, pumps, caps, droppers, collars and boxes are matched as one system to reduce launch risk.</p></div></div>
-        <div class="fac-card"><div class="fac-img"><img fetchpriority="low" decoding="async" height="887" width="1774" src="assets/brand/oem-retail-export-packing-2026.jpg" alt="Cosmetic packaging retail boxes, molded inserts and export cartons" loading="lazy"></div><div class="fac-info"><h3>Retail and Export Packing</h3><p>Cartons, inserts, molded pulp trays, dividers and export packing are planned around fragile glass and mixed packaging sets.</p></div></div>
-      </div>
-      <p style="font-size:14px;color:var(--text);line-height:1.8;">Our vertical integration model — from raw material procurement to finished product shipment — allows us to deliver the highest quality at the most competitive prices, while maintaining full control over every step of production.</p>
-    </div>
-  </div>
-  <!-- Team -->
-  <div id="abt-team" class="tab-pane">
-    <div class="about-sec">
-      <div class="sec-head"><h2>Our Team</h2><div class="line"></div></div>
-      <div class="team-grid">
-        <div class="team-card"><div class="av">👩‍💼</div><div class="ti"><div class="nm">Emily Chen</div><div class="rl">CEO &amp; Founder</div></div></div>
-        <div class="team-card"><div class="av">👨‍🔬</div><div class="ti"><div class="nm">David Wang</div><div class="rl">Head of R&amp;D</div></div></div>
-        <div class="team-card"><div class="av">👩‍🎨</div><div class="ti"><div class="nm">Lisa Zhang</div><div class="rl">Design Director</div></div></div>
-        <div class="team-card"><div class="av">👨‍💻</div><div class="ti"><div class="nm">Michael Liu</div><div class="rl">Export Manager</div></div></div>
-        <div class="team-card"><div class="av">👩‍🏭</div><div class="ti"><div class="nm">Sophie Wu</div><div class="rl">Quality Control</div></div></div>
-        <div class="team-card"><div class="av">👨‍🔧</div><div class="ti"><div class="nm">Kevin Zhao</div><div class="rl">Production Manager</div></div></div>
-        <div class="team-card"><div class="av">👩‍💼</div><div class="ti"><div class="nm">Amanda Lee</div><div class="rl">Sales Director</div></div></div>
-        <div class="team-card"><div class="av">👨‍💼</div><div class="ti"><div class="nm">James Xu</div><div class="rl">Logistics Manager</div></div></div>
-      </div>
-    </div>
-  </div>
-  <!-- Exhibitions -->
-  <div id="abt-expo" class="tab-pane">
-    <div class="about-sec">
-      <div class="sec-head"><h2>Global Exhibitions</h2><div class="line"></div></div>
-      <div class="expo-grid">
-        <div class="expo-card"><div class="expo-img">🇮🇹</div><div class="expo-info"><div class="date">MARCH 2026 · BOLOGNA, ITALY</div><h3>Cosmoprof Worldwide Bologna</h3><p>World's leading B2B beauty trade show. We showcased our latest glass and eco-friendly packaging lines.</p></div></div>
-        <div class="expo-card"><div class="expo-img">🇦🇪</div><div class="expo-info"><div class="date">FEBRUARY 2026 · DUBAI, UAE</div><h3>Beautyworld Middle East</h3><p>Premier beauty trade show in the Middle East. Featured aluminum and luxury glass packaging.</p></div></div>
-        <div class="expo-card"><div class="expo-img">🇭🇰</div><div class="expo-info"><div class="date">NOVEMBER 2024 · HONG KONG</div><h3>Cosmoprof Asia Hong Kong</h3><p>Asia's largest beauty trade show. Presented our full product range including new bamboo collections.</p></div></div>
-        <div class="expo-card"><div class="expo-img">🇺🇸</div><div class="expo-info"><div class="date">JUNE 2024 · LAS VEGAS, USA</div><h3>Cosmoprof North America</h3><p>Showcased eco-friendly and sustainable packaging solutions to North American beauty brands.</p></div></div>
-        <div class="expo-card"><div class="expo-img">🇬🇧</div><div class="expo-info"><div class="date">MAY 2024 · LONDON, UK</div><h3>in-cosmetics Global</h3><p>Leading packaging and ingredients event. Highlighted our PCR plastic and biodegradable range.</p></div></div>
-        <div class="expo-card"><div class="expo-img">🇨🇳</div><div class="expo-info"><div class="date">MARCH 2024 · GUANGZHOU</div><h3>China Beauty Expo</h3><p>Participated as featured exhibitor. Launched 80+ new products including luxury perfume bottles.</p></div></div>
-      </div>
-    </div>
-  </div>
-  <!-- Quality and documentation -->
-  <div id="abt-cert" class="tab-pane">
-    <div class="about-sec">
-      <div class="sec-head"><h2>Quality &amp; Documentation</h2><div class="line"></div></div>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:28px;">Quality, compatibility and documentation requirements depend on the product, formula and destination market. Confirm the checks and documents that apply to your project before approving bulk production.</p>
-      <div class="cert-grid">
-        <div class="cert-card"><div class="ic">◎</div><div class="nm">Formula &amp; Package Review</div><div class="bd">Material, closure and use-case alignment</div></div>
-        <div class="cert-card"><div class="ic">↔</div><div class="nm">Component Fit Checks</div><div class="bd">Neck, pump, sprayer, dropper or brush-cap fit</div></div>
-        <div class="cert-card"><div class="ic">✓</div><div class="nm">Sample Approval Plan</div><div class="bd">Appearance, dispensing and decoration review</div></div>
-        <div class="cert-card"><div class="ic">▤</div><div class="nm">Project Documentation</div><div class="bd">Confirm applicable files with your sales contact</div></div>
-        <div class="cert-card"><div class="ic">□</div><div class="nm">Export Packing Route</div><div class="bd">Cartons, inserts and shipment protection planning</div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ======================= PAGE: OEM ======================= -->
-<div id="page-oem" class="page" data-nosnippet>
-  <div class="oem-hero">
-    <h2>OEM / ODM Service</h2>
-    <p>From concept to creation — we bring your packaging vision to life with full customization and expert support at every step.</p>
-    <div class="oem-hero-btns">
-      <button class="btn-primary" onclick="openModal('quote')">Start Your Project</button>
-      <button class="btn-outline" onclick="openModal('sample')">Request Sample</button>
-    </div>
-  </div>
-  <div class="section">
-    <div class="sec-head"><h2>How It Works</h2><div class="line"></div></div>
-    <div class="step-grid" style="margin-bottom:56px;">
-      <div class="step-item"><div class="step-num">1</div><h4>Consultation</h4><p>Share your requirements, target market, and brand vision</p></div>
-      <div class="step-item"><div class="step-num">2</div><h4>Design</h4><p>Our team creates 3D mockups and design proposals</p></div>
-      <div class="step-item"><div class="step-num">3</div><h4>Sampling</h4><p>We produce physical samples for your approval</p></div>
-      <div class="step-item"><div class="step-num">4</div><h4>Production</h4><p>Mass production after sample confirmation</p></div>
-      <div class="step-item"><div class="step-num">5</div><h4>Delivery</h4><p>QC inspection, packing, and worldwide shipping</p></div>
-    </div>
-    <div class="sec-head"><h2>Our Capabilities</h2><div class="line"></div></div>
-    <div class="oem-cap-grid">
-      <div class="oem-cap img-cap"><img fetchpriority="low" decoding="async" height="905" width="1738" class="oem-cap-img" src="assets/brand/oem-mold-prototype-2026.jpg" alt="Custom cosmetic packaging mold development with bottle and jar prototypes" loading="lazy"><div class="oem-cap-body"><h3>Mold Customization</h3><p>New mold development for unique bottle shapes. In-house mold workshop. Lead time 15–20 working days. Mold cost shared for large orders.</p></div></div>
-      <div class="oem-cap img-cap"><img fetchpriority="low" decoding="async" height="1024" width="1536" class="oem-cap-img" src="assets/brand/oem-decoration-process-2026.jpg" alt="Cosmetic packaging surface treatment with printing, hot stamping, coating and frosting samples" loading="lazy"><div class="oem-cap-body"><h3>Surface Treatment</h3><p>Silk screen printing, hot stamping, UV coating, frosting, sandblasting, electroplating, laser engraving on all materials.</p></div></div>
-      <div class="oem-cap img-cap"><img fetchpriority="low" decoding="async" height="929" width="1694" class="oem-cap-img" src="assets/brand/oem-packaging-service-2026.jpg" alt="OEM cosmetic packaging branding support with sample bottles, jars and color swatches" loading="lazy"><div class="oem-cap-body"><h3>Logo &amp; Branding</h3><p>Custom logo in any technique. Pantone color matching. Full artwork support from our design team at no extra charge.</p></div></div>
-      <div class="oem-cap img-cap"><img fetchpriority="low" decoding="async" height="887" width="1774" class="oem-cap-img" src="assets/brand/oem-retail-export-packing-2026.jpg" alt="Custom cosmetic packaging boxes, paper inserts, sample trays and export cartons" loading="lazy"><div class="oem-cap-body"><h3>Packaging &amp; Inserts</h3><p>Custom outer boxes, paper inserts, foam inserts, and gift sets designed to complement your product perfectly.</p></div></div>
-      <div class="oem-cap img-cap"><img fetchpriority="low" decoding="async" height="930" width="1691" class="oem-cap-img" src="assets/brand/refill-eco-packaging-collection-2026.jpg" alt="Eco friendly cosmetic packaging options with refill pouches, paper tubes and PCR bottles" loading="lazy"><div class="oem-cap-body"><h3>Eco-Friendly Options</h3><p>PCR plastic, biodegradable PLA, bamboo, kraft paper, and other sustainable materials for eco-conscious brands.</p></div></div>
-      <div class="oem-cap img-cap"><img fetchpriority="low" decoding="async" height="916" width="1717" class="oem-cap-img" src="assets/brand/oem-quality-testing-2026.jpg" alt="Cosmetic packaging formula compatibility and QC testing with bottles, jars and lab tools" loading="lazy"><div class="oem-cap-body"><h3>Formula Compatibility</h3><p>We test packaging compatibility with your formula. Leak tests, drop tests, and stability testing all available.</p></div></div>
-    </div>
-    <div class="sec-head" style="margin-top:48px;"><h2>Custom Packaging Process Gallery</h2><div class="line"></div><a href="/contact/" onclick="event.preventDefault();openModal('quote')">Send Your Artwork →</a></div>
-    <div class="oem-process-gallery">
-      <article class="oem-process-card"><img fetchpriority="low" decoding="async" height="1024" width="1536" src="assets/brand/oem-decoration-process-2026.jpg" alt="Silk screen printing, hot stamping and coating samples for cosmetic packaging" loading="lazy"><div><strong>Decoration &amp; Finish Samples</strong><span>Compare frosting, color coating, metallic caps, hot stamping and UV printing before bulk production.</span></div></article>
-      <article class="oem-process-card"><img fetchpriority="low" decoding="async" height="905" width="1738" src="assets/brand/oem-mold-prototype-2026.jpg" alt="Custom mold and prototype development for cosmetic bottles and jars" loading="lazy"><div><strong>Mold &amp; Prototype Development</strong><span>Turn custom bottle shapes, caps, jars and refill systems into sample-ready packaging structures.</span></div></article>
-      <article class="oem-process-card"><img fetchpriority="low" decoding="async" height="916" width="1717" src="assets/brand/oem-quality-testing-2026.jpg" alt="Cosmetic packaging quality control and formula compatibility testing" loading="lazy"><div><strong>Formula Compatibility Testing</strong><span>Check leakage, fit, dispensing, closure performance and material compatibility before shipment.</span></div></article>
-      <article class="oem-process-card"><img fetchpriority="low" decoding="async" height="887" width="1774" src="assets/brand/oem-retail-export-packing-2026.jpg" alt="Custom retail boxes, inserts and export cartons for cosmetic packaging orders" loading="lazy"><div><strong>Retail Boxes &amp; Export Packing</strong><span>Build full packaging systems with inserts, sample trays, gift boxes and protective export cartons.</span></div></article>
-    </div>
-    <div class="oem-cta">
-      <h2>Ready to Start?</h2>
-      <p>Contact our team today — we'll respond within 24 hours.</p>
-      <button class="btn-primary" onclick="go('contact')">Contact Us Now</button>
-    </div>
-  </div>
-</div>
-
-<!-- ======================= PAGE: NEWS ======================= -->
-<div id="page-news" class="page" data-nosnippet>
-  <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <span class="cur">News &amp; Blog</span></div></div>
-  <div class="news-page">
-    <section class="news-hero" aria-label="Featured packaging updates">
-      <article class="news-feature" onclick="go('newsdetail','1')">
-        <img height="1254" width="1254" src="assets/product-photos/p314-0.jpg" alt="Men's grooming gift box with molded pulp insert and matching packaging components" loading="lazy" decoding="async" fetchpriority="low">
-        <div class="news-feature-body">
-          <div class="news-meta"><span class="news-pill">Catalog update</span><span class="news-date">July 5, 2026</span></div>
-          <h2><a href="/insights/personal-care-grooming-packaging-catalog-update/" onclick="event.stopPropagation()"><span>36 New Personal Care</span><span>and Grooming Packaging</span><span>SKUs Added</span></a></h2>
-          <p>New foam pumps, shampoo bottles, sunscreen sticks and grooming kits are now grouped for faster sourcing.</p>
-          <span class="news-feature-link">Read the product update →</span>
-        </div>
-      </article>
-      <aside class="news-side" aria-label="Recent packaging notes">
-        <article class="news-side-card" onclick="go('newsdetail','2')">
-          <img height="1254" width="1254" src="assets/product-photos/p282-0.jpg" alt="Mono-material refill pouch with side spout" loading="lazy" decoding="async" fetchpriority="low">
-          <div><span class="news-pill">Refill systems</span><h3><a href="/insights/refill-pouches-reusable-bottles/" onclick="event.stopPropagation()">Matching refill pouches with reusable bottles</a></h3><p>Checklist for pouch structure, cap fit, carton packing and bottle pairing.</p></div>
-        </article>
-        <article class="news-side-card" onclick="go('newsdetail','3')">
-          <img height="905" width="1738" src="assets/brand/factory-oem-quality-2026.jpg" alt="OEM cosmetic packaging samples and color swatches" loading="lazy" decoding="async" fetchpriority="low">
-          <div><span class="news-pill">Buyer guide</span><h3><a href="/insights/cosmetic-packaging-rfq-guide/" onclick="event.stopPropagation()">How to prepare a useful cosmetic packaging RFQ</a></h3><p>The details that help confirm price, MOQ, sample time and decoration quickly.</p></div>
-        </article>
-        <article class="news-side-card" onclick="go('newsdetail','4')">
-          <img height="1254" width="1254" src="assets/product-photos/p283-0.jpg" alt="Hotel amenity mini bottle pump set" loading="lazy" decoding="async" fetchpriority="low">
-          <div><span class="news-pill">Hospitality</span><h3><a href="/insights/refill-ready-hotel-amenity-packaging/" onclick="event.stopPropagation()">Hotel amenity kits move toward refill-ready formats</a></h3><p>Mini bottles, pouches and toiletry kits for spas, hotels and travel retail.</p></div>
-        </article>
-      </aside>
-    </section>
-
-    <div class="news-signal-row" aria-label="Current packaging signals">
-      <div class="news-signal"><strong><span data-total-products>387</span> Product Options</strong><span>Expanded catalog coverage for beauty, beverage, bottles, jars, tubes, closures, samples and kits.</span></div>
-      <div class="news-signal"><strong>5 new pages</strong><span>Fresh landing pages for samples, refill pouches, amenities and grooming.</span></div>
-      <div class="news-signal"><strong>Fast RFQ</strong><span>Material, capacity, finish, MOQ and destination now guide quote intake.</span></div>
-      <div class="news-signal"><strong>AI-ready</strong><span>LLM and schema updates help search engines understand packaging categories.</span></div>
-    </div>
-
-    <div class="sec-head"><h2>Packaging Notes</h2><div class="line"></div><a href="/contact/" onclick="event.preventDefault();go('contact')">Ask for samples</a></div>
-    <div class="news-layout">
-      <div class="news-grid">
-        <article class="news-card" onclick="go('newsdetail','14')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="916" width="1717" src="assets/brand/oem-quality-testing-2026.jpg" alt="Cosmetic packaging bottles pumps and inspection tools for compatibility review" loading="lazy"></div>
-          <div class="news-info"><div class="date">August 1, 2026 · Compatibility testing</div><h3><a href="/insights/cosmetic-packaging-compatibility-testing-guide/" onclick="event.stopPropagation()">Cosmetic packaging compatibility testing guide</a></h3><p>Plan formula, leakage, dispensing, decoration and transport checks with the production-intent packaging system.</p><span class="read">Read guide →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','15')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="897" width="1752" src="assets/brand/cosmetic-closures-components-v2-2026.jpg" alt="Cosmetic lotion pumps sprayers droppers caps and dispensing components" loading="lazy"></div>
-          <div class="news-info"><div class="date">August 1, 2026 · Dispensing systems</div><h3><a href="/insights/cosmetic-pump-closure-selection-guide/" onclick="event.stopPropagation()">Cosmetic pump and closure selection guide</a></h3><p>Match neck finish, formula, output, dip tube, lock style and filling requirements before sampling.</p><span class="read">Read guide →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','5')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="1254" width="1254" src="assets/product-photos/p285-0.jpg" alt="Cosmetic sample discovery kit with vials, jars and sachets" loading="lazy"></div>
-          <div class="news-info"><div class="date">June 28, 2026 · Sampling</div><h3><a href="/insights/cosmetic-discovery-kit-packaging/" onclick="event.stopPropagation()">Discovery kits that make sample programs easier to quote</a></h3><p>Mini vials, sachets, jars and molded trays can be handled as one packaging set instead of scattered components.</p><span class="read">3 min read →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','6')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="1254" width="1254" src="assets/product-photos/p294-0.jpg" alt="PCR HDPE shampoo bottle family with closures" loading="lazy"></div>
-          <div class="news-info"><div class="date">June 12, 2026 · PCR plastic</div><h3><a href="/insights/pcr-hdpe-personal-care-bottles/" onclick="event.stopPropagation()">PCR HDPE bottles for shampoo and body care launches</a></h3><p>How to balance recycled content, squeeze feel, closure fit and decoration for repeat purchase personal care lines.</p><span class="read">4 min read →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','7')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="1024" width="1536" src="assets/brand/makeup-lip-mascara-components-2026.jpg" alt="Makeup packaging components including lip gloss and mascara tubes" loading="lazy"></div>
-          <div class="news-info"><div class="date">May 20, 2026 · Trend watch</div><h3><a href="/insights/color-cosmetics-component-systems/" onclick="event.stopPropagation()">Color cosmetics buyers ask for component systems, not single tubes</a></h3><p>Mascara, brow gel, lip oil and applicator matching are moving into one-stop development briefs.</p><span class="read">4 min read →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','8')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="982" width="1602" src="assets/brand/closures-complete-product-assortment-2026.jpg" alt="Cosmetic packaging pumps, caps, sprayers and closures assortment" loading="lazy"></div>
-          <div class="news-info"><div class="date">May 6, 2026 · Quality</div><h3><a href="/insights/packaging-closure-qc-checklist/" onclick="event.stopPropagation()">QC checklist for pumps, caps, droppers and rollerballs</a></h3><p>Fit, torque, leakage, dip tube length and formula compatibility checks before approving bulk production.</p><span class="read">5 min read →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','9')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="1254" width="1254" src="assets/product-photos/p292-0.jpg" alt="Molded pulp perfume bottle gift box set" loading="lazy"></div>
-          <div class="news-info"><div class="date">April 18, 2026 · Retail kits</div><h3><a href="/insights/molded-pulp-gift-box-inserts/" onclick="event.stopPropagation()">Molded pulp inserts for fragrance and gift box projects</a></h3><p>Paper-based inserts protect bottles, improve unboxing and reduce plastic foam in premium packaging kits.</p><span class="read">3 min read →</span></div>
-        </article>
-        <article class="news-card" onclick="go('newsdetail','10')">
-          <div class="news-img"><img fetchpriority="low" decoding="async" height="1024" width="1536" src="assets/brand/oem-decoration-process-2026.jpg" alt="Cosmetic packaging decoration process samples" loading="lazy"></div>
-          <div class="news-info"><div class="date">March 30, 2026 · Decoration</div><h3><a href="/insights/cosmetic-packaging-decoration-methods/" onclick="event.stopPropagation()">When to choose coating, silk screen, hot stamping or label</a></h3><p>Decoration selection depends on material, order quantity, artwork complexity, chemical exposure and budget.</p><span class="read">5 min read →</span></div>
-        </article>
-      </div>
-      <aside class="news-sidebar" aria-label="Packaging topics and contact">
-        <div class="news-panel">
-          <h3>Buyer Topics</h3>
-          <div class="news-topic-list">
-            <a href="/products/refill-pouch-packaging/">Refill pouch packaging <span>new</span></a>
-            <a href="/products/cosmetic-sample-packaging/">Sample and discovery kits <span>guide</span></a>
-            <a href="/products/hotel-amenity-packaging/">Hotel amenity sets <span>travel</span></a>
-            <a href="/products/personal-care-packaging/">Hair care and sun care <span>SKUs</span></a>
-            <a href="/products/mens-grooming-packaging/">Men's grooming packaging <span>range</span></a>
-          </div>
-        </div>
-        <div class="news-cta-panel">
-          <h3>Need a packaging shortlist?</h3>
-          <p>Send formula type, capacity, target price, finish and destination country. We will suggest matching bottles, closures and sample options.</p>
-          <button class="btn-primary" onclick="go('contact')">Request Quote</button>
-        </div>
-      </aside>
-    </div>
-  </div>
-</div>
-
-<!-- ======================= PAGE: NEWS DETAIL ======================= -->
-<div id="page-newsdetail" class="page" data-nosnippet>
-  <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <a href="/#news" onclick="event.preventDefault();go('news')">News</a> › <span class="cur" id="bc-news">Article</span></div></div>
-  <div class="news-detail-shell">
-    <div class="news-detail-meta"><span id="nd-cat" class="news-pill">Packaging note</span><span id="nd-date"></span><span id="nd-time"></span></div>
-    <h2 id="nd-title" class="news-detail-title"></h2>
-    <p id="nd-summary" class="news-detail-summary"></p>
-    <figure class="news-detail-figure"><img height="887" width="1774" id="nd-hero-img" src="assets/brand/cosmetic-packaging-hero-2026.jpg" alt="Cosmetic packaging article image" loading="lazy" decoding="async" fetchpriority="low"></figure>
-    <div class="news-detail-byline">By GloryStarPack Packaging Desk · Xiamen, Fujian</div>
-    <div id="nd-body" class="news-detail-body"></div>
-    <div class="news-detail-actions">
-      <button class="btn-primary" onclick="go('contact')">Contact Us</button>
-      <button class="btn-outline" style="color:var(--muted);border-color:var(--border);" onclick="go('news')">← Back to News</button>
-    </div>
-  </div>
-</div>
-
-<!-- ======================= PAGE: CONTACT ======================= -->
-<div id="page-contact" class="page" data-nosnippet>
-  <div class="about-hero" style="padding:60px 0;">
-    <h2>Contact Us</h2>
-    <p>Our team is ready to help. We respond to all inquiries within 24 hours.</p>
-  </div>
-  <div class="contact-layout">
-    <div class="contact-info">
-      <h2>Get In Touch</h2>
-      <p>Whether you need a quick quote, free samples, or want to discuss a custom OEM project — our multilingual team is here to help.</p>
-      <div class="ci-item"><div class="ci-icon">☎</div><div class="ci-text"><div class="label">Phone / WhatsApp</div><div class="val">+86 195-7760-8248</div></div></div>
-      <div class="ci-item"><div class="ci-icon">@</div><div class="ci-text"><div class="label">Email</div><div class="val">kevin@glorystarpack.com</div></div></div>
-      <div class="ci-item"><div class="ci-icon">CN</div><div class="ci-text"><div class="label">Factory Address</div><div class="val">Xiamen City, Fujian Province, China</div></div></div>
-      <div class="ci-item"><div class="ci-icon">24h</div><div class="ci-text"><div class="label">RFQ Response</div><div class="val">Most complete inquiries receive a reply within 24 hours</div></div></div>
-      <div class="ci-item"><div class="ci-icon">B2B</div><div class="ci-text"><div class="label">Alibaba Store</div><div class="val">glorystarpack.en.alibaba.com</div></div></div>
-      <div class="map-box">
-        <h3>Send a stronger RFQ</h3>
-        <p>Quotes move faster when the factory can see the packaging structure, order quantity and destination country up front.</p>
-        <div class="map-list">
-          <span><b>Must include</b> product, capacity, quantity</span>
-          <span><b>Helpful</b> decoration, cap, reference photo</span>
-          <span><b>Logistics</b> destination country and deadline</span>
-        </div>
-      </div>
-    </div>
-    <div class="form-box">
-      <h3>Build Your RFQ</h3>
-      <p class="sub">Add what you know, then review the prefilled email or WhatsApp message before sending.</p>
-      <div id="contact-form-body">
-        <div class="form-row">
-          <div class="form-group"><label for="contactName">Your Name</label><input type="text" id="contactName" name="name" autocomplete="name" placeholder="Full name"></div>
-          <div class="form-group"><label for="contactCompany">Company</label><input type="text" id="contactCompany" name="company" autocomplete="organization" placeholder="Company name"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label for="contactEmail">Email</label><input type="email" id="contactEmail" name="email" autocomplete="email" placeholder="your@email.com"></div>
-          <div class="form-group"><label for="contactPhone">WhatsApp / Phone</label><input type="tel" id="contactPhone" name="phone" autocomplete="tel" placeholder="+1 000 000 0000"></div>
-        </div>
-        <div class="form-group"><label for="contactCountry">Country</label><input type="text" id="contactCountry" name="country" autocomplete="country-name" placeholder="Your country"></div>
-        <div class="form-group"><label for="contactInterest">Product Interest</label>
-          <select id="contactInterest" name="productInterest"><option>-- Select Category --</option><option>Glass Packaging</option><option>Plastic Packaging</option><option>Bamboo &amp; Wood</option><option>Aluminum Packaging</option><option>Eco / Biodegradable</option><option>OEM/ODM Project</option><option>Other</option></select>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label for="contactQuantity">Estimated Quantity</label><input type="text" id="contactQuantity" name="quantity" inputmode="numeric" placeholder="e.g. 3,000 pcs / 10,000 pcs"></div>
-          <div class="form-group"><label for="contactCapacity">Capacity / Size</label><input type="text" id="contactCapacity" name="capacity" placeholder="e.g. 30ml, 50g, 100ml"></div>
-        </div>
-        <div class="form-group"><label for="contactMessage">Packaging Requirements</label><textarea id="contactMessage" name="requirements" placeholder="Formula type, closure, decoration, target price, deadline or reference product..."></textarea></div>
-        <div class="rfq-actions">
-          <a class="btn-submit btn-submit-link" id="contactEmailSubmit" href="mailto:kevin@glorystarpack.com">Email RFQ</a>
-          <a class="btn-submit btn-submit-link btn-submit-whatsapp" id="contactWhatsAppSubmit" href="https://wa.me/8619577608248" target="_blank" rel="noopener">WhatsApp RFQ</a>
-        </div>
-        <p class="rfq-hint">Nothing is sent automatically. You can review and edit the message in your email app or WhatsApp.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- Company, service, insight and contact content use crawlable standalone URLs. -->
 <!-- ======================= PAGE: SEARCH RESULTS ======================= -->
 <div id="page-search" class="page" data-nosnippet>
   <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <span class="cur">Search Results</span></div></div>
@@ -3305,18 +2802,18 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <a href="/oem-cosmetic-packaging/">OEM / ODM</a>
       <a href="/contact/" onclick="event.preventDefault();openModal('sample')">Free Samples</a>
       <a href="/contact/" onclick="event.preventDefault();openModal('quote')">Get Quote</a>
-      <a href="/about/" onclick="event.preventDefault();go('about','cert')">Quality Support</a>
-      <a href="/about/" onclick="event.preventDefault();go('about','expo')">Exhibitions</a>
+      <a href="/about/#project-capabilities">Quality Support</a>
+      <a href="/about/#project-process">Project Process</a>
       <a href="/cosmetic-packaging-buying-guide/">Buying Guide</a>
       <a href="/cosmetic-packaging-moq/">MOQ &amp; Quote Guide</a>
       <a href="/private-label-cosmetic-packaging/">Private Label Packaging</a>
     </div>
     <div class="footer-col">
       <h2>Company</h2>
-      <a href="/about/" onclick="event.preventDefault();go('about','profile')">About Us</a>
-      <a href="/about/" onclick="event.preventDefault();go('about','team')">Our Team</a>
+      <a href="/about/">About Us</a>
+      <a href="/about/#company-questions">Company Questions</a>
       <a href="/insights/">Packaging Insights</a>
-      <a href="/contact/" onclick="event.preventDefault();go('contact')">Contact Us</a>
+      <a href="/contact/">Contact Us</a>
     </div>
   </div>
   <nav class="crawl-links" aria-label="Glass bottle and packaging category links">
@@ -3412,8 +2909,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       </div>
       <div class="form-group"><label for="quoteNotes">Decoration / Additional Notes</label><textarea id="quoteNotes" placeholder="Logo printing, frosting, hot stamping, custom color, target price, timeline..." style="min-height:80px;"></textarea></div>
       <div class="rfq-actions">
-        <a class="btn-submit btn-submit-link" id="quoteEmailSubmit" href="mailto:kevin@glorystarpack.com">Email RFQ</a>
-        <a class="btn-submit btn-submit-link btn-submit-whatsapp" id="quoteWhatsAppSubmit" href="https://wa.me/8619577608248" target="_blank" rel="noopener">WhatsApp RFQ</a>
+        <a class="btn-submit btn-submit-link" id="quoteEmailSubmit" href="mailto:kevin@glorystarpack.com" data-inquiry-channel="email" data-inquiry-type="quote">Email RFQ</a>
+        <a class="btn-submit btn-submit-link btn-submit-whatsapp" id="quoteWhatsAppSubmit" href="https://wa.me/8619577608248" target="_blank" rel="noopener" data-inquiry-channel="whatsapp" data-inquiry-type="quote">WhatsApp RFQ</a>
       </div>
       <p class="rfq-hint">The selected channel opens with your RFQ prefilled. Review it before sending.</p>
     </div>
@@ -3438,8 +2935,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <div class="form-group"><label for="sampleAddress">Shipping Address</label><textarea id="sampleAddress" autocomplete="street-address" placeholder="Full shipping address including country, city, postal code..." style="min-height:80px;"></textarea></div>
       <div class="form-group"><label for="sampleProducts">Products You'd Like to Sample</label><textarea id="sampleProducts" placeholder="e.g. Glass cream jar 50ml, Bamboo pump bottle 100ml..." style="min-height:80px;"></textarea></div>
       <div class="rfq-actions">
-        <a class="btn-submit btn-submit-link" id="sampleEmailSubmit" href="mailto:kevin@glorystarpack.com">Email Sample List</a>
-        <a class="btn-submit btn-submit-link btn-submit-whatsapp" id="sampleWhatsAppSubmit" href="https://wa.me/8619577608248" target="_blank" rel="noopener">WhatsApp Sample List</a>
+        <a class="btn-submit btn-submit-link" id="sampleEmailSubmit" href="mailto:kevin@glorystarpack.com" data-inquiry-channel="email" data-inquiry-type="sample">Email Sample List</a>
+        <a class="btn-submit btn-submit-link btn-submit-whatsapp" id="sampleWhatsAppSubmit" href="https://wa.me/8619577608248" target="_blank" rel="noopener" data-inquiry-channel="whatsapp" data-inquiry-type="sample">WhatsApp Sample List</a>
       </div>
       <p class="rfq-hint">Shipping charges and sample availability are confirmed before dispatch.</p>
     </div>

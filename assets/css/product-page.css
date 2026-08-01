@@ -189,6 +189,12 @@ h3 {
   box-shadow: 0 20px 46px rgba(28, 24, 18, .1);
 }
 
+.hero-media picture,
+.related-card picture,
+.index-card picture {
+  display: block;
+}
+
 .hero-media img {
   display: block;
   width: 100%;

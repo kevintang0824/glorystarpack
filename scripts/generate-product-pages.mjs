@@ -99,6 +99,37 @@ const products = selectedProductIds.map(id => {
   return product;
 });
 
+function jpegDimensions(buffer) {
+  if (buffer[0] !== 0xff || buffer[1] !== 0xd8) return null;
+  const startOfFrameMarkers = new Set([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf]);
+  let offset = 2;
+  while (offset + 8 < buffer.length) {
+    if (buffer[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    while (buffer[offset] === 0xff) offset += 1;
+    const marker = buffer[offset];
+    offset += 1;
+    if (marker === 0xd9 || marker === 0xda) break;
+    const segmentLength = buffer.readUInt16BE(offset);
+    if (startOfFrameMarkers.has(marker)) {
+      return { height: buffer.readUInt16BE(offset + 3), width: buffer.readUInt16BE(offset + 5) };
+    }
+    if (segmentLength < 2) break;
+    offset += segmentLength;
+  }
+  return null;
+}
+
+for (const product of products) {
+  const imagePath = path.join(rootDir, productImage(product).slice(1));
+  const dimensions = jpegDimensions(fs.readFileSync(imagePath));
+  if (!dimensions) throw new Error(`Could not read product image dimensions: ${productImage(product)}`);
+  product.imageWidth = dimensions.width;
+  product.imageHeight = dimensions.height;
+}
+
 function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>"']/g, char => ({
     '&': '&amp;',
@@ -136,6 +167,10 @@ function productPath(product) {
 
 function productImage(product) {
   return `/assets/product-photos/${product.id}-0.jpg`;
+}
+
+function productImageVariant(product, width) {
+  return `/assets/product-photos/${product.id}-0-${width}.avif`;
 }
 
 function imageExists(product) {
@@ -387,7 +422,53 @@ function resourceLinks(product) {
   ];
 }
 
+function commonGraphNodes() {
+  return [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'GloryStarPack',
+      legalName: 'Xiamen GloryStar Packaging Co., Ltd.',
+      url: `${siteUrl}/`,
+      sameAs: ['https://glorystarpack.en.alibaba.com/'],
+      email: 'kevin@glorystarpack.com',
+      telephone: '+86 195-7760-8248',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Xiamen',
+        addressRegion: 'Fujian',
+        addressCountry: 'CN'
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: 'kevin@glorystarpack.com',
+        telephone: '+86 195-7760-8248',
+        areaServed: 'Worldwide',
+        url: `${siteUrl}/contact/`
+      },
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/assets/brand/glorystarpack-logo-mark-2026.png`,
+        width: 512,
+        height: 512
+      }
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: 'GloryStarPack',
+      publisher: { '@id': `${siteUrl}/#organization` }
+    }
+  ];
+}
+
 function jsonLd(product, category, canonical, description) {
+  const related = relatedProducts(product).map(item => ({
+    '@type': 'Product',
+    '@id': `${siteUrl}${productPath(item)}#product`
+  }));
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
@@ -400,6 +481,7 @@ function jsonLd(product, category, canonical, description) {
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
         mainEntity: { '@id': `${canonical}#product` },
+        primaryImageOfPage: `${siteUrl}${productImage(product)}`,
         breadcrumb: { '@id': `${canonical}#breadcrumbs` },
         dateModified: modifiedDate
       },
@@ -420,6 +502,11 @@ function jsonLd(product, category, canonical, description) {
         manufacturer: {
           '@id': `${siteUrl}/#organization`
         },
+        audience: {
+          '@type': 'BusinessAudience',
+          audienceType: 'Beauty, personal care, fragrance, beverage and hospitality packaging buyers'
+        },
+        isRelatedTo: related,
         additionalProperty: [
           { '@type': 'PropertyValue', name: 'Capacity / Size', value: product.size },
           { '@type': 'PropertyValue', name: 'Finish', value: product.finish },
@@ -434,7 +521,8 @@ function jsonLd(product, category, canonical, description) {
           { '@type': 'ListItem', position: 2, name: category.label, item: `${siteUrl}${category.path}` },
           { '@type': 'ListItem', position: 3, name: productName(product), item: canonical }
         ]
-      }
+      },
+      ...commonGraphNodes()
     ]
   }).replace(/</g, '\\u003c');
 }
@@ -442,7 +530,7 @@ function jsonLd(product, category, canonical, description) {
 function headerMarkup() {
   return `<header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="40" height="40" alt="" decoding="async">GloryStarPack</a>
+    <a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">GloryStarPack</a>
     <nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/products/glass-packaging/">Glass Packaging</a><a href="/products/beverage-bottles/">Beverage Bottles</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
   </div>
 </header>`;
@@ -462,11 +550,15 @@ function productPage(product) {
   const resources = resourceLinks(product);
   const name = productName(product);
   const applicationDetail = applicationDetailOverrides.get(product.id);
-  const quoteText = encodeURIComponent(`Hello GloryStarPack, I need a quotation for ${name} (${product.id}).\n\nApplication / formula:\nCapacity:\nClosure or component:\nFinish / decoration:\nEstimated quantity:\nDestination country:`);
-  const sampleText = encodeURIComponent(`Hello GloryStarPack, I would like to request samples for ${name} (${product.id}).\n\nCapacity:\nClosure or component:\nFinish:\nDestination country:`);
+  const quoteMessage = `Hello GloryStarPack, I need a quotation for ${name} (${product.id}).\n\nApplication / formula:\nCapacity:\nClosure or component:\nFinish / decoration:\nEstimated quantity:\nDestination country:\n\nProduct page: ${canonical}`;
+  const sampleMessage = `Hello GloryStarPack, I would like to request samples for ${name} (${product.id}).\n\nCapacity:\nClosure or component:\nFinish:\nDestination country:\n\nProduct page: ${canonical}`;
+  const quoteText = encodeURIComponent(quoteMessage);
+  const sampleText = encodeURIComponent(sampleMessage);
+  const emailSubject = encodeURIComponent(`RFQ: ${name} (${product.id})`);
+  const emailBody = encodeURIComponent(quoteMessage);
   const planningLabel = product.badge === 'custom' ? 'Planning MOQ' : 'MOQ';
 
-  const relatedMarkup = related.map(item => `<a class="related-card" href="${productPath(item)}"><img src="${productImage(item)}" width="1254" height="1254" loading="lazy" decoding="async" alt="${escapeHtml(productName(item))} product view"><div><strong>${escapeHtml(productName(item))}</strong><span>${escapeHtml(item.size)} · ${escapeHtml(item.mat)}</span></div></a>`).join('');
+  const relatedMarkup = related.map(item => `<a class="related-card" href="${productPath(item)}"><picture><source type="image/avif" srcset="${productImageVariant(item, 480)} 480w, ${productImageVariant(item, 960)} 960w" sizes="(max-width:720px) calc(100vw - 40px), 260px"><img src="${productImage(item)}" width="${item.imageWidth}" height="${item.imageHeight}" loading="lazy" decoding="async" alt="${escapeHtml(productName(item))} product view"></picture><div><strong>${escapeHtml(productName(item))}</strong><span>${escapeHtml(item.size)} · ${escapeHtml(item.mat)}</span></div></a>`).join('');
   const resourceMarkup = resources.map(item => `<a class="resource-card" href="${item.path}"><strong>${escapeHtml(item.name)}</strong><span>${escapeHtml(item.description)}</span></a>`).join('');
 
   return `<!DOCTYPE html>
@@ -480,7 +572,7 @@ function productPage(product) {
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
-  <link rel="preload" as="image" href="${productImage(product)}">
+  <link rel="preload" as="image" href="${productImageVariant(product, 960)}" type="image/avif" imagesrcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <meta property="og:type" content="product">
   <meta property="og:title" content="${escapeHtml(title)}">
@@ -510,9 +602,9 @@ ${headerMarkup()}
           <div class="fact"><strong>${escapeHtml(product.mat)}</strong><span>Primary material</span></div>
           <div class="fact"><strong>${escapeHtml(product.moq)} pcs</strong><span>${planningLabel}; confirm by project</span></div>
         </div>
-        <div class="actions"><a class="btn" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Request Project Quote</a><a class="btn alt" href="https://wa.me/8619577608248?text=${sampleText}" target="_blank" rel="noopener">Request Samples</a></div>
+        <div class="actions"><a class="btn" data-inquiry-channel="whatsapp" data-inquiry-type="quote" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Request Project Quote</a><a class="btn alt" data-inquiry-channel="whatsapp" data-inquiry-type="sample" href="https://wa.me/8619577608248?text=${sampleText}" target="_blank" rel="noopener">Request Samples</a></div>
       </div>
-      <div class="hero-media"><img src="${productImage(product)}" width="1254" height="1254" fetchpriority="high" decoding="async" alt="${escapeHtml(name)} packaging product"></div>
+      <div class="hero-media"><picture><source type="image/avif" srcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" sizes="(max-width:760px) calc(100vw - 40px), 470px"><img src="${productImage(product)}" width="${product.imageWidth}" height="${product.imageHeight}" fetchpriority="high" decoding="async" alt="${escapeHtml(name)} packaging product"></picture></div>
     </div>
   </section>
   <div class="wrap main">
@@ -546,7 +638,7 @@ ${applicationDetail ? `    <section class="section">
     </section>` : ''}
     <section class="section rfq" aria-labelledby="rfq-title">
       <div><div class="eyebrow">Build a useful RFQ</div><h2 id="rfq-title">Confirm the exact packaging route</h2><p>Share enough project context for the bottle, closure, decoration and packing requirements to be reviewed together.</p><div class="rfq-list"><span>Application or formula</span><span>Capacity</span><span>Closure or component</span><span>Decoration</span><span>Quantity</span><span>Destination</span></div></div>
-      <div class="actions"><a class="btn" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Send RFQ on WhatsApp</a><a class="btn alt" href="mailto:kevin@glorystarpack.com?subject=${encodeURIComponent(`RFQ: ${name} (${product.id})`)}">Send RFQ by Email</a></div>
+      <div class="actions"><a class="btn" data-inquiry-channel="whatsapp" data-inquiry-type="quote" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Send RFQ on WhatsApp</a><a class="btn alt" data-inquiry-channel="email" data-inquiry-type="quote" href="mailto:kevin@glorystarpack.com?subject=${emailSubject}&amp;body=${emailBody}">Send RFQ by Email</a></div>
     </section>
     <section class="section">
       <div class="eyebrow">Continue comparing</div>
@@ -589,17 +681,27 @@ function productIndexPage() {
         name: 'Packaging Product Index',
         description: 'Browse indexable GloryStarPack product pages for glass bottles, cosmetic packaging, beverage bottles, jars, airless pumps and related packaging.',
         dateModified: modifiedDate,
-        provider: { '@id': `${siteUrl}/#organization` }
+        provider: { '@id': `${siteUrl}/#organization` },
+        breadcrumb: { '@id': `${siteUrl}/products/product-index/#breadcrumbs` }
       },
       {
         '@type': 'ItemList',
         '@id': `${siteUrl}/products/product-index/#products`,
         numberOfItems: products.length,
         itemListElement: itemList
-      }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${siteUrl}/products/product-index/#breadcrumbs`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+          { '@type': 'ListItem', position: 2, name: 'Packaging Product Index', item: `${siteUrl}/products/product-index/` }
+        ]
+      },
+      ...commonGraphNodes()
     ]
   }).replace(/</g, '\\u003c');
-  const groupsMarkup = [...grouped.values()].map(({ category, items }) => `<section class="index-group"><div class="eyebrow">${escapeHtml(category.label)}</div><h2><a href="${category.path}">${escapeHtml(category.label)}</a></h2><div class="index-grid">${items.map(product => `<a class="index-card" href="${productPath(product)}"><img src="${productImage(product)}" width="1254" height="1254" loading="lazy" decoding="async" alt="${escapeHtml(productName(product))} product view"><div><strong>${escapeHtml(productName(product))}</strong><span>${escapeHtml(product.size)} · ${escapeHtml(product.mat)}</span></div></a>`).join('')}</div></section>`).join('');
+  const groupsMarkup = [...grouped.values()].map(({ category, items }) => `<section class="index-group"><div class="eyebrow">${escapeHtml(category.label)}</div><h2><a href="${category.path}">${escapeHtml(category.label)}</a></h2><div class="index-grid">${items.map(product => `<a class="index-card" href="${productPath(product)}"><picture><source type="image/avif" srcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" sizes="(max-width:720px) calc(100vw - 40px), 220px"><img src="${productImage(product)}" width="${product.imageWidth}" height="${product.imageHeight}" loading="lazy" decoding="async" alt="${escapeHtml(productName(product))} product view"></picture><div><strong>${escapeHtml(productName(product))}</strong><span>${escapeHtml(product.size)} · ${escapeHtml(product.mat)}</span></div></a>`).join('')}</div></section>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -624,6 +726,7 @@ function productIndexPage() {
 </head>
 <body>
 ${headerMarkup()}
+<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Packaging Product Index</span></div>
 <main class="wrap">
   <section class="index-hero"><div class="eyebrow">Crawlable product catalog</div><h1>Packaging Product Index</h1><p>Browse ${products.length} priority product pages with stable URLs, product specifications, sampling considerations and direct links to related packaging categories. Additional catalog products will be published after their specifications and page content are reviewed.</p></section>
   ${groupsMarkup}

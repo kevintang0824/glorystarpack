@@ -1,0 +1,42 @@
+name: SEO and site checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/js/main.js
+          node --check scripts/check-seo.mjs
+          node --check scripts/check-live-site.mjs
+          node --check scripts/submit-indexnow.mjs
+
+      - name: Run SEO and content audits
+        run: |
+          node scripts/check-seo.mjs
+          node scripts/audit-content.mjs
+
+      - name: Confirm image markup is current
+        run: |
+          node scripts/optimize-image-tags.mjs
+          git diff --exit-code

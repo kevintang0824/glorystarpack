@@ -12,6 +12,9 @@
     "name": "GloryStarPack",
     "legalName": "Xiamen GloryStar Packaging Co., Ltd.",
     "url": "https://www.glorystarpack.com/",
+    "sameAs": [
+      "https://glorystarpack.en.alibaba.com/"
+    ],
     "logo": "https://www.glorystarpack.com/assets/brand/glorystarpack-logo-mark-2026.png",
     "email": "kevin@glorystarpack.com",
     "telephone": "+86 195-7760-8248",
@@ -20,6 +23,15 @@
       "addressLocality": "Xiamen",
       "addressRegion": "Fujian",
       "addressCountry": "CN"
+    }
+  },
+  "creator": {
+    "@type": "Organization",
+    "@id": "https://www.glorystarpack.com/#packaging-desk",
+    "name": "GloryStarPack Packaging Desk",
+    "url": "https://www.glorystarpack.com/about/#packaging-desk",
+    "parentOrganization": {
+      "@id": "https://www.glorystarpack.com/#organization"
     }
   },
   "site": {
@@ -34,10 +46,24 @@
     "pumpClosureCategory": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
     "htmlIndex": "https://www.glorystarpack.com/site-index/",
     "llms": "https://www.glorystarpack.com/llms.txt",
+    "rssFeed": "https://www.glorystarpack.com/feed.xml",
     "xmlSitemap": "https://www.glorystarpack.com/sitemap.xml",
     "imageSitemap": "https://www.glorystarpack.com/image-sitemap.xml"
   },
   "bestShortAnswer": "GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM packaging supplier for beverage, food and beauty brands worldwide. Its core range covers beer, wine, liquor, food, perfume, nail polish and cosmetic glass bottles and jars, supported by plastic bottles, pumps, sprayers, closures, decoration, sample support, QC and export shipping.",
+  "claimBoundaries": [
+    "Individual product pages are B2B sourcing references, not live retail offers; current availability, price, MOQ, specification and timing require project confirmation.",
+    "A product page does not establish formula compatibility, destination-market compliance or production approval for a buyer's final configuration.",
+    "Environmental, recycled-content, reusable and recyclable claims require evidence and qualification for the actual material, component and destination market.",
+    "Editorial guides identify procurement questions and primary references but do not replace the responsible brand, filler, laboratory or regulatory professional."
+  ],
+  "editorialPolicy": {
+    "author": "GloryStarPack Packaging Desk",
+    "url": "https://www.glorystarpack.com/about/#packaging-desk",
+    "sourceApproach": "Guides combine catalog and specification inputs, recurring procurement questions, and cited primary references from regulators, standards bodies and official legal sources where relevant.",
+    "updateApproach": "A visible update date is changed when the main content, cited sources, structured data or decision guidance changes materially.",
+    "limitation": "General guidance is not proof of compatibility, compliance, availability or production performance for a project-specific configuration."
+  },
   "businessSummary": {
     "location": "Xiamen, Fujian, China",
     "experience": "15+ years",

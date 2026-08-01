@@ -7,6 +7,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
 const modifiedDate = '2026-07-29';
+const indexModifiedDate = '2026-07-30';
 
 const insightDefinitions = {
   '1': {
@@ -158,6 +159,54 @@ const insightDefinitions = {
       ['/custom-cosmetic-packaging/', 'Custom Packaging Process'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
+  },
+  '11': {
+    slug: 'custom-glass-bottle-moq-stock-vs-custom-mold',
+    seoTitle: 'Custom Glass Bottle MOQ: Stock vs Custom Mold | GloryStarPack',
+    dateModified: '2026-07-30',
+    questions: [
+      'Is a stock bottle acceptable, or does the brand require a proprietary shape or embossing?',
+      'Which bottle, closure, decoration or packing step is likely to set the minimum quantity?',
+      'Should the quote separate stock availability, tooling, decorated samples and bulk production assumptions?'
+    ],
+    note: 'MOQ is configuration-specific. Confirm the exact bottle model, glass color, closure, decoration, quantity and destination before treating any starting quantity as applicable to the project.',
+    resources: [
+      ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/products/glass-packaging/', 'Glass Packaging'],
+      ['/contact/', 'Build a Glass Bottle RFQ']
+    ]
+  },
+  '12': {
+    slug: 'glass-bottle-neck-finish-closure-guide',
+    seoTitle: 'Glass Bottle Neck Finish & Closure Guide | GloryStarPack',
+    dateModified: '2026-07-30',
+    questions: [
+      'What finish drawing or bottle item code identifies the exact neck geometry?',
+      'Which closure, liner, gasket, pump or dip-tube version will be used in production?',
+      'What filling, capping, pressure, thermal-process or opening-force checks apply to the product?'
+    ],
+    note: 'Similar-looking finishes are not automatically interchangeable. Match and test the exact bottle, closure, seal and filling conditions intended for production.',
+    resources: [
+      ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/products/beverage-bottles/', 'Beverage Bottles'],
+      ['/products/cosmetic-pumps-closures/', 'Pumps and Closures']
+    ]
+  },
+  '13': {
+    slug: 'glass-bottle-sample-approval-qc-checklist',
+    seoTitle: 'Glass Bottle Sample Approval & QC Checklist | GloryStarPack',
+    dateModified: '2026-07-30',
+    questions: [
+      'Does the approval record identify the exact bottle, closure, decoration and artwork versions?',
+      'Have filling-line, sealing, formula and handling checks been defined for the intended use?',
+      'Is export packing approved with the final decorated bottle, closure, divider and carton configuration?'
+    ],
+    note: 'An approval sample is a project reference, not a universal performance certificate. Regulatory, food-contact, pressure, thermal-process and destination requirements remain project-specific.',
+    resources: [
+      ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/products/product-index/', 'Individual Product Index'],
+      ['/contact/', 'Request Production-Intent Samples']
+    ]
   }
 };
 
@@ -171,7 +220,10 @@ const insightConsiderations = {
   '7': 'Use the actual formula during applicator trials whenever possible. A brush that performs well with a low-viscosity sample may load differently with mascara, brow gel or lip oil. Wiper selection, withdrawal force, dose, cap sealing and consumer handling should be evaluated as one system.',
   '8': 'Create a component approval record that identifies the exact bottle mold, neck finish, liner, dip-tube length and closure version. Similar-looking pumps or caps may not be interchangeable. Repeating the approved configuration on purchase orders helps prevent substitutions that change dispensing or seal performance.',
   '9': 'Model the insert with the production-intent bottle, closure and decoration thickness. The outer box, insert and product should be evaluated together for movement, scuffing and presentation. Export cartons may need extra dividers or orientation controls even when the retail insert fits correctly.',
-  '10': 'Start decoration trials on the approved base material and surface treatment. Glass coating, plastic resin, metal finishes and paper labels respond differently to inks, foils and adhesives. Confirm color tolerance, artwork position, rub resistance and formula exposure before the decorated sample becomes the production reference.'
+  '10': 'Start decoration trials on the approved base material and surface treatment. Glass coating, plastic resin, metal finishes and paper labels respond differently to inks, foils and adhesives. Confirm color tolerance, artwork position, rub resistance and formula exposure before the decorated sample becomes the production reference.',
+  '11': 'Use stock bottles to validate the pack architecture before committing to custom tooling when the shape is still flexible. If a proprietary form is essential, define capacity, target weight, neck finish, decoration area, filling constraints and case packing before the mold brief is frozen.',
+  '12': 'Ask for the bottle finish drawing and the closure specification in the same technical review. Nominal diameter is only one dimension; threads, beads, sealing surfaces, liner contact and application equipment determine whether the system can be approved.',
+  '13': 'Build the approval checklist around the production-intent system rather than a display sample. A final decorated bottle can behave differently on a filling line or inside a divider, and a substituted liner, gasket or cap can change sealing performance even when the package looks identical.'
 };
 
 function escapeHtml(value) {
@@ -182,10 +234,6 @@ function escapeHtml(value) {
     '"': '&quot;',
     "'": '&#39;'
   })[char]);
-}
-
-function escapeXml(value) {
-  return escapeHtml(value);
 }
 
 function truncateWords(value, maxLength) {
@@ -228,20 +276,46 @@ const insights = Object.entries(insightDefinitions).map(([id, definition]) => {
     ...definition,
     consideration: insightConsiderations[id],
     imagePath,
-    datePublished: isoDate(article.date)
+    datePublished: isoDate(article.date),
+    dateModified: definition.dateModified ?? modifiedDate
   };
-});
+}).sort((left, right) => right.datePublished.localeCompare(left.datePublished) || Number(right.id) - Number(left.id));
 
 function articlePath(article) {
   return `/insights/${article.slug}/`;
 }
 
+function commonGraphNodes() {
+  return [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'GloryStarPack',
+      legalName: 'Xiamen GloryStar Packaging Co., Ltd.',
+      url: `${siteUrl}/`,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/assets/brand/glorystarpack-logo-mark-2026.png`,
+        width: 512,
+        height: 512
+      }
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: `${siteUrl}/`,
+      name: 'GloryStarPack',
+      publisher: { '@id': `${siteUrl}/#organization` }
+    }
+  ];
+}
+
 function headerMarkup() {
-  return `<header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="40" height="40" alt="" decoding="async">GloryStarPack</a><nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav></div></header>`;
+  return `<header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="40" height="40" alt="" decoding="async">GloryStarPack</a><nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/glass-bottle-buying-guides/">Glass Guides</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav></div></header>`;
 }
 
 function footerMarkup() {
-  return `<footer class="site-footer"><div class="wrap"><span>GloryStarPack Packaging Desk · Xiamen, Fujian, China</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>`;
+  return `<footer class="site-footer"><div class="wrap"><span>GloryStarPack Packaging Desk · Xiamen, Fujian, China</span><span><a href="/glass-bottle-buying-guides/">Glass Guides</a> · <a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>`;
 }
 
 function relatedInsights(article) {
@@ -249,13 +323,21 @@ function relatedInsights(article) {
   return [1, 2, 3].map(offset => insights[(index + offset) % insights.length]);
 }
 
-function jsonLd(article, canonical, description) {
-  const wordCount = `${article.body} ${article.consideration} ${article.questions.join(' ')} ${article.note}`
+function articleWordCount(article) {
+  return `${article.body} ${article.consideration} ${article.questions.join(' ')} ${article.note}`
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
     .split(' ')
     .length;
+}
+
+function articleReadTime(article) {
+  return `${Math.max(1, Math.ceil(articleWordCount(article) / 200))} min read`;
+}
+
+function jsonLd(article, canonical, description) {
+  const wordCount = articleWordCount(article);
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
@@ -270,7 +352,7 @@ function jsonLd(article, canonical, description) {
         breadcrumb: { '@id': `${canonical}#breadcrumbs` },
         mainEntity: { '@id': `${canonical}#article` },
         datePublished: article.datePublished,
-        dateModified: modifiedDate
+        dateModified: article.dateModified
       },
       {
         '@type': 'BlogPosting',
@@ -280,7 +362,7 @@ function jsonLd(article, canonical, description) {
         description,
         image: `${siteUrl}${article.imagePath}`,
         datePublished: article.datePublished,
-        dateModified: modifiedDate,
+        dateModified: article.dateModified,
         articleSection: article.cat,
         wordCount,
         author: { '@id': `${siteUrl}/#organization` },
@@ -295,7 +377,8 @@ function jsonLd(article, canonical, description) {
           { '@type': 'ListItem', position: 2, name: 'Packaging Insights', item: `${siteUrl}/insights/` },
           { '@type': 'ListItem', position: 3, name: article.title, item: canonical }
         ]
-      }
+      },
+      ...commonGraphNodes()
     ]
   }).replace(/</g, '\\u003c');
 }
@@ -334,7 +417,7 @@ function articlePage(article) {
   <meta property="og:image" content="${siteUrl}${article.imagePath}">
   <meta property="og:image:alt" content="${escapeHtml(article.alt)}">
   <meta property="article:published_time" content="${article.datePublished}">
-  <meta property="article:modified_time" content="${modifiedDate}">
+  <meta property="article:modified_time" content="${article.dateModified}">
   <meta property="article:section" content="${escapeHtml(article.cat)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(article.seoTitle)}">
@@ -350,7 +433,7 @@ ${headerMarkup()}
     <div class="eyebrow">${escapeHtml(article.cat)}</div>
     <h1>${escapeHtml(article.title)}</h1>
     <p class="lead">${escapeHtml(article.excerpt)}</p>
-    <div class="article-meta"><span>Published ${escapeHtml(article.date)}</span><span>Updated July 29, 2026</span><span>${escapeHtml(article.read)}</span><span>By GloryStarPack Packaging Desk</span></div>
+    <div class="article-meta"><span>Published ${escapeHtml(article.date)}</span><span>Updated ${escapeHtml(new Date(`${article.dateModified}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))}</span><span>${escapeHtml(articleReadTime(article))}</span><span>By <a href="/about/">GloryStarPack Packaging Desk</a></span></div>
     <figure class="article-figure"><img src="${article.imagePath}" width="1600" height="800" fetchpriority="high" decoding="async" alt="${escapeHtml(article.alt)}"></figure>
   </header>
   <div class="wrap main article-shell">
@@ -400,17 +483,18 @@ function indexPage() {
         description: 'Practical packaging sourcing notes covering RFQs, samples, closures, refill systems, decoration, materials and retail kits.',
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
-        dateModified: modifiedDate
+        dateModified: indexModifiedDate
       },
       {
         '@type': 'ItemList',
         '@id': `${canonical}#articles`,
         numberOfItems: insights.length,
         itemListElement: itemList
-      }
+      },
+      ...commonGraphNodes()
     ]
   }).replace(/</g, '\\u003c');
-  const cards = insights.map(article => `<a class="insight-card" href="${articlePath(article)}"><img src="${article.imagePath}" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(article.alt)}"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.cat)} · ${escapeHtml(article.date)} · ${escapeHtml(article.read)}</span></div></a>`).join('');
+  const cards = insights.map(article => `<a class="insight-card" href="${articlePath(article)}"><img src="${article.imagePath}" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(article.alt)}"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.cat)} · ${escapeHtml(article.date)} · ${escapeHtml(articleReadTime(article))}</span></div></a>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -437,9 +521,153 @@ function indexPage() {
 <body>
 ${headerMarkup()}
 <main class="wrap">
-  <section class="index-hero"><div class="eyebrow">Packaging desk</div><h1>Packaging Insights &amp; Procurement Notes</h1><p>Use these concise guides to prepare clearer RFQs, compare packaging systems and identify the samples, components and approval checks a project may need. Each article links to relevant product categories and deeper buyer resources.</p></section>
+  <section class="index-hero"><div class="eyebrow">Packaging desk</div><h1>Packaging Insights &amp; Procurement Notes</h1><p>Use these concise guides to prepare clearer RFQs, compare packaging systems and identify the samples, components and approval checks a project may need. Start with the <a href="/glass-bottle-buying-guides/">glass bottle buying guide center</a> for MOQ, closure matching and sample approval.</p></section>
   <div class="insight-grid">${cards}</div>
   <section class="section rfq"><div><div class="eyebrow">From research to sourcing</div><h2>Need an item-specific answer?</h2><p>Browse individual product pages or prepare a structured packaging inquiry.</p></div><div class="actions"><a class="btn" href="/products/product-index/">Product Index</a><a class="btn alt" href="/contact/">Build an RFQ</a></div></section>
+</main>
+${footerMarkup()}
+</body>
+</html>
+`;
+}
+
+function glassBottleGuideHubPage() {
+  const canonical = `${siteUrl}/glass-bottle-buying-guides/`;
+  const description = 'Glass bottle buying guides for MOQ planning, stock vs custom molds, neck finish and closure matching, sample approval, QC and export packing.';
+  const heroImage = '/assets/brand/liquor-spirit-bottle-collection-ai-2026-1440.jpg';
+  const guideIds = new Set(['11', '12', '13']);
+  const guides = insights.filter(article => guideIds.has(article.id));
+  const guideCards = guides.map(article => `<a class="insight-card" href="${articlePath(article)}"><img src="${article.imagePath}" width="1200" height="750" loading="lazy" decoding="async" alt="${escapeHtml(article.alt)}"><div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.excerpt)}</span></div></a>`).join('');
+  const faqs = [
+    {
+      question: 'What is the MOQ for custom glass bottles?',
+      answer: 'MOQ depends on the exact bottle, current stock, glass color, closure, decoration and whether a new mold is required. Share the target specification and quantity so the applicable starting quantity can be confirmed.'
+    },
+    {
+      question: 'Should a new brand use a stock bottle or custom mold?',
+      answer: 'A stock bottle is often the lower-risk route for validating capacity, closure, decoration and filling. A custom mold is more suitable when a proprietary silhouette, embossing or project-specific geometry is essential and the project can support tooling and production setup.'
+    },
+    {
+      question: 'Can caps with the same nominal diameter fit the same bottle?',
+      answer: 'Not necessarily. Thread profile, bead geometry, sealing surface, liner or gasket and finish tolerances must match the exact bottle and closure specifications.'
+    },
+    {
+      question: 'What should be approved before bulk glass bottle production?',
+      answer: 'Approve the bottle identity and dimensions, capacity, glass color, neck finish, closure fit, decoration, artwork, filling-line compatibility and export packing using production-intent samples.'
+    }
+  ];
+  const schema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${canonical}#webpage`,
+        url: canonical,
+        name: 'Glass Bottle Buying Guides',
+        description,
+        isPartOf: { '@id': `${siteUrl}/#website` },
+        about: { '@id': `${siteUrl}/#organization` },
+        primaryImageOfPage: `${siteUrl}${heroImage}`,
+        breadcrumb: { '@id': `${canonical}#breadcrumbs` },
+        mainEntity: [
+          { '@id': `${canonical}#guides` },
+          { '@id': `${canonical}#faq` }
+        ],
+        dateModified: indexModifiedDate
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${canonical}#guides`,
+        name: 'Glass bottle procurement guide series',
+        numberOfItems: guides.length,
+        itemListElement: guides.map((article, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: article.title,
+          url: `${siteUrl}${articlePath(article)}`
+        }))
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${canonical}#faq`,
+        mainEntity: faqs.map(item => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer }
+        }))
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonical}#breadcrumbs`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+          { '@type': 'ListItem', position: 2, name: 'Glass Bottle Buying Guides', item: canonical }
+        ]
+      },
+      ...commonGraphNodes()
+    ]
+  }).replace(/</g, '\\u003c');
+  const faqMarkup = faqs.map(item => `<article class="card"><h3>${escapeHtml(item.question)}</h3><p>${escapeHtml(item.answer)}</p></article>`).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glass Bottle Buying Guides | MOQ, Closures &amp; QC</title>
+  <meta name="description" content="${escapeHtml(description)}">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="${canonical}">
+  <link rel="alternate" hreflang="en" href="${canonical}">
+  <link rel="alternate" hreflang="x-default" href="${canonical}">
+  <link rel="preload" as="image" href="${heroImage}">
+  <link rel="stylesheet" href="/assets/css/product-page.css">
+  <link rel="stylesheet" href="/assets/css/insight-page.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Glass Bottle Buying Guides | GloryStarPack">
+  <meta property="og:description" content="${escapeHtml(description)}">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:site_name" content="GloryStarPack">
+  <meta property="og:image" content="${siteUrl}${heroImage}">
+  <meta property="og:image:alt" content="Assorted custom glass bottles for beverage and spirits packaging projects">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Glass Bottle Buying Guides | GloryStarPack">
+  <meta name="twitter:description" content="${escapeHtml(description)}">
+  <meta name="twitter:image" content="${siteUrl}${heroImage}">
+  <script type="application/ld+json">${schema}</script>
+</head>
+<body>
+${headerMarkup()}
+<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Glass Bottle Buying Guides</span></div>
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Glass bottle procurement center</div>
+        <h1>Glass Bottle Buying Guides for Packaging Buyers</h1>
+        <p class="lead">Plan the bottle, closure, decoration, samples and packing as one system. These guides help brand, procurement, filling and quality teams ask more precise questions before quotation and bulk approval.</p>
+        <div class="actions"><a class="btn" href="/contact/">Build a Glass Bottle RFQ</a><a class="btn alt" href="/products/glass-packaging/">Browse Glass Packaging</a></div>
+      </div>
+      <figure class="hero-media"><img src="${heroImage}" width="1440" height="900" fetchpriority="high" decoding="async" alt="Assorted custom glass bottles for beverage and spirits packaging projects"></figure>
+    </div>
+  </section>
+  <div class="wrap main">
+    <section>
+      <div class="eyebrow">Core procurement decisions</div>
+      <h2>Start with the decision that can change the whole project</h2>
+      <div class="insight-grid">${guideCards}</div>
+    </section>
+    <section class="section two-col">
+      <article class="card"><div class="eyebrow">1 · Application</div><h2>Define the fill and process first</h2><p>Identify the product, nominal fill, destination and any carbonation, filling-temperature, thermal-process, fragrance or formula-contact requirements. These inputs can change the bottle specification, closure and validation plan.</p></article>
+      <article class="card"><div class="eyebrow">2 · Pack architecture</div><h2>Lock bottle and closure together</h2><p>Select the stock or custom bottle route, then match the exact neck finish, closure, liner or gasket. Review decoration, filling-line handling and export packing with the same production-intent configuration.</p></article>
+    </section>
+    <section class="section">
+      <div class="eyebrow">Buyer FAQ</div>
+      <h2>Questions to resolve before requesting samples</h2>
+      <div class="two-col">${faqMarkup}</div>
+    </section>
+    <section class="section rfq"><div><div class="eyebrow">Project-specific confirmation</div><h2>Turn research into a comparable RFQ</h2><p>Share the application, capacity, bottle reference, closure, decoration, quantity, destination and timing. Final specification, MOQ, samples and tests are confirmed for the selected configuration.</p></div><div class="actions"><a class="btn" href="/contact/">Prepare Your RFQ</a><a class="btn alt" href="/products/product-index/">View Product Index</a></div></section>
+  </div>
 </main>
 ${footerMarkup()}
 </body>
@@ -466,34 +694,50 @@ for (const article of insights) {
 const indexDir = path.join(rootDir, 'insights');
 fs.mkdirSync(indexDir, { recursive: true });
 fs.writeFileSync(path.join(indexDir, 'index.html'), indexPage());
+const glassGuideHubDir = path.join(rootDir, 'glass-bottle-buying-guides');
+fs.mkdirSync(glassGuideHubDir, { recursive: true });
+fs.writeFileSync(path.join(glassGuideHubDir, 'index.html'), glassBottleGuideHubPage());
 
 const sitemapEntries = [
   `  <url>
+    <loc>${siteUrl}/glass-bottle-buying-guides/</loc>
+    <lastmod>${indexModifiedDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>`,
+  `  <url>
     <loc>${siteUrl}/insights/</loc>
-    <lastmod>${modifiedDate}</lastmod>
+    <lastmod>${indexModifiedDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
   </url>`,
   ...insights.map(article => `  <url>
     <loc>${siteUrl}${articlePath(article)}</loc>
-    <lastmod>${modifiedDate}</lastmod>
+    <lastmod>${article.dateModified}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`)
 ].join('\n');
 
-const imageEntries = insights.map(article => `  <url>
+const imageEntries = [
+  `  <url>
+    <loc>${siteUrl}/glass-bottle-buying-guides/</loc>
+    <image:image>
+      <image:loc>${siteUrl}/assets/brand/liquor-spirit-bottle-collection-ai-2026-1440.jpg</image:loc>
+    </image:image>
+  </url>`,
+  ...insights.map(article => `  <url>
     <loc>${siteUrl}${articlePath(article)}</loc>
     <image:image>
       <image:loc>${siteUrl}${article.imagePath}</image:loc>
-      <image:title>${escapeXml(article.title)}</image:title>
-      <image:caption>${escapeXml(article.excerpt)}</image:caption>
     </image:image>
-  </url>`).join('\n');
+  </url>`)
+].join('\n');
 
 const llmsEntries = [
   '## Packaging Insights',
   '',
+  `- Glass bottle buying guides: ${siteUrl}/glass-bottle-buying-guides/`,
   `- Packaging insights index: ${siteUrl}/insights/`,
   ...insights.map(article => `- ${article.title}: ${siteUrl}${articlePath(article)}`)
 ].join('\n');
@@ -523,4 +767,4 @@ updateGeneratedBlock(
   '\n\n'
 );
 
-console.log(`Generated ${insights.length} insight pages and 1 insight index page.`);
+console.log(`Generated ${insights.length} insight pages, 1 insight index page and 1 glass bottle guide hub.`);

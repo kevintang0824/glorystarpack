@@ -205,6 +205,31 @@ function resourceLinks(product) {
     }
   ];
 
+  if (product.cats.some(cat => ['wine-bottle', 'spirit-bottle', 'beer-bottle'].includes(cat))) {
+    return [
+      {
+        path: '/glass-bottle-buying-guides/',
+        name: 'Glass Bottle Buying Guides',
+        description: 'Plan MOQ, stock vs custom molds, closures, sampling and bulk approval.'
+      },
+      {
+        path: '/insights/glass-bottle-neck-finish-closure-guide/',
+        name: 'Neck Finish and Closure Guide',
+        description: 'Match corks, caps, liners and sealing systems to the exact bottle finish.'
+      },
+      {
+        path: '/insights/custom-glass-bottle-moq-stock-vs-custom-mold/',
+        name: 'Custom Glass Bottle MOQ',
+        description: 'Compare stock bottles, custom decoration and new mold development.'
+      },
+      {
+        path: '/insights/glass-bottle-sample-approval-qc-checklist/',
+        name: 'Glass Bottle Sample Checklist',
+        description: 'Approve dimensions, capacity, closure fit, decoration and export packing.'
+      }
+    ];
+  }
+
   if (product.cats.some(cat => ['glass-dropper', 'glass-oil', 'plastic-airless', 'plastic-pump'].includes(cat))) {
     return [
       {

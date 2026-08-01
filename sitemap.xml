@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.glorystarpack.com/</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -568,10 +568,34 @@
 <!-- END GENERATED PRODUCT PAGES -->
   <!-- BEGIN GENERATED INSIGHT PAGES -->
   <url>
+    <loc>https://www.glorystarpack.com/glass-bottle-buying-guides/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
     <loc>https://www.glorystarpack.com/insights/</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/insights/glass-bottle-sample-approval-qc-checklist/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/insights/glass-bottle-neck-finish-closure-guide/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/insights/custom-glass-bottle-moq-stock-vs-custom-mold/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/personal-care-grooming-packaging-catalog-update/</loc>

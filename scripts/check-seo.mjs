@@ -44,6 +44,14 @@ function localPathForUrl(rawUrl) {
   return path.join(candidate, 'index.html');
 }
 
+function localAssetPath(rawUrl, pagePath) {
+  const pathname = decodeURIComponent(rawUrl.split(/[?#]/)[0]);
+  if (!pathname || pathname.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(pathname)) return null;
+  return pathname.startsWith('/')
+    ? path.join(rootDir, pathname)
+    : path.resolve(path.dirname(pagePath), pathname);
+}
+
 function hasSchemaType(source, type) {
   return new RegExp(`"@type"\\s*:\\s*"${type}"`).test(source);
 }
@@ -56,9 +64,11 @@ for (const filePath of htmlFiles) {
   const source = fs.readFileSync(filePath, 'utf8');
   const title = firstMatch(source, /<title[^>]*>([\s\S]*?)<\/title>/i);
   const description = metaContent(source, 'description');
+  const robots = metaContent(source, 'robots');
   const canonical = firstMatch(source, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']*)/i);
   const h1Count = (source.match(/<h1\b/gi) ?? []).length;
   const schemaBlocks = [...source.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  const indexable = !/(?:^|,)\s*noindex\b/i.test(robots);
 
   if (rel === 'google130558f0f0763df4.html') continue;
   if (!title) errors.push(`${rel}: missing title`);
@@ -82,8 +92,15 @@ for (const filePath of htmlFiles) {
     if (!localPath) continue;
     if (!fs.existsSync(localPath)) errors.push(`${rel}: broken internal link ${match[1]}`);
   }
+  for (const match of source.matchAll(/\bsrc=["']([^"']+)["']/gi)) {
+    const assetPath = localAssetPath(match[1], filePath);
+    if (assetPath && !fs.existsSync(assetPath)) errors.push(`${rel}: missing local asset ${match[1]}`);
+  }
+  if (rel !== 'index.html' && /href=["']\/#(?:contact|oem|products)(?:[\/#"'])/i.test(source)) {
+    errors.push(`${rel}: links to a homepage hash route instead of a stable static URL`);
+  }
 
-  pageRecords.push({ rel, title, description, canonical, source });
+  pageRecords.push({ rel, title, description, robots, canonical, indexable, source });
 }
 
 for (const key of ['title', 'description', 'canonical']) {
@@ -109,7 +126,19 @@ for (const url of sitemapUrls) {
     continue;
   }
   const localPath = localPathForUrl(url.slice(siteUrl.length) || '/');
-  if (!localPath || !fs.existsSync(localPath)) errors.push(`sitemap.xml URL has no local page: ${url}`);
+  if (!localPath || !fs.existsSync(localPath)) {
+    errors.push(`sitemap.xml URL has no local page: ${url}`);
+    continue;
+  }
+  const record = pageRecords.find(item => path.resolve(rootDir, item.rel) === path.resolve(localPath));
+  if (record && !record.indexable) errors.push(`sitemap.xml contains noindex page: ${url}`);
+}
+
+for (const record of pageRecords) {
+  if (!record.indexable || !record.canonical.startsWith(siteUrl)) continue;
+  if (!uniqueSitemapUrls.has(record.canonical)) {
+    errors.push(`${record.rel}: indexable canonical is missing from sitemap.xml (${record.canonical})`);
+  }
 }
 
 const productPages = pageRecords.filter(record => /^products\/.+-p\d+\/index\.html$/.test(record.rel));
@@ -131,10 +160,23 @@ const homepageProductLinks = new Set(
   [...homepage.matchAll(/href=["'](\/products\/[^"']+-p\d+\/)["']/g)].map(match => match[1])
 );
 if (homepageProductLinks.size < 4) errors.push(`homepage exposes only ${homepageProductLinks.size} crawlable product links`);
-for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', '/insights/']) {
+for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', '/insights/', '/glass-bottle-buying-guides/', '/site-index/']) {
   if (!homepage.includes(`href="${requiredPath}"`)) errors.push(`homepage is missing a crawlable ${requiredPath} link`);
+}
+for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', '/insights/', '/glass-bottle-buying-guides/']) {
   if (!uniqueSitemapUrls.has(`${siteUrl}${requiredPath}`)) errors.push(`sitemap.xml is missing ${requiredPath}`);
 }
+
+for (const id of ['page-products', 'page-detail', 'page-about', 'page-oem', 'page-news', 'page-newsdetail', 'page-contact', 'page-search']) {
+  const openingTag = homepage.match(new RegExp(`<div\\b[^>]*\\bid=["']${id}["'][^>]*>`, 'i'))?.[0] ?? '';
+  if (!openingTag.includes('data-nosnippet')) errors.push(`homepage ${id} is missing data-nosnippet`);
+}
+for (const id of ['modal-quote', 'modal-sample']) {
+  const openingTag = homepage.match(new RegExp(`<div\\b[^>]*\\bid=["']${id}["'][^>]*>`, 'i'))?.[0] ?? '';
+  if (!openingTag.includes('data-nosnippet')) errors.push(`homepage ${id} is missing data-nosnippet`);
+}
+const homepageFooterTag = homepage.match(/<footer\b[^>]*>/i)?.[0] ?? '';
+if (!homepageFooterTag.includes('data-nosnippet')) errors.push('homepage footer is missing data-nosnippet');
 
 const aboutPage = pageRecords.find(record => record.rel === 'about/index.html');
 const contactPage = pageRecords.find(record => record.rel === 'contact/index.html');
@@ -156,7 +198,8 @@ for (const requiredUrl of [
   `${siteUrl}/about/`,
   `${siteUrl}/contact/`,
   `${siteUrl}/products/product-index/`,
-  `${siteUrl}/insights/`
+  `${siteUrl}/insights/`,
+  `${siteUrl}/glass-bottle-buying-guides/`
 ]) {
   if (!llmsSource.includes(requiredUrl)) errors.push(`llms.txt is missing ${requiredUrl}`);
 }
@@ -172,11 +215,12 @@ try {
 
 const insightPages = pageRecords.filter(record => /^insights\/.+\/index\.html$/.test(record.rel));
 const insightArticles = insightPages.filter(record => record.rel !== 'insights/index.html');
-if (insightArticles.length !== 10) errors.push(`expected 10 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 13) errors.push(`expected 13 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);
   if (!hasSchemaType(article.source, 'BreadcrumbList')) errors.push(`${article.rel}: missing BreadcrumbList schema`);
+  if (!hasSchemaType(article.source, 'Organization')) errors.push(`${article.rel}: missing Organization schema`);
   const wordCount = Number(article.source.match(/"wordCount":(\d+)/)?.[1] ?? 0);
   if (wordCount < 150) errors.push(`${article.rel}: article wordCount is only ${wordCount}`);
   const resources = (article.source.match(/<aside class="article-sidebar"/g) ?? []).length;
@@ -188,12 +232,25 @@ if (!insightIndex) errors.push('missing insights/index.html');
 else {
   if (!hasSchemaType(insightIndex.source, 'CollectionPage')) errors.push('insights/index.html: missing CollectionPage schema');
   if (!hasSchemaType(insightIndex.source, 'ItemList')) errors.push('insights/index.html: missing ItemList schema');
+  if (!hasSchemaType(insightIndex.source, 'Organization')) errors.push('insights/index.html: missing Organization schema');
+  const footerCount = (insightIndex.source.match(/class="site-footer"/g) ?? []).length;
+  if (footerCount !== 1) errors.push(`insights/index.html: expected 1 site footer, found ${footerCount}`);
+}
+
+const glassGuideHub = pageRecords.find(record => record.rel === 'glass-bottle-buying-guides/index.html');
+if (!glassGuideHub) errors.push('missing glass-bottle-buying-guides/index.html');
+else {
+  if (!hasSchemaType(glassGuideHub.source, 'CollectionPage')) errors.push('glass-bottle-buying-guides/index.html: missing CollectionPage schema');
+  if (!hasSchemaType(glassGuideHub.source, 'ItemList')) errors.push('glass-bottle-buying-guides/index.html: missing ItemList schema');
+  if (!hasSchemaType(glassGuideHub.source, 'FAQPage')) errors.push('glass-bottle-buying-guides/index.html: missing FAQPage schema');
+  if (!hasSchemaType(glassGuideHub.source, 'BreadcrumbList')) errors.push('glass-bottle-buying-guides/index.html: missing BreadcrumbList schema');
+  if (!hasSchemaType(glassGuideHub.source, 'Organization')) errors.push('glass-bottle-buying-guides/index.html: missing Organization schema');
 }
 
 const homepageInsightLinks = new Set(
   [...homepage.matchAll(/href=["'](\/insights\/[^"']+\/)["']/g)].map(match => match[1])
 );
-if (homepageInsightLinks.size < 10) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
+if (homepageInsightLinks.size < 13) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
 const deferredCarouselBackgrounds = (homepage.match(/data-bg-desktop=/g) ?? []).length;
 if (deferredCarouselBackgrounds !== 4) {
   errors.push(`homepage expected 4 deferred carousel backgrounds, found ${deferredCarouselBackgrounds}`);

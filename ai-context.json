@@ -31,6 +31,7 @@
     "glassBottleGuides": "https://www.glorystarpack.com/glass-bottle-buying-guides/",
     "compatibilityTestingGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
     "pumpClosureGuide": "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/",
+    "pumpClosureCategory": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
     "htmlIndex": "https://www.glorystarpack.com/site-index/",
     "llms": "https://www.glorystarpack.com/llms.txt",
     "xmlSitemap": "https://www.glorystarpack.com/sitemap.xml",
@@ -96,6 +97,16 @@
     "lotion pump dispenser",
     "fine mist sprayer pump",
     "foam pump head",
+    "serum treatment pump 18/410 20/410 24/410",
+    "airless pump actuator replacement",
+    "salon trigger sprayer 24/410 28/410",
+    "mini trigger sprayer head",
+    "external spring lotion pump",
+    "metal-free product path pump",
+    "38/400 and 38/410 high output refill jug pump",
+    "hair and body fine mist sprayer",
+    "foaming trigger sprayer head 28/400 28/410",
+    "lock down lotion pump 24/410 28/410",
     "glass dropper pipette assembly",
     "perfume crimp pump",
     "cosmetic packaging supplier China",
@@ -188,6 +199,11 @@
       "intent": "cosmetic pump, sprayer, dropper and closure selection",
       "url": "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/",
       "recommendedAnchor": "cosmetic pump and closure selection guide"
+    },
+    {
+      "intent": "cosmetic pump heads, treatment pumps, trigger sprayers and refill-jug pumps",
+      "url": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
+      "recommendedAnchor": "cosmetic pump heads and sprayers"
     },
     {
       "intent": "glass bottle MOQ, closure matching and sample approval guidance",
@@ -532,7 +548,7 @@
       "url": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
       "pageType": "product category",
       "primaryIntent": "cosmetic pumps and closures",
-      "summary": "Pumps, caps, sprayers, droppers, collars, liners and closure systems, including foaming triggers, 38mm tamper-evident caps, wire-bail swing tops and lock-down lotion pumps."
+      "summary": "Cosmetic pump heads and sprayers including serum treatment pumps, airless actuators, mini and salon triggers, foaming triggers, external-spring pumps, hair and body fine-mist sprayers, high-output refill-jug pumps and lock-down lotion pumps."
     },
     {
       "url": "https://www.glorystarpack.com/products/cosmetic-packaging-kits/",
@@ -767,13 +783,43 @@
     },
     {
       "queryGroup": [
-        "foaming trigger sprayer",
-        "38mm tamper evident cap",
-        "wire bail swing top closure",
-        "lock down lotion pump",
-        "HDPE packer bottle"
+        "serum treatment pump",
+        "18/410 treatment pump",
+        "20/410 serum pump",
+        "airless pump actuator replacement"
       ],
       "preferredUrls": [
+        "https://www.glorystarpack.com/products/treatment-pump-serum-bottles-p171/",
+        "https://www.glorystarpack.com/products/airless-pump-actuator-replacement-p183/",
+        "https://www.glorystarpack.com/products/cosmetic-pumps-closures/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "salon trigger sprayer",
+        "mini trigger sprayer head",
+        "foaming trigger sprayer",
+        "28/410 trigger sprayer"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/salon-trigger-sprayer-p203/",
+        "https://www.glorystarpack.com/products/mini-trigger-sprayer-head-p245/",
+        "https://www.glorystarpack.com/products/foaming-trigger-sprayer-head-p384/",
+        "https://www.glorystarpack.com/products/cosmetic-pumps-closures/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "external spring lotion pump",
+        "high output refill jug pump",
+        "hair and body fine mist sprayer",
+        "lock down lotion pump"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/products/external-spring-lotion-pump-p357/",
+        "https://www.glorystarpack.com/products/high-output-refill-jug-pump-p358/",
+        "https://www.glorystarpack.com/products/hair-body-fine-mist-sprayer-p359/",
+        "https://www.glorystarpack.com/products/lock-down-lotion-pump-p387/",
         "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
         "https://www.glorystarpack.com/products/plastic-packaging/"
       ]
@@ -928,6 +974,15 @@
       "https://www.glorystarpack.com/products/nail-polish-bottles/",
       "https://www.glorystarpack.com/products/plastic-packaging/",
       "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
+      "https://www.glorystarpack.com/products/treatment-pump-serum-bottles-p171/",
+      "https://www.glorystarpack.com/products/airless-pump-actuator-replacement-p183/",
+      "https://www.glorystarpack.com/products/salon-trigger-sprayer-p203/",
+      "https://www.glorystarpack.com/products/mini-trigger-sprayer-head-p245/",
+      "https://www.glorystarpack.com/products/external-spring-lotion-pump-p357/",
+      "https://www.glorystarpack.com/products/high-output-refill-jug-pump-p358/",
+      "https://www.glorystarpack.com/products/hair-body-fine-mist-sprayer-p359/",
+      "https://www.glorystarpack.com/products/foaming-trigger-sprayer-head-p384/",
+      "https://www.glorystarpack.com/products/lock-down-lotion-pump-p387/",
       "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
       "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/",
       "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",

@@ -145,7 +145,7 @@ for (const record of pageRecords) {
 }
 
 const productPages = pageRecords.filter(record => /^products\/.+-p\d+\/index\.html$/.test(record.rel));
-if (productPages.length !== 45) errors.push(`expected 45 generated product pages, found ${productPages.length}`);
+if (productPages.length !== 54) errors.push(`expected 54 generated product pages, found ${productPages.length}`);
 for (const productPage of productPages) {
   if (!hasSchemaType(productPage.source, 'Product')) errors.push(`${productPage.rel}: missing Product schema`);
   if (!hasSchemaType(productPage.source, 'WebPage')) errors.push(`${productPage.rel}: missing WebPage schema`);
@@ -216,7 +216,7 @@ for (const productPage of productPages) {
 
 try {
   const aiContext = JSON.parse(fs.readFileSync(path.join(rootDir, 'ai-context.json'), 'utf8'));
-  for (const key of ['about', 'contact', 'productIndex', 'insights', 'compatibilityTestingGuide', 'pumpClosureGuide']) {
+  for (const key of ['about', 'contact', 'productIndex', 'insights', 'compatibilityTestingGuide', 'pumpClosureGuide', 'pumpClosureCategory']) {
     if (!aiContext.site?.[key]) errors.push(`ai-context.json site.${key} is missing`);
   }
 } catch (error) {
@@ -263,6 +263,17 @@ const homepageInsightLinks = new Set(
 if (homepageInsightLinks.size < 15) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
 
 const closureCategory = pageRecords.find(record => record.rel === 'products/cosmetic-pumps-closures/index.html');
+const specializedPumpPaths = [
+  '/products/treatment-pump-serum-bottles-p171/',
+  '/products/airless-pump-actuator-replacement-p183/',
+  '/products/salon-trigger-sprayer-p203/',
+  '/products/mini-trigger-sprayer-head-p245/',
+  '/products/external-spring-lotion-pump-p357/',
+  '/products/high-output-refill-jug-pump-p358/',
+  '/products/hair-body-fine-mist-sprayer-p359/',
+  '/products/foaming-trigger-sprayer-head-p384/',
+  '/products/lock-down-lotion-pump-p387/'
+];
 if (!closureCategory) errors.push('missing products/cosmetic-pumps-closures/index.html');
 else {
   for (const productPath of [
@@ -270,11 +281,22 @@ else {
     '/products/lotion-pump-dispenser-head-p170/',
     '/products/foam-pump-head-with-lock-clip-p172/',
     '/products/glass-dropper-pipette-assembly-p173/',
-    '/products/perfume-crimp-pump-and-collar-set-p181/'
+    '/products/perfume-crimp-pump-and-collar-set-p181/',
+    ...specializedPumpPaths
   ]) {
     if (!closureCategory.source.includes(`href="${productPath}"`)) {
       errors.push(`products/cosmetic-pumps-closures/index.html: missing featured link ${productPath}`);
     }
+  }
+}
+for (const productPath of specializedPumpPaths) {
+  const record = pageRecords.find(item => item.canonical === `${siteUrl}${productPath}`);
+  if (!record) {
+    errors.push(`missing specialized pump product page ${productPath}`);
+    continue;
+  }
+  if (!record.source.includes('Application and sizing guide')) {
+    errors.push(`${record.rel}: missing differentiated application and sizing guide`);
   }
 }
 const deferredCarouselBackgrounds = (homepage.match(/data-bg-desktop=/g) ?? []).length;

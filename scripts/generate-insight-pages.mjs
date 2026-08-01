@@ -237,6 +237,9 @@ const insightDefinitions = {
     note: 'Nominal neck size is only a starting point. Approve the exact bottle, closure, liner or gasket, pump engine, actuator, dip tube, color and overcap as one reorder-ready bill of materials.',
     resources: [
       ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/products/treatment-pump-serum-bottles-p171/', 'Serum Treatment Pump'],
+      ['/products/high-output-refill-jug-pump-p358/', 'High-Output Refill-Jug Pump'],
+      ['/products/foaming-trigger-sprayer-head-p384/', 'Foaming Trigger Sprayer'],
       ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Packaging Compatibility Testing'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]

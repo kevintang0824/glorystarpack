@@ -14,12 +14,78 @@ const selectedProductIds = [
   'p294', 'p305', 'p315', 'p329', 'p331', 'p334', 'p335', 'p337',
   'p340', 'p344', 'p350', 'p351', 'p352', 'p363', 'p365', 'p367',
   'p369', 'p371', 'p372', 'p374', 'p380', 'p381', 'p169', 'p170',
-  'p172', 'p173', 'p181'
+  'p171', 'p172', 'p173', 'p181', 'p183', 'p203', 'p245', 'p357',
+  'p358', 'p359', 'p384', 'p387'
 ];
 
 const productNameOverrides = new Map([
   ['p2', 'Plastic Airless Pump Bottle'],
-  ['p7', 'Glass Serum Dropper Bottle']
+  ['p7', 'Glass Serum Dropper Bottle'],
+  ['p357', 'External-Spring Lotion Pump'],
+  ['p358', 'High-Output Pump for Refill Jugs'],
+  ['p359', 'Hair and Body Fine-Mist Sprayer'],
+  ['p384', 'Foaming Trigger Sprayer Head'],
+  ['p387', 'Lock-Down Lotion Pump']
+]);
+
+const productSlugOverrides = new Map([
+  ['p171', 'treatment-pump-serum-bottles-p171'],
+  ['p183', 'airless-pump-actuator-replacement-p183'],
+  ['p203', 'salon-trigger-sprayer-p203'],
+  ['p245', 'mini-trigger-sprayer-head-p245'],
+  ['p357', 'external-spring-lotion-pump-p357'],
+  ['p358', 'high-output-refill-jug-pump-p358'],
+  ['p359', 'hair-body-fine-mist-sprayer-p359'],
+  ['p384', 'foaming-trigger-sprayer-head-p384'],
+  ['p387', 'lock-down-lotion-pump-p387']
+]);
+
+const applicationDetailOverrides = new Map([
+  ['p171', {
+    heading: 'Serum treatment pump applications',
+    copy: 'This compact treatment pump family is planned for serum, essence, toner and lightweight lotion packaging. Buyers commonly compare 18/410, 20/410 and 24/410 treatment pumps by dose, actuator feel, overcap clearance, dip-tube length and collar finish. The final serum pump must be tested with the selected bottle neck and formula.',
+    terms: ['18/410 treatment pump', '20/410 serum pump', '24/410 skincare pump', 'low-dose dispensing pump']
+  }],
+  ['p183', {
+    heading: 'Airless actuator replacement compatibility',
+    copy: 'An airless pump actuator replacement must match the original engine, stem, output path, overcap and container geometry. This component direction is intended for refillable or serviceable airless packaging projects; it is not a universal replacement head. Confirm the complete 15ml, 30ml, 50ml or 100ml airless system before sampling.',
+    terms: ['airless pump actuator', 'airless replacement head', 'refillable airless component', 'airless bottle pump part']
+  }],
+  ['p203', {
+    heading: 'Salon trigger sprayer applications',
+    copy: 'The salon trigger sprayer is intended for hair-care liquids, professional personal-care bottles and compatible refill programs where a hand trigger is preferred over a finger mist pump. Compare 24/410, 28/410 and 28/400 neck options by spray output, trigger ergonomics, dip-tube reach and transport lock requirements.',
+    terms: ['salon trigger sprayer', 'hair care trigger pump', '28/410 trigger sprayer', 'refill bottle sprayer head']
+  }],
+  ['p245', {
+    heading: 'Mini trigger sprayer sizing',
+    copy: 'A mini trigger sprayer gives a compact grip for body care, hair care, sanitizer and selected personal-care refill bottles. Review the 24/410, 28/410 or custom neck with the bottle shoulder, label area and hand clearance, then validate spray pattern, priming, dip-tube angle and leakage on production-intent samples.',
+    terms: ['mini trigger sprayer', '24/410 trigger head', 'compact spray pump', 'personal care trigger sprayer']
+  }],
+  ['p357', {
+    heading: 'External-spring pump product-path planning',
+    copy: 'This external-spring lotion pump direction is designed for projects that want to keep the dispensed product path free from direct metal contact. The complete pump is not described as metal-free until its construction is confirmed. Compare 24/410 and 28/410 options by formula viscosity, output, spring location, dip-tube length and leak performance.',
+    terms: ['external spring lotion pump', 'metal-free product path pump', '24/410 lotion pump', '28/410 dispensing pump']
+  }],
+  ['p358', {
+    heading: 'High-output pump for 1L to 5L jugs',
+    copy: 'This 38/400 or 38/410 high-output pump direction is intended for compatible 1L to 5L shampoo, conditioner, lotion, hand-wash and hotel refill jugs. Selection depends on target dose, product viscosity, actuator lock, dip-tube length, bottle panel strength and the pack orientation used during export transport.',
+    terms: ['38/400 high-output pump', '38/410 jug pump', '1L shampoo pump', '5L refill dispenser pump']
+  }],
+  ['p359', {
+    heading: 'Fine-mist performance for hair and body products',
+    copy: 'This 24/410 or 28/410 fine-mist sprayer direction targets hair mist, body mist, toner and setting-spray projects that need a broad, even spray. Buyers should compare output per stroke, spray duration, particle distribution, actuator force, overcap fit and formula compatibility rather than selecting by neck size alone.',
+    terms: ['hair mist sprayer', 'body mist pump', 'setting spray pump', '28/410 fine-mist sprayer']
+  }],
+  ['p384', {
+    heading: 'Foaming trigger sprayer configuration',
+    copy: 'A foaming trigger sprayer uses a trigger actuator and foam nozzle for targeted application on compatible home-care, salon, pet-care and selected personal-care formulas. Confirm the 28/400 or 28/410 neck, foam quality, output, nozzle setting, dip-tube reach and bottle stability with the final formula.',
+    terms: ['foaming trigger sprayer', '28/400 foam trigger', '28/410 foaming sprayer', 'foam nozzle trigger head']
+  }],
+  ['p387', {
+    heading: 'Lock-down lotion pump transport planning',
+    copy: 'The lock-down lotion pump is planned for shampoo, conditioner, body lotion, hand wash and similar personal-care bottles. Compare 24/410 and 28/410 versions by output, down-lock travel, actuator clearance, viscosity range and dip-tube length, then test whether the locked pump remains secure through packing and transport.',
+    terms: ['lock-down lotion pump', '24/410 shampoo pump', '28/410 conditioner pump', 'locking hand-wash pump']
+  }]
 ]);
 
 const productDataSource = fs.readFileSync(path.join(rootDir, 'assets/js/product-data.js'), 'utf8');
@@ -57,7 +123,7 @@ function slugify(value) {
 }
 
 function productSlug(product) {
-  return `${slugify(product.name)}-${product.id}`;
+  return productSlugOverrides.get(product.id) ?? `${slugify(product.name)}-${product.id}`;
 }
 
 function productName(product) {
@@ -395,6 +461,7 @@ function productPage(product) {
   const related = relatedProducts(product);
   const resources = resourceLinks(product);
   const name = productName(product);
+  const applicationDetail = applicationDetailOverrides.get(product.id);
   const quoteText = encodeURIComponent(`Hello GloryStarPack, I need a quotation for ${name} (${product.id}).\n\nApplication / formula:\nCapacity:\nClosure or component:\nFinish / decoration:\nEstimated quantity:\nDestination country:`);
   const sampleText = encodeURIComponent(`Hello GloryStarPack, I would like to request samples for ${name} (${product.id}).\n\nCapacity:\nClosure or component:\nFinish:\nDestination country:`);
   const planningLabel = product.badge === 'custom' ? 'Planning MOQ' : 'MOQ';
@@ -471,6 +538,12 @@ ${headerMarkup()}
         </table>
       </aside>
     </section>
+${applicationDetail ? `    <section class="section">
+      <div class="eyebrow">Application and sizing guide</div>
+      <h2>${escapeHtml(applicationDetail.heading)}</h2>
+      <p>${escapeHtml(applicationDetail.copy)}</p>
+      <div class="rfq-list">${applicationDetail.terms.map(term => `<span>${escapeHtml(term)}</span>`).join('')}</div>
+    </section>` : ''}
     <section class="section rfq" aria-labelledby="rfq-title">
       <div><div class="eyebrow">Build a useful RFQ</div><h2 id="rfq-title">Confirm the exact packaging route</h2><p>Share enough project context for the bottle, closure, decoration and packing requirements to be reviewed together.</p><div class="rfq-list"><span>Application or formula</span><span>Capacity</span><span>Closure or component</span><span>Decoration</span><span>Quantity</span><span>Destination</span></div></div>
       <div class="actions"><a class="btn" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Send RFQ on WhatsApp</a><a class="btn alt" href="mailto:kevin@glorystarpack.com?subject=${encodeURIComponent(`RFQ: ${name} (${product.id})`)}">Send RFQ by Email</a></div>

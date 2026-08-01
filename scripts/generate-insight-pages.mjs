@@ -7,7 +7,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
 const modifiedDate = '2026-07-29';
-const indexModifiedDate = '2026-07-30';
+const indexModifiedDate = '2026-08-01';
 
 const insightDefinitions = {
   '1': {
@@ -118,6 +118,7 @@ const insightDefinitions = {
   '8': {
     slug: 'packaging-closure-qc-checklist',
     seoTitle: 'Packaging Closure QC Checklist | GloryStarPack',
+    dateModified: '2026-08-01',
     questions: [
       'Is the neck finish, thread, torque, liner or reducer matched to the exact container?',
       'Has dispensing output, spray pattern, dip-tube length or roller flow been reviewed?',
@@ -207,6 +208,38 @@ const insightDefinitions = {
       ['/products/product-index/', 'Individual Product Index'],
       ['/contact/', 'Request Production-Intent Samples']
     ]
+  },
+  '14': {
+    slug: 'cosmetic-packaging-compatibility-testing-guide',
+    seoTitle: 'Cosmetic Packaging Compatibility Testing Guide | GloryStarPack',
+    dateModified: '2026-08-01',
+    questions: [
+      'Does the test use the actual formula and the final bottle, closure, liner, decoration and label construction?',
+      'Which storage, orientation, dispensing, transport and appearance checks apply to the intended pack and market?',
+      'Who owns the protocol, records observations and approves any component or formula change before production?'
+    ],
+    note: 'Compatibility approval is configuration-specific. A supplier can support samples, drawings and component information, while the responsible brand, filler or technical team defines and approves testing for the formula, process, shelf life and destination requirements.',
+    resources: [
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
+      ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/contact/', 'Prepare a Compatibility Review RFQ']
+    ]
+  },
+  '15': {
+    slug: 'cosmetic-pump-closure-selection-guide',
+    seoTitle: 'Cosmetic Pump & Closure Selection Guide | GloryStarPack',
+    dateModified: '2026-08-01',
+    questions: [
+      'What exact bottle item code or neck-finish drawing will the pump, cap, dropper or sprayer be matched against?',
+      'What formula viscosity, dose, spray pattern, dip-tube length, lock style and filling method are required?',
+      'Has the final assembled pack been reviewed for priming, output, leakage, opening, decoration and carton clearance?'
+    ],
+    note: 'Nominal neck size is only a starting point. Approve the exact bottle, closure, liner or gasket, pump engine, actuator, dip tube, color and overcap as one reorder-ready bill of materials.',
+    resources: [
+      ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Packaging Compatibility Testing'],
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
+    ]
   }
 };
 
@@ -223,7 +256,9 @@ const insightConsiderations = {
   '10': 'Start decoration trials on the approved base material and surface treatment. Glass coating, plastic resin, metal finishes and paper labels respond differently to inks, foils and adhesives. Confirm color tolerance, artwork position, rub resistance and formula exposure before the decorated sample becomes the production reference.',
   '11': 'Use stock bottles to validate the pack architecture before committing to custom tooling when the shape is still flexible. If a proprietary form is essential, define capacity, target weight, neck finish, decoration area, filling constraints and case packing before the mold brief is frozen.',
   '12': 'Ask for the bottle finish drawing and the closure specification in the same technical review. Nominal diameter is only one dimension; threads, beads, sealing surfaces, liner contact and application equipment determine whether the system can be approved.',
-  '13': 'Build the approval checklist around the production-intent system rather than a display sample. A final decorated bottle can behave differently on a filling line or inside a divider, and a substituted liner, gasket or cap can change sealing performance even when the package looks identical.'
+  '13': 'Build the approval checklist around the production-intent system rather than a display sample. A final decorated bottle can behave differently on a filling line or inside a divider, and a substituted liner, gasket or cap can change sealing performance even when the package looks identical.',
+  '14': 'Separate screening from approval. Early samples can identify obvious fit, leakage or appearance risks, but the final decision should use production-intent components, the intended formula and a documented protocol owned by the responsible technical team. Recheck the system when material, color, liner, adhesive, decoration or formula changes.',
+  '15': 'Treat the finish drawing and component specification as a matched pair. Record output, dip-tube length, liner or gasket, actuator, lock, overcap and color along with the bottle code. This makes supplier comparisons clearer and reduces accidental substitution on repeat orders.'
 };
 
 function escapeHtml(value) {
@@ -239,7 +274,17 @@ function escapeHtml(value) {
 function truncateWords(value, maxLength) {
   const clean = String(value).replace(/\s+/g, ' ').trim();
   if (clean.length <= maxLength) return clean;
-  return `${clean.slice(0, maxLength + 1).replace(/\s+\S*$/, '').replace(/[,:;.-]+$/, '')}.`;
+  const completeSentences = clean.match(/[^.!?]+[.!?]+/g) ?? [];
+  let complete = '';
+  for (const sentence of completeSentences) {
+    if (`${complete}${sentence}`.trim().length > maxLength) break;
+    complete = `${complete}${sentence}`.trim();
+  }
+  if (complete.length >= 110) return complete;
+  const stopWords = new Set(['a', 'an', 'and', 'by', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with']);
+  const parts = clean.slice(0, maxLength + 1).replace(/\s+\S*$/, '').replace(/[,:;.-]+$/, '').split(' ');
+  while (parts.length && stopWords.has(parts.at(-1).toLowerCase())) parts.pop();
+  return `${parts.join(' ')}.`;
 }
 
 function metaDescription(article) {

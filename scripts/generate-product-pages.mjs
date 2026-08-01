@@ -6,14 +6,15 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
-const modifiedDate = '2026-07-29';
+const modifiedDate = '2026-08-01';
 
 const selectedProductIds = [
   'p1', 'p2', 'p4', 'p7', 'p18', 'p33', 'p34', 'p39', 'p43', 'p53',
   'p124', 'p131', 'p132', 'p150', 'p151', 'p164', 'p289', 'p293',
   'p294', 'p305', 'p315', 'p329', 'p331', 'p334', 'p335', 'p337',
   'p340', 'p344', 'p350', 'p351', 'p352', 'p363', 'p365', 'p367',
-  'p369', 'p371', 'p372', 'p374', 'p380', 'p381'
+  'p369', 'p371', 'p372', 'p374', 'p380', 'p381', 'p169', 'p170',
+  'p172', 'p173', 'p181'
 ];
 
 const productNameOverrides = new Map([
@@ -78,7 +79,17 @@ function imageExists(product) {
 function truncateWords(value, maxLength) {
   const clean = String(value).replace(/\s+/g, ' ').trim();
   if (clean.length <= maxLength) return clean;
-  const shortened = clean.slice(0, maxLength + 1).replace(/\s+\S*$/, '').replace(/[,:;.-]+$/, '');
+  const completeSentences = clean.match(/[^.!?]+[.!?]+/g) ?? [];
+  let complete = '';
+  for (const sentence of completeSentences) {
+    if (`${complete}${sentence}`.trim().length > maxLength) break;
+    complete = `${complete}${sentence}`.trim();
+  }
+  if (complete.length >= 110) return complete;
+  const stopWords = new Set(['a', 'an', 'and', 'by', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with']);
+  const parts = clean.slice(0, maxLength + 1).replace(/\s+\S*$/, '').replace(/[,:;.-]+$/, '').split(' ');
+  while (parts.length && stopWords.has(parts.at(-1).toLowerCase())) parts.pop();
+  const shortened = parts.join(' ');
   return `${shortened}.`;
 }
 
@@ -98,6 +109,7 @@ const categoryDefinitions = [
   { cat: 'glass-nail', label: 'Nail Polish Bottles', path: '/products/nail-polish-bottles/' },
   { cat: 'men-grooming', label: "Men's Grooming Packaging", path: '/products/mens-grooming-packaging/' },
   { cat: 'personal-care', label: 'Personal Care Packaging', path: '/products/personal-care-packaging/' },
+  { cat: 'plastic-closure', label: 'Cosmetic Pumps & Closures', path: '/products/cosmetic-pumps-closures/' },
   { cat: 'plastic-airless', label: 'Airless Pump Bottles', path: '/products/airless-pump-bottles/' },
   { cat: 'plastic-pump', label: 'Pump Bottles', path: '/products/airless-pump-bottles/' },
   { cat: 'glass-dropper', label: 'Serum Dropper Bottles', path: '/products/serum-dropper-bottles/' },
@@ -159,6 +171,13 @@ function focusNotes(product) {
       'Approve dropper fit, dosing, leakage and decoration with the final component set.'
     ];
   }
+  if (product.cats.includes('plastic-closure')) {
+    return [
+      'Match the component to the exact bottle neck finish or approved finish drawing, not diameter alone.',
+      'Confirm formula viscosity, target output, actuator or spray pattern, dip-tube length and filling method.',
+      'Validate priming, leakage, lock or overcap function and transport handling with the final bottle system.'
+    ];
+  }
   if (product.cats.includes('plastic-airless') || product.cats.includes('plastic-pump')) {
     return [
       'Share formula viscosity, target dose and filling method before selecting the pump system.',
@@ -204,6 +223,31 @@ function resourceLinks(product) {
       description: 'Review fit, leakage, dispensing, decoration and packing before bulk.'
     }
   ];
+
+  if (product.cats.includes('plastic-closure')) {
+    return [
+      {
+        path: '/insights/cosmetic-pump-closure-selection-guide/',
+        name: 'Pump and Closure Selection Guide',
+        description: 'Match neck finish, output, dip tube, lock style and user experience.'
+      },
+      {
+        path: '/insights/cosmetic-packaging-compatibility-testing-guide/',
+        name: 'Packaging Compatibility Testing',
+        description: 'Plan formula, leakage, dispensing, decoration and transport checks.'
+      },
+      {
+        path: '/products/cosmetic-pumps-closures/',
+        name: 'Cosmetic Pumps and Closures',
+        description: 'Compare lotion pumps, fine mist sprayers, foam pumps, droppers and caps.'
+      },
+      {
+        path: '/cosmetic-packaging-sample-approval-checklist/',
+        name: 'Sample Approval Checklist',
+        description: 'Freeze the approved component, test record, decoration and packing route.'
+      }
+    ];
+  }
 
   if (product.cats.some(cat => ['wine-bottle', 'spirit-bottle', 'beer-bottle'].includes(cat))) {
     return [
@@ -517,13 +561,13 @@ ${footerMarkup()}
 `;
 }
 
-function updateGeneratedBlock(filePath, startMarker, endMarker, content) {
+function updateGeneratedBlock(filePath, startMarker, endMarker, content, closingPattern = /\s*<\/urlset>\s*$/, insertion = '\n  ') {
   const source = fs.readFileSync(filePath, 'utf8');
   const block = `${startMarker}\n${content}\n${endMarker}`;
   const markerPattern = new RegExp(`${startMarker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[\\s\\S]*?${endMarker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`);
   const updated = markerPattern.test(source)
     ? source.replace(markerPattern, block)
-    : source.replace(/\s*<\/urlset>\s*$/, `\n  ${block}\n</urlset>\n`);
+    : source.replace(closingPattern, `${insertion}${block}$&`);
   fs.writeFileSync(filePath, updated);
 }
 
@@ -562,6 +606,12 @@ const imageEntries = products.map(product => `  <url>
     </image:image>
   </url>`).join('\n');
 
+const llmsEntries = [
+  '## Priority Individual Product Pages',
+  '',
+  ...products.map(product => `- ${productName(product)}: ${siteUrl}${productPath(product)}`)
+].join('\n');
+
 updateGeneratedBlock(
   path.join(rootDir, 'sitemap.xml'),
   '<!-- BEGIN GENERATED PRODUCT PAGES -->',
@@ -573,6 +623,14 @@ updateGeneratedBlock(
   '<!-- BEGIN GENERATED PRODUCT IMAGES -->',
   '<!-- END GENERATED PRODUCT IMAGES -->',
   imageEntries
+);
+updateGeneratedBlock(
+  path.join(rootDir, 'llms.txt'),
+  '<!-- BEGIN GENERATED PRODUCT LINKS -->',
+  '<!-- END GENERATED PRODUCT LINKS -->',
+  llmsEntries,
+  /\s*$/,
+  '\n\n'
 );
 
 console.log(`Generated ${products.length} product pages and 1 product index page.`);

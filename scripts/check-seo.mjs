@@ -77,6 +77,9 @@ for (const filePath of htmlFiles) {
   if (h1Count !== 1) errors.push(`${rel}: expected 1 H1, found ${h1Count}`);
   if (title && (title.length < 30 || title.length > 65)) warnings.push(`${rel}: title length ${title.length}`);
   if (description && (description.length < 110 || description.length > 165)) warnings.push(`${rel}: description length ${description.length}`);
+  if (description && /\b(?:a|an|and|by|for|from|in|of|on|or|the|to|with)\.$/i.test(description)) {
+    errors.push(`${rel}: meta description ends with a truncated stop word`);
+  }
   if (!schemaBlocks.length) warnings.push(`${rel}: no JSON-LD`);
 
   schemaBlocks.forEach((match, index) => {
@@ -96,7 +99,7 @@ for (const filePath of htmlFiles) {
     const assetPath = localAssetPath(match[1], filePath);
     if (assetPath && !fs.existsSync(assetPath)) errors.push(`${rel}: missing local asset ${match[1]}`);
   }
-  if (rel !== 'index.html' && /href=["']\/#(?:contact|oem|products)(?:[\/#"'])/i.test(source)) {
+  if (rel !== 'index.html' && /href=["']\/#(?:contact|detail|oem|products)(?:[\/#"'])/i.test(source)) {
     errors.push(`${rel}: links to a homepage hash route instead of a stable static URL`);
   }
 
@@ -142,7 +145,7 @@ for (const record of pageRecords) {
 }
 
 const productPages = pageRecords.filter(record => /^products\/.+-p\d+\/index\.html$/.test(record.rel));
-if (productPages.length !== 40) errors.push(`expected 40 generated product pages, found ${productPages.length}`);
+if (productPages.length !== 45) errors.push(`expected 45 generated product pages, found ${productPages.length}`);
 for (const productPage of productPages) {
   if (!hasSchemaType(productPage.source, 'Product')) errors.push(`${productPage.rel}: missing Product schema`);
   if (!hasSchemaType(productPage.source, 'WebPage')) errors.push(`${productPage.rel}: missing WebPage schema`);
@@ -199,14 +202,21 @@ for (const requiredUrl of [
   `${siteUrl}/contact/`,
   `${siteUrl}/products/product-index/`,
   `${siteUrl}/insights/`,
-  `${siteUrl}/glass-bottle-buying-guides/`
+  `${siteUrl}/glass-bottle-buying-guides/`,
+  `${siteUrl}/insights/cosmetic-packaging-compatibility-testing-guide/`,
+  `${siteUrl}/insights/cosmetic-pump-closure-selection-guide/`
 ]) {
   if (!llmsSource.includes(requiredUrl)) errors.push(`llms.txt is missing ${requiredUrl}`);
+}
+for (const productPage of productPages) {
+  if (!llmsSource.includes(productPage.canonical)) {
+    errors.push(`llms.txt is missing product URL ${productPage.canonical}`);
+  }
 }
 
 try {
   const aiContext = JSON.parse(fs.readFileSync(path.join(rootDir, 'ai-context.json'), 'utf8'));
-  for (const key of ['about', 'contact', 'productIndex', 'insights']) {
+  for (const key of ['about', 'contact', 'productIndex', 'insights', 'compatibilityTestingGuide', 'pumpClosureGuide']) {
     if (!aiContext.site?.[key]) errors.push(`ai-context.json site.${key} is missing`);
   }
 } catch (error) {
@@ -215,7 +225,7 @@ try {
 
 const insightPages = pageRecords.filter(record => /^insights\/.+\/index\.html$/.test(record.rel));
 const insightArticles = insightPages.filter(record => record.rel !== 'insights/index.html');
-if (insightArticles.length !== 13) errors.push(`expected 13 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 15) errors.push(`expected 15 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);
@@ -250,7 +260,23 @@ else {
 const homepageInsightLinks = new Set(
   [...homepage.matchAll(/href=["'](\/insights\/[^"']+\/)["']/g)].map(match => match[1])
 );
-if (homepageInsightLinks.size < 13) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
+if (homepageInsightLinks.size < 15) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
+
+const closureCategory = pageRecords.find(record => record.rel === 'products/cosmetic-pumps-closures/index.html');
+if (!closureCategory) errors.push('missing products/cosmetic-pumps-closures/index.html');
+else {
+  for (const productPath of [
+    '/products/fine-mist-sprayer-pump-head-p169/',
+    '/products/lotion-pump-dispenser-head-p170/',
+    '/products/foam-pump-head-with-lock-clip-p172/',
+    '/products/glass-dropper-pipette-assembly-p173/',
+    '/products/perfume-crimp-pump-and-collar-set-p181/'
+  ]) {
+    if (!closureCategory.source.includes(`href="${productPath}"`)) {
+      errors.push(`products/cosmetic-pumps-closures/index.html: missing featured link ${productPath}`);
+    }
+  }
+}
 const deferredCarouselBackgrounds = (homepage.match(/data-bg-desktop=/g) ?? []).length;
 if (deferredCarouselBackgrounds !== 4) {
   errors.push(`homepage expected 4 deferred carousel backgrounds, found ${deferredCarouselBackgrounds}`);

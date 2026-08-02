@@ -147,6 +147,9 @@ for (const filePath of htmlFiles) {
   if (!source.includes('/assets/js/inquiry-conversion.js')) {
     errors.push(`${rel}: missing shared inquiry conversion script`);
   }
+  if (rel !== 'index.html' && /--gold:\s*#c8a96e/i.test(source)) {
+    errors.push(`${rel}: inline light-surface gold does not meet WCAG AA contrast`);
+  }
 
   for (const match of source.matchAll(/<img\b[^>]*>/gi)) {
     const width = Number(match[0].match(/\bwidth=["'](\d+)/i)?.[1] ?? 0);
@@ -427,7 +430,12 @@ if (!fs.existsSync(releaseWorkflowPath)) {
   errors.push('missing .github/workflows/seo-check.yml');
 } else {
   const releaseWorkflow = fs.readFileSync(releaseWorkflowPath, 'utf8');
-  for (const command of ['node scripts/check-seo.mjs', 'node scripts/audit-content.mjs', 'node scripts/optimize-image-tags.mjs']) {
+  for (const command of [
+    'node scripts/check-seo.mjs',
+    'node scripts/audit-content.mjs',
+    'node scripts/optimize-image-tags.mjs',
+    'node scripts/enforce-accessible-colors.mjs --check'
+  ]) {
     if (!releaseWorkflow.includes(command)) errors.push(`SEO workflow is missing ${command}`);
   }
 }
@@ -748,6 +756,7 @@ for (const slideClass of ['cs-bg-2', 'cs-bg-3', 'cs-bg-4', 'cs-bg-5']) {
 const mainJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/main.js'), 'utf8');
 const inquiryJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/inquiry-conversion.js'), 'utf8');
 const inquiryCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/inquiry-conversion.css'), 'utf8');
+const productCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/product-page.css'), 'utf8');
 const insightCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/insight-page.css'), 'utf8');
 const mainJsBytes = Buffer.byteLength(mainJsSource);
 const mainJsGzipBytes = gzipSync(mainJsSource).length;
@@ -768,6 +777,12 @@ for (const requiredMarker of ['inquiry_click', 'dataLayer.push', 'data-source-pa
 }
 if (!inquiryCssSource.includes('.gsp-inquiry-dock') || !inquiryCssSource.includes(':focus-visible')) {
   errors.push('assets/css/inquiry-conversion.css is missing the dock or keyboard focus styles');
+}
+if (/--gsp-inquiry-gold:\s*#c8a96e/i.test(inquiryCssSource)) {
+  errors.push('assets/css/inquiry-conversion.css uses a non-AA button background color');
+}
+for (const requiredMarker of ['background: var(--gold-dark)', '.rfq .eyebrow', 'text-decoration-thickness: 1px']) {
+  if (!productCssSource.includes(requiredMarker)) errors.push(`assets/css/product-page.css is missing accessibility marker ${requiredMarker}`);
 }
 if (/SpeakableSpecification|["']speakable["']\s*:/.test(homepage)) {
   errors.push('homepage uses Speakable markup even though it is not a topical news page');

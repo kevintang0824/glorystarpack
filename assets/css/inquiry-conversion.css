@@ -1,5 +1,5 @@
 .gsp-inquiry-dock {
-  --gsp-inquiry-gold: #c8a96e;
+  --gsp-inquiry-gold: #80652f;
   --gsp-inquiry-gold-dark: #7b602d;
   --gsp-inquiry-ink: #1a1a1a;
   position: fixed;
@@ -82,7 +82,7 @@
 }
 
 .gsp-inquiry-action:hover {
-  background: #b28f4e;
+  background: #6f5526;
 }
 
 .gsp-inquiry-action.is-secondary:hover {

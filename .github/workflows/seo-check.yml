@@ -32,12 +32,14 @@ jobs:
           node --check scripts/check-live-site.mjs
           node --check scripts/submit-indexnow.mjs
           node --check scripts/apply-inquiry-layer.mjs
+          node --check scripts/enforce-accessible-colors.mjs
 
       - name: Run SEO and content audits
         run: |
           node scripts/check-seo.mjs
           node scripts/audit-content.mjs
           node scripts/apply-inquiry-layer.mjs --check
+          node scripts/enforce-accessible-colors.mjs --check
 
       - name: Confirm image markup is current
         run: |

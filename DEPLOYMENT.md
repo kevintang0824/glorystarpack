@@ -35,6 +35,7 @@ Google 把 sitemap 提交视为发现提示，而不是收录保证。不要重�
 - `assets/css/inquiry-conversion.css` 提供桌面与移动端样式。新增 HTML 页面后先运行 `node scripts/apply-inquiry-layer.mjs`；日常同步和 GitHub Actions 会用 `--check` 防止遗漏。
 - 点击 WhatsApp、邮件或 RFQ 入口时，页面会向 `window.dataLayer` 写入 `inquiry_click`，包含渠道、意图、入口位置、页面主题和路径，不包含访客填写的姓名、邮箱或电话。
 - 目前仓库没有真实 GA4 Measurement ID，因此事件尚未集中上报。获得该 ID 后接入 Google tag，并在 GA4 中把 `inquiry_click` 作为询盘意向事件观察；它代表点击询盘入口，不应误报成已经成交或已经发送的询盘。
+- 浅色页面上的品牌金使用 WCAG AA 深金；暗色背景仍可使用亮金。新增内联样式页面后运行 `node scripts/enforce-accessible-colors.mjs`，发布检查会阻止低对比度按钮和眉题重新进入正式站。
 
 ### 从增量备份恢复
 

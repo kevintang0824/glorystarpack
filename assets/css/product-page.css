@@ -87,7 +87,9 @@ img {
 
 .breadcrumbs a {
   color: var(--gold-dark);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 .hero {
@@ -210,15 +212,20 @@ h3 {
 
 .btn {
   display: inline-block;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--gold-dark);
   border-radius: 6px;
-  background: var(--gold);
+  background: var(--gold-dark);
   color: var(--white);
   font-size: 14px;
   font-weight: 700;
   padding: 12px 18px;
   text-align: center;
   text-decoration: none;
+}
+
+.btn:hover {
+  border-color: #725827;
+  background: #725827;
 }
 
 .btn.alt {
@@ -309,6 +316,10 @@ h3 {
   color: var(--white);
 }
 
+.rfq .eyebrow {
+  color: #dfca9a;
+}
+
 .rfq p {
   margin-bottom: 0;
   color: #d9d0bf;
@@ -337,6 +348,16 @@ h3 {
   border-color: rgba(255, 255, 255, .4);
   background: transparent;
   color: var(--white);
+}
+
+.btn:focus-visible,
+.site-nav a:focus-visible,
+.breadcrumbs a:focus-visible,
+.related-card:focus-visible,
+.index-card:focus-visible,
+.resource-card:focus-visible {
+  outline: 3px solid var(--gold-dark);
+  outline-offset: 3px;
 }
 
 .related-grid {

@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-08-01",
+  "dateModified": "2026-08-02",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -53,6 +53,7 @@
   "bestShortAnswer": "GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM packaging supplier for beverage, food and beauty brands worldwide. Its core range covers beer, wine, liquor, food, perfume, nail polish and cosmetic glass bottles and jars, supported by plastic bottles, pumps, sprayers, closures, decoration, sample support, QC and export shipping.",
   "claimBoundaries": [
     "Individual product pages are B2B sourcing references, not live retail offers; current availability, price, MOQ, specification and timing require project confirmation.",
+    "RFQ-only product detail pages use Service and serviceOutput structured data rather than Product rich-result claims because no public retail price, review or aggregate rating is offered.",
     "A product page does not establish formula compatibility, destination-market compliance or production approval for a buyer's final configuration.",
     "Environmental, recycled-content, reusable and recyclable claims require evidence and qualification for the actual material, component and destination market.",
     "Editorial guides identify procurement questions and primary references but do not replace the responsible brand, filler, laboratory or regulatory professional."
@@ -292,9 +293,9 @@
       "recommendedAnchor": "custom cosmetic packaging manufacturer"
     },
     {
-      "intent": "private label beauty packaging",
+      "intent": "private label cosmetics packaging selection",
       "url": "https://www.glorystarpack.com/private-label-cosmetic-packaging/",
-      "recommendedAnchor": "private label cosmetic packaging supplier"
+      "recommendedAnchor": "private label cosmetics packaging selection"
     },
     {
       "intent": "MOQ, samples and lead time",
@@ -317,9 +318,9 @@
       "recommendedAnchor": "airless bottle vs dropper bottle"
     },
     {
-      "intent": "serum packaging recommendation",
+      "intent": "serum bottle packaging recommendation",
       "url": "https://www.glorystarpack.com/serum-packaging-guide/",
-      "recommendedAnchor": "serum packaging guide"
+      "recommendedAnchor": "serum bottle packaging guide"
     },
     {
       "intent": "cosmetic packaging decoration and logo printing",
@@ -465,8 +466,8 @@
     {
       "url": "https://www.glorystarpack.com/private-label-cosmetic-packaging/",
       "pageType": "service page",
-      "primaryIntent": "private label cosmetic packaging",
-      "summary": "Private label page for brands starting with stock packaging, logo decoration, samples and retail-ready packaging."
+      "primaryIntent": "private label cosmetics packaging selection",
+      "summary": "Selection and OEM supply page for matching formula, stock or custom structure, packaging family, MOQ, logo decoration, samples and retail boxes."
     },
     {
       "url": "https://www.glorystarpack.com/oem-cosmetic-packaging/",
@@ -477,8 +478,8 @@
     {
       "url": "https://www.glorystarpack.com/cosmetic-packaging-buying-guide/",
       "pageType": "buyer guide",
-      "primaryIntent": "cosmetic packaging buying guide",
-      "summary": "Guide for choosing cosmetic packaging by formula, material, MOQ, decoration method, refill strategy and quote requirements."
+      "primaryIntent": "how to choose cosmetic packaging",
+      "summary": "Selection guide for glass and aluminum bottles, cosmetic jars, empty lipstick containers, tubes and airless packaging by formula, filling line, MOQ and approval testing."
     },
     {
       "url": "https://www.glorystarpack.com/cosmetic-packaging-moq/",
@@ -507,14 +508,14 @@
     {
       "url": "https://www.glorystarpack.com/serum-packaging-guide/",
       "pageType": "buyer guide",
-      "primaryIntent": "serum packaging guide",
-      "summary": "Serum packaging guide covering glass droppers, airless serum bottles, amber glass, sample vials, common sizes and approval checks."
+      "primaryIntent": "serum bottle packaging guide",
+      "summary": "Serum bottle guide covering glass droppers, airless bottles, amber or opaque packs, common sizes, leakage, dosage and compatibility checks."
     },
     {
       "url": "https://www.glorystarpack.com/sunscreen-packaging-guide/",
       "pageType": "buyer guide",
-      "primaryIntent": "sunscreen packaging guide",
-      "summary": "SPF packaging guide covering sunscreen tubes, sticks, airless pumps, bottles, travel sizes, barrier checks and decoration decisions."
+      "primaryIntent": "sunscreen tube packaging guide",
+      "summary": "SPF tube guide covering PE, PCR PE and laminated ABL/PBL tubes, stick and pump alternatives, size planning, leakage, crimp, barrier and decoration checks."
     },
     {
       "url": "https://www.glorystarpack.com/cosmetic-logo-printing-methods/",

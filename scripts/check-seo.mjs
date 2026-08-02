@@ -287,12 +287,13 @@ if (!imageSitemapSource.includes('xmlns:image="http://www.google.com/schemas/sit
 const productPages = pageRecords.filter(record => /^products\/.+-p\d+\/index\.html$/.test(record.rel));
 if (productPages.length !== 54) errors.push(`expected 54 generated product pages, found ${productPages.length}`);
 for (const productPage of productPages) {
-  if (!hasSchemaType(productPage.source, 'Product')) errors.push(`${productPage.rel}: missing Product schema`);
+  if (!hasSchemaType(productPage.source, 'Service')) errors.push(`${productPage.rel}: missing B2B packaging Service schema`);
   if (!hasSchemaType(productPage.source, 'WebPage')) errors.push(`${productPage.rel}: missing WebPage schema`);
   if (!hasSchemaType(productPage.source, 'BreadcrumbList')) errors.push(`${productPage.rel}: missing BreadcrumbList schema`);
   if (!hasSchemaType(productPage.source, 'Organization')) errors.push(`${productPage.rel}: missing Organization schema`);
   if (!hasSchemaType(productPage.source, 'WebSite')) errors.push(`${productPage.rel}: missing WebSite schema`);
   if (!hasSchemaType(productPage.source, 'BusinessAudience')) errors.push(`${productPage.rel}: missing B2B audience schema`);
+  if (!productPage.source.includes('"serviceOutput"')) errors.push(`${productPage.rel}: missing truthful packaging service output`);
   if (!productPage.source.includes('"isRelatedTo"')) errors.push(`${productPage.rel}: missing related-product schema`);
   if (!productPage.source.includes('"primaryImageOfPage"')) errors.push(`${productPage.rel}: missing preferred-page image schema`);
   if (!productPage.source.includes('https://glorystarpack.en.alibaba.com/')) errors.push(`${productPage.rel}: missing Organization sameAs URL`);
@@ -328,6 +329,11 @@ for (const productPage of productPages) {
   if (heroImage && !imageSitemapSource.includes(`<image:loc>${siteUrl}${heroImage}</image:loc>`)) {
     errors.push(`${productPage.rel}: product image is missing from image-sitemap.xml`);
   }
+}
+
+const unsupportedProductSchemaPages = pageRecords.filter(record => hasSchemaType(record.source, 'Product'));
+for (const record of unsupportedProductSchemaPages) {
+  errors.push(`${record.rel}: Product schema requires a truthful offer, review or aggregate rating; use B2B Service/Thing schema for RFQ-only pages`);
 }
 
 const homepage = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf8');
@@ -633,15 +639,6 @@ if (!fs.existsSync(feedPath)) {
   }
 }
 
-const richResultReadyProducts = productPages.filter(productPage =>
-  hasSchemaType(productPage.source, 'Offer')
-  || hasSchemaType(productPage.source, 'AggregateOffer')
-  || hasSchemaType(productPage.source, 'Review')
-  || hasSchemaType(productPage.source, 'AggregateRating')
-);
-if (!richResultReadyProducts.length) {
-  warnings.push('product pages are descriptive B2B RFQ pages and are not eligible for Google product rich results without truthful offers or reviews');
-}
 if (!/googletagmanager\.com|google-analytics\.com|gtag\(/i.test(homepage)) {
   warnings.push('analytics is not configured; add a real GA4 measurement ID before measuring organic conversions');
 }

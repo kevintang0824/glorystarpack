@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
-const modifiedDate = '2026-08-01';
+const modifiedDate = '2026-08-02';
 
 const selectedProductIds = [
   'p1', 'p2', 'p4', 'p7', 'p18', 'p33', 'p34', 'p39', 'p43', 'p53',
@@ -466,8 +466,8 @@ function commonGraphNodes() {
 
 function jsonLd(product, category, canonical, description) {
   const related = relatedProducts(product).map(item => ({
-    '@type': 'Product',
-    '@id': `${siteUrl}${productPath(item)}#product`
+    '@type': 'Service',
+    '@id': `${siteUrl}${productPath(item)}#service`
   }));
   return JSON.stringify({
     '@context': 'https://schema.org',
@@ -480,38 +480,40 @@ function jsonLd(product, category, canonical, description) {
         description,
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
-        mainEntity: { '@id': `${canonical}#product` },
+        mainEntity: { '@id': `${canonical}#service` },
         primaryImageOfPage: `${siteUrl}${productImage(product)}`,
         breadcrumb: { '@id': `${canonical}#breadcrumbs` },
         dateModified: modifiedDate
       },
       {
-        '@type': 'Product',
-        '@id': `${canonical}#product`,
-        name: productName(product),
+        '@type': 'Service',
+        '@id': `${canonical}#service`,
+        name: `${productName(product)} Packaging Supply`,
         description,
         url: canonical,
         image: `${siteUrl}${productImage(product)}`,
-        sku: product.id,
         category: category.label,
-        material: product.mat,
         brand: {
           '@type': 'Brand',
           name: 'GloryStarPack'
         },
-        manufacturer: {
+        provider: {
           '@id': `${siteUrl}/#organization`
         },
+        areaServed: 'Worldwide',
+        serviceType: `B2B ${category.label} sourcing, customization and manufacturing`,
         audience: {
           '@type': 'BusinessAudience',
           audienceType: 'Beauty, personal care, fragrance, beverage and hospitality packaging buyers'
         },
         isRelatedTo: related,
-        additionalProperty: [
-          { '@type': 'PropertyValue', name: 'Capacity / Size', value: product.size },
-          { '@type': 'PropertyValue', name: 'Finish', value: product.finish },
-          { '@type': 'PropertyValue', name: product.badge === 'custom' ? 'Planning MOQ' : 'MOQ', value: `${product.moq} pcs; confirm by project` }
-        ]
+        serviceOutput: {
+          '@type': 'Thing',
+          name: productName(product),
+          identifier: product.id,
+          image: `${siteUrl}${productImage(product)}`,
+          description: `${product.mat} packaging; ${product.size}; ${product.finish}; ${product.badge === 'custom' ? 'planning quantity' : 'MOQ'} ${product.moq} pcs, subject to project confirmation.`
+        }
       },
       {
         '@type': 'BreadcrumbList',

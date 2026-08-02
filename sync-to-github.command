@@ -18,9 +18,12 @@ fi
 
 echo "Running release checks..."
 node --check assets/js/main.js
+node --check assets/js/inquiry-conversion.js
 node --check scripts/check-seo.mjs
+node --check scripts/apply-inquiry-layer.mjs
 node scripts/check-seo.mjs
 node scripts/audit-content.mjs
+node scripts/apply-inquiry-layer.mjs --check
 node scripts/optimize-image-tags.mjs
 git diff --check
 

@@ -141,6 +141,12 @@ for (const filePath of htmlFiles) {
   if (indexable && rel !== 'index.html' && !hasSchemaType(source, 'BreadcrumbList')) {
     errors.push(`${rel}: missing BreadcrumbList schema`);
   }
+  if (!source.includes('/assets/css/inquiry-conversion.css')) {
+    errors.push(`${rel}: missing shared inquiry conversion stylesheet`);
+  }
+  if (!source.includes('/assets/js/inquiry-conversion.js')) {
+    errors.push(`${rel}: missing shared inquiry conversion script`);
+  }
 
   for (const match of source.matchAll(/<img\b[^>]*>/gi)) {
     const width = Number(match[0].match(/\bwidth=["'](\d+)/i)?.[1] ?? 0);
@@ -395,6 +401,7 @@ else {
   if (!hasSchemaType(contactPage.source, 'ContactPoint')) errors.push('contact/index.html: missing ContactPoint schema');
   if (!contactPage.source.includes('id="rfq-form"')) errors.push('contact/index.html: missing RFQ builder');
   if (!contactPage.source.includes('Website page: ${sourceUrl.href}')) errors.push('contact/index.html: RFQ builder does not preserve the source URL');
+  if (!contactPage.source.includes('Original interest page: ${attributedSourcePage}')) errors.push('contact/index.html: RFQ builder does not preserve the original landing-page attribution');
   if (!contactPage.source.includes('data-inquiry-type="rfq-builder"')) errors.push('contact/index.html: RFQ actions are missing future analytics attributes');
   if (!contactPage.source.includes('https://glorystarpack.en.alibaba.com/')) errors.push('contact/index.html: missing Organization sameAs URL');
 }
@@ -640,7 +647,7 @@ if (!fs.existsSync(feedPath)) {
 }
 
 if (!/googletagmanager\.com|google-analytics\.com|gtag\(/i.test(homepage)) {
-  warnings.push('analytics is not configured; add a real GA4 measurement ID before measuring organic conversions');
+  warnings.push('a real GA4 measurement ID is not configured; inquiry_click events are ready in dataLayer but not yet collected remotely');
 }
 
 const insightIndex = pageRecords.find(record => record.rel === 'insights/index.html');
@@ -739,6 +746,8 @@ for (const slideClass of ['cs-bg-2', 'cs-bg-3', 'cs-bg-4', 'cs-bg-5']) {
   if (cssRule.includes('background-image')) errors.push(`homepage ${slideClass} still declares an eager background image`);
 }
 const mainJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/main.js'), 'utf8');
+const inquiryJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/inquiry-conversion.js'), 'utf8');
+const inquiryCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/inquiry-conversion.css'), 'utf8');
 const insightCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/insight-page.css'), 'utf8');
 const mainJsBytes = Buffer.byteLength(mainJsSource);
 const mainJsGzipBytes = gzipSync(mainJsSource).length;
@@ -753,6 +762,12 @@ if (!mainJsSource.includes('function enhanceKeyboardControls')) {
 }
 if (!mainJsSource.includes('function currentWebsitePage') || !mainJsSource.includes('Website page: ${currentWebsitePage()}')) {
   errors.push('assets/js/main.js inquiry builders do not preserve the website-page source');
+}
+for (const requiredMarker of ['inquiry_click', 'dataLayer.push', 'data-source-page', 'gsp:inquiry-click']) {
+  if (!inquiryJsSource.includes(requiredMarker)) errors.push(`assets/js/inquiry-conversion.js is missing ${requiredMarker}`);
+}
+if (!inquiryCssSource.includes('.gsp-inquiry-dock') || !inquiryCssSource.includes(':focus-visible')) {
+  errors.push('assets/css/inquiry-conversion.css is missing the dock or keyboard focus styles');
 }
 if (/SpeakableSpecification|["']speakable["']\s*:/.test(homepage)) {
   errors.push('homepage uses Speakable markup even though it is not a topical news page');

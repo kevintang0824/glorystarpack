@@ -27,14 +27,17 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check assets/js/main.js
+          node --check assets/js/inquiry-conversion.js
           node --check scripts/check-seo.mjs
           node --check scripts/check-live-site.mjs
           node --check scripts/submit-indexnow.mjs
+          node --check scripts/apply-inquiry-layer.mjs
 
       - name: Run SEO and content audits
         run: |
           node scripts/check-seo.mjs
           node scripts/audit-content.mjs
+          node scripts/apply-inquiry-layer.mjs --check
 
       - name: Confirm image markup is current
         run: |

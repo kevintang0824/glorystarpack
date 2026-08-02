@@ -737,6 +737,7 @@ function articlePage(article) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${article.imagePath}">
   <script type="application/ld+json">${jsonLd(article, canonical, description)}</script>
+  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
@@ -766,6 +767,7 @@ ${headerMarkup()}
   </section>
 </main>
 ${footerMarkup()}
+<script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
 `;
@@ -835,6 +837,7 @@ function indexPage() {
   <meta property="og:image:alt" content="Packaging samples, drawings and quality tools used for procurement planning">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
+  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
@@ -845,6 +848,7 @@ ${headerMarkup()}
   <section class="section rfq"><div><div class="eyebrow">From research to sourcing</div><h2>Need an item-specific answer?</h2><p>Browse individual product pages or prepare a structured packaging inquiry.</p></div><div class="actions"><a class="btn" href="/products/product-index/">Product Index</a><a class="btn alt" href="/contact/">Build an RFQ</a></div></section>
 </main>
 ${footerMarkup()}
+<script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
 `;
@@ -964,6 +968,7 @@ function glassBottleGuideHubPage() {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${heroImage}">
   <script type="application/ld+json">${schema}</script>
+  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
@@ -999,6 +1004,7 @@ ${headerMarkup()}
   </div>
 </main>
 ${footerMarkup()}
+<script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
 `;

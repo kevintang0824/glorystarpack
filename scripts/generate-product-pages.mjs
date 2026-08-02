@@ -588,6 +588,7 @@ function productPage(product) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${productImage(product)}">
   <script type="application/ld+json">${jsonLd(product, category, canonical, description)}</script>
+  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
@@ -655,6 +656,7 @@ ${applicationDetail ? `    <section class="section">
   </div>
 </main>
 ${footerMarkup()}
+<script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
 `;
@@ -725,6 +727,7 @@ function productIndexPage() {
   <meta property="og:image" content="${siteUrl}/assets/brand/glass-complete-product-assortment-2026.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
+  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
@@ -734,6 +737,7 @@ ${headerMarkup()}
   ${groupsMarkup}
 </main>
 ${footerMarkup()}
+<script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
 `;

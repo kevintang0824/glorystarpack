@@ -34,7 +34,7 @@
         "description": "Direct sales contact and RFQ preparation page for GloryStarPack packaging projects.",
         "about": {"@id": "https://www.glorystarpack.com/#organization"},
         "isPartOf": {"@id": "https://www.glorystarpack.com/#website"},
-        "dateModified": "2026-08-01"
+        "dateModified": "2026-08-02"
       },
       {
         "@type": "Organization",
@@ -71,6 +71,7 @@
     ]
   }
   </script>
+<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 <header class="site-header">
@@ -157,7 +158,7 @@
     </section>
   </div>
 </main>
-<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated 2026-08-01</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>
+<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated 2026-08-02</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>
 <script>
 (function () {
   const form = document.getElementById('rfq-form');
@@ -172,6 +173,15 @@
     const product = value('product') || 'packaging project';
     const sourceUrl = new URL(window.location.href);
     sourceUrl.hash = '';
+    sourceUrl.search = '';
+    const pageParams = new URLSearchParams(window.location.search);
+    const requestedSourcePath = String(pageParams.get('source') || '');
+    let attributedSourcePage = '';
+    if (requestedSourcePath.startsWith('/') && !requestedSourcePath.startsWith('//') && !requestedSourcePath.includes('\\')) {
+      const candidateSourcePage = new URL(requestedSourcePath, 'https://www.glorystarpack.com');
+      if (candidateSourcePage.origin === 'https://www.glorystarpack.com') attributedSourcePage = candidateSourcePage.href;
+    }
+    const inquiryIntent = String(pageParams.get('intent') || '').replace(/[^a-z-]/gi, '').slice(0, 30);
     let previousSitePage = '';
     try {
       const referrerUrl = new URL(document.referrer);
@@ -195,6 +205,8 @@
       `Formula / timeline / notes: ${value('notes')}`,
       '',
       `Website page: ${sourceUrl.href}`,
+      ...(attributedSourcePage ? [`Original interest page: ${attributedSourcePage}`] : []),
+      ...(inquiryIntent ? [`Inquiry intent: ${inquiryIntent}`] : []),
       ...(previousSitePage ? [`Previous site page: ${previousSitePage}`] : [])
     ];
     const message = lines.join('\n');
@@ -208,5 +220,6 @@
   updateLinks();
 }());
 </script>
+<script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>

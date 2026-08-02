@@ -10,7 +10,9 @@ From the repository root, run:
 ./sync-to-github.command "Describe the website update"
 ```
 
-The command checks JavaScript syntax, SEO, crawl depth, image markup and whitespace; creates an incremental recovery backup under `backups/`; commits the complete website change; and pushes the current branch. A push to the Vercel production branch (`main`) deploys automatically.
+The command checks JavaScript syntax, SEO, crawl depth, inquiry-layer coverage, image markup and whitespace; creates an incremental recovery backup under `backups/`; commits the complete website change; and pushes the current branch. A push to the Vercel production branch (`main`) deploys automatically.
+
+New HTML pages should run `node scripts/apply-inquiry-layer.mjs` before release so they inherit contextual WhatsApp/RFQ actions and the privacy-safe `inquiry_click` data-layer event.
 
 After Vercel reports Ready, verify production and notify supported search engines:
 

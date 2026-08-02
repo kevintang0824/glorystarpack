@@ -29,6 +29,13 @@
 
 Google 把 sitemap 提交视为发现提示，而不是收录保证。不要重复高频请求同一 URL；持续发布可抓取、原创且对采购者有用的内容更重要。
 
+### 询盘转化与统计
+
+- `assets/js/inquiry-conversion.js` 会在内容页生成可关闭的 WhatsApp / RFQ 快捷入口，并把当前页面主题、URL 和询盘意图带入消息或联系页。
+- `assets/css/inquiry-conversion.css` 提供桌面与移动端样式。新增 HTML 页面后先运行 `node scripts/apply-inquiry-layer.mjs`；日常同步和 GitHub Actions 会用 `--check` 防止遗漏。
+- 点击 WhatsApp、邮件或 RFQ 入口时，页面会向 `window.dataLayer` 写入 `inquiry_click`，包含渠道、意图、入口位置、页面主题和路径，不包含访客填写的姓名、邮箱或电话。
+- 目前仓库没有真实 GA4 Measurement ID，因此事件尚未集中上报。获得该 ID 后接入 Google tag，并在 GA4 中把 `inquiry_click` 作为询盘意向事件观察；它代表点击询盘入口，不应误报成已经成交或已经发送的询盘。
+
 ### 从增量备份恢复
 
 先切换到 `base-commit.txt` 记录的提交，再执行：

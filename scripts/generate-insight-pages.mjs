@@ -122,35 +122,67 @@ const insightDefinitions = {
   },
   '4': {
     slug: 'refill-ready-hotel-amenity-packaging',
-    seoTitle: 'Refill-Ready Hotel Amenity Packaging | GloryStarPack',
-    sources: references('euPpwr', 'iso18603', 'fdaCosmeticGmp'),
-    sourceNote: 'Accommodation-sector rules, implementation dates, exemptions and hygiene duties vary by market and operating model. Review the current law for each destination and validate the complete guest-room and back-of-house refill process.',
+    seoTitle: 'Hotel Amenity Dispensers vs Mini Bottles | Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Hotel amenity operating-model comparison',
+      intro: 'Choose the format with the complete guest-room and housekeeping process in view. Container weight alone does not establish hygiene, trust, usability or environmental performance.',
+      caption: 'Comparison of hotel amenity dispensers, refill systems and mini bottles',
+      columns: ['Operating model', 'Operational advantage', 'Qualification focus'],
+      rows: [
+        ['Sealed cartridge dispenser', 'Housekeeping replaces a closed product unit with limited pouring at the property.', 'Cartridge identity, lock and seal status, pump output, residual product, mount retention and supply continuity.'],
+        ['Prefilled removable bottle', 'A controlled bottle can be filled off-room and exchanged during service.', 'Bottle traceability, transport cap or lock, cleaning boundary, bracket fit and swap confirmation.'],
+        ['Pour-refilled reservoir', 'Bulk product can reduce the number of individual guest units.', 'Opening control, topping-up policy, lot traceability, spill prevention, cleaning and pump-path inspection.'],
+        ['Individual mini bottle', 'Sealed single-guest format with familiar identification and portable use.', 'Cap retention, wet-hand opening, fill and label, evacuation, room setup and distribution leakage.'],
+        ['Sachet or wrapped solid', 'Compact single-use format for a defined dose or amenity action.', 'Seal, tear and dispensing experience, labeling route, secondary containment and applicable market restrictions.'],
+        ['Hybrid property program', 'Different room, spa, gym or accessibility needs can use controlled formats under one system.', 'Formula naming, shared design cues, inventory, staff training, exception handling and consistent records.']
+      ]
+    },
+    sources: references('euPpwr', 'iso18603', 'fdaCosmeticGmp', 'fdaMicrobiology', 'iso11156'),
+    sourceNote: 'Accommodation-sector restrictions, implementation dates, exceptions, hygiene duties and cosmetic requirements vary by market and operating model. These sources do not certify a hotel dispenser as hygienic, tamper-proof, reusable or accessible; validate the complete guest-room and back-of-house process.',
     questions: [
-      'Which guest-facing mini formats and back-of-house refill formats must work together?',
-      'How will housekeeping identify formulas and refill containers accurately?',
-      'What leakage, label, fragrance-compatibility and carton checks apply to the program?'
+      'Will housekeeping replace a sealed cartridge, swap a controlled bottle or pour product into an open reservoir?',
+      'How will staff identify formula and lot, prevent unintended topping-up and confirm that the pump is functional?',
+      'Which guest trust, accessibility, leakage, mounting and destination-market requirements must the system satisfy?'
     ],
-    note: 'Hotel amenity packaging should be evaluated as an operating system for guests and housekeeping, not only as a visual collection of mini bottles.',
+    note: 'Do not call a dispenser contamination-free, tamper-proof or zero waste based on its appearance. Approve the formula, reservoir or cartridge, pump, mount, refill and cleaning workflow, staff controls, guest communication and replacement plan as one operating system.',
     resources: [
       ['/products/hotel-amenity-packaging/', 'Hotel Amenity Packaging'],
       ['/products/refill-pouch-packaging/', 'Refill Pouch Packaging'],
+      ['/insights/refill-pouches-reusable-bottles/', 'Refillable Packaging System Guide'],
       ['/contact/', 'Discuss an Amenity Project']
     ]
   },
   '5': {
     slug: 'cosmetic-discovery-kit-packaging',
-    seoTitle: 'Cosmetic Discovery Kit Packaging | GloryStarPack',
-    sources: references('fdaCosmeticLabeling', 'fdaCosmeticGmp', 'astmDistribution'),
-    sourceNote: 'These sources frame labeling, quality and distribution considerations; they do not define a universal discovery-kit specification. Small-format labeling, formula safety, assembly and transport tests remain the responsibility of the applicable project parties.',
+    seoTitle: 'Cosmetic Sample Packaging & Discovery Kit Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Cosmetic sample format selection matrix',
+      intro: 'Match each sample to the number of uses and product action the trial must support. A miniature package should not be selected from visual scale alone.',
+      caption: 'Format and approval checks for cosmetic and fragrance discovery kits',
+      columns: ['Sample format', 'Useful trial direction', 'Approval focus'],
+      rows: [
+        ['Sachet', 'Single application of a cream, gel, shampoo or mask with compact distribution.', 'Formula-contact structure, fill and seal, tear behavior, clean dispensing and labeling route.'],
+        ['Mini tube', 'Several controlled uses of a flowable cream, cleanser, conditioner or SPF formula.', 'Layer and shoulder compatibility, cap, crimp, squeeze force, dose, decoration and evacuation.'],
+        ['Mini jar', 'Direct access to a thick cream, balm, mask or color product.', 'Formula exposure, opening and closing, applicator, seal, residual access and label space.'],
+        ['Pump or dropper mini', 'Measured skincare trial when the engine and product path work at low fill volume.', 'Priming, dose, pickup, leakage, formula protection and sufficient product for the intended uses.'],
+        ['Fragrance vial or spray', 'Multiple wear tests with a clearly identified scent.', 'Closure or sprayer, fill, label, leakage, insert retention and filled-product transport classification.'],
+        ['Multi-product kit', 'A sequenced regimen, shade story or curated fragrance exploration.', 'Bill of materials, order of use, component count, insert, required information, assembly and full-size link.']
+      ]
+    },
+    sources: references('fdaCosmeticLabeling', 'fdaCosmeticGmp', 'fdaMicrobiology', 'astmDistribution', 'phmsaPerfumeryProducts'),
+    sourceNote: 'These sources frame small-format labeling, quality, contamination and distribution considerations; they do not define a universal discovery-kit specification or transport classification. The responsible project parties must resolve formula safety, labeling, assembly, filled-product transport and destination requirements.',
     questions: [
-      'How many formulas, fill volumes and dispensing formats are included?',
-      'Will the components sit in a paper tray, molded insert, pouch or retail box?',
-      'Which decoration and export-packing details must remain consistent across the set?'
+      'What decision should the sample help the customer make, and how many useful applications or wear tests are needed?',
+      'Which formula-specific mini format, label route and applicator can support that trial without becoming sample clutter?',
+      'Who fills, labels, assembles and inspects every component, insert and outer pack in the final kit?'
     ],
-    note: 'Discovery kits are quoted more accurately when every primary pack, applicator, insert and outer pack is listed as one bill of materials.',
+    note: 'A “sample” designation does not automatically remove labeling, safety, traceability or filled-product transport responsibilities. Freeze each formula, fill, component, applicator, label, insert position, assembly step and acceptance check before launch.',
     resources: [
       ['/products/cosmetic-sample-packaging/', 'Cosmetic Sample Packaging'],
       ['/products/cosmetic-packaging-kits/', 'Packaging Kits'],
+      ['/insights/perfume-bottle-sourcing-small-brands/', 'Small-Brand Perfume Sourcing Guide'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
   },
@@ -589,6 +621,39 @@ const insightDefinitions = {
       ['/products/cosmetic-tubes/', 'Cosmetic Tubes'],
       ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide']
     ]
+  },
+  '23': {
+    slug: 'cosmetic-packaging-right-sizing-guide',
+    seoTitle: 'Cosmetic Packaging Right-Sizing Guide | Reduce Bulk',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Packaging right-sizing review matrix',
+      intro: 'Measure each layer against its required function and the filled distribution route. Remove avoidable weight or volume only after the revised system remains qualified.',
+      caption: 'Right-sizing opportunities and evidence for cosmetic packaging systems',
+      columns: ['Packaging layer', 'Common excess-volume driver', 'Evidence before reduction'],
+      rows: [
+        ['Primary container', 'Thick base or wall, oversized outer shell, broad shoulder or capacity far above target fill.', 'Capacity and fill record, stability, strength, formula compatibility, dispensing and evacuation tests.'],
+        ['Closure and dispensing', 'Tall actuator, decorative overcap, collar, double shell or redundant protective part.', 'Seal and output, grip, application, product-path protection, repeated use and transport loading.'],
+        ['Retail carton', 'Large reveal space, platform, window, clearance or visual scale unrelated to protection.', 'Production-intent fit, label area, compression, scuffing, closure clearance and shelf presentation.'],
+        ['Insert or divider', 'Material added to fill the carton rather than restrain vulnerable components.', 'Movement, removal force, component contact, impact protection, assembly and recovery route.'],
+        ['Ecommerce shipper', 'One universal large box, excess void fill or no model for common order combinations.', 'Filled order configurations, restraint, pump loading, glass separation and distribution results.'],
+        ['Claim and record', 'Percentage reduction without a named baseline or shifting material to another layer.', 'Comparable weights and volumes, drawings, bill of materials, test evidence and qualified wording.']
+      ]
+    },
+    sources: references('iso18602', 'fdaCosmeticLabeling', 'astmDistribution', 'ftcGreenGuides', 'euPpwr'),
+    sourceNote: 'Packaging optimization, labeling, distribution and environmental-claim sources provide a framework, not a universal minimum package size or approval. The responsible team must define required functions, market obligations, distribution conditions, comparison baseline and claim substantiation for the actual system.',
+    questions: [
+      'Which external dimensions, wall features, caps, cartons and inserts are functionally required for the declared fill?',
+      'Can the revised pack preserve formula protection, usability, labeling and filled-system distribution performance?',
+      'Does every reduction claim name a comparable baseline and include material or volume shifted elsewhere in the system?'
+    ],
+    note: 'Do not equate the smallest package with the best package or label an unqualified redesign “eco-friendly.” Record the declared fill, required functions, baseline, measured reduction and production-intent test evidence before approving dimensions or claims.',
+    resources: [
+      ['/custom-cosmetic-packaging/', 'Custom Cosmetic Packaging'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
+      ['/insights/cosmetic-packaging-product-evacuation-guide/', 'Product Evacuation Guide'],
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
+    ]
   }
 };
 
@@ -596,8 +661,8 @@ const insightConsiderations = {
   '1': 'Group products by the buyer decision they solve rather than by appearance alone. A coordinated range should distinguish primary containers, dispensing components, accessories and retail packing, then identify which parts share artwork, colors or order timing. This makes sample requests easier to compare and reduces hidden component gaps.',
   '2': 'Treat the durable pack, refill unit, transfer action, formula, dispensing path, instructions and reorder continuity as one system. Compare material use against a defined baseline, then confirm that every claimed refill cycle can preserve containment, handling and communication functions under realistic use and distribution conditions.',
   '3': 'Separate fixed requirements from preferences in the request. Formula, capacity, destination and quantity are usually fixed inputs; material, finish or closure may still be open to recommendation. Marking that difference helps the supplier propose realistic alternatives without confusing them with the approved specification.',
-  '4': 'Hotel programs often have two packaging environments: guest rooms and back-of-house operations. Mini containers, wall-mounted dispensers and refill pouches may use different capacities and closures, but their labeling, formula identification and replenishment process must remain clear to housekeeping teams.',
-  '5': 'Build the kit around the intended trial journey. Fragrance, skincare and makeup samples can require different applicators and protection, while the insert must keep each format visible and secure. Confirm how the set will be assembled, filled, labeled and packed before approving the outer box.',
+  '4': 'Qualify the visible guest pack and invisible service workflow together. The dispenser or mini must support clear formula identity, appropriate hygiene controls, wet-hand access and reliable output, while housekeeping needs a traceable way to replace or refill, inspect, clean and respond to a failed unit without mixing products or lots unintentionally.',
+  '5': 'Start with the customer decision and number of useful trials, then select the sachet, vial, jar, tube or pump that can deliver that experience. Treat every primary pack, label, applicator, insert, card and carton as one bill of materials, and keep assembly and full-size conversion as visible design requirements.',
   '6': 'Ask for the recycled-content declaration and the visual tolerance used for the production lot. PCR resin can affect color, odor, surface texture and mechanical behavior. The approved bottle should be reviewed with the final cap or pump, label stock, decoration and filled-product weight.',
   '7': 'Use the actual formula during applicator trials whenever possible. A brush that performs well with a low-viscosity sample may load differently with mascara, brow gel or lip oil. Wiper selection, withdrawal force, dose, cap sealing and consumer handling should be evaluated as one system.',
   '8': 'Create a component approval record that identifies the exact bottle mold, neck finish, liner, dip-tube length and closure version. Similar-looking pumps or caps may not be interchangeable. Repeating the approved configuration on purchase orders helps prevent substitutions that change dispensing or seal performance.',
@@ -614,7 +679,8 @@ const insightConsiderations = {
   '19': 'Translate broad accessibility goals into measurable user actions: identify, grip, open, close, dispense, read, clean, refill and discard. Observe people using realistic filled packs in the intended environment, because dry tabletop trials can miss slippery surfaces, fatigue, limited reach and error-recovery problems.',
   '20': 'Define the user action and dose threshold that end normal use, then weigh the filled and residual package under controlled conditions. Compare formats with the same formula, temperature and accepted endpoint. Product left after cutting or dismantling can reveal an opportunity, but it should not be mixed into the normal-use result.',
   '21': 'Travel qualification combines the primary container with its final neighbors and restraint. Test formula contact, closure sealing and dispensing first, then expose the packed kit to relevant orientation, temperature and distribution hazards. Record exact item codes so a similar miniature container is not substituted on repeat orders.',
-  '22': 'Map formula water content, oils, fragrance, viscosity, fill temperature and cooling behavior before selecting the pack. Review direct access, wet-hand grip, evacuation and bathroom breakage alongside compatibility and shipping. A beautiful jar, tube or tin is only suitable when the production-intent system supports the formula and use action.'
+  '22': 'Map formula water content, oils, fragrance, viscosity, fill temperature and cooling behavior before selecting the pack. Review direct access, wet-hand grip, evacuation and bathroom breakage alongside compatibility and shipping. A beautiful jar, tube or tin is only suitable when the production-intent system supports the formula and use action.',
+  '23': 'Measure the primary container, closure, carton, insert and ecommerce shipper against the functions each must preserve. Compare a defined baseline with the revised production-intent system, including material moved to another layer. Keep usability, label space, product protection and distribution performance inside the right-sizing acceptance criteria.'
 };
 
 function escapeHtml(value) {

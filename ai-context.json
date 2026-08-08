@@ -51,6 +51,9 @@
     "productEvacuationGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/",
     "travelPackagingGuide": "https://www.glorystarpack.com/insights/travel-size-cosmetic-packaging-leak-testing-guide/",
     "bodyButterPackagingGuide": "https://www.glorystarpack.com/insights/body-butter-packaging-jars-tubes-tins-guide/",
+    "hotelAmenityPackagingGuide": "https://www.glorystarpack.com/insights/refill-ready-hotel-amenity-packaging/",
+    "cosmeticSamplePackagingGuide": "https://www.glorystarpack.com/insights/cosmetic-discovery-kit-packaging/",
+    "packagingRightSizingGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/",
     "pumpClosureCategory": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
     "htmlIndex": "https://www.glorystarpack.com/site-index/",
     "llms": "https://www.glorystarpack.com/llms.txt",
@@ -146,6 +149,15 @@
     "leak resistant travel containers",
     "body butter packaging",
     "body butter jar vs tube vs tin",
+    "hotel amenity dispensers vs mini bottles",
+    "refillable hotel amenity packaging",
+    "cosmetic sample packaging",
+    "beauty discovery kit packaging",
+    "fragrance discovery set packaging",
+    "cosmetic packaging right-sizing",
+    "reduce excessive cosmetic packaging",
+    "sunscreen packaging compatibility",
+    "sunscreen refill packaging",
     "lotion pump dispenser",
     "fine mist sprayer pump",
     "foam pump head",
@@ -242,6 +254,26 @@
     "lock down lotion pumps"
   ],
   "citationTargets": [
+    {
+      "intent": "hotel amenity bulk dispensers, refill systems and mini bottle comparison",
+      "url": "https://www.glorystarpack.com/insights/refill-ready-hotel-amenity-packaging/",
+      "recommendedAnchor": "hotel amenity dispensers vs mini bottles guide"
+    },
+    {
+      "intent": "cosmetic sample packaging and beauty discovery kit design",
+      "url": "https://www.glorystarpack.com/insights/cosmetic-discovery-kit-packaging/",
+      "recommendedAnchor": "cosmetic sample packaging guide"
+    },
+    {
+      "intent": "cosmetic packaging right-sizing and material or volume reduction",
+      "url": "https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/",
+      "recommendedAnchor": "cosmetic packaging right-sizing guide"
+    },
+    {
+      "intent": "sunscreen tube, stick, pump and refill packaging compatibility",
+      "url": "https://www.glorystarpack.com/sunscreen-packaging-guide/",
+      "recommendedAnchor": "sunscreen packaging guide"
+    },
     {
       "intent": "refillable cosmetic packaging system design, transfer, repeated use and claims",
       "url": "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
@@ -444,6 +476,24 @@
     }
   ],
   "pageMap": [
+    {
+      "url": "https://www.glorystarpack.com/insights/refill-ready-hotel-amenity-packaging/",
+      "pageType": "buyer guide",
+      "primaryIntent": "hotel amenity dispensers vs mini bottles",
+      "summary": "Operating-model guide comparing sealed cartridges, refillable reservoirs, removable pump bottles, individual minis and hybrid hotel amenity programs."
+    },
+    {
+      "url": "https://www.glorystarpack.com/insights/cosmetic-discovery-kit-packaging/",
+      "pageType": "buyer guide",
+      "primaryIntent": "cosmetic sample packaging",
+      "summary": "Discovery-kit guide covering sample objective, mini format, number of uses, labeling, inserts, filling, assembly, transport and full-size conversion."
+    },
+    {
+      "url": "https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/",
+      "pageType": "optimization guide",
+      "primaryIntent": "cosmetic packaging right-sizing",
+      "summary": "Framework for reducing avoidable primary-pack, closure, carton, insert and ecommerce volume while preserving protection, usability, labeling and distribution performance."
+    },
     {
       "url": "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
       "pageType": "buyer guide",
@@ -764,6 +814,44 @@
     }
   ],
   "keywordMap": [
+    {
+      "queryGroup": [
+        "hotel amenity dispensers vs mini bottles",
+        "hotel shampoo dispenser packaging",
+        "refillable hotel amenity packaging",
+        "bulk hotel toiletries packaging"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/refill-ready-hotel-amenity-packaging/",
+        "https://www.glorystarpack.com/products/hotel-amenity-packaging/",
+        "https://www.glorystarpack.com/products/refill-pouch-packaging/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "cosmetic sample packaging",
+        "beauty discovery kit packaging",
+        "fragrance discovery set packaging",
+        "mini cosmetic packaging wholesale"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/cosmetic-discovery-kit-packaging/",
+        "https://www.glorystarpack.com/products/cosmetic-sample-packaging/",
+        "https://www.glorystarpack.com/products/cosmetic-packaging-kits/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "cosmetic packaging right sizing",
+        "reduce excessive cosmetic packaging",
+        "oversized skincare packaging",
+        "packaging size optimization"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/",
+        "https://www.glorystarpack.com/custom-cosmetic-packaging/"
+      ]
+    },
     {
       "queryGroup": [
         "refillable cosmetic packaging",
@@ -1168,7 +1256,9 @@
         "sunscreen packaging",
         "SPF packaging",
         "sunscreen tube packaging",
-        "sunscreen stick packaging"
+        "sunscreen stick packaging",
+        "can sunscreen be transferred to another container",
+        "sunscreen refill packaging"
       ],
       "preferredUrls": [
         "https://www.glorystarpack.com/sunscreen-packaging-guide/",

@@ -7,7 +7,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-01';
+const indexModifiedDate = '2026-08-09';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -20,13 +20,16 @@ const primarySources = {
   fdaCosmeticGmp: ['https://www.fda.gov/cosmetics/cosmetics-guidance-documents/good-manufacturing-practice-gmp-guidelinesinspection-checklist-cosmetics', 'FDA cosmetic GMP guidelines and inspection checklist', 'Covers control, storage and records for raw and primary packaging materials.'],
   fdaCosmeticLabeling: ['https://www.fda.gov/cosmetics/cosmetics-labeling-regulations/summary-cosmetics-labeling-requirements', 'FDA summary of cosmetics labeling requirements', 'Summarizes U.S. labeling responsibilities and adulteration or misbranding considerations.'],
   fdaMicrobiology: ['https://www.fda.gov/cosmetics/potential-contaminants-cosmetics/microbiological-safety-and-cosmetics', 'FDA microbiological safety and cosmetics', 'Explains contamination risks, including packaging that does not adequately protect a cosmetic product.'],
+  fdaSmallBusinessCosmetics: ['https://www.fda.gov/cosmetics/resources-industry-cosmetics/small-businesses-homemade-cosmetics-fact-sheet', 'FDA small-business and homemade cosmetics fact sheet', 'Explains U.S. cosmetic-business responsibilities, including packaging, contamination and labeling considerations.'],
   ftcGreenGuides: ['https://www.ftc.gov/business-guidance/resources/environmental-claims-summary-green-guides', 'FTC environmental claims summary', 'Explains qualification and substantiation considerations for recycled-content, recyclable and refillable claims in the U.S.'],
+  iso11156: ['https://www.iso.org/standard/50175.html', 'ISO 11156 packaging accessible-design overview', 'Provides a framework for packages that more people can identify, handle, use, separate and dispose of.'],
   iso14021: ['https://www.iso.org/standard/14021', 'ISO 14021:2026 environmental claims overview', 'Describes requirements and guidance for self-declared environmental statements used on products, packaging and digital materials.'],
   iso18602: ['https://www.iso.org/standard/55870.html', 'ISO 18602:2013 packaging-system optimization overview', 'Describes assessment of packaging weight or volume while preserving required packaging functions.'],
   iso18603: ['https://www.iso.org/standard/55871.html', 'ISO 18603:2013 packaging reuse overview', 'Defines requirements and assessment procedures for packaging intended to be classified as reusable.'],
   iso18604: ['https://www.iso.org/standard/55872.html', 'ISO 18604:2013 material-recycling overview', 'Defines assessment requirements for packaging intended to be recoverable through material recycling.'],
   iso22716: ['https://www.iso.org/standard/36437.html', 'ISO 22716:2007 cosmetic GMP overview', 'Describes quality guidance for cosmetic production, control, storage and shipment.'],
-  iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.']
+  iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.'],
+  phmsaPerfumeryProducts: ['https://www.phmsa.dot.gov/regulations/title49/interp/20-0011', 'U.S. PHMSA interpretation on perfumery products', 'Explains that transport classification depends on the product function and whether a finished cosmetic contains a regulated flammable liquid.']
 };
 
 function references(...keys) {
@@ -342,6 +345,136 @@ const insightDefinitions = {
       ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Packaging Compatibility Testing'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
+  },
+  '16': {
+    slug: 'airless-pump-bottle-vs-jar-skincare-packaging',
+    seoTitle: 'Airless Pump Bottle vs Jar for Skincare | Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Airless pump bottle vs jar comparison',
+      intro: 'Use this matrix to create a packaging shortlist, then test the actual formula and production-intent components. Neither format is automatically better for every cream or serum.',
+      caption: 'Skincare packaging decisions for airless pumps and jars',
+      columns: ['Decision area', 'Airless pump starting point', 'Jar starting point'],
+      rows: [
+        ['Formula and flow', 'Flowable lotions, serums and creams that can prime and dispense through the selected engine.', 'Very thick creams, balms, masks or products intentionally scooped in variable amounts.'],
+        ['Consumer action', 'Measured push action with limited direct access to the bulk formula.', 'Direct access, easy visual inspection and flexible scooping with clean fingers or an applicator.'],
+        ['Visibility and evacuation', 'Opaque designs need a level indicator, window or documented evacuation test if remaining quantity matters.', 'The user can see and reach more of the pack, but shoulder and base geometry can still trap product.'],
+        ['Development checks', 'Priming, output, piston travel, leakage, actuator return, formula flow and dose consistency.', 'Lid application, liner or seal, opening force, formula contact, applicator use and contamination controls.'],
+        ['Brand and operations', 'More component matching and filling-line setup; useful when controlled dispensing is central to the brief.', 'Simpler access and a broad decoration area; useful when the use ritual or very high viscosity supports a jar.']
+      ]
+    },
+    sources: references('fdaMicrobiology', 'fdaCosmeticGmp', 'iso22716'),
+    sourceNote: 'These references establish safety, contamination-control and quality context; they do not prove that every airless pack protects a formula better than every jar. The responsible brand and technical team must validate the selected package with the actual formula and intended use.',
+    questions: [
+      'Can the formula prime and dispense consistently through the selected airless engine at the intended temperatures?',
+      'How important are direct access, visible product level, controlled dose and one-handed use to the target customer?',
+      'What evacuation, leakage, compatibility, preservation and repeated-use checks will support the final choice?'
+    ],
+    note: 'Do not choose an airless bottle from an “airtight” claim or reject a jar from a hygiene slogan alone. Compare the full formula, preservation system, consumer action, filling method and package performance with project-specific evidence.',
+    resources: [
+      ['/products/airless-pump-bottles/', 'Airless Pump Bottles'],
+      ['/products/cosmetic-jars/', 'Cosmetic Jars'],
+      ['/airless-bottle-vs-dropper-bottle/', 'Airless Bottle vs Dropper Bottle'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide']
+    ]
+  },
+  '17': {
+    slug: 'perfume-bottle-sourcing-small-brands',
+    seoTitle: 'Perfume Bottle Sourcing for Small Brands | MOQ Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'A staged perfume packaging route',
+      intro: 'Separate what the launch needs now from what can wait until demand, storage and repeat-order volume are clearer.',
+      caption: 'Perfume bottle sourcing routes for early-stage fragrance brands',
+      columns: ['Route', 'Best used when', 'Confirm before ordering'],
+      rows: [
+        ['Stock bottle and stock pump', 'The brand needs the lowest-risk path to filled samples or a first retail run.', 'Current stock, neck finish, pump and gasket, cap fit, decoration limits, carton quantity and reorder continuity.'],
+        ['Stock bottle with custom decoration', 'A proven bottle can carry the brand through coating, printing, labels or a custom box.', 'Decoration setup quantity, color standard, adhesion, pump masking, artwork proof, decorated samples and lead time.'],
+        ['Custom cap or accessory', 'A distinctive touchpoint matters more than a proprietary glass shape.', 'Cap weight, insert, retention, collar clearance, tooling ownership and fit on production-intent bottles.'],
+        ['Custom glass mold', 'The silhouette or embossing is essential and projected volume can support tooling and production setup.', 'Drawings, glass weight, capacity, neck finish, mold scope, pilot samples, tolerances, packing and reorder plan.'],
+        ['Discovery vial program', 'The launch needs sampling, subscriptions or market testing before a full-size commitment.', 'Vial fill, spray or dabber, label area, leakage, insert, small-format labeling and assembly.']
+      ]
+    },
+    sources: references('fdaCosmeticLabeling', 'fdaSmallBusinessCosmetics', 'astmDistribution', 'phmsaPerfumeryProducts'),
+    sourceNote: 'Commercial MOQ, stock and lead time must be confirmed for the selected components. Labeling and transport duties vary by formula, market, carrier and mode; finished alcohol-based fragrance may require regulated dangerous-goods review that does not apply to empty bottles.',
+    questions: [
+      'Is the first order validating the fragrance, the retail presentation or a proprietary bottle shape?',
+      'Which component sets the practical MOQ: glass, pump, cap, decoration, box, insert or assembly?',
+      'Will the supplier quote empty components only, or will the project also involve filled-product transport requirements?'
+    ],
+    note: 'For a small fragrance brand, the most economical route is often a coordinated stock bottle, pump and cap with selective decoration. A custom mold should solve a brand or technical requirement that justifies its tooling, quantity, storage and repeat-order commitments.',
+    resources: [
+      ['/products/perfume-bottles/', 'Glass Perfume Bottles'],
+      ['/products/glass-packaging/', 'Custom Glass Packaging'],
+      ['/products/cosmetic-sample-packaging/', 'Fragrance Sample Packaging'],
+      ['/insights/custom-glass-bottle-moq-stock-vs-custom-mold/', 'Stock vs Custom Glass MOQ']
+    ]
+  },
+  '18': {
+    slug: 'cosmetic-pump-not-working-troubleshooting',
+    seoTitle: 'Cosmetic Pump Not Working? Troubleshooting Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Cosmetic pump failure triage matrix',
+      intro: 'Record the failure pattern before changing components. The same symptom can come from the pump, bottle, formula, filling process, assembly or transport conditions.',
+      caption: 'Starting checks for common cosmetic pump problems',
+      columns: ['Observed symptom', 'Possible areas to inspect', 'Useful evidence'],
+      rows: [
+        ['Pump will not prime', 'Lock position, actuator travel, pump engine, dip-tube connection, fill level, bottle seal and formula viscosity.', 'Prime count, sample orientation, temperature, component codes and comparison with an approved control.'],
+        ['Output fades or becomes inconsistent', 'Air entry, dip-tube reach, formula flow, clogging, piston or valve behavior and product level.', 'Dose by stroke across repeated cycles, filled weight, temperature and photographs of the assembled pack.'],
+        ['Product leaks at the neck', 'Finish match, closure application, gasket or liner, thread engagement, bottle land and formula migration.', 'Leak location, torque or seating record, orientation, time, handling and exact bottle and pump versions.'],
+        ['Pump works but leaves too much product', 'Shoulder geometry, dip-tube cut, airless piston travel, bottle position, formula cling and stated evacuation target.', 'Initial and residual filled weights, normal-use protocol and pack cross-section after the test.'],
+        ['Actuator sticks, drips or clogs', 'Formula drying, particles, crystallization, product-path material, nozzle geometry and return spring behavior.', 'Formula batch, use interval, cleaning assumptions, output pattern and component disassembly by the technical team.'],
+        ['Leaks during ecommerce shipment', 'Lock or overcap, closure application, headspace, temperature, vibration, carton restraint and pack orientation.', 'Packed-system test conditions, carton layout, leak location and post-shipment component inspection.']
+      ]
+    },
+    sources: references('astmClosureTorque', 'astmDistribution', 'fdaCosmeticGmp', 'iso22716'),
+    sourceNote: 'These references provide quality, closure and distribution context, not a universal failure diagnosis. Define methods and acceptance criteria for the exact formula, bottle, pump, filling process, packed system and intended market.',
+    questions: [
+      'Does the failure occur on every sample or only after a particular fill batch, temperature, orientation or number of strokes?',
+      'Are the bottle, pump, gasket, actuator and dip tube the same approved versions recorded on the purchase order?',
+      'Can the team reproduce the symptom with a documented control, normal-use protocol and production-intent pack?'
+    ],
+    note: 'Do not treat a pump failure as proof that one supplier or component is defective until the assembled configuration and failure conditions are recorded. Preserve failed samples and controls so the technical teams can compare evidence instead of relying on descriptions alone.',
+    resources: [
+      ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/insights/cosmetic-pump-closure-selection-guide/', 'Pump Selection Guide'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
+    ]
+  },
+  '19': {
+    slug: 'accessible-cosmetic-packaging-design-guide',
+    seoTitle: 'Accessible Cosmetic Packaging Design Guide | Checklist',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Accessible cosmetic packaging review checklist',
+      intro: 'Evaluate the complete use sequence with a diverse group of intended users. A feature that helps one action can create a new problem elsewhere in the pack lifecycle.',
+      caption: 'Packaging design checks for easier identification, handling and dispensing',
+      columns: ['Use stage', 'Questions to test', 'Possible design directions'],
+      rows: [
+        ['Identify', 'Can users distinguish the product, variant, opening direction and dose without relying on small low-contrast text alone?', 'Clear hierarchy, contrast, tactile or shape cues, legible labels and consistent family coding.'],
+        ['Grip and stabilize', 'Can the pack be held when hands are wet, slippery, painful or have limited strength or reach?', 'Stable base, useful diameter, textured grip zones, controlled weight and shapes that resist rolling.'],
+        ['Open and close', 'What force, pinch, twist, alignment and two-handed coordination does the closure require?', 'Larger contact surfaces, clear start and stop feedback, fewer fine-motor actions and a closure that remains easy after repeated use.'],
+        ['Dispense', 'Can the user control the dose without excessive force, overspray or an unstable pack?', 'Broad actuator, suitable output, one-handed stability, predictable return and visible dispensing point.'],
+        ['See remaining product', 'Can users tell when a reorder is needed or whether the pump has stopped early?', 'Window, level indicator, translucent area, weight cue or an honest usage signal compatible with formula protection.'],
+        ['Refill or dispose', 'Can parts be separated, refilled or sorted without hidden tools, sharp edges or ambiguous instructions?', 'Simple component path, durable instructions, intuitive alignment and realistic destination-market disposal guidance.']
+      ]
+    },
+    sources: references('iso11156', 'fdaCosmeticLabeling', 'fdaMicrobiology'),
+    sourceNote: 'ISO 11156 provides a general accessible-design framework and does not prescribe dimensions, materials or evaluation methods for a specific cosmetic pack. Accessibility, safety, labeling and contamination controls must be evaluated for the actual users, formula, package and destination market.',
+    questions: [
+      'Which intended users and real use environments, including wet bathrooms or travel, will be included in evaluation?',
+      'Which actions require pinch strength, twisting, fine alignment, two hands, strong vision or color discrimination?',
+      'Can the team measure opening force, actuator force, dose control, error recovery and repeated-use performance with production-intent samples?'
+    ],
+    note: 'Accessible packaging is not a single oversized cap or a compliance badge. Start with the full user journey, include people with varied sensory, physical and cognitive abilities, record the observed barriers and retest the production-intent pack after changes.',
+    resources: [
+      ['/products/personal-care-packaging/', 'Personal Care Packaging'],
+      ['/products/cosmetic-pumps-closures/', 'Pumps and Closures'],
+      ['/products/cosmetic-packaging-accessories/', 'Packaging Accessories'],
+      ['/contact/', 'Discuss an Accessible Packaging Brief']
+    ]
   }
 };
 
@@ -360,7 +493,11 @@ const insightConsiderations = {
   '12': 'Ask for the bottle finish drawing and the closure specification in the same technical review. Nominal diameter is only one dimension; threads, beads, sealing surfaces, liner contact and application equipment determine whether the system can be approved.',
   '13': 'Build the approval checklist around the production-intent system rather than a display sample. A final decorated bottle can behave differently on a filling line or inside a divider, and a substituted liner, gasket or cap can change sealing performance even when the package looks identical.',
   '14': 'Separate screening from approval. Early samples can identify obvious fit, leakage or appearance risks, but the final decision should use production-intent components, the intended formula and a documented protocol owned by the responsible technical team. Recheck the system when material, color, liner, adhesive, decoration or formula changes.',
-  '15': 'Treat the finish drawing and component specification as a matched pair. Record output, dip-tube length, liner or gasket, actuator, lock, overcap and color along with the bottle code. This makes supplier comparisons clearer and reduces accidental substitution on repeat orders.'
+  '15': 'Treat the finish drawing and component specification as a matched pair. Record output, dip-tube length, liner or gasket, actuator, lock, overcap and color along with the bottle code. This makes supplier comparisons clearer and reduces accidental substitution on repeat orders.',
+  '16': 'Choose the format from the formula and use action, then treat hygiene, air exposure, visible fill level and premium feel as testable requirements rather than broad claims. A high-viscosity formula may not evacuate through a pump selected for lotion, while a jar still requires an appropriate preservation, closure and consumer-use plan.',
+  '17': 'Calculate the launch around the complete component set and the cash tied up in inventory, not only the bottle unit price. A lower bottle MOQ can still create a high total commitment when pumps, caps, coating, boxes, inserts, freight and storage follow different pack quantities or setup rules.',
+  '18': 'Keep failed packs, approved controls and unopened samples from the same component and fill lots. Record when the problem starts and whether it follows a bottle, pump, formula, assembly line, carton position or storage condition. This evidence makes corrective action faster and helps prevent an unverified component swap.',
+  '19': 'Translate broad accessibility goals into measurable user actions: identify, grip, open, close, dispense, read, clean, refill and discard. Observe people using realistic filled packs in the intended environment, because dry tabletop trials can miss slippery surfaces, fatigue, limited reach and error-recovery problems.'
 };
 
 function escapeHtml(value) {

@@ -539,16 +539,21 @@ const insightArticles = insightPages.filter(record => record.rel !== 'insights/i
 const decisionMatrixRows = new Map([
   ['insights/cosmetic-packaging-rfq-guide/index.html', 8],
   ['insights/cosmetic-packaging-compatibility-testing-guide/index.html', 7],
-  ['insights/cosmetic-pump-closure-selection-guide/index.html', 6]
+  ['insights/cosmetic-pump-closure-selection-guide/index.html', 6],
+  ['insights/airless-pump-bottle-vs-jar-skincare-packaging/index.html', 5],
+  ['insights/perfume-bottle-sourcing-small-brands/index.html', 5],
+  ['insights/cosmetic-pump-not-working-troubleshooting/index.html', 6],
+  ['insights/accessible-cosmetic-packaging-design-guide/index.html', 6]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'eur-lex.europa.eu',
   'store.astm.org',
   'www.fda.gov',
   'www.ftc.gov',
-  'www.iso.org'
+  'www.iso.org',
+  'www.phmsa.dot.gov'
 ]);
-if (insightArticles.length !== 15) errors.push(`expected 15 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 19) errors.push(`expected 19 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);

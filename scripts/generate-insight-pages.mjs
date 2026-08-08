@@ -56,18 +56,34 @@ const insightDefinitions = {
   },
   '2': {
     slug: 'refill-pouches-reusable-bottles',
-    seoTitle: 'Refill Pouches and Reusable Bottles | GloryStarPack',
-    sources: references('iso18603', 'iso18602', 'ftcGreenGuides'),
-    sourceNote: 'Reuse, refill and source-reduction claims require a functioning system and support appropriate to the destination market. These references do not establish formula compatibility, recyclability in a specific community or the environmental benefit of a particular package.',
+    seoTitle: 'Refillable Cosmetic Packaging System | Buyer Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Refill system qualification matrix',
+      intro: 'Approve the components and repeat-use journey as one system. A lighter refill unit cannot compensate for a transfer, hygiene, supply or distribution failure.',
+      caption: 'Qualification checks for refillable cosmetic packaging systems',
+      columns: ['System area', 'Requirement to define', 'Evidence before launch'],
+      rows: [
+        ['Reusable primary pack', 'Capacity, material, dispensing path, intended cycles and what remains in service.', 'Production-intent specification plus repeated opening, dispensing, wear and cleaning evaluation.'],
+        ['Refill unit', 'Formula-contact structure, capacity, barrier, spout or cartridge interface, cap and fill process.', 'Compatibility, sealing, fill and normal-use evacuation results for the exact refill construction.'],
+        ['Transfer action', 'How users open, align, pour or insert, stop flow and confirm a secure fit.', 'Observed trials with representative users, wet or oily hands and spill or error records.'],
+        ['Hygiene and use', 'Whether the durable pack is opened, cleaned, dried, mixed with residual product or touched internally.', 'Instructions supported by formulation, microbiological and repeated-use review.'],
+        ['Distribution and storage', 'Orientation, temperature, ecommerce restraint, spout loading and secondary containment.', 'Filled-system distribution plan, controls and documented failure acceptance criteria.'],
+        ['Continuity and claims', 'Compatible refill availability, change control, comparison baseline and destination-market wording.', 'Item-code continuity plan and substantiation file for each refill, reuse or reduction claim.']
+      ]
+    },
+    sources: references('iso18603', 'iso18602', 'iso18604', 'ftcGreenGuides', 'fdaMicrobiology'),
+    sourceNote: 'Reuse, refill, optimization, recycling and environmental claims require a functioning system and support appropriate to the destination market. These references do not establish formula compatibility, local recycling access or the environmental benefit of a particular GloryStarPack configuration.',
     questions: [
-      'Does the pouch volume match the reusable bottle without awkward leftover product?',
-      'Is the spout position and cap diameter suitable for the formula viscosity?',
-      'How will pouch leakage, carton packing and the consumer refill action be tested?'
+      'What stays reusable, what is replaced, and how many successful cycles is the brief designed to support?',
+      'Can users transfer the actual formula cleanly without touching an exposed product path or mixing unintended residue?',
+      'How will the brand keep compatible refills available and substantiate each environmental claim in the destination market?'
     ],
-    note: 'A refill pouch and a reusable bottle should be reviewed as one dispensing system. Material reduction alone does not resolve fit, leakage, user handling or destination-market requirements.',
+    note: 'Do not approve a refill from the empty component fit or material weight alone. Qualify the exact formula, durable pack, refill, transfer action, dispensing performance, packed route, repeat-use instructions and supply continuity as one controlled system.',
     resources: [
       ['/products/refill-pouch-packaging/', 'Refill Pouch Packaging'],
       ['/products/refill-packaging/', 'Refill Packaging Systems'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
   },
@@ -475,12 +491,110 @@ const insightDefinitions = {
       ['/products/cosmetic-packaging-accessories/', 'Packaging Accessories'],
       ['/contact/', 'Discuss an Accessible Packaging Brief']
     ]
+  },
+  '20': {
+    slug: 'cosmetic-packaging-product-evacuation-guide',
+    seoTitle: 'Cosmetic Packaging Product Evacuation Guide | Residue',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Product evacuation format comparison',
+      intro: 'Use the same accepted endpoint and formula conditions when comparing formats. The pack should deliver a useful dose through normal use without hiding a new handling or protection problem.',
+      caption: 'Product residue and evacuation checks by cosmetic packaging format',
+      columns: ['Format', 'Common residue drivers', 'Qualification focus'],
+      rows: [
+        ['Squeeze tube', 'Formula around the crimp, shoulder and walls; high squeeze force; restrictive orifice.', 'Wall recovery, orifice, low-temperature squeeze force, dose and residual mass without cutting.'],
+        ['Dip-tube pump', 'Bottle shoulders, tube length or cut, use angle, formula cling and declining pump output.', 'Collection zone, dip-tube position, beginning-to-end dose, leakage and accepted endpoint.'],
+        ['Airless pack', 'Incomplete piston or pouch travel, venting, fill process, engine limits and formula flow.', 'Priming, output, piston movement, relevant temperatures and residual product after accepted dosing stops.'],
+        ['Jar', 'Product in corners, shoulders, under an inner lid or outside applicator reach.', 'Opening geometry, applicator access, consumer-use plan, sealing and reachable residual film.'],
+        ['Dropper or spray', 'Pipette reach, reducer geometry, pickup angle, particles, nozzle drying or crystallization.', 'Dose or spray pattern across fill level, pickup path, clogging and residual mass.'],
+        ['Refill system', 'Product left in the refill unit, transfer spill, mismatched capacities and old product in the durable pack.', 'Evacuation of both units, clean transfer, capacity match and repeat-use instructions.']
+      ]
+    },
+    sources: references('fdaCosmeticLabeling', 'iso18602', 'fdaCosmeticGmp', 'fdaMicrobiology'),
+    sourceNote: 'Net-quantity labeling, packaging optimization, quality and microbiological references provide context but do not define a universal evacuation percentage. The responsible brand should set a normal-use method and acceptance range for the exact formula, package, fill and market.',
+    questions: [
+      'What normal-use action and minimum accepted dose define the evacuation endpoint?',
+      'How do formula flow, temperature, package geometry and dispensing components affect the residual mass?',
+      'Can the measured result be reproduced across production-intent formula and component lots without unsupported zero-residue claims?'
+    ],
+    note: 'Avoid “100% evacuation,” “zero waste” or equivalent claims unless the finished configuration and stated consumer action support them. Record both residual mass and percentage under a protocol that excludes tools or pack modification not included in normal use.',
+    resources: [
+      ['/products/cosmetic-tubes/', 'Cosmetic Tubes'],
+      ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/products/cosmetic-jars/', 'Cosmetic Jars'],
+      ['/insights/cosmetic-pump-not-working-troubleshooting/', 'Pump Troubleshooting Guide']
+    ]
+  },
+  '21': {
+    slug: 'travel-size-cosmetic-packaging-leak-testing-guide',
+    seoTitle: 'Travel-Size Cosmetic Packaging Leak Testing Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Travel packaging format and test matrix',
+      intro: 'Map each formula to its dispensing and containment risks, then test the complete packed kit. Small size alone does not establish compatibility or leak resistance.',
+      caption: 'Selection and test priorities for travel-size cosmetic packaging',
+      columns: ['Product type', 'Possible format direction', 'Priority checks'],
+      rows: [
+        ['Toner or liquid serum', 'Screw-cap bottle, reducer bottle or qualified mini pump.', 'Low-viscosity migration, liner or gasket contact, orientation, dose and label durability.'],
+        ['Cream or conditioner', 'Wide-mouth mini jar, squeeze tube or qualified pump bottle.', 'Cold-flow behavior, squeeze or actuator force, usable evacuation, cap cleanliness and sealing.'],
+        ['Oil', 'Reducer, treatment pump, roll-on or dropper bottle.', 'Seal compatibility, cap retention, controlled output, side or inverted exposure and formula migration.'],
+        ['Mist or fragrance', 'Protected mini sprayer or atomizer selected for the formula.', 'Lock or overcap, spray performance, accidental actuation, leakage and applicable transport review.'],
+        ['Powder or solid', 'Sifter jar, stick, pan or screw-cap container.', 'Dust escape, sifter or stick retention, heat behavior, breakage and product identification.'],
+        ['Mixed travel kit', 'Format-specific containers held in a fitted pouch, divider or insert.', 'Component contact, pump loading, glass separation, secondary containment and packed distribution.']
+      ]
+    },
+    sources: references('astmDistribution', 'fdaCosmeticGmp', 'fdaCosmeticLabeling', 'iso11156'),
+    sourceNote: 'These sources provide distribution, quality, labeling and accessible-use context. They do not certify a container as leakproof, determine passenger baggage eligibility or establish compatibility with every cosmetic formula. Check current authority and carrier rules for the actual route.',
+    questions: [
+      'Which formulas, fill amounts, orientations, temperatures and trip conditions must the travel set tolerate?',
+      'Can surrounding items press, unscrew or break a closure inside the final pouch or kit?',
+      'How will reusable packs be refilled, identified, cleaned and dried without creating an unvalidated hygiene claim?'
+    ],
+    note: 'Do not describe a small container as universally leakproof or travel approved. Approve the exact formula, fill, container, closure, label and packed-kit position under documented conditions, and direct users to current route-specific baggage rules.',
+    resources: [
+      ['/products/cosmetic-sample-packaging/', 'Sample and Travel Packaging'],
+      ['/products/hotel-amenity-packaging/', 'Hotel Amenity Packaging'],
+      ['/products/cosmetic-packaging-kits/', 'Cosmetic Packaging Kits'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide']
+    ]
+  },
+  '22': {
+    slug: 'body-butter-packaging-jars-tubes-tins-guide',
+    seoTitle: 'Body Butter Packaging: Jar vs Tube vs Tin | Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Body butter packaging format comparison',
+      intro: 'Shortlist formats from the formula, fill process and intended use. Material names and premium appearance do not replace compatibility, hygiene, evacuation or distribution evidence.',
+      caption: 'Comparison of jars, tubes, tins and pumps for body butter packaging',
+      columns: ['Format', 'Best-fit direction', 'Critical checks'],
+      rows: [
+        ['Glass jar', 'Dense butter or balm needing direct wide-mouth access and a weighted presentation.', 'Wet-area breakage, inner geometry, fill temperature, formula contact, lid seal and packed impact protection.'],
+        ['Plastic jar', 'Dense product where lower weight or impact resistance is important.', 'Exact resin and wall, formula compatibility, heat distortion, thread and liner performance, scuffing.'],
+        ['Squeeze tube', 'Flowable butter or cream needing controlled dispensing and less direct bulk access.', 'Low-temperature squeeze force, orifice, cap grip, seam or crimp, dose and residual mass.'],
+        ['Tin or metal container', 'Balm or semi-solid formula suited to a shallow access format.', 'Internal coating or liner, seams, closure retention, corrosion or formula interaction, dents and heat exposure.'],
+        ['Pump or airless pack', 'Formula engineered to flow through the selected product path and accepted dose.', 'Priming, output, actuator force, temperature, product buildup, leakage and usable evacuation.']
+      ]
+    },
+    sources: references('fdaMicrobiology', 'fdaSmallBusinessCosmetics', 'fdaCosmeticGmp', 'iso22716'),
+    sourceNote: 'These references provide microbiological, business-responsibility and cosmetic-quality context. They do not approve a preservation system, material, fill temperature or shelf life for a particular body butter. The responsible technical team must evaluate the finished formula and package.',
+    questions: [
+      'Is the formula anhydrous or water-containing, and what viscosity, fill temperature and set behavior must the pack support?',
+      'Will wet or oily hands, bathroom drops, low temperatures or summer distribution change access and containment?',
+      'Can the selected jar, tube, tin or pump deliver the accepted amount while preserving the approved formula and use instructions?'
+    ],
+    note: 'Do not choose body butter packaging from appearance or a generic material claim. Test the actual formula, filling and cooling process, consumer action, closure, decoration and final shipping pack before freezing the specification.',
+    resources: [
+      ['/products/cream-jars/', 'Cream Jars'],
+      ['/products/cosmetic-jars/', 'Cosmetic Jars'],
+      ['/products/cosmetic-tubes/', 'Cosmetic Tubes'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide']
+    ]
   }
 };
 
 const insightConsiderations = {
   '1': 'Group products by the buyer decision they solve rather than by appearance alone. A coordinated range should distinguish primary containers, dispensing components, accessories and retail packing, then identify which parts share artwork, colors or order timing. This makes sample requests easier to compare and reduces hidden component gaps.',
-  '2': 'Compare the refill system at three levels: material structure, filling and sealing operations, and consumer use. The pouch may need a different barrier or spout for a viscous formula, while the reusable bottle must accept a clean transfer. Secondary packing also needs to protect the spout from compression during export.',
+  '2': 'Treat the durable pack, refill unit, transfer action, formula, dispensing path, instructions and reorder continuity as one system. Compare material use against a defined baseline, then confirm that every claimed refill cycle can preserve containment, handling and communication functions under realistic use and distribution conditions.',
   '3': 'Separate fixed requirements from preferences in the request. Formula, capacity, destination and quantity are usually fixed inputs; material, finish or closure may still be open to recommendation. Marking that difference helps the supplier propose realistic alternatives without confusing them with the approved specification.',
   '4': 'Hotel programs often have two packaging environments: guest rooms and back-of-house operations. Mini containers, wall-mounted dispensers and refill pouches may use different capacities and closures, but their labeling, formula identification and replenishment process must remain clear to housekeeping teams.',
   '5': 'Build the kit around the intended trial journey. Fragrance, skincare and makeup samples can require different applicators and protection, while the insert must keep each format visible and secure. Confirm how the set will be assembled, filled, labeled and packed before approving the outer box.',
@@ -497,7 +611,10 @@ const insightConsiderations = {
   '16': 'Choose the format from the formula and use action, then treat hygiene, air exposure, visible fill level and premium feel as testable requirements rather than broad claims. A high-viscosity formula may not evacuate through a pump selected for lotion, while a jar still requires an appropriate preservation, closure and consumer-use plan.',
   '17': 'Calculate the launch around the complete component set and the cash tied up in inventory, not only the bottle unit price. A lower bottle MOQ can still create a high total commitment when pumps, caps, coating, boxes, inserts, freight and storage follow different pack quantities or setup rules.',
   '18': 'Keep failed packs, approved controls and unopened samples from the same component and fill lots. Record when the problem starts and whether it follows a bottle, pump, formula, assembly line, carton position or storage condition. This evidence makes corrective action faster and helps prevent an unverified component swap.',
-  '19': 'Translate broad accessibility goals into measurable user actions: identify, grip, open, close, dispense, read, clean, refill and discard. Observe people using realistic filled packs in the intended environment, because dry tabletop trials can miss slippery surfaces, fatigue, limited reach and error-recovery problems.'
+  '19': 'Translate broad accessibility goals into measurable user actions: identify, grip, open, close, dispense, read, clean, refill and discard. Observe people using realistic filled packs in the intended environment, because dry tabletop trials can miss slippery surfaces, fatigue, limited reach and error-recovery problems.',
+  '20': 'Define the user action and dose threshold that end normal use, then weigh the filled and residual package under controlled conditions. Compare formats with the same formula, temperature and accepted endpoint. Product left after cutting or dismantling can reveal an opportunity, but it should not be mixed into the normal-use result.',
+  '21': 'Travel qualification combines the primary container with its final neighbors and restraint. Test formula contact, closure sealing and dispensing first, then expose the packed kit to relevant orientation, temperature and distribution hazards. Record exact item codes so a similar miniature container is not substituted on repeat orders.',
+  '22': 'Map formula water content, oils, fragrance, viscosity, fill temperature and cooling behavior before selecting the pack. Review direct access, wet-hand grip, evacuation and bathroom breakage alongside compatibility and shipping. A beautiful jar, tube or tin is only suitable when the production-intent system supports the formula and use action.'
 };
 
 function escapeHtml(value) {

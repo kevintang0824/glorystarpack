@@ -537,13 +537,17 @@ if (!fs.existsSync(indexNowScriptPath)) {
 const insightPages = pageRecords.filter(record => /^insights\/.+\/index\.html$/.test(record.rel));
 const insightArticles = insightPages.filter(record => record.rel !== 'insights/index.html');
 const decisionMatrixRows = new Map([
+  ['insights/refill-pouches-reusable-bottles/index.html', 6],
   ['insights/cosmetic-packaging-rfq-guide/index.html', 8],
   ['insights/cosmetic-packaging-compatibility-testing-guide/index.html', 7],
   ['insights/cosmetic-pump-closure-selection-guide/index.html', 6],
   ['insights/airless-pump-bottle-vs-jar-skincare-packaging/index.html', 5],
   ['insights/perfume-bottle-sourcing-small-brands/index.html', 5],
   ['insights/cosmetic-pump-not-working-troubleshooting/index.html', 6],
-  ['insights/accessible-cosmetic-packaging-design-guide/index.html', 6]
+  ['insights/accessible-cosmetic-packaging-design-guide/index.html', 6],
+  ['insights/cosmetic-packaging-product-evacuation-guide/index.html', 6],
+  ['insights/travel-size-cosmetic-packaging-leak-testing-guide/index.html', 6],
+  ['insights/body-butter-packaging-jars-tubes-tins-guide/index.html', 5]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'eur-lex.europa.eu',
@@ -553,7 +557,7 @@ const approvedPrimarySourceHosts = new Set([
   'www.iso.org',
   'www.phmsa.dot.gov'
 ]);
-if (insightArticles.length !== 19) errors.push(`expected 19 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 22) errors.push(`expected 22 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);

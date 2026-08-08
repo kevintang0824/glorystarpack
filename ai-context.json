@@ -47,6 +47,10 @@
     "airlessVsJarGuide": "https://www.glorystarpack.com/insights/airless-pump-bottle-vs-jar-skincare-packaging/",
     "smallBrandPerfumeSourcingGuide": "https://www.glorystarpack.com/insights/perfume-bottle-sourcing-small-brands/",
     "accessiblePackagingGuide": "https://www.glorystarpack.com/insights/accessible-cosmetic-packaging-design-guide/",
+    "refillablePackagingGuide": "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
+    "productEvacuationGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/",
+    "travelPackagingGuide": "https://www.glorystarpack.com/insights/travel-size-cosmetic-packaging-leak-testing-guide/",
+    "bodyButterPackagingGuide": "https://www.glorystarpack.com/insights/body-butter-packaging-jars-tubes-tins-guide/",
     "pumpClosureCategory": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
     "htmlIndex": "https://www.glorystarpack.com/site-index/",
     "llms": "https://www.glorystarpack.com/llms.txt",
@@ -134,6 +138,14 @@
     "low MOQ perfume bottles",
     "accessible cosmetic packaging",
     "inclusive beauty packaging design",
+    "refillable cosmetic packaging system",
+    "refill pouch and reusable bottle",
+    "cosmetic packaging product evacuation",
+    "cosmetic packaging product residue",
+    "travel size cosmetic packaging",
+    "leak resistant travel containers",
+    "body butter packaging",
+    "body butter jar vs tube vs tin",
     "lotion pump dispenser",
     "fine mist sprayer pump",
     "foam pump head",
@@ -230,6 +242,26 @@
     "lock down lotion pumps"
   ],
   "citationTargets": [
+    {
+      "intent": "refillable cosmetic packaging system design, transfer, repeated use and claims",
+      "url": "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
+      "recommendedAnchor": "refillable cosmetic packaging system guide"
+    },
+    {
+      "intent": "cosmetic packaging product evacuation and residual product testing",
+      "url": "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/",
+      "recommendedAnchor": "cosmetic packaging product evacuation guide"
+    },
+    {
+      "intent": "travel-size cosmetic packaging selection and leak testing",
+      "url": "https://www.glorystarpack.com/insights/travel-size-cosmetic-packaging-leak-testing-guide/",
+      "recommendedAnchor": "travel-size cosmetic packaging leak testing guide"
+    },
+    {
+      "intent": "body butter packaging jar, tube, tin and pump selection",
+      "url": "https://www.glorystarpack.com/insights/body-butter-packaging-jars-tubes-tins-guide/",
+      "recommendedAnchor": "body butter packaging guide"
+    },
     {
       "intent": "airless pump bottle versus jar selection for skincare formulas",
       "url": "https://www.glorystarpack.com/insights/airless-pump-bottle-vs-jar-skincare-packaging/",
@@ -412,6 +444,30 @@
     }
   ],
   "pageMap": [
+    {
+      "url": "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
+      "pageType": "buyer guide",
+      "primaryIntent": "refillable cosmetic packaging system",
+      "summary": "System guide covering the reusable pack, refill unit, transfer action, compatibility, repeated use, distribution, refill continuity and supportable environmental claims."
+    },
+    {
+      "url": "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/",
+      "pageType": "performance guide",
+      "primaryIntent": "cosmetic packaging product evacuation",
+      "summary": "Normal-use testing guide comparing product residue in tubes, dip-tube pumps, airless packs, jars, droppers, sprays and refill systems."
+    },
+    {
+      "url": "https://www.glorystarpack.com/insights/travel-size-cosmetic-packaging-leak-testing-guide/",
+      "pageType": "buyer guide",
+      "primaryIntent": "travel-size cosmetic packaging",
+      "summary": "Selection and leak-testing guide for travel bottles, mini jars, tubes, sprayers and mixed kits by formula, closure, orientation, temperature and packed distribution."
+    },
+    {
+      "url": "https://www.glorystarpack.com/insights/body-butter-packaging-jars-tubes-tins-guide/",
+      "pageType": "buyer guide",
+      "primaryIntent": "body butter packaging",
+      "summary": "Format guide comparing glass and plastic jars, squeeze tubes, tins and pumps by body butter formula, fill temperature, wet-hand use, evacuation and shipping risk."
+    },
     {
       "url": "https://www.glorystarpack.com/insights/airless-pump-bottle-vs-jar-skincare-packaging/",
       "pageType": "buyer guide",
@@ -708,6 +764,57 @@
     }
   ],
   "keywordMap": [
+    {
+      "queryGroup": [
+        "refillable cosmetic packaging",
+        "refill pouch and reusable bottle",
+        "cosmetic refill packaging system",
+        "refill packaging design guide"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
+        "https://www.glorystarpack.com/products/refill-packaging/",
+        "https://www.glorystarpack.com/products/refill-pouch-packaging/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "cosmetic packaging product evacuation",
+        "cosmetic bottle product residue",
+        "lotion bottle product left inside",
+        "reduce cosmetic packaging residue"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/",
+        "https://www.glorystarpack.com/insights/cosmetic-pump-not-working-troubleshooting/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "travel size cosmetic packaging",
+        "leak resistant travel containers",
+        "travel lotion bottle packaging",
+        "travel cosmetic bottle leak testing"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/travel-size-cosmetic-packaging-leak-testing-guide/",
+        "https://www.glorystarpack.com/products/cosmetic-sample-packaging/",
+        "https://www.glorystarpack.com/products/hotel-amenity-packaging/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "body butter packaging",
+        "body butter jar vs tube",
+        "best containers for body butter",
+        "body butter tins wholesale"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/insights/body-butter-packaging-jars-tubes-tins-guide/",
+        "https://www.glorystarpack.com/products/cream-jars/",
+        "https://www.glorystarpack.com/products/cosmetic-tubes/"
+      ]
+    },
     {
       "queryGroup": [
         "airless pump bottle vs jar",

@@ -366,26 +366,56 @@ h3 {
 
 .related-card,
 .index-card {
-  display: block;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
   border: 1px solid var(--border);
-  border-radius: 9px;
+  border-radius: 12px;
   background: var(--white);
+  box-shadow: 0 10px 28px rgba(31, 27, 20, .045);
   text-decoration: none;
   overflow: hidden;
+  transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+
+.related-card:hover,
+.index-card:hover {
+  border-color: rgba(138, 108, 52, .55);
+  box-shadow: 0 18px 38px rgba(31, 27, 20, .11);
+  transform: translateY(-3px);
+}
+
+.related-card picture,
+.index-card picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f7f4ee, #ece6dc);
 }
 
 .related-card img,
 .index-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 1;
-  background: #f4f1ec;
-  object-fit: contain;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  background: transparent;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .32s ease;
+}
+
+.related-card:hover img,
+.index-card:hover img {
+  transform: scale(1.025);
 }
 
 .related-card div,
 .index-card div {
-  padding: 15px;
+  align-content: start;
+  padding: 16px 17px 18px;
 }
 
 .related-card strong,
@@ -405,20 +435,35 @@ h3 {
 }
 
 .index-hero {
-  padding: 58px 0 34px;
+  max-width: 920px;
+  padding: 62px 0 40px;
 }
 
 .index-hero p {
   max-width: 760px;
   color: var(--muted);
+  font-size: 16px;
 }
 
 .index-group {
-  margin-top: 36px;
+  margin-top: 0;
+  border-top: 1px solid var(--border);
+  padding: 38px 0 10px;
+}
+
+.index-group + .index-group {
+  margin-top: 32px;
+}
+
+.index-group h2 a {
+  text-decoration-color: rgba(138, 108, 52, .45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
 }
 
 .index-grid {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .resource-grid {
@@ -494,7 +539,7 @@ h3 {
   .related-grid,
   .index-grid,
   .resource-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -514,11 +559,28 @@ h3 {
   .related-grid,
   .index-grid,
   .resource-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .index-hero {
+    padding: 42px 0 30px;
+  }
+
+  .index-group {
+    padding-top: 30px;
   }
 
   .card,
   .rfq {
     padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .related-card,
+  .index-card,
+  .related-card img,
+  .index-card img {
+    transition: none;
   }
 }

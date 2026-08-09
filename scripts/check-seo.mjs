@@ -799,6 +799,14 @@ if (/--gsp-inquiry-gold:\s*#c8a96e/i.test(inquiryCssSource)) {
 for (const requiredMarker of ['background: var(--gold-dark)', '.rfq .eyebrow', 'text-decoration-thickness: 1px']) {
   if (!productCssSource.includes(requiredMarker)) errors.push(`assets/css/product-page.css is missing accessibility marker ${requiredMarker}`);
 }
+const catalogPictureRules = [...productCssSource.matchAll(/\.related-card picture,\s*\.index-card picture\s*\{([^}]*)\}/g)].map(match => match[1]);
+const catalogImageRule = productCssSource.match(/\.related-card img,\s*\.index-card img\s*\{([^}]*)\}/)?.[1] ?? '';
+if (!catalogPictureRules.some(rule => /aspect-ratio:\s*1/.test(rule) && /overflow:\s*hidden/.test(rule))) {
+  errors.push('assets/css/product-page.css does not constrain catalog pictures to a fixed square frame');
+}
+if (!/height:\s*100%/.test(catalogImageRule) || !/object-fit:\s*cover/.test(catalogImageRule)) {
+  errors.push('assets/css/product-page.css does not prevent intrinsic image dimensions from stretching catalog cards');
+}
 if (/SpeakableSpecification|["']speakable["']\s*:/.test(homepage)) {
   errors.push('homepage uses Speakable markup even though it is not a topical news page');
 }

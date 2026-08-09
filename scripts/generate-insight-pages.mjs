@@ -188,36 +188,68 @@ const insightDefinitions = {
   },
   '6': {
     slug: 'pcr-hdpe-personal-care-bottles',
-    seoTitle: 'PCR HDPE Bottles for Personal Care | GloryStarPack',
-    sources: references('ftcGreenGuides', 'iso14021', 'iso18604'),
-    sourceNote: 'A PCR percentage, recyclability statement or broader environmental claim should be supported and qualified for the product, component and destination market. These references do not certify any specific bottle or recycling outcome.',
+    seoTitle: 'PCR Plastic Cosmetic Packaging Buyer Guide | HDPE',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'PCR cosmetic packaging approval matrix',
+      intro: 'Approve recycled content, package performance and claim wording together. A PCR declaration does not by itself establish visual consistency, formula compatibility, recyclability or filled-pack performance.',
+      caption: 'Qualification checks for PCR HDPE cosmetic and personal-care packaging',
+      columns: ['Approval area', 'Requirement to define', 'Evidence before bulk production'],
+      rows: [
+        ['Recycled-content scope', 'Percentage, basis, resin grade and exact bottle, cap or pump component covered.', 'Item-specific supplier declaration and purchasing specification linked to the production version.'],
+        ['Appearance standard', 'Permitted color, opacity, odor, specks, streaks, surface texture and cosmetic defects.', 'Production-representative samples, signed limits and measurable color range where appropriate.'],
+        ['Bottle mechanics', 'Weight, wall distribution, squeeze recovery, panel resistance, impact and base stability.', 'Conditioned production-intent bottle results with documented acceptance criteria.'],
+        ['Closure and formula system', 'Neck, seal, torque, hinge or pump performance plus every formula-contact component.', 'Filled-package compatibility, leakage, dispensing and relevant storage-orientation evidence.'],
+        ['Decoration and labeling', 'Surface treatment, adhesive, ink, barcode contrast and resistance to squeeze and formula exposure.', 'Decorated filled samples reviewed across the accepted PCR appearance range.'],
+        ['Continuity and claims', 'Material change control, lot records, contingency route and destination-specific wording.', 'Traceability file and substantiation for each recycled-content, reduction or recyclability statement.']
+      ]
+    },
+    sources: references('ftcGreenGuides', 'iso14021', 'iso18602', 'iso18604', 'fdaCosmeticGmp', 'euPpwr'),
+    sourceNote: 'A PCR percentage, recyclability statement or broader environmental claim should be supported and qualified for the exact product, component and destination market. These references do not certify any GloryStarPack bottle, formula compatibility, local collection access or recycling outcome.',
     questions: [
-      'What recycled-content target and acceptable color variation should the sample establish?',
-      'Does the wall thickness provide the expected squeeze feel and panel stability?',
-      'Are the closure, label, decoration and carton packing compatible with the selected PCR bottle?'
+      'Which exact component contains PCR, what percentage applies and what item-specific evidence will support that statement?',
+      'What appearance, squeeze recovery, panel stability, closure and filled-package limits should production samples establish?',
+      'How will changes to resin source, blend, color, bottle weight, closure or decoration trigger notification and reapproval?'
     ],
-    note: 'PCR appearance can vary more than virgin resin. Approve realistic color, surface and mechanical expectations with the exact bottle and closure configuration.',
+    note: 'Do not infer recycled content from color or extend a bottle-level percentage to the whole package. Approve the exact PCR resin route, bottle, closure, formula, decoration, packing, evidence and claim language as one controlled configuration.',
     resources: [
       ['/products/personal-care-packaging/', 'Personal Care Packaging'],
       ['/products/plastic-packaging/', 'Plastic Packaging'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
   },
   '7': {
     slug: 'color-cosmetics-component-systems',
-    seoTitle: 'Color Cosmetics Component Systems | GloryStarPack',
-    sources: references('fdaMicrobiology', 'fdaColors', 'fdaCosmeticGmp'),
-    sourceNote: 'Applicator and component trials are only part of product safety and compliance. The responsible brand and technical teams must verify formula safety, intended-use color requirements, microbiological controls, labeling and market-specific obligations.',
+    seoTitle: 'Lip Gloss & Mascara Packaging Components | Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Lip gloss and mascara component matrix',
+      intro: 'Select each component around formula, dose and use action, then validate the filled assembly. Similar-looking tubes, wipers and wands should not be treated as interchangeable.',
+      caption: 'Component decisions for lip gloss, lip oil, mascara and brow-gel packaging',
+      columns: ['Component', 'Role in the system', 'Approval focus'],
+      rows: [
+        ['Rigid tube and neck', 'Contains the formula and provides the wiper seat, seal and closure interface.', 'Drawing, fill, headspace, neck and seal integrity, orientation, impact and formula compatibility.'],
+        ['Squeeze lip tube', 'Supports direct or applicator-tip dispensing through a threaded shoulder and cap.', 'Neck stress, thread engagement, over-torque, repeated squeeze, drop, sealing and clean dispensing.'],
+        ['Wiper', 'Controls stem cleanliness, product pickup, dose and withdrawal force.', 'Opening and lip geometry, material, retention, temperature response and formula-specific wipe-off.'],
+        ['Stem and applicator', 'Carries and places the intended dose on lips, lashes or brows.', 'Length, flexibility, attachment, application control, loose fibers, separation and neck contact.'],
+        ['Cap and seal', 'Closes the package and helps limit leakage, contamination and formula dry-out.', 'Closing condition, torque or lock, seal contact, repeated use, cap contamination and mass change.'],
+        ['Filled component system', 'Combines package, formula, fill, decoration, carton and sales route.', 'Compatibility, dose, leakage, dry-out, normal use and packed distribution with change control.']
+      ]
+    },
+    sources: references('fdaMicrobiology', 'fdaColors', 'fdaCosmeticGmp', 'iso22716', 'astmDistribution'),
+    sourceNote: 'Applicator and component trials are only part of product safety and compliance. These references do not certify an applicator or package. The responsible brand and technical teams must verify formula safety, intended-use color requirements, microbiological controls, labeling, distribution and market-specific obligations.',
     questions: [
-      'Does the applicator shape suit the formula and intended application area?',
-      'Are the wiper diameter, rod length, cap fit and tube geometry compatible?',
-      'Should the component set, decoration and carton be sampled together?'
+      'What formula, dose and application action must the tube, wiper and wand deliver after realistic storage?',
+      'Can the neck, wiper, stem, applicator, cap and seal withstand repeated opening, wiping, tightening, drops and packed distribution?',
+      'Which filled-package limits define acceptable leakage, cap contamination, pickup, withdrawal force, dry-out and component attachment?'
     ],
-    note: 'For mascara, brow gel, lip oil and gloss, component performance is part of the product experience. A tube should not be approved independently of its applicator and wiper.',
+    note: 'Do not approve a color-cosmetics tube independently of its formula, wiper, wand and closure. Freeze the exact component codes, fill, decoration, test evidence and reapproval triggers before bulk production.',
     resources: [
       ['/products/makeup-packaging/', 'Makeup Packaging'],
       ['/products/lip-gloss-tubes/', 'Lip Gloss Tubes'],
-      ['/custom-cosmetic-packaging/', 'Custom Packaging Process']
+      ['/products/cosmetic-packaging-accessories/', 'Packaging Accessories'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide']
     ]
   },
   '8': {
@@ -240,19 +272,35 @@ const insightDefinitions = {
   },
   '9': {
     slug: 'molded-pulp-gift-box-inserts',
-    seoTitle: 'Molded Pulp Inserts for Gift Boxes | GloryStarPack',
-    sources: references('astmDistribution', 'iso18602', 'iso18604'),
-    sourceNote: 'These sources support distribution planning and environmental assessment frameworks; they do not certify a molded-pulp insert or guarantee protection. Test the production-intent product, insert, retail pack and export carton together.',
+    seoTitle: 'Molded Pulp Packaging Inserts vs Foam | Guide',
+    dateModified: '2026-08-09',
+    decisionTable: {
+      heading: 'Protective insert material comparison',
+      intro: 'Choose the insert from the product, presentation and distribution functions. Material category alone does not establish protection, recyclability or a lower environmental impact.',
+      caption: 'Comparison of molded pulp, paperboard, corrugated, foam and thermoformed packaging inserts',
+      columns: ['Insert route', 'Useful direction', 'Qualification focus'],
+      rows: [
+        ['Molded pulp', 'Fiber-based formed cavities for bottles, jars, grooming sets and premium kits.', 'Draft, radii, fit tolerance, dust, moisture, scuff contact, nesting and production texture.'],
+        ['Folded paperboard', 'Printable flat structures, dividers and presentation platforms for moderate loads.', 'Tab and crease strength, assembly, cavity retention, edge contact and shipping protection.'],
+        ['Corrugated or honeycomb', 'Cushioning and compression support for heavier or more fragile products.', 'Flute or cell direction, cut edges, movement, visual finish, humidity and carton integration.'],
+        ['Foam', 'Precise cushioning and surface contact for selected fragile or high-finish products.', 'Resin and density, dust, odor, adhesives, compression set, scuffing and recovery route.'],
+        ['Thermoformed plastic', 'Repeatable geometry, visibility and nested trays for component sets.', 'Resin, gauge, static, sharp edges, scuffing, cavity fit, label area and local recovery context.'],
+        ['Hybrid system', 'Presentation insert combined with wraps, pads, dividers or a separate protective shipper.', 'Complete bill of materials, assembly time, pack volume, interaction and distribution evidence.']
+      ]
+    },
+    sources: references('astmDistribution', 'iso18602', 'iso18604', 'ftcGreenGuides', 'iso14021'),
+    sourceNote: 'These sources support distribution planning, packaging optimization and environmental-claim frameworks; they do not certify a molded-pulp insert, guarantee protection or establish local recycling access. Test the production-intent product, insert, retail pack and export or ecommerce carton together.',
     questions: [
-      'Are the insert cavities based on the final decorated bottle and cap dimensions?',
-      'What compression, drop and export-shipping conditions must the pack withstand?',
-      'How will the insert interact with the sleeve, rigid box, labels and unboxing sequence?'
+      'Which fragility, weight, vulnerable finish, movement and removal requirements must the insert control?',
+      'How do molded pulp, paperboard, corrugated, foam, thermoformed plastic or a hybrid compare for the complete pack?',
+      'What conditioning, compression, vibration, drop, assembly and environmental-claim evidence is needed before approval?'
     ],
-    note: 'Design the insert around production-intent components. Small changes to cap height, bottle diameter or decoration can alter fit and transit protection.',
+    note: 'Design and test the insert around production-intent decorated components, the retail box and the actual export or ecommerce pack. Do not equate a fiber material name with proven protection or automatic recyclability.',
     resources: [
       ['/products/cosmetic-packaging-kits/', 'Cosmetic Packaging Kits'],
-      ['/custom-cosmetic-packaging/', 'Custom Packaging Process'],
-      ['/contact/', 'Discuss a Gift Box Project']
+      ['/insights/cosmetic-packaging-right-sizing-guide/', 'Packaging Right-Sizing Guide'],
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
+      ['/contact/', 'Discuss an Insert Project']
     ]
   },
   '10': {
@@ -663,10 +711,10 @@ const insightConsiderations = {
   '3': 'Separate fixed requirements from preferences in the request. Formula, capacity, destination and quantity are usually fixed inputs; material, finish or closure may still be open to recommendation. Marking that difference helps the supplier propose realistic alternatives without confusing them with the approved specification.',
   '4': 'Qualify the visible guest pack and invisible service workflow together. The dispenser or mini must support clear formula identity, appropriate hygiene controls, wet-hand access and reliable output, while housekeeping needs a traceable way to replace or refill, inspect, clean and respond to a failed unit without mixing products or lots unintentionally.',
   '5': 'Start with the customer decision and number of useful trials, then select the sachet, vial, jar, tube or pump that can deliver that experience. Treat every primary pack, label, applicator, insert, card and carton as one bill of materials, and keep assembly and full-size conversion as visible design requirements.',
-  '6': 'Ask for the recycled-content declaration and the visual tolerance used for the production lot. PCR resin can affect color, odor, surface texture and mechanical behavior. The approved bottle should be reviewed with the final cap or pump, label stock, decoration and filled-product weight.',
-  '7': 'Use the actual formula during applicator trials whenever possible. A brush that performs well with a low-viscosity sample may load differently with mascara, brow gel or lip oil. Wiper selection, withdrawal force, dose, cap sealing and consumer handling should be evaluated as one system.',
+  '6': 'Define recycled content for each component and link the supporting declaration to the production item. Then approve the accepted color and surface range, bottle weight, wall distribution, squeeze recovery, closure, formula, decoration and filled-pack tests. PCR content and recyclability are separate claims, and neither should be inferred from the bottle appearance.',
+  '7': 'Translate complaints about broken necks, messy caps, overloaded applicators and dry product into filled-system controls. Use the actual formula to approve the tube, neck, wiper, stem, applicator, cap and seal together, and repeat relevant tests when a component, fill or formula changes.',
   '8': 'Create a component approval record that identifies the exact bottle mold, neck finish, liner, dip-tube length and closure version. Similar-looking pumps or caps may not be interchangeable. Repeating the approved configuration on purchase orders helps prevent substitutions that change dispensing or seal performance.',
-  '9': 'Model the insert with the production-intent bottle, closure and decoration thickness. The outer box, insert and product should be evaluated together for movement, scuffing and presentation. Export cartons may need extra dividers or orientation controls even when the retail insert fits correctly.',
+  '9': 'Compare molded pulp with paperboard, corrugated, foam, thermoformed plastic and hybrid structures against the same product and route. Model production-intent decorated components, then assess fit, removal, scuffing, humidity, assembly and distribution inside the final retail and shipping pack. Material category alone does not prove protection or recyclability.',
   '10': 'Start decoration trials on the approved base material and surface treatment. Glass coating, plastic resin, metal finishes and paper labels respond differently to inks, foils and adhesives. Confirm color tolerance, artwork position, rub resistance and formula exposure before the decorated sample becomes the production reference.',
   '11': 'Use stock bottles to validate the pack architecture before committing to custom tooling when the shape is still flexible. If a proprietary form is essential, define capacity, target weight, neck finish, decoration area, filling constraints and case packing before the mold brief is frozen.',
   '12': 'Ask for the bottle finish drawing and the closure specification in the same technical review. Nominal diameter is only one dimension; threads, beads, sealing surfaces, liner contact and application equipment determine whether the system can be approved.',

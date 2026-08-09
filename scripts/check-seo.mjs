@@ -550,7 +550,10 @@ const decisionMatrixRows = new Map([
   ['insights/cosmetic-packaging-product-evacuation-guide/index.html', 6],
   ['insights/travel-size-cosmetic-packaging-leak-testing-guide/index.html', 6],
   ['insights/body-butter-packaging-jars-tubes-tins-guide/index.html', 5],
-  ['insights/cosmetic-packaging-right-sizing-guide/index.html', 6]
+  ['insights/cosmetic-packaging-right-sizing-guide/index.html', 6],
+  ['insights/pcr-hdpe-personal-care-bottles/index.html', 6],
+  ['insights/color-cosmetics-component-systems/index.html', 6],
+  ['insights/molded-pulp-gift-box-inserts/index.html', 6]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'eur-lex.europa.eu',

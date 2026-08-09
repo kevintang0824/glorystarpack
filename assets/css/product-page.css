@@ -197,11 +197,21 @@ h3 {
   display: block;
 }
 
+.hero-media picture {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f7f4ee, #ece6dc);
+}
+
 .hero-media img {
   display: block;
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
 }
 
 .actions {

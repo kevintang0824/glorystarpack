@@ -815,11 +815,19 @@ for (const requiredMarker of ['background: var(--gold-dark)', '.rfq .eyebrow', '
 }
 const catalogPictureRules = [...productCssSource.matchAll(/\.related-card picture,\s*\.index-card picture\s*\{([^}]*)\}/g)].map(match => match[1]);
 const catalogImageRule = productCssSource.match(/\.related-card img,\s*\.index-card img\s*\{([^}]*)\}/)?.[1] ?? '';
+const productHeroPictureRule = productCssSource.match(/\.hero-media picture\s*\{([^}]*)\}/)?.[1] ?? '';
+const productHeroImageRule = productCssSource.match(/\.hero-media img\s*\{([^}]*)\}/)?.[1] ?? '';
 if (!catalogPictureRules.some(rule => /aspect-ratio:\s*1/.test(rule) && /overflow:\s*hidden/.test(rule))) {
   errors.push('assets/css/product-page.css does not constrain catalog pictures to a fixed square frame');
 }
 if (!/height:\s*100%/.test(catalogImageRule) || !/object-fit:\s*cover/.test(catalogImageRule)) {
   errors.push('assets/css/product-page.css does not prevent intrinsic image dimensions from stretching catalog cards');
+}
+if (!/aspect-ratio:\s*1/.test(productHeroPictureRule) || !/overflow:\s*hidden/.test(productHeroPictureRule)) {
+  errors.push('assets/css/product-page.css does not constrain product hero pictures to a fixed square frame');
+}
+if (!/height:\s*100%/.test(productHeroImageRule) || !/object-fit:\s*cover/.test(productHeroImageRule)) {
+  errors.push('assets/css/product-page.css does not prevent intrinsic image dimensions from stretching product heroes');
 }
 for (const requiredMarker of ['data-product-card', 'data-product-group', "event.key === 'Escape'", 'aria-live']) {
   const source = requiredMarker === 'aria-live' ? productIndex.source : productIndexJsSource;

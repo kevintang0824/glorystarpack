@@ -28,10 +28,18 @@
   display: block;
 }
 
+.article-figure picture {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
 .article-figure img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 8;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
   object-fit: cover;
 }
 
@@ -204,28 +212,58 @@
 
 .insight-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
 }
 
 .insight-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 14px;
   background: var(--white);
+  box-shadow: 0 10px 28px rgba(31, 37, 35, .055);
   text-decoration: none;
+  transition: border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+
+.insight-card:hover {
+  border-color: rgba(138, 108, 52, .52);
+  box-shadow: 0 18px 42px rgba(31, 37, 35, .12);
+  transform: translateY(-3px);
+}
+
+.insight-card picture {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #f1f2ef;
 }
 
 .insight-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  background: #f4f1ec;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  background: transparent;
   object-fit: cover;
+  object-position: center;
+  transition: transform .32s ease;
+}
+
+.insight-card:hover img {
+  transform: scale(1.025);
 }
 
 .insight-card div {
-  padding: 20px;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 19px 20px 21px;
 }
 
 .insight-card strong,
@@ -240,10 +278,65 @@
 }
 
 .insight-card span {
-  margin-top: 8px;
+  margin-top: auto;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.55;
+  padding-top: 11px;
+}
+
+.insight-card:focus-visible {
+  outline: 3px solid var(--gold-dark);
+  outline-offset: 3px;
+}
+
+body.insights-index {
+  background: #f6f7f5;
+}
+
+.insights-index .index-hero {
+  max-width: 900px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 35px;
+}
+
+.insights-index .insight-grid > .insight-card:first-child {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, .85fr);
+  grid-template-rows: none;
+}
+
+.insights-index .insight-grid > .insight-card:first-child picture {
+  height: 100%;
+  min-height: 340px;
+  aspect-ratio: 16 / 9;
+}
+
+.insights-index .insight-grid > .insight-card:first-child div {
+  justify-content: center;
+  padding: clamp(28px, 4vw, 48px);
+}
+
+.insights-index .insight-grid > .insight-card:first-child strong {
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.22;
+}
+
+.insights-index .insight-grid > .insight-card:first-child span {
+  margin-top: 20px;
+  padding-top: 0;
+}
+
+.insights-index .gsp-inquiry-dock {
+  grid-template-columns: 1fr;
+  width: auto;
+  gap: 0;
+  padding: 10px 38px 10px 10px;
+}
+
+.insights-index .gsp-inquiry-copy {
+  display: none;
 }
 
 @media (max-width: 860px) {
@@ -258,6 +351,47 @@
   .insight-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .insights-index .insight-grid > .insight-card:first-child {
+    grid-template-columns: minmax(0, 1.15fr) minmax(250px, .85fr);
+  }
+
+  .insights-index .insight-grid > .insight-card:first-child picture {
+    min-height: 290px;
+  }
+}
+
+@media (max-width: 680px) {
+  .insights-index .insight-grid > .insight-card:first-child {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .insights-index .insight-grid > .insight-card:first-child picture {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .insights-index .insight-grid > .insight-card:first-child div {
+    padding: 23px 22px 25px;
+  }
+
+  .insights-index .gsp-inquiry-dock {
+    right: 10px;
+    left: auto;
+    grid-template-columns: 1fr;
+    width: auto;
+    padding: 7px 32px 7px 7px;
+  }
+
+  .insights-index .gsp-inquiry-actions {
+    display: flex;
+  }
+
+  .insights-index .gsp-inquiry-action {
+    min-width: 96px;
+    min-height: 40px;
+  }
 }
 
 @media (max-width: 520px) {
@@ -265,7 +399,7 @@
     padding-top: 36px;
   }
 
-  .article-figure img {
+  .article-figure picture {
     aspect-ratio: 4 / 3;
   }
 
@@ -275,5 +409,21 @@
 
   .article-toc ol {
     grid-template-columns: 1fr;
+  }
+
+  .insights-index .index-hero {
+    margin-bottom: 20px;
+    padding-bottom: 28px;
+  }
+
+  .insight-card div {
+    padding: 18px 18px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insight-card,
+  .insight-card img {
+    transition: none;
   }
 }

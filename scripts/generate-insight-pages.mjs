@@ -1087,7 +1087,7 @@ function articlePage(article) {
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="preload" as="image" href="${responsiveImagePath(article.imagePath, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 1160px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260810">
   <meta property="og:type" content="article">
   <meta property="og:title" content="${escapeHtml(article.seoTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
@@ -1195,7 +1195,7 @@ function indexPage() {
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260810">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Packaging Insights &amp; Procurement Notes | GloryStarPack">
   <meta property="og:description" content="Practical notes for packaging RFQs, samples, materials, closures, decoration and complete sourcing systems.">
@@ -1207,7 +1207,7 @@ function indexPage() {
   <script type="application/ld+json">${schema}</script>
   <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
-<body>
+<body class="insights-index">
 ${headerMarkup()}
 <div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Packaging Insights</span></div>
 <main class="wrap">
@@ -1321,7 +1321,7 @@ function glassBottleGuideHubPage() {
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="preload" as="image" href="${responsiveImagePath(heroImage, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(heroImage, 640)} 640w, ${responsiveImagePath(heroImage, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260810">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Glass Bottle Buying Guides | GloryStarPack">
   <meta property="og:description" content="${escapeHtml(description)}">

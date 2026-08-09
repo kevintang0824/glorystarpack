@@ -7,6 +7,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
 const modifiedDate = '2026-08-02';
+const productIndexModifiedDate = '2026-08-09';
 
 const selectedProductIds = [
   'p1', 'p2', 'p4', 'p7', 'p18', 'p33', 'p34', 'p39', 'p43', 'p53',
@@ -538,8 +539,8 @@ function headerMarkup() {
 </header>`;
 }
 
-function footerMarkup() {
-  return `<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated ${modifiedDate}</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/products/product-index/">Product Index</a></span></div></footer>`;
+function footerMarkup(date = modifiedDate) {
+  return `<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated ${date}</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/products/product-index/">Product Index</a></span></div></footer>`;
 }
 
 function productPage(product) {
@@ -588,7 +589,7 @@ function productPage(product) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${productImage(product)}">
   <script type="application/ld+json">${jsonLd(product, category, canonical, description)}</script>
-  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
@@ -684,7 +685,7 @@ function productIndexPage() {
         url: `${siteUrl}/products/product-index/`,
         name: 'Packaging Product Index',
         description: 'Browse indexable GloryStarPack product pages for glass bottles, cosmetic packaging, beverage bottles, jars, airless pumps and related packaging.',
-        dateModified: modifiedDate,
+        dateModified: productIndexModifiedDate,
         provider: { '@id': `${siteUrl}/#organization` },
         breadcrumb: { '@id': `${siteUrl}/products/product-index/#breadcrumbs` }
       },
@@ -705,7 +706,18 @@ function productIndexPage() {
       ...commonGraphNodes()
     ]
   }).replace(/</g, '\\u003c');
-  const groupsMarkup = [...grouped.values()].map(({ category, items }) => `<section class="index-group"><div class="eyebrow">${escapeHtml(category.label)}</div><h2><a href="${category.path}">${escapeHtml(category.label)}</a></h2><div class="index-grid">${items.map(product => `<a class="index-card" href="${productPath(product)}"><picture><source type="image/avif" srcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" sizes="(max-width:720px) calc(100vw - 40px), 220px"><img src="${productImage(product)}" width="${product.imageWidth}" height="${product.imageHeight}" loading="lazy" decoding="async" alt="${escapeHtml(productName(product))} product view"></picture><div><strong>${escapeHtml(productName(product))}</strong><span>${escapeHtml(product.size)} · ${escapeHtml(product.mat)}</span></div></a>`).join('')}</div></section>`).join('');
+  const groupValues = [...grouped.values()].map(group => ({
+    ...group,
+    anchor: `category-${slugify(group.category.label)}`
+  }));
+  const directoryMarkup = groupValues.map(({ category, items, anchor }) => `<a href="#${anchor}"><span>${escapeHtml(category.label)}</span><small>${items.length}</small></a>`).join('');
+  let cardPosition = 0;
+  const groupsMarkup = groupValues.map(({ category, items, anchor }) => `<section class="index-group" id="${anchor}" data-product-group><div class="index-group-head"><div><div class="eyebrow">${escapeHtml(category.label)}</div><h2><a href="${category.path}">${escapeHtml(category.label)}</a></h2></div><span>${items.length} ${items.length === 1 ? 'product' : 'products'}</span></div><div class="index-grid">${items.map(product => {
+    const isFirstCard = cardPosition === 0;
+    cardPosition += 1;
+    const searchText = [productName(product), product.size, product.mat, product.finish, category.label].join(' ').toLowerCase();
+    return `<a class="index-card" data-product-card data-search="${escapeHtml(searchText)}" href="${productPath(product)}"><picture><source type="image/avif" srcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" sizes="(max-width:720px) calc(100vw - 40px), 220px"><img src="${productImage(product)}" width="${product.imageWidth}" height="${product.imageHeight}" loading="${isFirstCard ? 'eager' : 'lazy'}"${isFirstCard ? ' fetchpriority="high"' : ''} decoding="async" alt="${escapeHtml(productName(product))} product view"></picture><div><strong>${escapeHtml(productName(product))}</strong><span>${escapeHtml(product.size)} · ${escapeHtml(product.mat)}</span></div></a>`;
+  }).join('')}</div></section>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -727,16 +739,23 @@ function productIndexPage() {
   <meta property="og:image" content="${siteUrl}/assets/brand/glass-complete-product-assortment-2026.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
-  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup()}
 <div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Packaging Product Index</span></div>
 <main class="wrap">
-  <section class="index-hero"><div class="eyebrow">Crawlable product catalog</div><h1>Packaging Product Index</h1><p>Browse ${products.length} priority product pages with stable URLs, product specifications, sampling considerations and direct links to related packaging categories. Additional catalog products will be published after their specifications and page content are reviewed.</p></section>
+  <section class="index-hero"><div class="eyebrow">Crawlable product catalog</div><h1>Packaging Product Index</h1><p>Browse ${products.length} reviewed product pages by format, capacity and material. Every result links to a stable sourcing page with specifications, sample checks and related packaging routes.</p><div class="index-hero-meta" aria-label="Catalog scope"><span>${products.length} reviewed products</span><span>${groupValues.length} sourcing categories</span><span>Stable product URLs</span></div></section>
+  <section class="catalog-finder" aria-labelledby="catalog-finder-title">
+    <div class="catalog-finder-copy"><div class="eyebrow">Product finder</div><h2 id="catalog-finder-title">Search the sourcing catalog</h2><p>Try a product, capacity, material or component term such as “50ml glass,” “airless pump,” “PCR HDPE” or “28/410.”</p></div>
+    <div class="catalog-search-control"><label for="product-index-search">Search products</label><div class="catalog-search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg><input id="product-index-search" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Search product, size, material or neck…" aria-describedby="product-results-count"><button id="product-search-clear" type="button" hidden>Clear</button></div><p id="product-results-count" class="catalog-results-count" aria-live="polite">Showing all ${products.length} products.</p></div>
+  </section>
+  <nav class="index-directory" aria-label="Browse products by category"><div class="eyebrow">Browse by category</div><div class="index-directory-links">${directoryMarkup}</div></nav>
+  <div class="catalog-empty" id="product-index-empty" hidden><strong>No matching products found.</strong><span>Try a broader material, capacity or package type. You can also <a href="/contact/">send us your packaging brief</a>.</span></div>
   ${groupsMarkup}
 </main>
-${footerMarkup()}
+${footerMarkup(productIndexModifiedDate)}
+<script src="/assets/js/product-index.js" defer></script>
 <script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
@@ -767,7 +786,7 @@ fs.writeFileSync(path.join(indexDir, 'index.html'), productIndexPage());
 const sitemapEntries = [
   `  <url>
     <loc>${siteUrl}/products/product-index/</loc>
-    <lastmod>${modifiedDate}</lastmod>
+    <lastmod>${productIndexModifiedDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
   </url>`,

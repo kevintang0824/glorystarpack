@@ -696,6 +696,19 @@ else {
   if (!productIndex.source.includes('https://glorystarpack.en.alibaba.com/')) errors.push('products/product-index/index.html: missing Organization sameAs URL');
   const indexPictureCount = (productIndex.source.match(/<picture>/g) ?? []).length;
   if (indexPictureCount !== productPages.length) errors.push(`products/product-index/index.html: expected ${productPages.length} responsive product pictures, found ${indexPictureCount}`);
+  if (!productIndex.source.includes('id="product-index-search"') || !productIndex.source.includes('aria-live="polite"')) {
+    errors.push('products/product-index/index.html: product finder is missing its search control or live result status');
+  }
+  if (!productIndex.source.includes('src="/assets/js/product-index.js" defer')) errors.push('products/product-index/index.html: missing deferred product finder script');
+  const productGroupIds = [...productIndex.source.matchAll(/<section class="index-group" id="([^"]+)" data-product-group>/g)].map(match => match[1]);
+  const directoryTargets = [...productIndex.source.matchAll(/<a href="#(category-[^"]+)">/g)].map(match => match[1]);
+  if (productGroupIds.length < 10 || productGroupIds.length !== directoryTargets.length || productGroupIds.some((id, index) => id !== directoryTargets[index])) {
+    errors.push('products/product-index/index.html: category directory does not match the crawlable product groups');
+  }
+  const firstIndexImage = productIndex.source.match(/<a class="index-card"[\s\S]*?<img\b[^>]*>/)?.[0] ?? '';
+  if (!firstIndexImage.includes('loading="eager"') || !firstIndexImage.includes('fetchpriority="high"')) {
+    errors.push('products/product-index/index.html: first catalog image is not prioritized for LCP');
+  }
 }
 
 const glassGuideHub = pageRecords.find(record => record.rel === 'glass-bottle-buying-guides/index.html');
@@ -772,6 +785,7 @@ const mainJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/main.js'), 'u
 const inquiryJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/inquiry-conversion.js'), 'utf8');
 const inquiryCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/inquiry-conversion.css'), 'utf8');
 const productCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/product-page.css'), 'utf8');
+const productIndexJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/product-index.js'), 'utf8');
 const insightCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/insight-page.css'), 'utf8');
 const mainJsBytes = Buffer.byteLength(mainJsSource);
 const mainJsGzipBytes = gzipSync(mainJsSource).length;
@@ -806,6 +820,13 @@ if (!catalogPictureRules.some(rule => /aspect-ratio:\s*1/.test(rule) && /overflo
 }
 if (!/height:\s*100%/.test(catalogImageRule) || !/object-fit:\s*cover/.test(catalogImageRule)) {
   errors.push('assets/css/product-page.css does not prevent intrinsic image dimensions from stretching catalog cards');
+}
+for (const requiredMarker of ['data-product-card', 'data-product-group', "event.key === 'Escape'", 'aria-live']) {
+  const source = requiredMarker === 'aria-live' ? productIndex.source : productIndexJsSource;
+  if (!source?.includes(requiredMarker)) errors.push(`product finder is missing required marker ${requiredMarker}`);
+}
+if (/history\.(?:pushState|replaceState)|searchParams\.set/.test(productIndexJsSource)) {
+  errors.push('assets/js/product-index.js creates query-state URLs that could compete with the canonical product index');
 }
 if (/SpeakableSpecification|["']speakable["']\s*:/.test(homepage)) {
   errors.push('homepage uses Speakable markup even though it is not a topical news page');

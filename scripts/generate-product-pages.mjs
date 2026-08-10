@@ -6,6 +6,14 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
+const googleTagId = 'G-NYY1MTZ6HM';
+const googleTagMarkup = `<script async src="https://www.googletagmanager.com/gtag/js?id=${googleTagId}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+window.gtag('js', new Date());
+window.gtag('config', '${googleTagId}');
+</script>`;
 const modifiedDate = '2026-08-02';
 const productIndexModifiedDate = '2026-08-09';
 
@@ -567,6 +575,7 @@ function productPage(product) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+${googleTagMarkup}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(title)}</title>
@@ -722,6 +731,7 @@ function productIndexPage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+${googleTagMarkup}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packaging Product Index | GloryStarPack</title>

@@ -7,6 +7,14 @@ const rootDir = path.resolve(scriptDir, '..');
 const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
 const ignoredFiles = new Set(['glorystarpack (1).html', 'google130558f0f0763df4.html']);
 const checkOnly = process.argv.includes('--check');
+const googleTagId = 'G-NYY1MTZ6HM';
+const googleTagLoader = `<script async src="https://www.googletagmanager.com/gtag/js?id=${googleTagId}"></script>`;
+const googleTagBootstrap = `<script>
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+window.gtag('js', new Date());
+window.gtag('config', '${googleTagId}');
+</script>`;
 const stylesheet = '<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">';
 const script = '<script src="/assets/js/inquiry-conversion.js" defer></script>';
 
@@ -27,9 +35,11 @@ let changed = 0;
 
 for (const filePath of walk(rootDir)) {
   let source = fs.readFileSync(filePath, 'utf8');
+  const missingGoogleTagLoader = !source.includes(googleTagLoader);
+  const missingGoogleTagBootstrap = !source.includes(`window.gtag('config', '${googleTagId}')`);
   const missingStylesheet = !source.includes('/assets/css/inquiry-conversion.css');
   const missingScript = !source.includes('/assets/js/inquiry-conversion.js');
-  if (!missingStylesheet && !missingScript) continue;
+  if (!missingGoogleTagLoader && !missingGoogleTagBootstrap && !missingStylesheet && !missingScript) continue;
 
   const rel = path.relative(rootDir, filePath);
   if (checkOnly) {
@@ -41,6 +51,12 @@ for (const filePath of walk(rootDir)) {
     process.exitCode = 1;
     continue;
   }
+  if (missingGoogleTagLoader || missingGoogleTagBootstrap) {
+    const googleTagParts = [];
+    if (missingGoogleTagLoader) googleTagParts.push(googleTagLoader);
+    if (missingGoogleTagBootstrap) googleTagParts.push(googleTagBootstrap);
+    source = source.replace(/<head>/i, `<head>\n${googleTagParts.join('\n')}`);
+  }
   if (missingStylesheet) source = source.replace(/<\/head>/i, `${stylesheet}\n</head>`);
   if (missingScript) source = source.replace(/<\/body>/i, `${script}\n</body>`);
   fs.writeFileSync(filePath, source);
@@ -48,11 +64,11 @@ for (const filePath of walk(rootDir)) {
 }
 
 if (missing.length) {
-  console.error(`Inquiry conversion assets are missing from ${missing.length} HTML files:`);
+  console.error(`Google Analytics or inquiry conversion assets are missing from ${missing.length} HTML files:`);
   missing.forEach(file => console.error(`- ${file}`));
   process.exitCode = 1;
 } else if (checkOnly) {
-  console.log('Inquiry conversion layer is present on every HTML page.');
+  console.log(`Google tag ${googleTagId} and the inquiry conversion layer are present on every HTML page.`);
 } else {
-  console.log(`Installed the inquiry conversion layer on ${changed} HTML pages.`);
+  console.log(`Installed Google tag ${googleTagId} and the inquiry conversion layer on ${changed} HTML pages.`);
 }

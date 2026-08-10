@@ -6,6 +6,14 @@ import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
+const googleTagId = 'G-NYY1MTZ6HM';
+const googleTagMarkup = `<script async src="https://www.googletagmanager.com/gtag/js?id=${googleTagId}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+window.gtag('js', new Date());
+window.gtag('config', '${googleTagId}');
+</script>`;
 const modifiedDate = '2026-08-01';
 const indexModifiedDate = '2026-08-10';
 
@@ -1116,6 +1124,7 @@ function articlePage(article) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+${googleTagMarkup}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(article.seoTitle)}</title>
@@ -1226,6 +1235,7 @@ function indexPage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+${googleTagMarkup}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packaging Insights &amp; Procurement Notes | GloryStarPack</title>
@@ -1351,6 +1361,7 @@ function glassBottleGuideHubPage() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
+${googleTagMarkup}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Glass Bottle Buying Guides | MOQ, Closures &amp; QC</title>

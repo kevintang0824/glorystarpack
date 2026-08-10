@@ -125,11 +125,16 @@
       inquiry_channel: cleanText(link.dataset.inquiryChannel || 'unknown', 40),
       inquiry_type: inquiryTypeForLink(link),
       inquiry_location: cleanText(link.dataset.inquiryLocation || 'page', 40),
-      inquiry_topic: pageTopic(),
-      page_path: currentPath
+      inquiry_topic: cleanText(pageTopic(), 100),
+      page_path: cleanText(currentPath, 100)
     };
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(eventDetail);
+    const { event: eventName, ...eventParameters } = eventDetail;
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, eventParameters);
+    } else {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(eventDetail);
+    }
     document.dispatchEvent(new CustomEvent('gsp:inquiry-click', { detail: eventDetail }));
   }
 

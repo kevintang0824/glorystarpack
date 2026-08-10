@@ -6,6 +6,7 @@ import { gzipSync } from 'node:zlib';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
+const googleTagId = 'G-NYY1MTZ6HM';
 const indexNowKey = 'f5c6d8e91a2b47c0ad74e69321fb805e';
 const indexNowKeyFileName = `${indexNowKey}.txt`;
 const ignoredDirectories = new Set(['.git', 'backups', 'tmp']);
@@ -127,6 +128,12 @@ for (const filePath of htmlFiles) {
   const isNotFoundPage = rel === '404.html';
 
   if (rel === 'google130558f0f0763df4.html') continue;
+  const googleTagLoader = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+  const googleTagLoaderCount = source.split(googleTagLoader).length - 1;
+  const googleTagConfigMarker = `window.gtag('config', '${googleTagId}')`;
+  const googleTagConfigCount = source.split(googleTagConfigMarker).length - 1;
+  if (googleTagLoaderCount !== 1) errors.push(`${rel}: expected 1 Google tag loader for ${googleTagId}, found ${googleTagLoaderCount}`);
+  if (googleTagConfigCount !== 1) errors.push(`${rel}: expected 1 GA4 configuration for ${googleTagId}, found ${googleTagConfigCount}`);
   if (!title) errors.push(`${rel}: missing title`);
   if (!description) errors.push(`${rel}: missing meta description`);
   if (!canonical && !isNotFoundPage) errors.push(`${rel}: missing canonical`);
@@ -671,10 +678,6 @@ if (!fs.existsSync(feedPath)) {
   }
 }
 
-if (!/googletagmanager\.com|google-analytics\.com|gtag\(/i.test(homepage)) {
-  warnings.push('a real GA4 measurement ID is not configured; inquiry_click events are ready in dataLayer but not yet collected remotely');
-}
-
 const insightIndex = pageRecords.find(record => record.rel === 'insights/index.html');
 if (!insightIndex) errors.push('missing insights/index.html');
 else {
@@ -803,7 +806,7 @@ if (!mainJsSource.includes('function enhanceKeyboardControls')) {
 if (!mainJsSource.includes('function currentWebsitePage') || !mainJsSource.includes('Website page: ${currentWebsitePage()}')) {
   errors.push('assets/js/main.js inquiry builders do not preserve the website-page source');
 }
-for (const requiredMarker of ['inquiry_click', 'dataLayer.push', 'data-source-page', 'gsp:inquiry-click']) {
+for (const requiredMarker of ['inquiry_click', "window.gtag('event'", 'dataLayer.push', 'data-source-page', 'gsp:inquiry-click']) {
   if (!inquiryJsSource.includes(requiredMarker)) errors.push(`assets/js/inquiry-conversion.js is missing ${requiredMarker}`);
 }
 if (!inquiryCssSource.includes('.gsp-inquiry-dock') || !inquiryCssSource.includes(':focus-visible')) {

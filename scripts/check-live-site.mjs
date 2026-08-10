@@ -1,4 +1,5 @@
 const defaultBaseUrl = 'https://www.glorystarpack.com';
+const googleTagId = 'G-NYY1MTZ6HM';
 const requestedBaseUrl = process.argv.find(arg => arg.startsWith('--base='))?.slice(7) || defaultBaseUrl;
 const baseUrl = new URL(requestedBaseUrl);
 const errors = [];
@@ -32,6 +33,17 @@ if (!homepage.body.includes('<link rel="canonical" href="https://www.glorystarpa
 }
 if (/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(homepage.body)) {
   errors.push('homepage unexpectedly contains noindex');
+}
+if (!homepage.body.includes(`https://www.googletagmanager.com/gtag/js?id=${googleTagId}`)) {
+  errors.push(`homepage is missing the Google tag loader for ${googleTagId}`);
+}
+if (!homepage.body.includes(`window.gtag('config', '${googleTagId}')`)) {
+  errors.push(`homepage is missing the GA4 configuration for ${googleTagId}`);
+}
+
+const inquiryScript = await fetchText('/assets/js/inquiry-conversion.js');
+if (!inquiryScript.body.includes("window.gtag('event', eventName, eventParameters)")) {
+  errors.push('live inquiry tracking does not send inquiry_click through gtag');
 }
 
 for (const pathname of [

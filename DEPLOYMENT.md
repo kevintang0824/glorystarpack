@@ -33,8 +33,9 @@ Google 把 sitemap 提交视为发现提示，而不是收录保证。不要重�
 
 - `assets/js/inquiry-conversion.js` 会在内容页生成可关闭的 WhatsApp / RFQ 快捷入口，并把当前页面主题、URL 和询盘意图带入消息或联系页。
 - `assets/css/inquiry-conversion.css` 提供桌面与移动端样式。新增 HTML 页面后先运行 `node scripts/apply-inquiry-layer.mjs`；日常同步和 GitHub Actions 会用 `--check` 防止遗漏。
-- 点击 WhatsApp、邮件或 RFQ 入口时，页面会向 `window.dataLayer` 写入 `inquiry_click`，包含渠道、意图、入口位置、页面主题和路径，不包含访客填写的姓名、邮箱或电话。
-- 目前仓库没有真实 GA4 Measurement ID，因此事件尚未集中上报。获得该 ID 后接入 Google tag，并在 GA4 中把 `inquiry_click` 作为询盘意向事件观察；它代表点击询盘入口，不应误报成已经成交或已经发送的询盘。
+- 全站 Google tag 使用 GA4 Measurement ID `G-NYY1MTZ6HM`；`gtag('config', ...)` 发送默认 `page_view`。
+- 点击 WhatsApp、邮件或 RFQ 入口时，页面通过 `gtag('event', 'inquiry_click', ...)` 上报渠道、意图、入口位置、页面主题和路径，不包含访客填写的姓名、邮箱或电话。在 GA4 中把 `inquiry_click` 作为询盘意向事件观察；它代表点击询盘入口，不应误报成已经成交或已经发送的询盘。
+- `inquiry_click` 首次进入 GA4 后，在 Admin → Events / Key events 将它标记为 Key event；在 Custom definitions 中按需注册事件级维度 `inquiry_channel`、`inquiry_type`、`inquiry_location` 和 `inquiry_topic`，用于比较 WhatsApp、邮件、RFQ 入口与页面主题。
 - 浅色页面上的品牌金使用 WCAG AA 深金；暗色背景仍可使用亮金。新增内联样式页面后运行 `node scripts/enforce-accessible-colors.mjs`，发布检查会阻止低对比度按钮和眉题重新进入正式站。
 
 ### 从增量备份恢复

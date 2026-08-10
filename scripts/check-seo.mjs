@@ -553,17 +553,19 @@ const decisionMatrixRows = new Map([
   ['insights/cosmetic-packaging-right-sizing-guide/index.html', 6],
   ['insights/pcr-hdpe-personal-care-bottles/index.html', 6],
   ['insights/color-cosmetics-component-systems/index.html', 6],
-  ['insights/molded-pulp-gift-box-inserts/index.html', 6]
+  ['insights/molded-pulp-gift-box-inserts/index.html', 6],
+  ['insights/cosmetic-packaging-tamper-evident-seals-guide/index.html', 6]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'eur-lex.europa.eu',
   'store.astm.org',
   'www.fda.gov',
   'www.ftc.gov',
+  'www.gov.uk',
   'www.iso.org',
   'www.phmsa.dot.gov'
 ]);
-if (insightArticles.length !== 23) errors.push(`expected 23 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 24) errors.push(`expected 24 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);

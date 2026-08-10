@@ -4,6 +4,7 @@
 
 .insight-hero h1 {
   max-width: 880px;
+  overflow-wrap: anywhere;
 }
 
 .article-meta {
@@ -48,9 +49,11 @@
   grid-template-columns: minmax(0, 1fr) 280px;
   gap: 34px;
   align-items: start;
+  min-width: 0;
 }
 
 .article-body {
+  min-width: 0;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--white);
@@ -58,6 +61,7 @@
 }
 
 .article-toc {
+  min-width: 0;
   margin-bottom: 34px;
   border: 1px solid var(--border);
   border-radius: 9px;
@@ -341,7 +345,7 @@ body.insights-index {
 
 @media (max-width: 860px) {
   .article-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .article-sidebar {
@@ -409,6 +413,14 @@ body.insights-index {
 
   .article-toc ol {
     grid-template-columns: 1fr;
+  }
+
+  .article-body {
+    padding: 24px;
+  }
+
+  .article-toc {
+    padding: 18px;
   }
 
   .insights-index .index-hero {

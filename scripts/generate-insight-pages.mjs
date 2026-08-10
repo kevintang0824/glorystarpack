@@ -7,7 +7,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-09';
+const indexModifiedDate = '2026-08-10';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -21,6 +21,8 @@ const primarySources = {
   fdaCosmeticLabeling: ['https://www.fda.gov/cosmetics/cosmetics-labeling-regulations/summary-cosmetics-labeling-requirements', 'FDA summary of cosmetics labeling requirements', 'Summarizes U.S. labeling responsibilities and adulteration or misbranding considerations.'],
   fdaMicrobiology: ['https://www.fda.gov/cosmetics/potential-contaminants-cosmetics/microbiological-safety-and-cosmetics', 'FDA microbiological safety and cosmetics', 'Explains contamination risks, including packaging that does not adequately protect a cosmetic product.'],
   fdaSmallBusinessCosmetics: ['https://www.fda.gov/cosmetics/resources-industry-cosmetics/small-businesses-homemade-cosmetics-fact-sheet', 'FDA small-business and homemade cosmetics fact sheet', 'Explains U.S. cosmetic-business responsibilities, including packaging, contamination and labeling considerations.'],
+  fdaTamperCosmetics: ['https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cpg-sec-590500-packaging-technologies-and-tamper-resistant-packaging-requirements-cosmetic-products', 'FDA cosmetic tamper-resistant packaging policy guide', 'Points to the U.S. tamper-resistant packaging requirements for the cosmetic product categories covered by 21 CFR 700.25.'],
+  fdaTamperOtc: ['https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cpg-sec-450500-tamper-resistant-packaging-requirements-certain-over-counter-human-drug-products', 'FDA tamper-resistant packaging guide for certain OTC drugs', 'Summarizes the separate U.S. tamper-resistant packaging framework that may apply when a finished product is regulated as an OTC drug.'],
   ftcGreenGuides: ['https://www.ftc.gov/business-guidance/resources/environmental-claims-summary-green-guides', 'FTC environmental claims summary', 'Explains qualification and substantiation considerations for recycled-content, recyclable and refillable claims in the U.S.'],
   iso11156: ['https://www.iso.org/standard/50175.html', 'ISO 11156 packaging accessible-design overview', 'Provides a framework for packages that more people can identify, handle, use, separate and dispose of.'],
   iso14021: ['https://www.iso.org/standard/14021', 'ISO 14021:2026 environmental claims overview', 'Describes requirements and guidance for self-declared environmental statements used on products, packaging and digital materials.'],
@@ -29,7 +31,8 @@ const primarySources = {
   iso18604: ['https://www.iso.org/standard/55872.html', 'ISO 18604:2013 material-recycling overview', 'Defines assessment requirements for packaging intended to be recoverable through material recycling.'],
   iso22716: ['https://www.iso.org/standard/36437.html', 'ISO 22716:2007 cosmetic GMP overview', 'Describes quality guidance for cosmetic production, control, storage and shipment.'],
   iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.'],
-  phmsaPerfumeryProducts: ['https://www.phmsa.dot.gov/regulations/title49/interp/20-0011', 'U.S. PHMSA interpretation on perfumery products', 'Explains that transport classification depends on the product function and whether a finished cosmetic contains a regulated flammable liquid.']
+  phmsaPerfumeryProducts: ['https://www.phmsa.dot.gov/regulations/title49/interp/20-0011', 'U.S. PHMSA interpretation on perfumery products', 'Explains that transport classification depends on the product function and whether a finished cosmetic contains a regulated flammable liquid.'],
+  ukCosmetics: ['https://www.gov.uk/guidance/consumer-products-cosmetics', 'UK government cosmetic products guidance', 'Summarizes responsible-person, safety, notification and packaging-information duties for cosmetic products made available in Great Britain.']
 };
 
 function references(...keys) {
@@ -267,6 +270,7 @@ const insightDefinitions = {
     resources: [
       ['/products/cosmetic-pumps-closures/', 'Pumps and Closures'],
       ['/products/cosmetic-packaging-accessories/', 'Packaging Accessories'],
+      ['/insights/cosmetic-packaging-tamper-evident-seals-guide/', 'Tamper-Evident Seal Guide'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
   },
@@ -404,6 +408,7 @@ const insightDefinitions = {
     resources: [
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
       ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/insights/cosmetic-packaging-tamper-evident-seals-guide/', 'Tamper-Evident Seal Guide'],
       ['/contact/', 'Prepare a Compatibility Review RFQ']
     ]
   },
@@ -702,6 +707,41 @@ const insightDefinitions = {
       ['/insights/cosmetic-packaging-product-evacuation-guide/', 'Product Evacuation Guide'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
+  },
+  '24': {
+    slug: 'cosmetic-packaging-tamper-evident-seals-guide',
+    seoTitle: 'Cosmetic Packaging Tamper-Evident Seals | Guide',
+    dateModified: '2026-08-10',
+    decisionTable: {
+      heading: 'Tamper-evidence format selection matrix',
+      intro: 'Choose the evidence layer only after the finished product classification, container, filling route, consumer action and destination requirements are known.',
+      caption: 'Comparison of common tamper-evident packaging routes for cosmetics',
+      columns: ['Evidence route', 'Useful starting direction', 'Qualification focus'],
+      rows: [
+        ['Shrink band or neck sleeve', 'Visible bridge between cap and container for bottles, jars and selected dispensing packs.', 'Material, heat, perforation, distinctive print, removal, decoration contact and shipping abrasion.'],
+        ['Breakaway or first-opening closure', 'Integrated cap ring, tab or indicator that changes visibly on first opening.', 'Exact finish and tooling, consistent separation, loose parts, opening force and accepted opened state.'],
+        ['Induction or adhered inner seal', 'Membrane over a compatible bottle or jar opening under the applied closure.', 'Container material and land, liner, formula contact, cap torque, seal settings, peel and residue.'],
+        ['Tube membrane or sealed orifice', 'First-opening barrier integrated into a tube shoulder, nozzle or outlet.', 'Membrane and formula, puncture or peel action, fragments, filling route and safe consumer access.'],
+        ['Sealed carton or patterned label', 'Outer evidence layer when the carton remains with the product through retail sale.', 'Flap or label construction, distinctive feature, replacement risk, statement placement and retail handling.'],
+        ['Sealed pouch or overwrap', 'Complete outer barrier for kits, samples or selected retail configurations.', 'Seal integrity, tear evidence, labeling, component movement, material contact and ecommerce durability.']
+      ]
+    },
+    sources: references('fdaCosmeticLabeling', 'fdaTamperCosmetics', 'fdaTamperOtc', 'ukCosmetics', 'astmDistribution'),
+    sourceNote: 'Product classification and destination rules determine whether a tamper-resistant feature and statement are required. These sources do not approve a particular band, liner, membrane, carton, wording or test plan. The responsible regulatory and technical teams must confirm the finished product and production-intent package.',
+    questions: [
+      'How is the finished product classified in every destination, and which tamper-resistant or tamper-evident provisions apply?',
+      'Which visible feature will remain intact through filling, distribution and retail handling yet be understandable and removable by the intended user?',
+      'Does the approval record define the exact container, closure, evidence layer, application process, statement, inspection limits and shipper?'
+    ],
+    note: 'Do not add an unqualified sticker or call a package tamper-proof. Approve one distinctive, visible and reproducible evidence system around the finished product classification, line process, consumer cue and final distribution route.',
+    resources: [
+      ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
+      ['/products/cosmetic-packaging-accessories/', 'Packaging Accessories'],
+      ['/products/cosmetic-tubes/', 'Cosmetic Tubes'],
+      ['/insights/packaging-closure-qc-checklist/', 'Closure QC Checklist'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
+      ['/contact/', 'Discuss a Packaging Security Brief']
+    ]
   }
 };
 
@@ -728,7 +768,8 @@ const insightConsiderations = {
   '20': 'Define the user action and dose threshold that end normal use, then weigh the filled and residual package under controlled conditions. Compare formats with the same formula, temperature and accepted endpoint. Product left after cutting or dismantling can reveal an opportunity, but it should not be mixed into the normal-use result.',
   '21': 'Travel qualification combines the primary container with its final neighbors and restraint. Test formula contact, closure sealing and dispensing first, then expose the packed kit to relevant orientation, temperature and distribution hazards. Record exact item codes so a similar miniature container is not substituted on repeat orders.',
   '22': 'Map formula water content, oils, fragrance, viscosity, fill temperature and cooling behavior before selecting the pack. Review direct access, wet-hand grip, evacuation and bathroom breakage alongside compatibility and shipping. A beautiful jar, tube or tin is only suitable when the production-intent system supports the formula and use action.',
-  '23': 'Measure the primary container, closure, carton, insert and ecommerce shipper against the functions each must preserve. Compare a defined baseline with the revised production-intent system, including material moved to another layer. Keep usability, label space, product protection and distribution performance inside the right-sizing acceptance criteria.'
+  '23': 'Measure the primary container, closure, carton, insert and ecommerce shipper against the functions each must preserve. Compare a defined baseline with the revised production-intent system, including material moved to another layer. Keep usability, label space, product protection and distribution performance inside the right-sizing acceptance criteria.',
+  '24': 'Start with finished-product classification and the route to market, then separate visible tamper evidence from leakage control and child resistance. Approve the exact barrier, application process, consumer statement, intact and opened appearance, compatibility consequences and packed-route durability as one controlled system.'
 };
 
 function escapeHtml(value) {
@@ -1087,7 +1128,7 @@ function articlePage(article) {
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="preload" as="image" href="${responsiveImagePath(article.imagePath, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 1160px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260810">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
   <meta property="og:type" content="article">
   <meta property="og:title" content="${escapeHtml(article.seoTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
@@ -1195,7 +1236,7 @@ function indexPage() {
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260810">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Packaging Insights &amp; Procurement Notes | GloryStarPack">
   <meta property="og:description" content="Practical notes for packaging RFQs, samples, materials, closures, decoration and complete sourcing systems.">
@@ -1321,7 +1362,7 @@ function glassBottleGuideHubPage() {
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="preload" as="image" href="${responsiveImagePath(heroImage, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(heroImage, 640)} 640w, ${responsiveImagePath(heroImage, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260810">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Glass Bottle Buying Guides | GloryStarPack">
   <meta property="og:description" content="${escapeHtml(description)}">

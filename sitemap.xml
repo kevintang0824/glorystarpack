@@ -653,15 +653,21 @@
   <!-- BEGIN GENERATED INSIGHT PAGES -->
   <url>
     <loc>https://www.glorystarpack.com/glass-bottle-buying-guides/</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/</loc>
-    <lastmod>2026-08-09</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/insights/cosmetic-packaging-tamper-evident-seals-guide/</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/</loc>

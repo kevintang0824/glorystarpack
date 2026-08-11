@@ -916,6 +916,50 @@ if (!homepage.includes('.dd-link:focus-visible,.sb-link:focus-visible,.helper-it
   errors.push('homepage is missing visible focus styles for custom interactive controls');
 }
 
+const sourcingRoutePaths = [
+  '/cosmetic-packaging-supplier-china/',
+  '/custom-cosmetic-packaging/',
+  '/wholesale-cosmetic-packaging/',
+  '/oem-cosmetic-packaging/',
+  '/private-label-cosmetic-packaging/'
+];
+for (const routePath of sourcingRoutePaths) {
+  if (!homepage.includes(`href="${routePath}"`)) {
+    errors.push(`homepage is missing the priority sourcing-route link ${routePath}`);
+  }
+}
+
+const customPackagingPage = pageRecords.find(record => record.rel === 'custom-cosmetic-packaging/index.html');
+const oemPackagingPage = pageRecords.find(record => record.rel === 'oem-cosmetic-packaging/index.html');
+if (!customPackagingPage) errors.push('missing custom-cosmetic-packaging/index.html');
+else {
+  if (!customPackagingPage.source.includes('href="/products/product-index/">View Products')) {
+    errors.push('custom cosmetic packaging navigation does not lead to the product catalog');
+  }
+  if (!customPackagingPage.source.includes('Which custom packaging route fits?')) {
+    errors.push('custom cosmetic packaging page is missing its route-selection answer');
+  }
+}
+if (!oemPackagingPage) errors.push('missing oem-cosmetic-packaging/index.html');
+else {
+  if (!oemPackagingPage.source.includes('href="/products/product-index/">View Products')) {
+    errors.push('OEM/ODM packaging navigation does not lead to the product catalog');
+  }
+  if (!oemPackagingPage.source.includes('OEM vs ODM cosmetic packaging: what is the difference?')) {
+    errors.push('OEM/ODM packaging page is missing the OEM-versus-ODM answer');
+  }
+}
+
+for (const cannibalizingMap of [
+  'should resolve to the homepage and custom cosmetic packaging page',
+  'should resolve to the China supplier page and homepage',
+  'should resolve to the custom cosmetic packaging and OEM/ODM cosmetic packaging pages'
+]) {
+  if (llmsSource.includes(cannibalizingMap)) {
+    errors.push(`llms.txt retains an overlapping keyword map: ${cannibalizingMap}`);
+  }
+}
+
 console.log(`Checked ${pageRecords.length} HTML pages, ${sitemapUrls.length} sitemap URLs, ${productPages.length} product pages and ${insightArticles.length} insight articles.`);
 console.log(`Homepage crawlable product links: ${homepageProductLinks.size}.`);
 console.log(`Homepage crawlable insight links: ${homepageInsightLinks.size}.`);

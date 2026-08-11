@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-08-09",
+  "dateModified": "2026-08-12",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",

@@ -97,7 +97,7 @@ GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM pac
 ## Keyword Map
 
 - "custom glass bottle manufacturer", "glass bottle manufacturer" and "glass bottle supplier China" should resolve to the homepage.
-- "cosmetic packaging manufacturer" should resolve to the homepage and custom cosmetic packaging page.
+- "cosmetic packaging manufacturer" and "custom cosmetic packaging" should resolve to the custom cosmetic packaging page.
 - "beverage bottles", "glass beverage bottle supplier", "glass mineral water bottles", "amber cold brew bottles", "wide neck PET juice bottles" and "specialty drink bottles" should resolve to the beverage bottles page and homepage beverage catalog.
 - "beer bottle manufacturer", "wholesale glass beer bottles", "amber beer bottles", "Belgian ale bottles", "glass kombucha bottles", "330ml beer bottles", "355ml beer bottles", "500ml beer bottles", "long neck beer bottles" and "swing top beer bottles" should resolve to the beer bottles page.
 - "wine bottles", "wholesale wine bottles", "Bordeaux wine bottles", "Burgundy wine bottles", "rose wine bottles", "fortified wine bottles", "sparkling wine bottles" and "mini wine bottles" should resolve to the wine bottles page and homepage wine-bottle catalog.
@@ -106,9 +106,9 @@ GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM pac
 - "vodka bottle manufacturer", "wholesale vodka bottles", "clear vodka bottles", "frosted vodka bottles" and "mini vodka bottles" should resolve to the vodka bottles page.
 - "gin bottle manufacturer", "wholesale gin bottles", "custom gin bottles", "fluted gin bottles" and "apothecary gin bottles" should resolve to the gin bottles page.
 - "sparkling wine bottle manufacturer", "wholesale sparkling wine bottles", "200ml sparkling bottles", "375ml sparkling bottles" and "750ml sparkling wine bottles" should resolve to the sparkling wine bottles page.
-- "cosmetic packaging supplier China", "cosmetic packaging manufacturer China", "OEM cosmetic packaging China" and "beauty packaging supplier China" should resolve to the China supplier page and homepage.
-- "wholesale cosmetic packaging", "bulk cosmetic packaging", "cosmetic packaging wholesale supplier", "wholesale beauty packaging", "bulk cosmetic bottles" and "bulk cosmetic jars" should resolve to the wholesale cosmetic packaging page and MOQ guide.
-- "custom cosmetic packaging" should resolve to the custom cosmetic packaging and OEM/ODM cosmetic packaging pages.
+- "cosmetic packaging supplier China", "cosmetic packaging manufacturer China", "OEM cosmetic packaging China" and "beauty packaging supplier China" should resolve to the China supplier page.
+- "wholesale cosmetic packaging", "bulk cosmetic packaging", "cosmetic packaging wholesale supplier", "wholesale beauty packaging", "bulk cosmetic bottles" and "bulk cosmetic jars" should resolve to the wholesale cosmetic packaging page; the MOQ guide is supporting information.
+- "OEM cosmetic packaging", "ODM cosmetic packaging" and "OEM/ODM cosmetic packaging service" should resolve to the OEM/ODM cosmetic packaging page.
 - "private label cosmetic packaging" should resolve to the private label cosmetic packaging page.
 - "skincare packaging manufacturer" should resolve to the skincare packaging page.
 - "glass cosmetic bottles", "sculpted glass perfume bottles" and "slim rectangular nail polish bottles" should resolve to the glass cosmetic bottles page, glass packaging page, perfume bottles page and nail polish bottles page.

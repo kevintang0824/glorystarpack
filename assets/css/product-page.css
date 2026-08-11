@@ -783,6 +783,11 @@ h3 {
     padding: 38px 0;
   }
 
+  .site-nav {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .catalog-finder {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -801,7 +806,15 @@ h3 {
   }
 
   .site-nav {
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px 12px;
+  }
+
+  .site-nav a {
+    min-width: 0;
+    font-size: 12px;
+    line-height: 1.35;
   }
 
   .hero-facts {

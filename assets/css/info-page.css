@@ -172,6 +172,61 @@
   outline: 2px solid rgba(138, 108, 52, .14);
 }
 
+.field input:user-invalid,
+.field textarea:user-invalid {
+  border-color: #a33a2b;
+}
+
+.rfq-form .actions {
+  align-items: stretch;
+}
+
+.rfq-form .btn {
+  min-height: 46px;
+  justify-content: center;
+}
+
+.rfq-form .btn[disabled] {
+  cursor: wait;
+  opacity: .62;
+}
+
+.rfq-honeypot {
+  position: fixed;
+  left: -100vw;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rfq-status {
+  min-height: 22px;
+  margin: 0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rfq-status:not(:empty) {
+  padding: 11px 13px;
+}
+
+.rfq-status.is-pending {
+  background: #f4efe5;
+  color: #5e4c2e;
+}
+
+.rfq-status.is-success {
+  background: #e9f5ec;
+  color: #235f34;
+}
+
+.rfq-status.is-error {
+  background: #faece9;
+  color: #873326;
+}
+
 .form-note {
   margin: 0;
   color: var(--muted);

@@ -41,7 +41,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
         "description": "Direct sales contact and RFQ preparation page for GloryStarPack packaging projects.",
         "about": {"@id": "https://www.glorystarpack.com/#organization"},
         "isPartOf": {"@id": "https://www.glorystarpack.com/#website"},
-        "dateModified": "2026-08-02"
+        "dateModified": "2026-08-11"
       },
       {
         "@type": "Organization",
@@ -94,7 +94,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       <div>
         <div class="eyebrow">Packaging sales contact</div>
         <h1>Contact GloryStarPack</h1>
-        <p class="lead">Send your packaging requirement directly by email or WhatsApp. A useful RFQ identifies the application, capacity, closure, decoration, quantity and destination so the correct product and sampling route can be reviewed.</p>
+        <p class="lead">Send a secure packaging RFQ directly to our sales inbox, or use email and WhatsApp as quick alternatives. Include the application, capacity, closure, decoration, quantity and destination so we can review the correct product and sampling route.</p>
         <div class="hero-facts">
           <div class="fact"><strong>kevin@glorystarpack.com</strong><span>Sales email</span></div>
           <div class="fact"><strong>+86 195-7760-8248</strong><span>Phone and WhatsApp</span></div>
@@ -118,33 +118,36 @@ window.gtag('config', 'G-NYY1MTZ6HM');
           <div class="contact-item"><span>Location</span><strong>Xiamen, Fujian, China</strong></div>
           <div class="contact-item"><span>Business scope</span><strong>B2B packaging projects</strong></div>
         </div>
-        <p class="notice">Nothing in the RFQ builder is submitted to the website. The buttons open a draft in your email app or WhatsApp so you can review it before sending.</p>
+        <p class="notice">The secure form sends your RFQ directly to our packaging sales inbox. Do not include passwords or payment details. Email and WhatsApp remain available as fallback options.</p>
       </aside>
 
       <section class="card" aria-labelledby="rfq-form-title">
         <div class="eyebrow">Structured inquiry</div>
         <h2 id="rfq-form-title">Build your packaging RFQ</h2>
-        <form class="rfq-form" id="rfq-form">
+        <form class="rfq-form" id="rfq-form" method="post" action="/api/inquiry">
           <div class="form-row">
-            <div class="field"><label for="rfq-name">Your name</label><input id="rfq-name" name="name" autocomplete="name"></div>
-            <div class="field"><label for="rfq-company">Company</label><input id="rfq-company" name="company" autocomplete="organization"></div>
+            <div class="field"><label for="rfq-name">Your name <span aria-hidden="true">*</span></label><input id="rfq-name" name="name" autocomplete="name" maxlength="100" required></div>
+            <div class="field"><label for="rfq-company">Company</label><input id="rfq-company" name="company" autocomplete="organization" maxlength="120"></div>
           </div>
           <div class="form-row">
-            <div class="field"><label for="rfq-email">Your email</label><input id="rfq-email" name="email" type="email" autocomplete="email"></div>
-            <div class="field"><label for="rfq-country">Destination country</label><input id="rfq-country" name="country" autocomplete="country-name"></div>
+            <div class="field"><label for="rfq-email">Your email <span aria-hidden="true">*</span></label><input id="rfq-email" name="email" type="email" autocomplete="email" maxlength="254" required></div>
+            <div class="field"><label for="rfq-country">Destination country <span aria-hidden="true">*</span></label><input id="rfq-country" name="country" autocomplete="country-name" maxlength="100" required></div>
           </div>
           <div class="form-row">
-            <div class="field"><label for="rfq-product">Product or application</label><input id="rfq-product" name="product" placeholder="e.g. serum dropper bottle"></div>
-            <div class="field"><label for="rfq-capacity">Capacity / size</label><input id="rfq-capacity" name="capacity" placeholder="e.g. 30ml"></div>
+            <div class="field"><label for="rfq-product">Product or application <span aria-hidden="true">*</span></label><input id="rfq-product" name="product" maxlength="180" placeholder="e.g. serum dropper bottle" required></div>
+            <div class="field"><label for="rfq-capacity">Capacity / size</label><input id="rfq-capacity" name="capacity" maxlength="80" placeholder="e.g. 30ml"></div>
           </div>
           <div class="form-row">
-            <div class="field"><label for="rfq-quantity">Estimated quantity</label><input id="rfq-quantity" name="quantity" inputmode="numeric" placeholder="e.g. 5,000 pcs"></div>
-            <div class="field"><label for="rfq-closure">Closure / component</label><input id="rfq-closure" name="closure" placeholder="e.g. dropper, pump, cap"></div>
+            <div class="field"><label for="rfq-quantity">Estimated quantity <span aria-hidden="true">*</span></label><input id="rfq-quantity" name="quantity" maxlength="80" inputmode="numeric" placeholder="e.g. 5,000 pcs" required></div>
+            <div class="field"><label for="rfq-closure">Closure / component</label><input id="rfq-closure" name="closure" maxlength="120" placeholder="e.g. dropper, pump, cap"></div>
           </div>
-          <div class="field"><label for="rfq-decoration">Decoration</label><input id="rfq-decoration" name="decoration" placeholder="e.g. frosting, silk screen, hot stamp"></div>
-          <div class="field"><label for="rfq-notes">Formula, timeline or other requirements</label><textarea id="rfq-notes" name="notes"></textarea></div>
-          <div class="actions"><a class="btn" id="rfq-email-link" data-inquiry-channel="email" data-inquiry-type="rfq-builder" href="mailto:kevin@glorystarpack.com">Review Email RFQ</a><a class="btn alt" id="rfq-whatsapp-link" data-inquiry-channel="whatsapp" data-inquiry-type="rfq-builder" href="https://wa.me/8619577608248" target="_blank" rel="noopener">Review WhatsApp RFQ</a></div>
-          <p class="form-note">Include reference drawings or photos as email attachments after the draft opens.</p>
+          <div class="field"><label for="rfq-decoration">Decoration</label><input id="rfq-decoration" name="decoration" maxlength="180" placeholder="e.g. frosting, silk screen, hot stamp"></div>
+          <div class="field"><label for="rfq-notes">Formula, timeline or other requirements</label><textarea id="rfq-notes" name="notes" maxlength="2000"></textarea></div>
+          <div class="field rfq-honeypot" aria-hidden="true"><label for="rfq-website">Website</label><input id="rfq-website" name="website" tabindex="-1" autocomplete="off"></div>
+          <input id="rfq-started-at" name="startedAt" type="hidden" value="">
+          <div class="actions"><button class="btn" id="rfq-submit" type="submit" data-inquiry-channel="form" data-inquiry-type="rfq-submit" data-inquiry-location="contact-form">Send RFQ securely</button><a class="btn alt" id="rfq-email-link" data-inquiry-channel="email" data-inquiry-type="rfq-builder" href="mailto:kevin@glorystarpack.com">Email fallback</a><a class="btn alt" id="rfq-whatsapp-link" data-inquiry-channel="whatsapp" data-inquiry-type="rfq-builder" href="https://wa.me/8619577608248" target="_blank" rel="noopener">WhatsApp fallback</a></div>
+          <p class="rfq-status" id="rfq-status" role="status" aria-live="polite"></p>
+          <p class="form-note">Fields marked * are required. Attach drawings or reference photos by replying to the confirmation email, or use an email fallback.</p>
         </form>
       </section>
     </section>
@@ -165,19 +168,21 @@ window.gtag('config', 'G-NYY1MTZ6HM');
     </section>
   </div>
 </main>
-<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated 2026-08-02</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>
+<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated 2026-08-11</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>
 <script>
 (function () {
   const form = document.getElementById('rfq-form');
   const emailLink = document.getElementById('rfq-email-link');
   const whatsappLink = document.getElementById('rfq-whatsapp-link');
+  const submitButton = document.getElementById('rfq-submit');
+  const status = document.getElementById('rfq-status');
+  const startedAt = document.getElementById('rfq-started-at');
 
   function value(name) {
     return String(new FormData(form).get(name) || '').trim();
   }
 
-  function updateLinks() {
-    const product = value('product') || 'packaging project';
+  function attribution() {
     const sourceUrl = new URL(window.location.href);
     sourceUrl.hash = '';
     sourceUrl.search = '';
@@ -197,6 +202,12 @@ window.gtag('config', 'G-NYY1MTZ6HM');
         previousSitePage = referrerUrl.href;
       }
     } catch {}
+    return { sourceUrl, attributedSourcePage, inquiryIntent, previousSitePage };
+  }
+
+  function updateLinks() {
+    const product = value('product') || 'packaging project';
+    const { sourceUrl, attributedSourcePage, inquiryIntent, previousSitePage } = attribution();
     const lines = [
       'Hello GloryStarPack, I would like a quotation.',
       '',
@@ -223,7 +234,56 @@ window.gtag('config', 'G-NYY1MTZ6HM');
 
   form.addEventListener('input', updateLinks);
   form.addEventListener('change', updateLinks);
-  form.addEventListener('submit', event => event.preventDefault());
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const { sourceUrl, attributedSourcePage, inquiryIntent, previousSitePage } = attribution();
+    const payload = Object.fromEntries(new FormData(form).entries());
+    Object.assign(payload, {
+      sourcePage: sourceUrl.href,
+      attributedSourcePage,
+      intent: inquiryIntent,
+      previousSitePage
+    });
+
+    submitButton.disabled = true;
+    submitButton.setAttribute('aria-busy', 'true');
+    status.className = 'rfq-status is-pending';
+    status.textContent = 'Sending your RFQ securely…';
+
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.message || 'Delivery failed.');
+
+      status.className = 'rfq-status is-success';
+      status.textContent = 'Thank you — your RFQ was delivered to our packaging sales team.';
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          method: 'website_form',
+          inquiry_channel: 'form',
+          inquiry_type: 'rfq_submit',
+          inquiry_location: 'contact_form',
+          inquiry_topic: value('product') || 'packaging project'
+        });
+      }
+      form.reset();
+      startedAt.value = String(Date.now());
+      updateLinks();
+    } catch (error) {
+      status.className = 'rfq-status is-error';
+      status.textContent = error.message || 'The RFQ could not be delivered. Please use email or WhatsApp below.';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.removeAttribute('aria-busy');
+    }
+  });
+  startedAt.value = String(Date.now());
   updateLinks();
 }());
 </script>

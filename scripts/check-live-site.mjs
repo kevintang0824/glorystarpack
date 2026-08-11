@@ -46,6 +46,24 @@ if (!inquiryScript.body.includes("window.gtag('event', eventName, eventParameter
   errors.push('live inquiry tracking does not send inquiry_click through gtag');
 }
 
+const contactForm = await fetchText('/contact/');
+if (!contactForm.body.includes('action="/api/inquiry"')) errors.push('live contact form does not target /api/inquiry');
+if (!contactForm.body.includes("window.gtag('event', 'generate_lead'")) errors.push('live contact form is missing accepted-lead analytics');
+
+const inquiryMethodCheck = await fetchText('/api/inquiry', 405);
+if (!inquiryMethodCheck.body.includes('Method not allowed')) errors.push('live RFQ endpoint did not reject GET requests');
+
+const invalidInquiryResponse = await fetch(new URL('/api/inquiry', baseUrl), {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+    origin: baseUrl.origin,
+    'user-agent': 'GloryStarPack release verifier/1.0'
+  },
+  body: '{}'
+});
+if (invalidInquiryResponse.status !== 400) errors.push(`live RFQ validation expected HTTP 400, received ${invalidInquiryResponse.status}`);
+
 for (const pathname of [
   '/about/',
   '/contact/',

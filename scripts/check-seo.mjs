@@ -410,6 +410,12 @@ else {
   if (!hasSchemaType(contactPage.source, 'ContactPage')) errors.push('contact/index.html: missing ContactPage schema');
   if (!hasSchemaType(contactPage.source, 'ContactPoint')) errors.push('contact/index.html: missing ContactPoint schema');
   if (!contactPage.source.includes('id="rfq-form"')) errors.push('contact/index.html: missing RFQ builder');
+  if (!contactPage.source.includes('action="/api/inquiry"')) errors.push('contact/index.html: RFQ form does not target the server endpoint');
+  if (!contactPage.source.includes('id="rfq-submit"')) errors.push('contact/index.html: missing secure RFQ submit button');
+  if (!contactPage.source.includes("fetch('/api/inquiry'")) errors.push('contact/index.html: RFQ form does not submit with fetch');
+  if (!contactPage.source.includes("window.gtag('event', 'generate_lead'")) errors.push('contact/index.html: accepted RFQs do not send generate_lead');
+  if (!contactPage.source.includes('name="website"')) errors.push('contact/index.html: missing RFQ honeypot field');
+  if (!contactPage.source.includes('id="rfq-status"')) errors.push('contact/index.html: missing accessible RFQ status message');
   if (!contactPage.source.includes('Website page: ${sourceUrl.href}')) errors.push('contact/index.html: RFQ builder does not preserve the source URL');
   if (!contactPage.source.includes('Original interest page: ${attributedSourcePage}')) errors.push('contact/index.html: RFQ builder does not preserve the original landing-page attribution');
   if (!contactPage.source.includes('data-inquiry-type="rfq-builder"')) errors.push('contact/index.html: RFQ actions are missing future analytics attributes');
@@ -430,6 +436,24 @@ if (!robotsSource.includes(`Sitemap: ${siteUrl}/feed.xml`)) {
 const vercelIgnoreSource = fs.readFileSync(path.join(rootDir, '.vercelignore'), 'utf8');
 for (const ignoredPath of ['data/', 'scripts/', '.github/', 'glorystarpack (1).html']) {
   if (!vercelIgnoreSource.split(/\r?\n/).includes(ignoredPath)) errors.push(`.vercelignore is missing ${ignoredPath}`);
+}
+if (vercelIgnoreSource.split(/\r?\n/).includes('api/')) errors.push('.vercelignore must not exclude api/');
+
+const inquiryApiPath = path.join(rootDir, 'api/inquiry.js');
+if (!fs.existsSync(inquiryApiPath)) {
+  errors.push('missing api/inquiry.js');
+} else {
+  const inquiryApiSource = fs.readFileSync(inquiryApiPath, 'utf8');
+  for (const requiredFragment of [
+    'process.env.RESEND_API_KEY',
+    'https://api.resend.com/emails',
+    "'Cache-Control', 'no-store, max-age=0'",
+    'payload.website',
+    'emailIsValid(payload.email)',
+    "request.method !== 'POST'"
+  ]) {
+    if (!inquiryApiSource.includes(requiredFragment)) errors.push(`api/inquiry.js is missing safeguard: ${requiredFragment}`);
+  }
 }
 
 const releaseWorkflowPath = path.join(rootDir, '.github/workflows/seo-check.yml');

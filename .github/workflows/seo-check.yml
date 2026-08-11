@@ -28,6 +28,7 @@ jobs:
         run: |
           node --check assets/js/main.js
           node --check assets/js/inquiry-conversion.js
+          node --check api/inquiry.js
           node --check scripts/check-seo.mjs
           node --check scripts/check-live-site.mjs
           node --check scripts/submit-indexnow.mjs

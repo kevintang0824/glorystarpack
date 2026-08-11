@@ -47,13 +47,13 @@ if (!inquiryScript.body.includes("window.gtag('event', eventName, eventParameter
 }
 
 const contactForm = await fetchText('/contact/');
-if (!contactForm.body.includes('action="/api/inquiry"')) errors.push('live contact form does not target /api/inquiry');
+if (!contactForm.body.includes('action="/api/inquiry/"')) errors.push('live contact form does not target /api/inquiry/');
 if (!contactForm.body.includes("window.gtag('event', 'generate_lead'")) errors.push('live contact form is missing accepted-lead analytics');
 
-const inquiryMethodCheck = await fetchText('/api/inquiry', 405);
+const inquiryMethodCheck = await fetchText('/api/inquiry/', 405);
 if (!inquiryMethodCheck.body.includes('Method not allowed')) errors.push('live RFQ endpoint did not reject GET requests');
 
-const invalidInquiryResponse = await fetch(new URL('/api/inquiry', baseUrl), {
+const invalidInquiryResponse = await fetch(new URL('/api/inquiry/', baseUrl), {
   method: 'POST',
   headers: {
     'content-type': 'application/json',

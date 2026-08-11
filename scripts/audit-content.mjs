@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
-const ignoredDirectories = new Set(['.git', 'backups', 'data', 'tmp']);
+const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'data', 'node_modules', 'tmp']);
 const ignoredFiles = new Set(['glorystarpack (1).html']);
 
 function walk(directory) {

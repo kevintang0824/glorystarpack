@@ -500,7 +500,7 @@ for (const productPage of productPages) {
 
 try {
   const aiContext = JSON.parse(fs.readFileSync(path.join(rootDir, 'ai-context.json'), 'utf8'));
-  for (const key of ['about', 'contact', 'productIndex', 'insights', 'rssFeed', 'compatibilityTestingGuide', 'pumpClosureGuide', 'pumpClosureCategory']) {
+  for (const key of ['about', 'contact', 'productIndex', 'insights', 'rssFeed', 'compatibilityTestingGuide', 'pumpClosureGuide', 'chinaSupplierVettingGuide', 'pumpClosureCategory']) {
     if (!aiContext.site?.[key]) errors.push(`ai-context.json site.${key} is missing`);
   }
   if (aiContext.creator?.['@id'] !== `${siteUrl}/#packaging-desk`) {
@@ -593,6 +593,7 @@ const approvedPrimarySourceHosts = new Set([
   'seller.alibaba.com',
   'eur-lex.europa.eu',
   'store.astm.org',
+  'www.samr.gov.cn',
   'www.fda.gov',
   'www.ftc.gov',
   'www.gov.uk',
@@ -633,9 +634,23 @@ for (const article of insightArticles) {
   const resources = (article.source.match(/<aside class="article-sidebar"/g) ?? []).length;
   if (resources !== 1) errors.push(`${article.rel}: missing related resource sidebar`);
   const body = article.source.match(/<article class="article-body">([\s\S]*?)<\/article>/i)?.[1] ?? '';
-  const citationUrls = [...body.matchAll(/href=["'](https?:\/\/[^"']+)["']/gi)].map(match => match[1]);
+  const primaryReferencesBody = body.match(/<h2[^>]*>Primary references and scope<\/h2>([\s\S]*)$/i)?.[1] ?? '';
+  const citationUrls = [...primaryReferencesBody.matchAll(/href=["'](https?:\/\/[^"']+)["']/gi)].map(match => match[1]);
   if (citationUrls.length < 2) errors.push(`${article.rel}: expected at least 2 external primary-source citations`);
   if (!/>Primary references and scope<\/h2>/.test(body)) errors.push(`${article.rel}: missing primary-reference section`);
+  const buyerQuestionSection = body.match(/<h2[^>]*>Buyer questions that shaped this guide<\/h2>([\s\S]*?)(?=<h2|$)/i)?.[1] ?? '';
+  const redditSignals = [...buyerQuestionSection.matchAll(/href=["'](https?:\/\/[^"']+)["']/gi)].map(match => match[1]);
+  if (buyerQuestionSection) {
+    if (!body.includes('These community discussions are demand signals, not technical or regulatory authorities.')) {
+      errors.push(`${article.rel}: community discussion section is missing its source-boundary statement`);
+    }
+    if (redditSignals.length < 2) errors.push(`${article.rel}: community discussion section needs at least 2 demand signals`);
+    for (const discussionUrl of redditSignals) {
+      if (new URL(discussionUrl).hostname !== 'www.reddit.com') {
+        errors.push(`${article.rel}: community demand signal is not a Reddit discussion (${discussionUrl})`);
+      }
+    }
+  }
   const toc = article.source.match(/<nav class="article-toc"[^>]*>([\s\S]*?)<\/nav>/i)?.[1] ?? '';
   const sectionIds = [...body.matchAll(/<h2\b[^>]*\bid="([^"]+)"/gi)].map(match => match[1]);
   const tocTargets = [...toc.matchAll(/href="#([^"]+)"/gi)].map(match => match[1]);

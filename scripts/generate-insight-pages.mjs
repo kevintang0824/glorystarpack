@@ -15,7 +15,7 @@ window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-12';
+const indexModifiedDate = '2026-08-13';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -40,6 +40,7 @@ const primarySources = {
   iso22716: ['https://www.iso.org/standard/36437.html', 'ISO 22716:2007 cosmetic GMP overview', 'Describes quality guidance for cosmetic production, control, storage and shipment.'],
   iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.'],
   iso9001SupplyChain: ['https://www.iso.org/iso/pub100304.pdf', 'ISO 9001 in the supply chain', 'Explains how buyers can use quality-management evidence when selecting suppliers without treating certification as a product guarantee.'],
+  samrEnterpriseCredit: ['https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/xyjgs/art/2023/art_b79ac112fb544499beb8754ee1e0a50d.html', 'China National Enterprise Credit Information Publicity System overview', 'Identifies the national platform used by the public to query registered enterprise and credit information in China.'],
   tradeGovChina: ['https://www.trade.gov/services-china', 'U.S. Commercial Service China due-diligence services', 'Describes partner-finding and preliminary company background-check services available to U.S. businesses in China.'],
   alibabaVerifiedSupplier: ['https://seller.alibaba.com/verified-supplier?language=en_US&tenantId=US', 'Alibaba.com Verified Supplier program', 'Explains that the program includes an assessment report produced through a third-party on-site verification process.'],
   iccIncoterms: ['https://iccwbo.org/business-solutions/incoterms-rules/', 'ICC Incoterms rules overview', 'Explains the standardized trade terms used to allocate delivery tasks, costs and risks between seller and buyer.'],
@@ -758,7 +759,7 @@ const insightDefinitions = {
   '25': {
     slug: 'how-to-vet-cosmetic-packaging-supplier-china',
     seoTitle: 'How to Vet a Cosmetic Packaging Supplier in China',
-    dateModified: '2026-08-12',
+    dateModified: '2026-08-13',
     decisionTable: {
       heading: 'Cosmetic packaging supplier verification checklist',
       intro: 'Use evidence from several stages. A supplier profile, certificate or attractive sample can support a shortlist, but none of them alone proves that the exact bulk configuration will be delivered consistently.',
@@ -775,7 +776,13 @@ const insightDefinitions = {
         ['Pre-shipment release', 'Approved specification, inspection plan, production photos or records, quantity, carton marks and third-party inspection option.', 'Which objective evidence must be accepted before the balance payment and shipment release.']
       ]
     },
-    sources: references('tradeGovChina', 'iso9001SupplyChain', 'iso2859', 'alibabaVerifiedSupplier', 'iccIncoterms'),
+    discussionSignals: [
+      ['https://www.reddit.com/r/smallbusiness/comments/1m4xf48/first_time_customizing_packaging_on_alibabaworth/', 'First-time custom packaging on Alibaba', 'A skincare founder asks whether sample quality, MOQ, customs delays and long-term reordering justify staying with the same supplier.'],
+      ['https://www.reddit.com/r/smallbusiness/comments/1ssgpwh/packaging_from_china_hard_to_choose/', 'Packaging from China is hard to choose', 'A new CPG brand asks how to shortlist a manufacturer instead of choosing randomly from a crowded supplier directory.'],
+      ['https://www.reddit.com/r/Entrepreneur/comments/1jzo6ua/looking_to_start_my_own_makeup_brand_where_can_i/', 'Finding a reliable OEM/ODM beauty supplier', 'Founders compare supplier discovery, flexible MOQ, samples, certifications and the difference between OEM and ODM support.'],
+      ['https://www.reddit.com/r/Entrepreneurship/comments/1mmomap/when_starting_out_how_did_you_get_around_high/', 'Getting around high packaging MOQs', 'An early-stage buyer asks how to test a distinctive package without committing to a full custom-mold production quantity.']
+    ],
+    sources: references('samrEnterpriseCredit', 'tradeGovChina', 'iso9001SupplyChain', 'iso2859', 'alibabaVerifiedSupplier', 'iccIncoterms'),
     sourceNote: 'Company checks, assessment reports, quality-system evidence, sampling standards and Incoterms support different parts of due diligence. None verifies a specific GloryStarPack order, guarantees supplier performance or replaces product-, market-, contract-, payment- and shipment-specific professional advice.',
     questions: [
       'Does the legal entity, invoice and payment beneficiary match the supplier that was researched and quoted?',
@@ -1030,7 +1037,8 @@ function decisionTableMarkup(table) {
 
 function articleWordCount(article) {
   const sourceText = (article.sources ?? []).flat().join(' ');
-  return `${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${inquiryCopy} ${sourceText} ${article.sourceNote ?? ''}`
+  const discussionText = (article.discussionSignals ?? []).flat().join(' ');
+  return `${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${inquiryCopy} ${discussionText} ${sourceText} ${article.sourceNote ?? ''}`
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -1144,6 +1152,12 @@ function articlePage(article) {
   const sourcesMarkup = (article.sources ?? [])
     .map(([href, name, description]) => `<li><a href="${escapeHtml(href)}" target="_blank" rel="noopener">${escapeHtml(name)}</a> — ${escapeHtml(description)}</li>`)
     .join('');
+  const discussionSignalsMarkup = (article.discussionSignals ?? [])
+    .map(([href, name, description]) => `<li><a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(name)}</a> — ${escapeHtml(description)}</li>`)
+    .join('');
+  const buyerQuestionsMarkup = discussionSignalsMarkup
+    ? `<h2>Buyer questions that shaped this guide</h2>\n      <p>These community discussions are demand signals, not technical or regulatory authorities. The recommendations below are supported separately by the primary references.</p>\n      <ul>${discussionSignalsMarkup}</ul>`
+    : '';
   const referencesMarkup = sourcesMarkup
     ? `<h2>Primary references and scope</h2>\n      <ul>${sourcesMarkup}</ul>\n      <p>${escapeHtml(article.sourceNote)}</p>`
     : '';
@@ -1154,7 +1168,7 @@ function articlePage(article) {
       <ul>${questionsMarkup}</ul>
       <div class="article-note"><strong>Procurement note:</strong> ${escapeHtml(article.note)}</div>
       <h2>What to send with an inquiry</h2>
-      <p>${escapeHtml(inquiryCopy)}</p>${referencesMarkup ? `\n      ${referencesMarkup}` : ''}`);
+      <p>${escapeHtml(inquiryCopy)}</p>${buyerQuestionsMarkup ? `\n      ${buyerQuestionsMarkup}` : ''}${referencesMarkup ? `\n      ${referencesMarkup}` : ''}`);
   const tableOfContents = articleBody.sections
     .map(section => `<li><a href="#${section.id}">${escapeHtml(section.label)}</a></li>`)
     .join('');

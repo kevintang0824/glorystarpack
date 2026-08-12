@@ -585,18 +585,22 @@ const decisionMatrixRows = new Map([
   ['insights/pcr-hdpe-personal-care-bottles/index.html', 6],
   ['insights/color-cosmetics-component-systems/index.html', 6],
   ['insights/molded-pulp-gift-box-inserts/index.html', 6],
-  ['insights/cosmetic-packaging-tamper-evident-seals-guide/index.html', 6]
+  ['insights/cosmetic-packaging-tamper-evident-seals-guide/index.html', 6],
+  ['insights/how-to-vet-cosmetic-packaging-supplier-china/index.html', 8]
 ]);
 const approvedPrimarySourceHosts = new Set([
+  'iccwbo.org',
+  'seller.alibaba.com',
   'eur-lex.europa.eu',
   'store.astm.org',
   'www.fda.gov',
   'www.ftc.gov',
   'www.gov.uk',
   'www.iso.org',
-  'www.phmsa.dot.gov'
+  'www.phmsa.dot.gov',
+  'www.trade.gov'
 ]);
-if (insightArticles.length !== 24) errors.push(`expected 24 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 25) errors.push(`expected 25 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);
@@ -758,6 +762,7 @@ const homepageInsightLinks = new Set(
 );
 if (homepageInsightLinks.size < 6) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
 for (const requiredPath of [
+  '/insights/how-to-vet-cosmetic-packaging-supplier-china/',
   '/insights/cosmetic-packaging-compatibility-testing-guide/',
   '/insights/cosmetic-pump-closure-selection-guide/',
   '/insights/cosmetic-packaging-rfq-guide/'
@@ -926,6 +931,18 @@ const sourcingRoutePaths = [
 for (const routePath of sourcingRoutePaths) {
   if (!homepage.includes(`href="${routePath}"`)) {
     errors.push(`homepage is missing the priority sourcing-route link ${routePath}`);
+  }
+}
+
+const chinaSupplierPage = pageRecords.find(record => record.rel === 'cosmetic-packaging-supplier-china/index.html');
+const supplierVettingPath = '/insights/how-to-vet-cosmetic-packaging-supplier-china/';
+if (!chinaSupplierPage) errors.push('missing cosmetic-packaging-supplier-china/index.html');
+else {
+  if (!chinaSupplierPage.source.includes(`href="${supplierVettingPath}"`)) {
+    errors.push('China supplier page is missing the supplier-vetting guide link');
+  }
+  if (chinaSupplierPage.source.includes('<a href="/">Cosmetic packaging manufacturer</a>')) {
+    errors.push('China supplier page incorrectly maps cosmetic packaging manufacturer intent to the glass-bottle homepage');
   }
 }
 

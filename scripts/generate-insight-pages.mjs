@@ -15,7 +15,7 @@ window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-10';
+const indexModifiedDate = '2026-08-12';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -39,6 +39,10 @@ const primarySources = {
   iso18604: ['https://www.iso.org/standard/55872.html', 'ISO 18604:2013 material-recycling overview', 'Defines assessment requirements for packaging intended to be recoverable through material recycling.'],
   iso22716: ['https://www.iso.org/standard/36437.html', 'ISO 22716:2007 cosmetic GMP overview', 'Describes quality guidance for cosmetic production, control, storage and shipment.'],
   iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.'],
+  iso9001SupplyChain: ['https://www.iso.org/iso/pub100304.pdf', 'ISO 9001 in the supply chain', 'Explains how buyers can use quality-management evidence when selecting suppliers without treating certification as a product guarantee.'],
+  tradeGovChina: ['https://www.trade.gov/services-china', 'U.S. Commercial Service China due-diligence services', 'Describes partner-finding and preliminary company background-check services available to U.S. businesses in China.'],
+  alibabaVerifiedSupplier: ['https://seller.alibaba.com/verified-supplier?language=en_US&tenantId=US', 'Alibaba.com Verified Supplier program', 'Explains that the program includes an assessment report produced through a third-party on-site verification process.'],
+  iccIncoterms: ['https://iccwbo.org/business-solutions/incoterms-rules/', 'ICC Incoterms rules overview', 'Explains the standardized trade terms used to allocate delivery tasks, costs and risks between seller and buyer.'],
   phmsaPerfumeryProducts: ['https://www.phmsa.dot.gov/regulations/title49/interp/20-0011', 'U.S. PHMSA interpretation on perfumery products', 'Explains that transport classification depends on the product function and whether a finished cosmetic contains a regulated flammable liquid.'],
   ukCosmetics: ['https://www.gov.uk/guidance/consumer-products-cosmetics', 'UK government cosmetic products guidance', 'Summarizes responsible-person, safety, notification and packaging-information duties for cosmetic products made available in Great Britain.']
 };
@@ -750,6 +754,42 @@ const insightDefinitions = {
       ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
       ['/contact/', 'Discuss a Packaging Security Brief']
     ]
+  },
+  '25': {
+    slug: 'how-to-vet-cosmetic-packaging-supplier-china',
+    seoTitle: 'How to Vet a Cosmetic Packaging Supplier in China',
+    dateModified: '2026-08-12',
+    decisionTable: {
+      heading: 'Cosmetic packaging supplier verification checklist',
+      intro: 'Use evidence from several stages. A supplier profile, certificate or attractive sample can support a shortlist, but none of them alone proves that the exact bulk configuration will be delivered consistently.',
+      caption: 'Evidence to request before ordering cosmetic packaging from China',
+      columns: ['Check', 'Evidence to request', 'Decision it supports'],
+      rows: [
+        ['Legal identity and payment match', 'Registered company name, business address, invoice entity, beneficiary details and an explanation for any mismatch.', 'Whether the company you researched is the party receiving the order and payment.'],
+        ['Manufacturer or trading role', 'Assessment report, facility scope, product-specific process map and disclosure of subcontracted molding, decoration or assembly.', 'Which work is controlled directly and which suppliers or sites also affect quality and timing.'],
+        ['Relevant production capability', 'Recent examples for the same material, process, neck or closure family plus equipment and realistic capacity information.', 'Whether the supplier has experience with the configuration being quoted, not just cosmetic packaging generally.'],
+        ['Quality system and inspection', 'Current certificate where relevant, incoming and in-process controls, lot identification, defect criteria and inspection records.', 'How requirements become repeatable controls and how a nonconforming lot is handled.'],
+        ['Production-intent samples', 'Exact container, closure, liner or gasket, decoration, artwork revision and packing components recorded by item code.', 'Whether the approved sample can become a controlled bulk reference.'],
+        ['Commercial scope', 'Itemized MOQ, setup, tooling, samples, unit price, packing, Incoterm, lead-time assumptions and quote validity.', 'Whether two quotations cover the same scope and total landed-cost inputs.'],
+        ['Change control and reorder', 'Written rule for material, mold, component, subcontractor, color, process or packing changes that require buyer approval.', 'Whether a visually similar substitute can enter production without being reviewed.'],
+        ['Pre-shipment release', 'Approved specification, inspection plan, production photos or records, quantity, carton marks and third-party inspection option.', 'Which objective evidence must be accepted before the balance payment and shipment release.']
+      ]
+    },
+    sources: references('tradeGovChina', 'iso9001SupplyChain', 'iso2859', 'alibabaVerifiedSupplier', 'iccIncoterms'),
+    sourceNote: 'Company checks, assessment reports, quality-system evidence, sampling standards and Incoterms support different parts of due diligence. None verifies a specific GloryStarPack order, guarantees supplier performance or replaces product-, market-, contract-, payment- and shipment-specific professional advice.',
+    questions: [
+      'Does the legal entity, invoice and payment beneficiary match the supplier that was researched and quoted?',
+      'Which exact factory or subcontractor performs molding, decoration, assembly and export packing for this configuration?',
+      'What approved sample, specification, change-control rule and inspection evidence will govern bulk production and reorders?'
+    ],
+    note: 'Do not approve a supplier from a badge, certificate, video call, low quote or one attractive sample alone. Build a chain of matching evidence from legal identity and capability through the production-intent sample, purchase order, inspection and shipment release.',
+    resources: [
+      ['/cosmetic-packaging-supplier-china/', 'Cosmetic Packaging Supplier in China'],
+      ['/insights/cosmetic-packaging-rfq-guide/', 'Packaging RFQ Guide'],
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
+      ['/insights/packaging-closure-qc-checklist/', 'Component QC Checklist'],
+      ['/contact/', 'Send a Structured Packaging RFQ']
+    ]
   }
 };
 
@@ -777,7 +817,8 @@ const insightConsiderations = {
   '21': 'Travel qualification combines the primary container with its final neighbors and restraint. Test formula contact, closure sealing and dispensing first, then expose the packed kit to relevant orientation, temperature and distribution hazards. Record exact item codes so a similar miniature container is not substituted on repeat orders.',
   '22': 'Map formula water content, oils, fragrance, viscosity, fill temperature and cooling behavior before selecting the pack. Review direct access, wet-hand grip, evacuation and bathroom breakage alongside compatibility and shipping. A beautiful jar, tube or tin is only suitable when the production-intent system supports the formula and use action.',
   '23': 'Measure the primary container, closure, carton, insert and ecommerce shipper against the functions each must preserve. Compare a defined baseline with the revised production-intent system, including material moved to another layer. Keep usability, label space, product protection and distribution performance inside the right-sizing acceptance criteria.',
-  '24': 'Start with finished-product classification and the route to market, then separate visible tamper evidence from leakage control and child resistance. Approve the exact barrier, application process, consumer statement, intact and opened appearance, compatibility consequences and packed-route durability as one controlled system.'
+  '24': 'Start with finished-product classification and the route to market, then separate visible tamper evidence from leakage control and child resistance. Approve the exact barrier, application process, consumer statement, intact and opened appearance, compatibility consequences and packed-route durability as one controlled system.',
+  '25': 'A reliable sourcing decision comes from consistent evidence, not one trust signal. Match the legal and payment entities, disclose who performs each process, convert the approved sample into item-coded specifications, define what changes require approval, and make inspection and shipment release depend on the same purchase-order requirements.'
 };
 
 function escapeHtml(value) {

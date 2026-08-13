@@ -133,6 +133,23 @@
   gap: 15px;
 }
 
+.rfq-assurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+.rfq-assurance span {
+  border: 1px solid #e1d7c6;
+  border-radius: 999px;
+  background: #f8f4ec;
+  color: #594a32;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 10px;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

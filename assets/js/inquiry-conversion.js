@@ -6,9 +6,100 @@
   const siteOrigin = 'https://www.glorystarpack.com';
   const currentUrl = new URL(window.location.href);
   const currentPath = currentUrl.pathname;
+  const firstTouchKey = 'gsp_first_touch_v1';
+  const sessionTouchKey = 'gsp_session_touch_v1';
+  const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
   function cleanText(value, maxLength = 120) {
     return String(value || '').replace(/\s+/g, ' ').trim().slice(0, maxLength);
+  }
+
+  function safeStorage(storage, operation, key, value) {
+    try {
+      if (operation === 'get') return storage.getItem(key);
+      storage.setItem(key, value);
+    } catch {}
+    return null;
+  }
+
+  function safePageUrl(rawUrl, includeCampaign = false) {
+    try {
+      const url = new URL(rawUrl, window.location.origin);
+      url.hash = '';
+      if (!includeCampaign) url.search = '';
+      else {
+        [...url.searchParams.keys()].forEach(key => {
+          if (!campaignKeys.includes(key) && !['gclid', 'dclid', 'msclkid'].includes(key)) {
+            url.searchParams.delete(key);
+          }
+        });
+      }
+      return cleanText(url.href, 500);
+    } catch {
+      return '';
+    }
+  }
+
+  function readTouch(storage, key) {
+    const raw = safeStorage(storage, 'get', key);
+    if (!raw) return null;
+    try {
+      const value = JSON.parse(raw);
+      return value && typeof value === 'object' ? value : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function currentTouch() {
+    const touch = {
+      landingPage: safePageUrl(currentUrl.href, true),
+      referrerPage: safePageUrl(document.referrer),
+      campaignSource: cleanText(currentUrl.searchParams.get('utm_source'), 100),
+      campaignMedium: cleanText(currentUrl.searchParams.get('utm_medium'), 100),
+      campaignName: cleanText(currentUrl.searchParams.get('utm_campaign'), 150),
+      campaignTerm: cleanText(currentUrl.searchParams.get('utm_term'), 150),
+      campaignContent: cleanText(currentUrl.searchParams.get('utm_content'), 150),
+      adClickId: cleanText(
+        currentUrl.searchParams.get('gclid')
+        || currentUrl.searchParams.get('dclid')
+        || currentUrl.searchParams.get('msclkid'),
+        200
+      )
+    };
+    if (touch.referrerPage && new URL(touch.referrerPage).origin === currentUrl.origin) touch.referrerPage = '';
+    return touch;
+  }
+
+  function rememberAttribution() {
+    const touch = currentTouch();
+    let firstTouch = readTouch(window.localStorage, firstTouchKey);
+    let sessionTouch = readTouch(window.sessionStorage, sessionTouchKey);
+    if (!firstTouch) {
+      firstTouch = touch;
+      safeStorage(window.localStorage, 'set', firstTouchKey, JSON.stringify(firstTouch));
+    }
+    if (!sessionTouch) {
+      sessionTouch = touch;
+      safeStorage(window.sessionStorage, 'set', sessionTouchKey, JSON.stringify(sessionTouch));
+    }
+    return { firstTouch, sessionTouch };
+  }
+
+  const attribution = rememberAttribution();
+  window.gspInquiryAttribution = () => ({
+    firstTouch: { ...attribution.firstTouch },
+    sessionTouch: { ...attribution.sessionTouch }
+  });
+
+  function attributionLines() {
+    const touch = attribution.sessionTouch;
+    const campaign = [touch.campaignSource, touch.campaignMedium, touch.campaignName].filter(Boolean).join(' / ');
+    return [
+      ...(touch.landingPage && touch.landingPage !== canonicalPage() ? [`Session landing page: ${touch.landingPage}`] : []),
+      ...(touch.referrerPage ? [`External referrer: ${touch.referrerPage}`] : []),
+      ...(campaign ? [`Campaign: ${campaign}`] : [])
+    ];
   }
 
   function pageTopic() {
@@ -57,7 +148,8 @@
       'Estimated quantity:',
       'Destination country:',
       '',
-      `Website page: ${canonicalPage()}`
+      `Website page: ${canonicalPage()}`,
+      ...attributionLines()
     ].join('\n');
   }
 
@@ -120,13 +212,18 @@
   }
 
   function trackInquiry(link) {
+    let landingPagePath = currentPath;
+    try {
+      landingPagePath = new URL(attribution.sessionTouch.landingPage || currentUrl.href).pathname;
+    } catch {}
     const eventDetail = {
       event: 'inquiry_click',
       inquiry_channel: cleanText(link.dataset.inquiryChannel || 'unknown', 40),
       inquiry_type: inquiryTypeForLink(link),
       inquiry_location: cleanText(link.dataset.inquiryLocation || 'page', 40),
       inquiry_topic: cleanText(pageTopic(), 100),
-      page_path: cleanText(currentPath, 100)
+      page_path: cleanText(currentPath, 100),
+      landing_page_path: cleanText(landingPagePath, 100)
     };
     const { event: eventName, ...eventParameters } = eventDetail;
     if (typeof window.gtag === 'function') {

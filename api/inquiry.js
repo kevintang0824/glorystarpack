@@ -16,6 +16,16 @@ const fieldLimits = {
   sourcePage: 500,
   attributedSourcePage: 500,
   previousSitePage: 500,
+  landingPage: 500,
+  referrerPage: 500,
+  firstLandingPage: 500,
+  firstReferrerPage: 500,
+  campaignSource: 100,
+  campaignMedium: 100,
+  campaignName: 150,
+  campaignTerm: 150,
+  campaignContent: 150,
+  adClickId: 200,
   intent: 40,
   website: 200
 };
@@ -91,7 +101,16 @@ function renderRows(payload) {
     ['Website page', payload.sourcePage || 'Not provided'],
     ['Original interest page', payload.attributedSourcePage || 'Not provided'],
     ['Inquiry intent', payload.intent || 'Not provided'],
-    ['Previous site page', payload.previousSitePage || 'Not provided']
+    ['Previous site page', payload.previousSitePage || 'Not provided'],
+    ['Session landing page', payload.landingPage || 'Not provided'],
+    ['External referrer', payload.referrerPage || 'Not provided'],
+    ['First known landing page', payload.firstLandingPage || 'Not provided'],
+    ['First known referrer', payload.firstReferrerPage || 'Not provided'],
+    ['Campaign source / medium', [payload.campaignSource, payload.campaignMedium].filter(Boolean).join(' / ') || 'Not provided'],
+    ['Campaign name', payload.campaignName || 'Not provided'],
+    ['Campaign term', payload.campaignTerm || 'Not provided'],
+    ['Campaign content', payload.campaignContent || 'Not provided'],
+    ['Ad click ID', payload.adClickId || 'Not provided']
   ];
 
   const text = rows.map(([label, value]) => `${label}: ${value}`).join('\n');

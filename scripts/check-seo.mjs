@@ -413,7 +413,10 @@ else {
   if (!contactPage.source.includes('action="/api/inquiry/"')) errors.push('contact/index.html: RFQ form does not target the server endpoint');
   if (!contactPage.source.includes('id="rfq-submit"')) errors.push('contact/index.html: missing secure RFQ submit button');
   if (!contactPage.source.includes("fetch('/api/inquiry/'")) errors.push('contact/index.html: RFQ form does not submit with fetch');
-  if (!contactPage.source.includes("window.gtag('event', 'generate_lead'")) errors.push('contact/index.html: accepted RFQs do not send generate_lead');
+  if (!contactPage.source.includes("trackEvent('generate_lead'")) errors.push('contact/index.html: accepted RFQs do not send generate_lead');
+  if (!contactPage.source.includes("trackEvent('rfq_form_start'")) errors.push('contact/index.html: missing explicit RFQ form-start measurement');
+  if (!contactPage.source.includes("trackEvent('rfq_form_error'")) errors.push('contact/index.html: missing RFQ error measurement');
+  if (!contactPage.source.includes('campaignSource')) errors.push('contact/index.html: missing campaign attribution');
   if (!contactPage.source.includes('name="website"')) errors.push('contact/index.html: missing RFQ honeypot field');
   if (!contactPage.source.includes('id="rfq-status"')) errors.push('contact/index.html: missing accessible RFQ status message');
   if (!contactPage.source.includes('Website page: ${sourceUrl.href}')) errors.push('contact/index.html: RFQ builder does not preserve the source URL');
@@ -855,6 +858,9 @@ if (!mainJsSource.includes('function currentWebsitePage') || !mainJsSource.inclu
 }
 for (const requiredMarker of ['inquiry_click', "window.gtag('event'", 'dataLayer.push', 'data-source-page', 'gsp:inquiry-click']) {
   if (!inquiryJsSource.includes(requiredMarker)) errors.push(`assets/js/inquiry-conversion.js is missing ${requiredMarker}`);
+}
+for (const requiredMarker of ['gsp_first_touch_v1', 'gsp_session_touch_v1', 'landing_page_path']) {
+  if (!inquiryJsSource.includes(requiredMarker)) errors.push(`assets/js/inquiry-conversion.js is missing attribution marker ${requiredMarker}`);
 }
 if (!inquiryCssSource.includes('.gsp-inquiry-dock') || !inquiryCssSource.includes(':focus-visible')) {
   errors.push('assets/css/inquiry-conversion.css is missing the dock or keyboard focus styles');

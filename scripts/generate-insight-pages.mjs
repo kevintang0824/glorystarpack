@@ -21,6 +21,9 @@ const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
   astmCoatingAdhesion: ['https://store.astm.org/d3359-23.html', 'ASTM D3359 coating-adhesion overview', 'Describes tape-test methods and important limits for evaluating coating adhesion, primarily on metallic substrates.'],
   astmDistribution: ['https://store.astm.org/standards/d4169', 'ASTM D4169 distribution testing overview', 'Provides a framework for evaluating shipping units against distribution hazards.'],
+  istaProcedures: ['https://ista.org/test_procedures.php', 'ISTA packaged-product test procedures', 'Explains screening, partial-simulation and general-simulation procedures, including ISTA 3A for parcel-delivery shipments.'],
+  istaRetesting: ['https://support.ista.org/portal/en/kb/articles/when-should-a-packaged-product-be-retested', 'ISTA packaged-product retesting guidance', 'Identifies product, package, process and distribution changes that may require performance retesting.'],
+  istaCompleteSystem: ['https://support.ista.org/portal/en/kb/articles/can-i', 'ISTA guidance on testing the complete packaged-product', 'Clarifies that transport procedures evaluate a specific product-and-package system rather than certifying an individual packaging material.'],
   astmGlass: ['https://store.astm.org/products-services/standards-and-publications/standards/glass-standards-and-ceramic-standards.html', 'ASTM glass-container standards index', 'Lists active methods covering glass-container sampling, internal pressure, thermal shock and polariscopic examination.'],
   astmPackaging: ['https://store.astm.org/products-services/standards-and-publications/standards/paper-standards-and-packaging-standards.html', 'ASTM packaging standards index', 'Identifies current packaging methods for closures, shipping units, conditioning and package evaluation.'],
   euPpwr: ['https://eur-lex.europa.eu/eli/reg/2025/40/oj/eng', 'Regulation (EU) 2025/40 on packaging and packaging waste', 'Sets lifecycle, reuse, refill and waste-prevention requirements, including provisions for accommodation-sector single-use toiletries.'],
@@ -840,6 +843,47 @@ const insightDefinitions = {
       ['/insights/how-to-vet-cosmetic-packaging-supplier-china/', 'Supplier Verification Guide'],
       ['/contact/', 'Request an Itemized Packaging Quote']
     ]
+  },
+  '27': {
+    slug: 'how-to-ship-glass-bottles-without-breaking',
+    seoTitle: 'How to Ship Glass Bottles Without Breaking | Guide',
+    dateModified: '2026-08-13',
+    decisionTable: {
+      heading: 'Glass bottle shipping packaging checklist',
+      intro: 'Approve the bottle and protective pack as one route-specific system. Empty bulk bottles, filled retail units and individual ecommerce parcels face different hazards and should not share an assumed universal packout.',
+      caption: 'Packaging decisions for preventing glass bottle damage in distribution',
+      columns: ['Control area', 'What to specify', 'Evidence before release'],
+      rows: [
+        ['Bottle and fill identity', 'Bottle code, dimensions, weight, finish, decoration, closure, filled mass and product condition.', 'Production-intent samples and a controlled bill of materials.'],
+        ['Bottle separation', 'Cell divider, tray or cavity fit that limits glass-to-glass contact and vertical escape.', 'Packed movement check and inspection after the selected distribution sequence.'],
+        ['Surface protection', 'Interleaf, bag, sleeve or clean contact layer where abrasion, decoration damage or fiber contamination is a risk.', 'Accepted cleanliness and scuff limits on representative decorated bottles.'],
+        ['Void and orientation', 'Headspace control, top and bottom pads, bottle direction and limits on loose fill.', 'No uncontrolled movement, cap loading or contact with vulnerable shoulders and finishes.'],
+        ['Carton and closure', 'Board construction, internal dimensions, joints, tape or staples, gross weight and stacking direction.', 'Compression and handling performance after relevant conditioning.'],
+        ['Pallet load', 'Case pattern, layer sheets, corner support, stretch wrap, strap, pallet quality and height.', 'Stable unit load with acceptable carton compression, lean and edge damage.'],
+        ['Parcel shipper', 'Retail pack or bottle restraint, cushioning, secondary containment where relevant and outer carton.', 'Route-appropriate drop, vibration and shock evaluation on the complete filled pack.'],
+        ['Inspection and change control', 'Sampling points, breakage definition, glass-fragment response, retained pack and retest triggers.', 'Release record tied to the approved bottle, packing process and distribution route.']
+      ]
+    },
+    discussionSignals: [
+      ['https://www.reddit.com/r/Packaging/comments/1rx3wps/what_packaging_mistake_cost_your_business_the/', 'A glass bottle packing mistake that contaminated a batch', 'A packaging discussion describes tall bottles rubbing against corrugated material, with fiber entering bottles and becoming visible after filling.'],
+      ['https://www.reddit.com/r/shipping/comments/1tvxngk/3pl_for_glass_bottles_usa/', 'Choosing a 3PL for glass-bottle parcel shipping', 'Operators discuss bottle restraint, inserts, carrier mix, claims and the margin impact of damage in ecommerce fulfillment.'],
+      ['https://www.reddit.com/r/glassheads/comments/1r2bjbk/shipping_broken_glass_advice/', 'How people protect fragile glass in parcel delivery', 'Users distinguish cushioning, immobilization, containment and double boxing instead of relying on one rigid case or one material.']
+    ],
+    sources: references('istaProcedures', 'istaCompleteSystem', 'istaRetesting', 'astmDistribution'),
+    sourceNote: 'ISTA and ASTM frameworks help select and document distribution evaluation; they do not guarantee zero breakage, approve a GloryStarPack packout or replace route-, carrier-, retailer-, product- and regulatory-specific requirements. Test the production-intent bottle, contents, closure, decoration and shipping system together.',
+    questions: [
+      'Is the project shipping empty bottles in bulk, filled retail units on pallets, or individual filled bottles through a parcel network?',
+      'Which divider, surface-protection, carton, pallet or parcel-pack details stop contact, movement, abrasion and contamination for the exact bottle?',
+      'What conditioning, compression, vibration, drop or route-specific test evidence and inspection limits are required before release?'
+    ],
+    note: 'Do not approve export packing from an empty display carton or promise zero breakage. Freeze the exact bottle, closure, decoration, contact layers, divider, carton, pallet or parcel shipper, test route, acceptance criteria and retest triggers.',
+    resources: [
+      ['/products/glass-packaging/', 'Glass Packaging'],
+      ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/insights/glass-bottle-sample-approval-qc-checklist/', 'Glass Bottle Sample Approval Checklist'],
+      ['/insights/molded-pulp-gift-box-inserts/', 'Protective Insert Comparison'],
+      ['/contact/', 'Request a Glass Bottle and Packing Quote']
+    ]
   }
 };
 
@@ -869,7 +913,8 @@ const insightConsiderations = {
   '23': 'Measure the primary container, closure, carton, insert and ecommerce shipper against the functions each must preserve. Compare a defined baseline with the revised production-intent system, including material moved to another layer. Keep usability, label space, product protection and distribution performance inside the right-sizing acceptance criteria.',
   '24': 'Start with finished-product classification and the route to market, then separate visible tamper evidence from leakage control and child resistance. Approve the exact barrier, application process, consumer statement, intact and opened appearance, compatibility consequences and packed-route durability as one controlled system.',
   '25': 'A reliable sourcing decision comes from consistent evidence, not one trust signal. Match the legal and payment entities, disclose who performs each process, convert the approved sample into item-coded specifications, define what changes require approval, and make inspection and shipment release depend on the same purchase-order requirements.',
-  '26': 'Build the budget from the complete bill of materials and the quantities actually charged, then separate recurring units from setup, tooling, samples, validation, packing, freight, import charges and contingency. Compare quotations only after their Incoterms scope and exclusions are aligned, and calculate cash timing plus unmatched excess inventory as well as the apparent unit price.'
+  '26': 'Build the budget from the complete bill of materials and the quantities actually charged, then separate recurring units from setup, tooling, samples, validation, packing, freight, import charges and contingency. Compare quotations only after their Incoterms scope and exclusions are aligned, and calculate cash timing plus unmatched excess inventory as well as the apparent unit price.',
+  '27': 'Begin with the exact distribution route and failure consequence. Keep bottles from contacting one another, restrain vertical and lateral movement, protect decorated or open surfaces from abrasion and contamination, and match carton and unit-load strength to handling and stacking. Validate the production-intent filled or empty configuration as one packaged-product system, then retest when a material, component, packout or route changes.'
 };
 
 function escapeHtml(value) {
@@ -1383,7 +1428,7 @@ function glassBottleGuideHubPage() {
     imageHeight: heroDimensions.height,
     alt: 'Assorted custom glass bottles for beverage and spirits packaging projects'
   };
-  const guideIds = new Set(['11', '12', '13']);
+  const guideIds = new Set(['11', '12', '13', '27']);
   const guides = insights.filter(article => guideIds.has(article.id));
   const guideCards = guides.map(article => `<a class="insight-card" href="${articlePath(article)}">${pictureMarkup(article, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.excerpt)}</span></div></a>`).join('');
   const faqs = [

@@ -41,6 +41,7 @@
     "productIndex": "https://www.glorystarpack.com/products/product-index/",
     "insights": "https://www.glorystarpack.com/insights/",
     "glassBottleGuides": "https://www.glorystarpack.com/glass-bottle-buying-guides/",
+    "glassBottleShippingGuide": "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/",
     "compatibilityTestingGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
     "pumpClosureGuide": "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/",
     "pumpTroubleshootingGuide": "https://www.glorystarpack.com/insights/cosmetic-pump-not-working-troubleshooting/",
@@ -374,6 +375,11 @@
       "recommendedAnchor": "glass bottle buying guides"
     },
     {
+      "intent": "how to ship glass bottles without breaking",
+      "url": "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/",
+      "recommendedAnchor": "glass bottle shipping and breakage prevention guide"
+    },
+    {
       "intent": "stock bottle versus custom mold and MOQ planning",
       "url": "https://www.glorystarpack.com/insights/custom-glass-bottle-moq-stock-vs-custom-mold/",
       "recommendedAnchor": "custom glass bottle MOQ guide"
@@ -622,6 +628,12 @@
       "pageType": "glass bottle buyer guide hub",
       "primaryIntent": "glass bottle buying guides",
       "summary": "Procurement center for custom glass bottle MOQ, stock versus custom mold decisions, neck finish and closure matching, sample approval, QC and export packing."
+    },
+    {
+      "url": "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/",
+      "pageType": "glass bottle shipping guide",
+      "primaryIntent": "how to ship glass bottles without breaking",
+      "summary": "Route-specific guide to preventing glass bottle breakage, scuffing and contamination with dividers, clean contact layers, cartons, pallets, parcel shippers, inspection and packaged-product testing."
     },
     {
       "url": "https://www.glorystarpack.com/insights/custom-glass-bottle-moq-stock-vs-custom-mold/",

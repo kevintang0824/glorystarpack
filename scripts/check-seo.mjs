@@ -503,7 +503,7 @@ for (const productPage of productPages) {
 
 try {
   const aiContext = JSON.parse(fs.readFileSync(path.join(rootDir, 'ai-context.json'), 'utf8'));
-  for (const key of ['about', 'contact', 'productIndex', 'insights', 'rssFeed', 'compatibilityTestingGuide', 'pumpClosureGuide', 'chinaSupplierVettingGuide', 'customPackagingCostGuide', 'pumpClosureCategory']) {
+  for (const key of ['about', 'contact', 'productIndex', 'insights', 'rssFeed', 'compatibilityTestingGuide', 'pumpClosureGuide', 'chinaSupplierVettingGuide', 'customPackagingCostGuide', 'glassBottleShippingGuide', 'pumpClosureCategory']) {
     if (!aiContext.site?.[key]) errors.push(`ai-context.json site.${key} is missing`);
   }
   if (aiContext.creator?.['@id'] !== `${siteUrl}/#packaging-desk`) {
@@ -590,7 +590,8 @@ const decisionMatrixRows = new Map([
   ['insights/molded-pulp-gift-box-inserts/index.html', 6],
   ['insights/cosmetic-packaging-tamper-evident-seals-guide/index.html', 6],
   ['insights/how-to-vet-cosmetic-packaging-supplier-china/index.html', 8],
-  ['insights/custom-cosmetic-packaging-cost-hidden-fees/index.html', 8]
+  ['insights/custom-cosmetic-packaging-cost-hidden-fees/index.html', 8],
+  ['insights/how-to-ship-glass-bottles-without-breaking/index.html', 8]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'iccwbo.org',
@@ -603,10 +604,12 @@ const approvedPrimarySourceHosts = new Set([
   'www.ftc.gov',
   'www.gov.uk',
   'www.iso.org',
+  'ista.org',
+  'support.ista.org',
   'www.phmsa.dot.gov',
   'www.trade.gov'
 ]);
-if (insightArticles.length !== 26) errors.push(`expected 26 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 27) errors.push(`expected 27 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);
@@ -961,6 +964,7 @@ for (const routePath of sourcingRoutePaths) {
 const chinaSupplierPage = pageRecords.find(record => record.rel === 'cosmetic-packaging-supplier-china/index.html');
 const supplierVettingPath = '/insights/how-to-vet-cosmetic-packaging-supplier-china/';
 const packagingCostPath = '/insights/custom-cosmetic-packaging-cost-hidden-fees/';
+const glassShippingGuidePath = '/insights/how-to-ship-glass-bottles-without-breaking/';
 if (!chinaSupplierPage) errors.push('missing cosmetic-packaging-supplier-china/index.html');
 else {
   if (!chinaSupplierPage.source.includes(`href="${supplierVettingPath}"`)) {
@@ -996,6 +1000,17 @@ else {
   if (!oemPackagingPage.source.includes('OEM vs ODM cosmetic packaging: what is the difference?')) {
     errors.push('OEM/ODM packaging page is missing the OEM-versus-ODM answer');
   }
+}
+if (!homepage.includes(`href="${glassShippingGuidePath}"`)) {
+  errors.push('homepage is missing the glass bottle shipping guide link');
+}
+const glassGuideHubPage = pageRecords.find(record => record.rel === 'glass-bottle-buying-guides/index.html');
+if (!glassGuideHubPage?.source.includes(`href="${glassShippingGuidePath}"`)) {
+  errors.push('glass bottle guide hub is missing the shipping and breakage guide link');
+}
+const siteIndexPage = pageRecords.find(record => record.rel === 'site-index/index.html');
+if (!siteIndexPage?.source.includes(`href="${glassShippingGuidePath}"`)) {
+  errors.push('site index is missing the glass bottle shipping guide link');
 }
 
 for (const cannibalizingMap of [

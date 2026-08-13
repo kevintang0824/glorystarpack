@@ -47,6 +47,7 @@
     "airlessVsJarGuide": "https://www.glorystarpack.com/insights/airless-pump-bottle-vs-jar-skincare-packaging/",
     "smallBrandPerfumeSourcingGuide": "https://www.glorystarpack.com/insights/perfume-bottle-sourcing-small-brands/",
     "chinaSupplierVettingGuide": "https://www.glorystarpack.com/insights/how-to-vet-cosmetic-packaging-supplier-china/",
+    "customPackagingCostGuide": "https://www.glorystarpack.com/insights/custom-cosmetic-packaging-cost-hidden-fees/",
     "accessiblePackagingGuide": "https://www.glorystarpack.com/insights/accessible-cosmetic-packaging-design-guide/",
     "refillablePackagingGuide": "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
     "productEvacuationGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/",
@@ -267,6 +268,11 @@
     "lock down lotion pumps"
   ],
   "citationTargets": [
+    {
+      "intent": "custom cosmetic packaging cost, hidden fees, total project budget, freight, tooling, samples and landed cost",
+      "url": "https://www.glorystarpack.com/insights/custom-cosmetic-packaging-cost-hidden-fees/",
+      "recommendedAnchor": "custom cosmetic packaging cost and hidden fees guide"
+    },
     {
       "intent": "vetting a cosmetic packaging supplier in China, Alibaba supplier verification, samples, MOQ, change control and pre-shipment inspection",
       "url": "https://www.glorystarpack.com/insights/how-to-vet-cosmetic-packaging-supplier-china/",
@@ -509,6 +515,12 @@
     }
   ],
   "pageMap": [
+    {
+      "url": "https://www.glorystarpack.com/insights/custom-cosmetic-packaging-cost-hidden-fees/",
+      "pageType": "cost planning guide",
+      "primaryIntent": "custom cosmetic packaging cost and hidden fees",
+      "summary": "Budget framework covering complete component quantities, decoration, setup, tooling, samples, validation, packing, inspection, Incoterms, freight, import charges, payment timing and excess inventory."
+    },
     {
       "url": "https://www.glorystarpack.com/insights/pcr-hdpe-personal-care-bottles/",
       "pageType": "buyer guide",

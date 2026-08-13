@@ -500,7 +500,7 @@ for (const productPage of productPages) {
 
 try {
   const aiContext = JSON.parse(fs.readFileSync(path.join(rootDir, 'ai-context.json'), 'utf8'));
-  for (const key of ['about', 'contact', 'productIndex', 'insights', 'rssFeed', 'compatibilityTestingGuide', 'pumpClosureGuide', 'chinaSupplierVettingGuide', 'pumpClosureCategory']) {
+  for (const key of ['about', 'contact', 'productIndex', 'insights', 'rssFeed', 'compatibilityTestingGuide', 'pumpClosureGuide', 'chinaSupplierVettingGuide', 'customPackagingCostGuide', 'pumpClosureCategory']) {
     if (!aiContext.site?.[key]) errors.push(`ai-context.json site.${key} is missing`);
   }
   if (aiContext.creator?.['@id'] !== `${siteUrl}/#packaging-desk`) {
@@ -586,7 +586,8 @@ const decisionMatrixRows = new Map([
   ['insights/color-cosmetics-component-systems/index.html', 6],
   ['insights/molded-pulp-gift-box-inserts/index.html', 6],
   ['insights/cosmetic-packaging-tamper-evident-seals-guide/index.html', 6],
-  ['insights/how-to-vet-cosmetic-packaging-supplier-china/index.html', 8]
+  ['insights/how-to-vet-cosmetic-packaging-supplier-china/index.html', 8],
+  ['insights/custom-cosmetic-packaging-cost-hidden-fees/index.html', 8]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'iccwbo.org',
@@ -594,6 +595,7 @@ const approvedPrimarySourceHosts = new Set([
   'eur-lex.europa.eu',
   'store.astm.org',
   'www.samr.gov.cn',
+  'www.help.cbp.gov',
   'www.fda.gov',
   'www.ftc.gov',
   'www.gov.uk',
@@ -601,7 +603,7 @@ const approvedPrimarySourceHosts = new Set([
   'www.phmsa.dot.gov',
   'www.trade.gov'
 ]);
-if (insightArticles.length !== 25) errors.push(`expected 25 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 26) errors.push(`expected 26 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);
@@ -777,6 +779,7 @@ const homepageInsightLinks = new Set(
 );
 if (homepageInsightLinks.size < 6) errors.push(`homepage exposes only ${homepageInsightLinks.size} crawlable insight links`);
 for (const requiredPath of [
+  '/insights/custom-cosmetic-packaging-cost-hidden-fees/',
   '/insights/how-to-vet-cosmetic-packaging-supplier-china/',
   '/insights/cosmetic-packaging-compatibility-testing-guide/',
   '/insights/cosmetic-pump-closure-selection-guide/',
@@ -951,10 +954,14 @@ for (const routePath of sourcingRoutePaths) {
 
 const chinaSupplierPage = pageRecords.find(record => record.rel === 'cosmetic-packaging-supplier-china/index.html');
 const supplierVettingPath = '/insights/how-to-vet-cosmetic-packaging-supplier-china/';
+const packagingCostPath = '/insights/custom-cosmetic-packaging-cost-hidden-fees/';
 if (!chinaSupplierPage) errors.push('missing cosmetic-packaging-supplier-china/index.html');
 else {
   if (!chinaSupplierPage.source.includes(`href="${supplierVettingPath}"`)) {
     errors.push('China supplier page is missing the supplier-vetting guide link');
+  }
+  if (!chinaSupplierPage.source.includes(`href="${packagingCostPath}"`)) {
+    errors.push('China supplier page is missing the custom packaging cost guide link');
   }
   if (chinaSupplierPage.source.includes('<a href="/">Cosmetic packaging manufacturer</a>')) {
     errors.push('China supplier page incorrectly maps cosmetic packaging manufacturer intent to the glass-bottle homepage');
@@ -970,6 +977,9 @@ else {
   }
   if (!customPackagingPage.source.includes('Which custom packaging route fits?')) {
     errors.push('custom cosmetic packaging page is missing its route-selection answer');
+  }
+  if (!customPackagingPage.source.includes(`href="${packagingCostPath}"`)) {
+    errors.push('custom cosmetic packaging page is missing the cost and hidden-fees guide link');
   }
 }
 if (!oemPackagingPage) errors.push('missing oem-cosmetic-packaging/index.html');

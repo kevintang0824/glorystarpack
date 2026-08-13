@@ -31,6 +31,7 @@ const primarySources = {
   fdaSmallBusinessCosmetics: ['https://www.fda.gov/cosmetics/resources-industry-cosmetics/small-businesses-homemade-cosmetics-fact-sheet', 'FDA small-business and homemade cosmetics fact sheet', 'Explains U.S. cosmetic-business responsibilities, including packaging, contamination and labeling considerations.'],
   fdaTamperCosmetics: ['https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cpg-sec-590500-packaging-technologies-and-tamper-resistant-packaging-requirements-cosmetic-products', 'FDA cosmetic tamper-resistant packaging policy guide', 'Points to the U.S. tamper-resistant packaging requirements for the cosmetic product categories covered by 21 CFR 700.25.'],
   fdaTamperOtc: ['https://www.fda.gov/regulatory-information/search-fda-guidance-documents/cpg-sec-450500-tamper-resistant-packaging-requirements-certain-over-counter-human-drug-products', 'FDA tamper-resistant packaging guide for certain OTC drugs', 'Summarizes the separate U.S. tamper-resistant packaging framework that may apply when a finished product is regulated as an OTC drug.'],
+  cbpImportFees: ['https://www.help.cbp.gov/s/article/Article-1225?language=en_US', 'U.S. Customs and Border Protection import duty and fee overview', 'Explains that duties, taxes and user fees can depend on the commodity, entry type and transportation mode, including processing and harbor fees where applicable.'],
   ftcGreenGuides: ['https://www.ftc.gov/business-guidance/resources/environmental-claims-summary-green-guides', 'FTC environmental claims summary', 'Explains qualification and substantiation considerations for recycled-content, recyclable and refillable claims in the U.S.'],
   iso11156: ['https://www.iso.org/standard/50175.html', 'ISO 11156 packaging accessible-design overview', 'Provides a framework for packages that more people can identify, handle, use, separate and dispose of.'],
   iso14021: ['https://www.iso.org/standard/14021', 'ISO 14021:2026 environmental claims overview', 'Describes requirements and guidance for self-declared environmental statements used on products, packaging and digital materials.'],
@@ -797,6 +798,48 @@ const insightDefinitions = {
       ['/insights/packaging-closure-qc-checklist/', 'Component QC Checklist'],
       ['/contact/', 'Send a Structured Packaging RFQ']
     ]
+  },
+  '26': {
+    slug: 'custom-cosmetic-packaging-cost-hidden-fees',
+    seoTitle: 'Custom Cosmetic Packaging Cost & Hidden Fees | Guide',
+    dateModified: '2026-08-13',
+    decisionTable: {
+      heading: 'Custom cosmetic packaging budget worksheet',
+      intro: 'Normalize every quotation against the same finished configuration, charged quantities and delivery scope. Leave a line visibly unresolved instead of treating an exclusion as zero cost.',
+      caption: 'Budget lines to compare for a custom cosmetic packaging project',
+      columns: ['Cost layer', 'What to request', 'Hidden-budget risk'],
+      rows: [
+        ['Primary components', 'Container, closure, liner, gasket, dip tube, actuator, overcap and every component MOQ or carton quantity.', 'The highest component minimum creates excess inventory or limits the number of complete saleable sets.'],
+        ['Decoration and color', 'Per-unit price, setup, color matching, plates or screens, production loss and approved tolerance.', 'A quote covers one print pass but excludes coating, extra colors, reject allowance or repeat setup.'],
+        ['Tooling and development', 'Mold, dieline, structural work, ownership, maintenance, storage, revision and replacement terms.', 'A tooling payment does not provide transferable ownership or cover later repair and modification.'],
+        ['Samples and validation', 'Stock, decorated and production-intent samples, express freight, filling trials, compatibility work and approval rounds.', 'Multiple unplanned rounds or a visually approved sample that does not represent the bulk specification.'],
+        ['Retail and export packing', 'Label, carton, insert, leaflet, assembly, divider, master carton, pallet and packing quantities.', 'A bottle quote omits secondary packaging or moves flat-pack assembly labor to another site.'],
+        ['Inspection and release', 'Pre-shipment checks, retained controls, third-party inspection, re-inspection and required release evidence.', 'Defects are found only after balance payment, freight or arrival at the filling location.'],
+        ['Freight and trade term', 'Incoterms rule, named place, packed dimensions, gross weight, origin handling, main freight and inland delivery scope.', 'EXW, FOB and delivered prices are compared as if they include the same tasks and charges.'],
+        ['Import and contingency', 'Classification assumptions, duty, tax, entry or broker fees, destination charges, storage and a separate controlled contingency.', 'Old rates or vague door-to-door language are used as a guaranteed landed cost.']
+      ]
+    },
+    discussionSignals: [
+      ['https://www.reddit.com/r/Packaging/comments/1td0nci/first_time_ordering_custom_packaging_on_alibaba/', 'First custom packaging order on Alibaba', 'A first-time buyer compares deposits, physical samples, domestic and China quotations, customs, taxes and shipping scopes.'],
+      ['https://www.reddit.com/r/StartBusiness/comments/1vg5cov/how_did_you_navigate_high_custom_packaging_moqs/', 'Handling high custom packaging MOQ on a first run', 'A private-label founder weighs setup fees, tooling, lead time and semi-custom packaging against the cash risk of unvalidated inventory.'],
+      ['https://www.reddit.com/r/Entrepreneur/comments/1kgqjfx/', 'Small-batch skincare launch budget', 'A founder asks which hidden costs—labels, customs, samples and scaling—are missing from a tightly constrained first launch budget.'],
+      ['https://www.reddit.com/r/dropshipping/comments/1tkl6yu/custom_packaging_for_your_products/', 'Custom packaging for a new skincare store', 'A new beauty seller asks whether custom packaging requires bulk inventory and how to stage branding before proven volume.']
+    ],
+    sources: references('iccIncoterms', 'cbpImportFees', 'iso18602'),
+    sourceNote: 'Incoterms, U.S. import-fee information and packaging-optimization principles clarify parts of a cost model; they do not quote a GloryStarPack project, determine customs classification or guarantee landed cost. Confirm current rules, professional fees and configuration-specific prices for the destination and order.',
+    questions: [
+      'What is the charged quantity and usable finished-set quantity for every container, closure, decoration and secondary-packaging line?',
+      'Which setup, tooling, sample, inspection, freight, import and destination costs are included, estimated or excluded?',
+      'When is each payment due, what approval evidence is available before it, and how much cash remains tied in unmatched excess inventory?'
+    ],
+    note: 'Do not compare a bottle unit price with a delivered finished-pack price. Normalize the exact bill of materials, quantities, Incoterms scope, payment timing and exclusions, then confirm current import and freight assumptions for the actual shipment.',
+    resources: [
+      ['/cosmetic-packaging-moq/', 'Cosmetic Packaging MOQ Guide'],
+      ['/custom-cosmetic-packaging/', 'Custom Cosmetic Packaging'],
+      ['/insights/cosmetic-packaging-rfq-guide/', 'Packaging RFQ Guide'],
+      ['/insights/how-to-vet-cosmetic-packaging-supplier-china/', 'Supplier Verification Guide'],
+      ['/contact/', 'Request an Itemized Packaging Quote']
+    ]
   }
 };
 
@@ -825,7 +868,8 @@ const insightConsiderations = {
   '22': 'Map formula water content, oils, fragrance, viscosity, fill temperature and cooling behavior before selecting the pack. Review direct access, wet-hand grip, evacuation and bathroom breakage alongside compatibility and shipping. A beautiful jar, tube or tin is only suitable when the production-intent system supports the formula and use action.',
   '23': 'Measure the primary container, closure, carton, insert and ecommerce shipper against the functions each must preserve. Compare a defined baseline with the revised production-intent system, including material moved to another layer. Keep usability, label space, product protection and distribution performance inside the right-sizing acceptance criteria.',
   '24': 'Start with finished-product classification and the route to market, then separate visible tamper evidence from leakage control and child resistance. Approve the exact barrier, application process, consumer statement, intact and opened appearance, compatibility consequences and packed-route durability as one controlled system.',
-  '25': 'A reliable sourcing decision comes from consistent evidence, not one trust signal. Match the legal and payment entities, disclose who performs each process, convert the approved sample into item-coded specifications, define what changes require approval, and make inspection and shipment release depend on the same purchase-order requirements.'
+  '25': 'A reliable sourcing decision comes from consistent evidence, not one trust signal. Match the legal and payment entities, disclose who performs each process, convert the approved sample into item-coded specifications, define what changes require approval, and make inspection and shipment release depend on the same purchase-order requirements.',
+  '26': 'Build the budget from the complete bill of materials and the quantities actually charged, then separate recurring units from setup, tooling, samples, validation, packing, freight, import charges and contingency. Compare quotations only after their Incoterms scope and exclusions are aligned, and calculate cash timing plus unmatched excess inventory as well as the apparent unit price.'
 };
 
 function escapeHtml(value) {

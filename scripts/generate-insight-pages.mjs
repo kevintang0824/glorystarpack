@@ -15,7 +15,7 @@ window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-13';
+const indexModifiedDate = '2026-08-14';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -25,6 +25,8 @@ const primarySources = {
   istaRetesting: ['https://support.ista.org/portal/en/kb/articles/when-should-a-packaged-product-be-retested', 'ISTA packaged-product retesting guidance', 'Identifies product, package, process and distribution changes that may require performance retesting.'],
   istaCompleteSystem: ['https://support.ista.org/portal/en/kb/articles/can-i', 'ISTA guidance on testing the complete packaged-product', 'Clarifies that transport procedures evaluate a specific product-and-package system rather than certifying an individual packaging material.'],
   astmGlass: ['https://store.astm.org/products-services/standards-and-publications/standards/glass-standards-and-ceramic-standards.html', 'ASTM glass-container standards index', 'Lists active methods covering glass-container sampling, internal pressure, thermal shock and polariscopic examination.'],
+  astmLabelPeel: ['https://store.astm.org/d6252_d6252m-98r25.html', 'ASTM D6252/D6252M-98(2025) peel-adhesion overview', 'Describes a quality-assurance method for peel adhesion of pressure-sensitive label stocks and permits a representative substrate when appropriately documented.'],
+  astmPrintedAbrasion: ['https://store.astm.org/d5264-98r19.html', 'ASTM D5264 printed-material abrasion overview', 'Describes abrasion evaluation for printed labels and other printed materials, with scope for agreed modifications such as product-spillage exposure.'],
   astmPackaging: ['https://store.astm.org/products-services/standards-and-publications/standards/paper-standards-and-packaging-standards.html', 'ASTM packaging standards index', 'Identifies current packaging methods for closures, shipping units, conditioning and package evaluation.'],
   euPpwr: ['https://eur-lex.europa.eu/eli/reg/2025/40/oj/eng', 'Regulation (EU) 2025/40 on packaging and packaging waste', 'Sets lifecycle, reuse, refill and waste-prevention requirements, including provisions for accommodation-sector single-use toiletries.'],
   fdaColors: ['https://www.fda.gov/cosmetics/cosmetic-ingredient-names/color-additives-permitted-use-cosmetics', 'FDA color additives permitted for cosmetics', 'Provides intended-use tables and links to the applicable U.S. color-additive regulations.'],
@@ -41,6 +43,7 @@ const primarySources = {
   iso18602: ['https://www.iso.org/standard/55870.html', 'ISO 18602:2013 packaging-system optimization overview', 'Describes assessment of packaging weight or volume while preserving required packaging functions.'],
   iso18603: ['https://www.iso.org/standard/55871.html', 'ISO 18603:2013 packaging reuse overview', 'Defines requirements and assessment procedures for packaging intended to be classified as reusable.'],
   iso18604: ['https://www.iso.org/standard/55872.html', 'ISO 18604:2013 material-recycling overview', 'Defines assessment requirements for packaging intended to be recoverable through material recycling.'],
+  isoSelfAdhesiveLabels: ['https://www.iso.org/standard/71043.html', 'ISO/TS 18614:2016 self-adhesive label specification overview', 'Identifies information required when ordering and specifying self-adhesive labels.'],
   iso22716: ['https://www.iso.org/standard/36437.html', 'ISO 22716:2007 cosmetic GMP overview', 'Describes quality guidance for cosmetic production, control, storage and shipment.'],
   iso2859: ['https://www.iso.org/standard/85464.html', 'ISO 2859-1:2026 acceptance-sampling overview', 'Defines AQL-indexed sampling schemes for lot-by-lot inspection by attributes.'],
   iso9001SupplyChain: ['https://www.iso.org/iso/pub100304.pdf', 'ISO 9001 in the supply chain', 'Explains how buyers can use quality-management evidence when selecting suppliers without treating certification as a product guarantee.'],
@@ -49,6 +52,8 @@ const primarySources = {
   alibabaVerifiedSupplier: ['https://seller.alibaba.com/verified-supplier?language=en_US&tenantId=US', 'Alibaba.com Verified Supplier program', 'Explains that the program includes an assessment report produced through a third-party on-site verification process.'],
   iccIncoterms: ['https://iccwbo.org/business-solutions/incoterms-rules/', 'ICC Incoterms rules overview', 'Explains the standardized trade terms used to allocate delivery tasks, costs and risks between seller and buyer.'],
   phmsaPerfumeryProducts: ['https://www.phmsa.dot.gov/regulations/title49/interp/20-0011', 'U.S. PHMSA interpretation on perfumery products', 'Explains that transport classification depends on the product function and whether a finished cosmetic contains a regulated flammable liquid.'],
+  averyAdhesiveGuide: ['https://label.averydennison.com/content/dam/2025-ap-lpm-website-assets/english/po/asean-/po-adhesive-asean.pdf', 'Avery Dennison ASEAN adhesive technical guide', 'Explains how substrate surface energy and surface contamination influence pressure-sensitive adhesive selection and adhesion.'],
+  averyLabelComponentGuide: ['https://label.averydennison.com/content/dam/2026-ap-lpm-assets/amea/po/asean/po/pcg/ASEAN%20PCG%202026.pdf', 'Avery Dennison ASEAN 2026 product component guide', 'Distinguishes application and service temperatures and identifies label-selection considerations such as substrate, tight mandrels, baby oil, moisture and chilled application.'],
   ukCosmetics: ['https://www.gov.uk/guidance/consumer-products-cosmetics', 'UK government cosmetic products guidance', 'Summarizes responsible-person, safety, notification and packaging-information duties for cosmetic products made available in Great Britain.']
 };
 
@@ -338,6 +343,7 @@ const insightDefinitions = {
     resources: [
       ['/cosmetic-logo-printing-methods/', 'Logo Printing Methods'],
       ['/custom-cosmetic-packaging/', 'Custom Packaging Process'],
+      ['/insights/cosmetic-bottle-labels-peeling-adhesive-guide/', 'Cosmetic Bottle Label Adhesion Guide'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
     ]
   },
@@ -884,6 +890,49 @@ const insightDefinitions = {
       ['/insights/molded-pulp-gift-box-inserts/', 'Protective Insert Comparison'],
       ['/contact/', 'Request a Glass Bottle and Packing Quote']
     ]
+  },
+  '28': {
+    slug: 'cosmetic-bottle-labels-peeling-adhesive-guide',
+    seoTitle: 'Cosmetic Bottle Labels Peeling? Adhesive & Test Guide',
+    dateModified: '2026-08-14',
+    decisionTable: {
+      heading: 'Cosmetic bottle label qualification matrix',
+      intro: 'Specify and approve the label as part of the filled packaging system. A generic waterproof or permanent claim does not establish performance on the selected bottle and route.',
+      caption: 'Qualification checks for cosmetic bottle labels and pressure-sensitive label constructions',
+      columns: ['Decision area', 'Requirement to define', 'Evidence before bulk production'],
+      rows: [
+        ['Bottle surface', 'Item code, glass or resin, coating or treatment, recycled-content scope and known process residue.', 'Production-intent bottle identification plus representative surface and cleanliness checks.'],
+        ['Geometry and label panel', 'Diameter, circumference, taper, curves, squeeze action, seam and usable artwork area.', 'Approved dieline and applied blank-label samples checked for lift, wrinkles and readable area.'],
+        ['Facestock', 'Paper or film, color, opacity, finish, conformability and expected water or chemical exposure.', 'Printed production-intent construction reviewed after conditioning and project-specific exposure.'],
+        ['Adhesive', 'Exact adhesive code, bottle substrate, minimum application temperature, service range and tight-mandrel need.', 'Converter recommendation plus adhesion evaluation on the actual bottle across agreed conditions.'],
+        ['Print and protection', 'Print process, ink or toner, opaque white where needed, laminate or varnish and appearance tolerance.', 'Artwork proof followed by rub, spill, water and visual evaluation with defined acceptance criteria.'],
+        ['Application process', 'Bottle and label conditioning, clean and dry surface, hand or machine application, pressure, placement and dwell.', 'Controlled line or representative application trial with recorded settings and post-application inspection.'],
+        ['Use and distribution', 'Formula spill, shower or condensation, repeated handling, carton abrasion, temperature and storage time.', 'Filled-pack exposure and distribution evaluation using the intended neighbors, restraint and route.'],
+        ['Inspection and change control', 'Failure classes, sample IDs, approved specification, retained controls and retest triggers.', 'Lot inspection record and written approval before any bottle, label, formula, process or packout change.']
+      ]
+    },
+    sources: references('averyAdhesiveGuide', 'averyLabelComponentGuide', 'isoSelfAdhesiveLabels', 'astmLabelPeel', 'astmPrintedAbrasion', 'fdaCosmeticLabeling', 'iso2859'),
+    sourceNote: 'These references support label specification, adhesion and abrasion planning and U.S. cosmetic-labeling context; they do not approve a specific label, adhesive, artwork or finished package. The responsible converter, filler, laboratory and brand should define the methods and acceptance criteria for the exact bottle, formula, destination and route.',
+    questions: [
+      'What bottle material, coating, diameter, taper and surface condition will receive the label?',
+      'Which water, oil, alcohol, formula-spill, abrasion, temperature and handling exposures must the full label construction survive?',
+      'How will the label be applied, inspected and protected from unapproved bottle, adhesive, ink, laminate or process changes?'
+    ],
+    note: 'Do not approve a label from a generic “waterproof” or “permanent adhesive” description. Qualify the exact facestock, adhesive, print, protective layer and dimensions on the production-intent bottle after representative labeling, filling, exposure and distribution.',
+    discussionSignals: [
+      ['https://www.reddit.com/r/smallbusiness/comments/1lfk0pt/black_waterproof_product_labels/', 'Black waterproof product labels', 'Small-business discussion about labels for oil-based body products and scrubs shows that water resistance, oil exposure and print durability are separate buying concerns.'],
+      ['https://www.reddit.com/r/soapmaking/comments/1unyk15/matt_black_labels/', 'Matte black labels', 'Soapmaking discussion about matte black waterproof labels highlights the need to define stock color, opaque printing and commercial print capability rather than only the visual finish.'],
+      ['https://www.reddit.com/r/smallbusiness/comments/1kint21/package_labeling_fit/', 'Package labeling fit', 'Cosmetic-jar labeling discussion shows how quickly required content, exact dimensions and artwork hierarchy become constrained on small containers.'],
+      ['https://www.reddit.com/r/soapmaking/comments/sottxe/', 'Labels exposed to shower water', 'Shower-product discussion shows the practical failure case of wet labels deteriorating during normal use and the need for realistic exposure tests.']
+    ],
+    resources: [
+      ['/products/plastic-packaging/', 'Plastic Packaging'],
+      ['/insights/cosmetic-packaging-decoration-methods/', 'Decoration Method Guide'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
+      ['/custom-cosmetic-packaging/', 'Custom Cosmetic Packaging'],
+      ['/contact/', 'Discuss a Labelled Packaging Project']
+    ]
   }
 };
 
@@ -914,7 +963,8 @@ const insightConsiderations = {
   '24': 'Start with finished-product classification and the route to market, then separate visible tamper evidence from leakage control and child resistance. Approve the exact barrier, application process, consumer statement, intact and opened appearance, compatibility consequences and packed-route durability as one controlled system.',
   '25': 'A reliable sourcing decision comes from consistent evidence, not one trust signal. Match the legal and payment entities, disclose who performs each process, convert the approved sample into item-coded specifications, define what changes require approval, and make inspection and shipment release depend on the same purchase-order requirements.',
   '26': 'Build the budget from the complete bill of materials and the quantities actually charged, then separate recurring units from setup, tooling, samples, validation, packing, freight, import charges and contingency. Compare quotations only after their Incoterms scope and exclusions are aligned, and calculate cash timing plus unmatched excess inventory as well as the apparent unit price.',
-  '27': 'Begin with the exact distribution route and failure consequence. Keep bottles from contacting one another, restrain vertical and lateral movement, protect decorated or open surfaces from abrasion and contamination, and match carton and unit-load strength to handling and stacking. Validate the production-intent filled or empty configuration as one packaged-product system, then retest when a material, component, packout or route changes.'
+  '27': 'Begin with the exact distribution route and failure consequence. Keep bottles from contacting one another, restrain vertical and lateral movement, protect decorated or open surfaces from abrasion and contamination, and match carton and unit-load strength to handling and stacking. Validate the production-intent filled or empty configuration as one packaged-product system, then retest when a material, component, packout or route changes.',
+  '28': 'Start with the production-intent bottle and name the actual failure mode before changing the label. Specify the facestock, adhesive, ink, protective layer, dimensions and application process as one construction, then test it after filling against project-specific water, oil, formula, handling and distribution exposures. Freeze the approved codes and retest when any bottle surface, label layer, formula, process or packout changes.'
 };
 
 function escapeHtml(value) {

@@ -592,7 +592,8 @@ const decisionMatrixRows = new Map([
   ['insights/how-to-vet-cosmetic-packaging-supplier-china/index.html', 8],
   ['insights/custom-cosmetic-packaging-cost-hidden-fees/index.html', 8],
   ['insights/how-to-ship-glass-bottles-without-breaking/index.html', 8],
-  ['insights/cosmetic-bottle-labels-peeling-adhesive-guide/index.html', 8]
+  ['insights/cosmetic-bottle-labels-peeling-adhesive-guide/index.html', 8],
+  ['insights/dropper-bottle-leaking-seal-pipette-guide/index.html', 8]
 ]);
 const approvedPrimarySourceHosts = new Set([
   'iccwbo.org',
@@ -611,7 +612,7 @@ const approvedPrimarySourceHosts = new Set([
   'www.trade.gov',
   'label.averydennison.com'
 ]);
-if (insightArticles.length !== 28) errors.push(`expected 28 generated insight articles, found ${insightArticles.length}`);
+if (insightArticles.length !== 29) errors.push(`expected 29 generated insight articles, found ${insightArticles.length}`);
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);
@@ -789,6 +790,7 @@ if (homepageInsightLinks.size < 6) errors.push(`homepage exposes only ${homepage
 for (const requiredPath of [
   '/insights/custom-cosmetic-packaging-cost-hidden-fees/',
   '/insights/cosmetic-bottle-labels-peeling-adhesive-guide/',
+  '/insights/dropper-bottle-leaking-seal-pipette-guide/',
   '/insights/how-to-vet-cosmetic-packaging-supplier-china/',
   '/insights/cosmetic-packaging-compatibility-testing-guide/',
   '/insights/cosmetic-pump-closure-selection-guide/',

@@ -73,6 +73,7 @@ build/Release
 .node_repl_history
 .firebase/
 .vercel/
+.wrangler/
 .tern-port
 .vscode-test
 vite.config.js.timestamp-*

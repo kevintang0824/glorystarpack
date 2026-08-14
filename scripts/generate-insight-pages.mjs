@@ -933,6 +933,51 @@ const insightDefinitions = {
       ['/custom-cosmetic-packaging/', 'Custom Cosmetic Packaging'],
       ['/contact/', 'Discuss a Labelled Packaging Project']
     ]
+  },
+  '29': {
+    slug: 'dropper-bottle-leaking-seal-pipette-guide',
+    seoTitle: 'Dropper Bottle Leaking? Seal & Pipette Guide',
+    dateModified: '2026-08-14',
+    decisionTable: {
+      heading: 'Dropper bottle leak troubleshooting matrix',
+      intro: 'Trace the first leak path, then qualify the production-intent bottle, dropper, formula, filling process and shipping pack as one controlled system.',
+      caption: 'Checks for diagnosing and preventing serum and oil dropper bottle leaks',
+      columns: ['Control area', 'What to verify', 'Evidence before approval'],
+      rows: [
+        ['Bottle finish', 'Bottle item and mold, finish drawing, sealing land, thread, neck height, chips, checks, seams, residue and decoration overspray.', 'Production-intent bottles inspected against the controlled drawing and accepted defect limits.'],
+        ['Collar and functional closure', 'Collar or shell, thread insert, engagement, gasket loading, tamper component and clearance around the bottle finish.', 'Exact bottle-and-dropper item codes assembled and evaluated without unapproved substitutions.'],
+        ['Bulb, gasket and liner', 'Material grade, formula contact, swelling, softening, hardening, tack, recovery, odor and temperature exposure.', 'Filled compatibility observations at defined checkpoints, orientations and relevant conditions.'],
+        ['Pipette and dose', 'Material, exposed length, tip, bottom clearance, bulb recovery, pickup and output across full, middle and low fill.', 'Dimension record plus representative user trials with the production-intent formula.'],
+        ['Filling and application', 'Target fill, nozzle position, sealing-surface cleanliness, closure equipment, application window and removal behavior.', 'Recorded line or representative trial settings with clean sealing surfaces and accepted leak results.'],
+        ['Formula and environment', 'Viscosity, oil, fragrance, alcohol, surface tension, storage time, orientation and selected temperature conditions.', 'Filled-pack results using the actual formula or a justified test liquid with defined acceptance criteria.'],
+        ['Distribution pack', 'Carton or insert restraint, bulb and collar clearance, bottle separation, parcel or pallet route and packed orientation.', 'Route-appropriate evaluation of the complete filled and packed product, not the bottle alone.'],
+        ['Inspection and change control', 'Failure classes, sample and lot IDs, retained controls, complaint fields, approved bill of materials and retest triggers.', 'Release and corrective-action records tied to the exact bottle, dropper, formula, process and packout.']
+      ]
+    },
+    discussionSignals: [
+      ['https://www.reddit.com/r/essentialoils/comments/1q5lnmw/dropper_bottles_and_essential_oils/', 'Dropper bottles and essential oils', 'Users describe bulbs becoming sticky or degraded after contact with oil blends, highlighting the need to qualify the exact elastomer and formula.'],
+      ['https://www.reddit.com/r/DIYBeauty/comments/1sq1yeh/best_containers_to_store_homemade_oil_mixes/', 'Containers for homemade oil mixes', 'Discussion compares droppers, pumps and dripper inserts when repeated use becomes messy or difficult to control.'],
+      ['https://www.reddit.com/r/DIYfragrance/comments/1ir4zr1/droppers_and_bottles_and_leakage_oh_my/', 'Droppers, bottles and leakage', 'A fragrance-making discussion links leakage observations to bottle, closure and liner choices instead of treating every dropper as interchangeable.'],
+      ['https://www.reddit.com/r/Skincare_Addiction/comments/1c8uo6j/', 'Thick serum and a leaking original pack', 'A skincare user reports both leakage and poor pickup of a viscous serum, showing that containment and dispensing performance need separate checks.']
+    ],
+    sources: references('astmClosureTorque', 'fdaCosmeticGmp', 'fdaMicrobiology', 'istaCompleteSystem', 'istaProcedures', 'iso2859'),
+    sourceNote: 'These references support closure measurement, packaging controls, cosmetic protection, packaged-product distribution evaluation and lot sampling; they do not approve a specific GloryStarPack dropper or provide one universal torque, compatibility protocol or leak limit. The responsible brand, filler, laboratory and suppliers should define methods and acceptance criteria for the exact formula and configuration.',
+    questions: [
+      'Where does product first appear: at the bottle land or threads, between the bulb and collar, around the pipette connection, or at damaged glass?',
+      'What are the exact bottle finish, functional closure, gasket, bulb and pipette item codes and dimensions?',
+      'Which formula, filling, orientation, temperature, storage and distribution conditions must the complete filled pack pass?'
+    ],
+    note: 'Do not approve a dropper from a clean empty bottle or a generic “leakproof” claim. Freeze the bottle, finish, collar, functional closure, bulb, gasket, pipette, formula, fill, application process and transit pack, then repeat relevant checks when any part changes.',
+    resources: [
+      ['/products/serum-dropper-bottles/', 'Serum Dropper Bottles'],
+      ['/products/glass-cosmetic-bottles/', 'Glass Cosmetic Bottles'],
+      ['/products/amber-beard-oil-dropper-bottle-set-p305/', 'Amber Oil Dropper Bottle Set'],
+      ['/products/serum-dropper-bottle-glass-p7/', 'Glass Serum Dropper Bottle'],
+      ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
+      ['/insights/cosmetic-pump-closure-selection-guide/', 'Pump and Closure Selection Guide'],
+      ['/insights/how-to-ship-glass-bottles-without-breaking/', 'Glass Bottle Shipping Guide'],
+      ['/contact/', 'Discuss a Dropper Bottle Project']
+    ]
   }
 };
 
@@ -964,7 +1009,8 @@ const insightConsiderations = {
   '25': 'A reliable sourcing decision comes from consistent evidence, not one trust signal. Match the legal and payment entities, disclose who performs each process, convert the approved sample into item-coded specifications, define what changes require approval, and make inspection and shipment release depend on the same purchase-order requirements.',
   '26': 'Build the budget from the complete bill of materials and the quantities actually charged, then separate recurring units from setup, tooling, samples, validation, packing, freight, import charges and contingency. Compare quotations only after their Incoterms scope and exclusions are aligned, and calculate cash timing plus unmatched excess inventory as well as the apparent unit price.',
   '27': 'Begin with the exact distribution route and failure consequence. Keep bottles from contacting one another, restrain vertical and lateral movement, protect decorated or open surfaces from abrasion and contamination, and match carton and unit-load strength to handling and stacking. Validate the production-intent filled or empty configuration as one packaged-product system, then retest when a material, component, packout or route changes.',
-  '28': 'Start with the production-intent bottle and name the actual failure mode before changing the label. Specify the facestock, adhesive, ink, protective layer, dimensions and application process as one construction, then test it after filling against project-specific water, oil, formula, handling and distribution exposures. Freeze the approved codes and retest when any bottle surface, label layer, formula, process or packout changes.'
+  '28': 'Start with the production-intent bottle and name the actual failure mode before changing the label. Specify the facestock, adhesive, ink, protective layer, dimensions and application process as one construction, then test it after filling against project-specific water, oil, formula, handling and distribution exposures. Freeze the approved codes and retest when any bottle surface, label layer, formula, process or packout changes.',
+  '29': 'Find the first leak path before changing or overtightening the assembly. Match the finish and functional closure, qualify the bulb and gasket with the formula, set pipette clearance and dose, control filling and application, then evaluate the filled pack through storage and distribution. Freeze exact component codes and repeat relevant checks when the formula, process, component or packout changes.'
 };
 
 function escapeHtml(value) {

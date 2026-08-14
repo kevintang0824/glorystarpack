@@ -43,6 +43,7 @@
     "glassBottleGuides": "https://www.glorystarpack.com/glass-bottle-buying-guides/",
     "glassBottleShippingGuide": "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/",
     "cosmeticBottleLabelGuide": "https://www.glorystarpack.com/insights/cosmetic-bottle-labels-peeling-adhesive-guide/",
+    "dropperBottleLeakGuide": "https://www.glorystarpack.com/insights/dropper-bottle-leaking-seal-pipette-guide/",
     "compatibilityTestingGuide": "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
     "pumpClosureGuide": "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/",
     "pumpTroubleshootingGuide": "https://www.glorystarpack.com/insights/cosmetic-pump-not-working-troubleshooting/",
@@ -203,6 +204,9 @@
     "skincare packaging manufacturer",
     "glass cosmetic bottles",
     "serum dropper bottles",
+    "dropper bottle leaking",
+    "dropper bottle leak test",
+    "serum dropper pipette troubleshooting",
     "airless pump bottles",
     "cosmetic jars",
     "cosmetic tubes",
@@ -275,6 +279,11 @@
     "lock down lotion pumps"
   ],
   "citationTargets": [
+    {
+      "intent": "dropper bottle leaking, serum or oil bottle seal failure, sticky bulb, pipette pickup and dropper leak testing",
+      "url": "https://www.glorystarpack.com/insights/dropper-bottle-leaking-seal-pipette-guide/",
+      "recommendedAnchor": "dropper bottle leak troubleshooting guide"
+    },
     {
       "intent": "cosmetic bottle labels peeling, waterproof or oil-resistant labels, label adhesive, print rub and label durability testing",
       "url": "https://www.glorystarpack.com/insights/cosmetic-bottle-labels-peeling-adhesive-guide/",
@@ -532,6 +541,12 @@
     }
   ],
   "pageMap": [
+    {
+      "url": "https://www.glorystarpack.com/insights/dropper-bottle-leaking-seal-pipette-guide/",
+      "pageType": "packaging troubleshooting and qualification guide",
+      "primaryIntent": "dropper bottle leaking and pipette troubleshooting",
+      "summary": "System guide for diagnosing leaks across the bottle finish, functional closure, bulb, gasket and pipette, then controlling formula compatibility, filling, application, storage, distribution, complaints and change control."
+    },
     {
       "url": "https://www.glorystarpack.com/insights/cosmetic-bottle-labels-peeling-adhesive-guide/",
       "pageType": "packaging troubleshooting and qualification guide",

@@ -362,10 +362,12 @@ const sitemapHomepageModified = firstMatch(
 if (!homepageModified || homepageModified !== sitemapHomepageModified) {
   errors.push(`homepage dateModified (${homepageModified || 'missing'}) does not match sitemap lastmod (${sitemapHomepageModified || 'missing'})`);
 }
-const homepageProductLinks = new Set(
+const homepageProductDetailLinks = new Set(
   [...homepage.matchAll(/href=["'](\/products\/[^"']+-p\d+\/)["']/g)].map(match => match[1])
 );
-if (homepageProductLinks.size < 4) errors.push(`homepage exposes only ${homepageProductLinks.size} crawlable product links`);
+if (homepageProductDetailLinks.size < 4) {
+  errors.push(`homepage exposes only ${homepageProductDetailLinks.size} crawlable individual product detail links`);
+}
 for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', '/insights/', '/glass-bottle-buying-guides/', '/site-index/']) {
   if (!homepage.includes(`href="${requiredPath}"`)) errors.push(`homepage is missing a crawlable ${requiredPath} link`);
 }
@@ -1033,7 +1035,7 @@ for (const cannibalizingMap of [
 }
 
 console.log(`Checked ${pageRecords.length} HTML pages, ${sitemapUrls.length} sitemap URLs, ${productPages.length} product pages and ${insightArticles.length} insight articles.`);
-console.log(`Homepage crawlable product links: ${homepageProductLinks.size}.`);
+console.log(`Homepage crawlable individual product detail links: ${homepageProductDetailLinks.size}.`);
 console.log(`Homepage crawlable insight links: ${homepageInsightLinks.size}.`);
 console.log(`Homepage startup JavaScript: ${mainJsBytes} raw bytes / ${mainJsGzipBytes} gzip bytes.`);
 if (warnings.length) {

@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/glass-cosmetic-bottles/</loc>
-    <lastmod>2026-08-02</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.92</priority>
   </url>
@@ -116,7 +116,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/glass-packaging/</loc>
-    <lastmod>2026-08-02</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -653,15 +653,21 @@
   <!-- BEGIN GENERATED INSIGHT PAGES -->
   <url>
     <loc>https://www.glorystarpack.com/glass-bottle-buying-guides/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/insights/glass-bottle-defects-quality-inspection-guide/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/dropper-bottle-leaking-seal-pipette-guide/</loc>
@@ -761,7 +767,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/glass-bottle-sample-approval-qc-checklist/</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -821,19 +827,19 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/packaging-closure-qc-checklist/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/molded-pulp-gift-box-inserts/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/insights/cosmetic-packaging-decoration-methods/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

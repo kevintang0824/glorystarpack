@@ -22,3 +22,5 @@ node scripts/submit-indexnow.mjs --all
 ```
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for release, indexing and recovery instructions.
+
+The evidence-first daily SEO/AEO workflow, quality gates, KPI definitions and publishing red lines are documented in [SEO_DAILY_OPERATING_SYSTEM.md](SEO_DAILY_OPERATING_SYSTEM.md).

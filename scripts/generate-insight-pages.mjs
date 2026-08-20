@@ -15,7 +15,7 @@ window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-14';
+const indexModifiedDate = '2026-08-20';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -280,7 +280,7 @@ const insightDefinitions = {
   '8': {
     slug: 'packaging-closure-qc-checklist',
     seoTitle: 'Packaging Closure QC Checklist | GloryStarPack',
-    dateModified: '2026-08-01',
+    dateModified: '2026-08-20',
     sources: references('astmClosureTorque', 'astmPackaging', 'iso2859'),
     sourceNote: 'Select test methods, sampling plans, conditioning and acceptance limits for the exact package and intended use. A standard title or nominal neck designation does not prove that a container and closure are interchangeable or approved.',
     questions: [
@@ -299,7 +299,7 @@ const insightDefinitions = {
   '9': {
     slug: 'molded-pulp-gift-box-inserts',
     seoTitle: 'Molded Pulp Packaging Inserts vs Foam | Guide',
-    dateModified: '2026-08-09',
+    dateModified: '2026-08-20',
     decisionTable: {
       heading: 'Protective insert material comparison',
       intro: 'Choose the insert from the product, presentation and distribution functions. Material category alone does not establish protection, recyclability or a lower environmental impact.',
@@ -332,6 +332,7 @@ const insightDefinitions = {
   '10': {
     slug: 'cosmetic-packaging-decoration-methods',
     seoTitle: 'Cosmetic Packaging Decoration Methods | GloryStarPack',
+    dateModified: '2026-08-20',
     sources: references('astmCoatingAdhesion', 'fdaCosmeticLabeling', 'iso22716'),
     sourceNote: 'ASTM D3359 has substrate and method limitations and should not be applied indiscriminately to every glass, plastic, metal or paper decoration. Agree the relevant adhesion, rub, chemical-exposure, artwork and labeling checks for the actual decorated package.',
     questions: [
@@ -386,7 +387,7 @@ const insightDefinitions = {
   '13': {
     slug: 'glass-bottle-sample-approval-qc-checklist',
     seoTitle: 'Glass Bottle Sample Approval & QC Checklist | GloryStarPack',
-    dateModified: '2026-08-01',
+    dateModified: '2026-08-20',
     sources: references('astmGlass', 'iso2859', 'astmDistribution'),
     sourceNote: 'Choose current methods, sampling plans and acceptance criteria that match the intended bottle and use. These references do not turn a visual sample into a performance certificate or replace destination-market review.',
     questions: [
@@ -397,6 +398,7 @@ const insightDefinitions = {
     note: 'An approval sample is a project reference, not a universal performance certificate. Regulatory, food-contact, pressure, thermal-process and destination requirements remain project-specific.',
     resources: [
       ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/insights/glass-bottle-defects-quality-inspection-guide/', 'Glass Bottle Defects and Lot Inspection Guide'],
       ['/products/product-index/', 'Individual Product Index'],
       ['/contact/', 'Request Production-Intent Samples']
     ]
@@ -978,6 +980,43 @@ const insightDefinitions = {
       ['/insights/how-to-ship-glass-bottles-without-breaking/', 'Glass Bottle Shipping Guide'],
       ['/contact/', 'Discuss a Dropper Bottle Project']
     ]
+  },
+  '30': {
+    slug: 'glass-bottle-defects-quality-inspection-guide',
+    seoTitle: 'Glass Bottle Defects & Quality Inspection Guide',
+    dateModified: '2026-08-20',
+    decisionTable: {
+      heading: 'Glass bottle inspection control matrix',
+      intro: 'Define each observation by location, consequence and written acceptance criteria. A defect name alone does not establish whether a bottle is safe, functional or acceptable for a specific project.',
+      caption: 'Inspection areas and evidence for production glass bottle lots',
+      columns: ['Control area', 'What to inspect', 'Evidence before lot release'],
+      rows: [
+        ['Identity and specification', 'Bottle item or mold, drawing revision, intended use, capacity, weight, glass color, finish and production lot.', 'Traceable lot record matched to the current purchase specification and approved samples.'],
+        ['Neck finish and sealing area', 'Land, bore, thread or bead, finish height, ovality, seams, chips, checks, contamination and decoration exclusion.', 'Measured drawing checks plus assembly with the exact production closure, liner, gasket or pump.'],
+        ['Body, heel and base', 'Cracks, checks, stones, open blisters, sharp seams, scuffs, impact damage, base stability and handling surfaces.', 'Controlled visual boundary samples and application-specific measurement or performance results.'],
+        ['Capacity and dimensions', 'Defined capacity method, height, width or diameter, label panel, base clearance and line-critical dimensions.', 'Calibrated measurements at the documented sampling frequency with sample and lot IDs.'],
+        ['Decoration and legibility', 'Position, color, opacity, registration, pinholes, scratches, rub, formula exposure and required information.', 'Signed decorated standard plus production-intent exposure, handling and distribution observations.'],
+        ['Lot sampling and disposition', 'Defect classes, sampling plan, acceptance criteria, inspection stage, retained samples and failure action.', 'Completed report showing acceptance, containment, sorting, concession or rejection authority.'],
+        ['Filling and closure system', 'Conveyor stability, nozzle and coding clearance, closure application, seal, leakage and line handling.', 'Production-intent line trial using the approved bottle and component configuration.'],
+        ['Final packed product', 'Bottle separation, restraint, abrasion, breakage, closure movement, leakage and carton performance.', 'Route-appropriate evaluation of the complete filled or defined empty packaged-product system.']
+      ]
+    },
+    sources: references('astmGlass', 'iso2859', 'astmDistribution', 'istaCompleteSystem', 'istaRetesting'),
+    sourceNote: 'These references identify glass-container methods, lot sampling and packaged-product evaluation frameworks. They do not supply universal defect limits or certify any GloryStarPack bottle. The buyer, supplier, filler and responsible technical team should define current methods and acceptance criteria for the exact bottle, product, process and route.',
+    questions: [
+      'Which observations are critical, major or minor for the bottle’s actual fill, closure, line and consumer use?',
+      'What drawing, approved boundary samples, measurement methods and lot sampling plan control acceptance?',
+      'Which application-specific glass, closure, filling-line and distribution tests are required beyond visual inspection?'
+    ],
+    note: 'Do not accept or reject a glass bottle lot from a generic defect-name list. Tie each limit to the controlled drawing, intended application, approved samples, closure, decoration, sampling plan and documented consequence.',
+    resources: [
+      ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/insights/glass-bottle-sample-approval-qc-checklist/', 'Glass Bottle Sample Approval Checklist'],
+      ['/insights/glass-bottle-neck-finish-closure-guide/', 'Neck Finish and Closure Guide'],
+      ['/insights/how-to-ship-glass-bottles-without-breaking/', 'Glass Bottle Shipping Guide'],
+      ['/products/glass-packaging/', 'Glass Packaging'],
+      ['/contact/', 'Discuss a Glass Bottle Project']
+    ]
   }
 };
 
@@ -1010,7 +1049,8 @@ const insightConsiderations = {
   '26': 'Build the budget from the complete bill of materials and the quantities actually charged, then separate recurring units from setup, tooling, samples, validation, packing, freight, import charges and contingency. Compare quotations only after their Incoterms scope and exclusions are aligned, and calculate cash timing plus unmatched excess inventory as well as the apparent unit price.',
   '27': 'Begin with the exact distribution route and failure consequence. Keep bottles from contacting one another, restrain vertical and lateral movement, protect decorated or open surfaces from abrasion and contamination, and match carton and unit-load strength to handling and stacking. Validate the production-intent filled or empty configuration as one packaged-product system, then retest when a material, component, packout or route changes.',
   '28': 'Start with the production-intent bottle and name the actual failure mode before changing the label. Specify the facestock, adhesive, ink, protective layer, dimensions and application process as one construction, then test it after filling against project-specific water, oil, formula, handling and distribution exposures. Freeze the approved codes and retest when any bottle surface, label layer, formula, process or packout changes.',
-  '29': 'Find the first leak path before changing or overtightening the assembly. Match the finish and functional closure, qualify the bulb and gasket with the formula, set pipette clearance and dose, control filling and application, then evaluate the filled pack through storage and distribution. Freeze exact component codes and repeat relevant checks when the formula, process, component or packout changes.'
+  '29': 'Find the first leak path before changing or overtightening the assembly. Match the finish and functional closure, qualify the bulb and gasket with the formula, set pipette clearance and dose, control filling and application, then evaluate the filled pack through storage and distribution. Freeze exact component codes and repeat relevant checks when the formula, process, component or packout changes.',
+  '30': 'Define glass bottle defects by their consequence for safety, sealing, filling, decoration, handling and appearance. Control the drawing, approved boundary samples, lot sampling plan and measurement methods together, then keep bottle inspection separate from closure, line and final packaged-product evidence.'
 };
 
 function escapeHtml(value) {
@@ -1524,7 +1564,7 @@ function glassBottleGuideHubPage() {
     imageHeight: heroDimensions.height,
     alt: 'Assorted custom glass bottles for beverage and spirits packaging projects'
   };
-  const guideIds = new Set(['11', '12', '13', '27']);
+  const guideIds = new Set(['11', '12', '13', '27', '30']);
   const guides = insights.filter(article => guideIds.has(article.id));
   const guideCards = guides.map(article => `<a class="insight-card" href="${articlePath(article)}">${pictureMarkup(article, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.excerpt)}</span></div></a>`).join('');
   const faqs = [

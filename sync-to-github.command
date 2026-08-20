@@ -22,6 +22,9 @@ node --check assets/js/inquiry-conversion.js
 node --check scripts/check-seo.mjs
 node --check scripts/apply-inquiry-layer.mjs
 node --check scripts/enforce-accessible-colors.mjs
+node --check data/insight-source.mjs
+node --check scripts/generate-insight-pages.mjs
+node scripts/generate-insight-pages.mjs
 node scripts/check-seo.mjs
 node scripts/audit-content.mjs
 node scripts/apply-inquiry-layer.mjs --check

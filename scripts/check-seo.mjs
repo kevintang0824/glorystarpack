@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
+import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -612,7 +613,10 @@ const approvedPrimarySourceHosts = new Set([
   'www.trade.gov',
   'label.averydennison.com'
 ]);
-if (insightArticles.length !== 29) errors.push(`expected 29 generated insight articles, found ${insightArticles.length}`);
+const expectedInsightCount = Object.keys(INSIGHT_SOURCE).length;
+if (insightArticles.length !== expectedInsightCount) {
+  errors.push(`expected ${expectedInsightCount} generated insight articles, found ${insightArticles.length}`);
+}
 for (const article of insightArticles) {
   if (!hasSchemaType(article.source, 'BlogPosting')) errors.push(`${article.rel}: missing BlogPosting schema`);
   if (!hasSchemaType(article.source, 'WebPage')) errors.push(`${article.rel}: missing WebPage schema`);

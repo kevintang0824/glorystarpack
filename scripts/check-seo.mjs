@@ -7,6 +7,8 @@ import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const siteUrl = 'https://www.glorystarpack.com';
+const retiredAirlessPath = '/products/airless-bottles/';
+const primaryAirlessPath = '/products/airless-pump-bottles/';
 const googleTagId = 'G-NYY1MTZ6HM';
 const indexNowKey = 'f5c6d8e91a2b47c0ad74e69321fb805e';
 const indexNowKeyFileName = `${indexNowKey}.txt`;
@@ -274,6 +276,9 @@ const sitemapSource = fs.readFileSync(path.join(rootDir, 'sitemap.xml'), 'utf8')
 const sitemapUrls = [...sitemapSource.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
 const uniqueSitemapUrls = new Set(sitemapUrls);
 if (uniqueSitemapUrls.size !== sitemapUrls.length) errors.push('sitemap.xml contains duplicate URLs');
+if (uniqueSitemapUrls.has(`${siteUrl}${retiredAirlessPath}`)) {
+  errors.push(`sitemap.xml must not include the redirected ${retiredAirlessPath} URL`);
+}
 
 for (const url of sitemapUrls) {
   if (!url.startsWith(siteUrl)) {
@@ -296,9 +301,21 @@ for (const record of pageRecords) {
   }
 }
 
+const retiredAirlessPage = pageRecords.find(record => record.rel === 'products/airless-bottles/index.html');
+if (!retiredAirlessPage) errors.push('missing noindex fallback for the redirected airless category');
+else if (retiredAirlessPage.indexable) errors.push(`${retiredAirlessPage.rel}: redirected fallback must be noindex`);
+for (const record of pageRecords.filter(item => item.indexable)) {
+  if (record.source.includes(`href="${retiredAirlessPath}"`)) {
+    errors.push(`${record.rel}: internal link still points to redirected ${retiredAirlessPath}`);
+  }
+}
+
 const imageSitemapSource = fs.readFileSync(path.join(rootDir, 'image-sitemap.xml'), 'utf8');
 if (!imageSitemapSource.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"')) {
   errors.push('image-sitemap.xml is missing the Google image namespace');
+}
+if (imageSitemapSource.includes(`<loc>${siteUrl}${retiredAirlessPath}</loc>`)) {
+  errors.push(`image-sitemap.xml must not include the redirected ${retiredAirlessPath} URL`);
 }
 
 const productPages = pageRecords.filter(record => /^products\/.+-p\d+\/index\.html$/.test(record.rel));
@@ -345,6 +362,71 @@ for (const productPage of productPages) {
   }
   if (heroImage && !imageSitemapSource.includes(`<image:loc>${siteUrl}${heroImage}</image:loc>`)) {
     errors.push(`${productPage.rel}: product image is missing from image-sitemap.xml`);
+  }
+}
+
+const aluminumCansPage = pageRecords.find(record => record.rel === 'products/aluminum-cosmetic-cans/index.html');
+if (!aluminumCansPage) {
+  errors.push('missing products/aluminum-cosmetic-cans/index.html');
+} else {
+  const source = aluminumCansPage.source;
+  if (!hasSchemaType(source, 'CollectionPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${aluminumCansPage.rel}: missing CollectionPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'ItemList')) errors.push(`${aluminumCansPage.rel}: unverified service ItemList schema must not return`);
+  const heroImage = firstMatch(source, /<div class=["']hero-img["']>[\s\S]*?<img\b[^>]*\bsrc=["']([^"']+)/i);
+  if (heroImage !== '/assets/product-photos/p155-0.jpg') {
+    errors.push(`${aluminumCansPage.rel}: unexpected hero image ${heroImage || 'missing'}`);
+  } else {
+    for (const width of [480, 960]) {
+      const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+      const variantPath = localAssetPath(variantUrl, aluminumCansPage.filePath);
+      if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${aluminumCansPage.rel}: missing ${width}px AVIF hero variant`);
+      if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${aluminumCansPage.rel}: AVIF srcset is missing ${width}px hero variant`);
+    }
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${aluminumCansPage.rel}: hero preload is not responsive AVIF`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Aluminum cosmetic can route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${aluminumCansPage.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['aluminum-cans-hero', 'aluminum-cans-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${aluminumCansPage.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const unsupportedClaim of ['7-10 working days', '15-20 working days', 'recyclable metal packaging', 'Factory-direct supply', 'areaServed":"Worldwide']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${aluminumCansPage.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const collection = graph.find(node => node['@type'] === 'CollectionPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = collection?.dateModified ?? '';
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${aluminumCansPage.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 3) errors.push(`${aluminumCansPage.rel}: expected 3 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3>`) || !source.includes(`<p>${answer}</p>`)) {
+        errors.push(`${aluminumCansPage.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${aluminumCansPage.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/products\/aluminum-cosmetic-cans\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${aluminumCansPage.rel}: sitemap and structured modified dates are not synchronized`);
   }
 }
 
@@ -481,6 +563,9 @@ const liveCheckPath = path.join(rootDir, 'scripts/check-live-site.mjs');
 if (!fs.existsSync(liveCheckPath)) errors.push('missing scripts/check-live-site.mjs');
 
 const llmsSource = fs.readFileSync(path.join(rootDir, 'llms.txt'), 'utf8');
+if (llmsSource.includes(`${siteUrl}${retiredAirlessPath}`)) {
+  errors.push(`llms.txt must not include the redirected ${retiredAirlessPath} URL`);
+}
 if (!llmsSource.includes('https://glorystarpack.en.alibaba.com/')) {
   errors.push('llms.txt is missing the verified Alibaba supplier profile');
 }
@@ -527,6 +612,19 @@ try {
 
 try {
   const vercelConfig = JSON.parse(fs.readFileSync(path.join(rootDir, 'vercel.json'), 'utf8'));
+  const redirectFor = source => vercelConfig.redirects?.find(rule => rule.source === source);
+  const rootIndexRedirect = redirectFor('/index.html');
+  if (rootIndexRedirect?.destination !== '/' || rootIndexRedirect?.permanent !== true) {
+    errors.push('vercel.json must permanently redirect /index.html to /');
+  }
+  const nestedIndexRedirect = redirectFor('/:path*/index.html');
+  if (nestedIndexRedirect?.destination !== '/:path*/' || nestedIndexRedirect?.permanent !== true) {
+    errors.push('vercel.json must permanently redirect nested index.html URLs to their clean directory URLs');
+  }
+  const airlessCategoryRedirect = redirectFor(retiredAirlessPath);
+  if (airlessCategoryRedirect?.destination !== primaryAirlessPath || airlessCategoryRedirect?.permanent !== true) {
+    errors.push(`vercel.json must permanently redirect ${retiredAirlessPath} to ${primaryAirlessPath}`);
+  }
   const headerValue = (source, key) => vercelConfig.headers
     ?.find(rule => rule.source === source)
     ?.headers?.find(header => header.key.toLowerCase() === key.toLowerCase())

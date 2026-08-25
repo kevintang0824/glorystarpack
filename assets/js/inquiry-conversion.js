@@ -9,6 +9,7 @@
   const firstTouchKey = 'gsp_first_touch_v1';
   const sessionTouchKey = 'gsp_session_touch_v1';
   const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+  const visibleCampaignKeys = ['utm_source', 'utm_medium', 'utm_campaign'];
 
   function cleanText(value, maxLength = 120) {
     return String(value || '').replace(/\s+/g, ' ').trim().slice(0, maxLength);
@@ -94,12 +95,44 @@
 
   function attributionLines() {
     const touch = attribution.sessionTouch;
+    const landingPage = visibleAttributionUrl(touch.landingPage);
     const campaign = [touch.campaignSource, touch.campaignMedium, touch.campaignName].filter(Boolean).join(' / ');
     return [
-      ...(touch.landingPage && touch.landingPage !== canonicalPage() ? [`Session landing page: ${touch.landingPage}`] : []),
+      ...(landingPage && landingPage !== canonicalPage() ? [`Session landing page: ${landingPage}`] : []),
       ...(touch.referrerPage ? [`External referrer: ${touch.referrerPage}`] : []),
       ...(campaign ? [`Campaign: ${campaign}`] : [])
     ];
+  }
+
+  function visibleAttributionUrl(rawUrl) {
+    try {
+      const url = new URL(rawUrl);
+      [...url.searchParams.keys()].forEach(key => {
+        if (!visibleCampaignKeys.includes(key)) url.searchParams.delete(key);
+      });
+      return cleanText(url.href, 500);
+    } catch {
+      return '';
+    }
+  }
+
+  function messageWithAttribution(rawMessage) {
+    const message = String(rawMessage || '').replace(/\r\n?/g, '\n').trimEnd();
+    const contextLines = [];
+    const canonical = canonicalPage();
+    if (canonical && !message.includes(canonical)) contextLines.push(`Website page: ${canonical}`);
+
+    for (const line of attributionLines()) {
+      const separator = line.indexOf(':');
+      const label = separator === -1 ? line : line.slice(0, separator);
+      const hasLabel = message
+        .split('\n')
+        .some(messageLine => messageLine.trim().toLowerCase().startsWith(`${label.toLowerCase()}:`));
+      if (!hasLabel) contextLines.push(line);
+    }
+
+    if (!contextLines.length) return message;
+    return `${message}${message ? '\n\n' : ''}${contextLines.join('\n')}`;
   }
 
   function pageTopic() {
@@ -194,7 +227,16 @@
     document.querySelectorAll(`a[href^="https://wa.me/${whatsappNumber}"]`).forEach(link => {
       const intent = inquiryTypeForLink(link);
       const href = link.getAttribute('href') || '';
-      if (!/[?&]text=/.test(href)) link.href = whatsappHref(intent);
+      try {
+        const url = new URL(href);
+        const existingMessage = url.searchParams.get('text');
+        url.searchParams.set('text', existingMessage
+          ? messageWithAttribution(existingMessage)
+          : inquiryMessage(intent));
+        link.href = url.href;
+      } catch {
+        link.href = whatsappHref(intent);
+      }
       link.dataset.inquiryChannel ||= 'whatsapp';
       link.dataset.inquiryType ||= intent;
     });
@@ -202,9 +244,17 @@
     document.querySelectorAll(`a[href^="mailto:${salesEmail}"]`).forEach(link => {
       const intent = inquiryTypeForLink(link);
       const href = link.getAttribute('href') || '';
-      if (!href.includes('?')) {
-        const subject = intent === 'sample' ? `Sample request: ${pageTopic()}` : `Packaging RFQ: ${pageTopic()}`;
-        link.href = `mailto:${salesEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(inquiryMessage(intent))}`;
+      const defaultSubject = intent === 'sample' ? `Sample request: ${pageTopic()}` : `Packaging RFQ: ${pageTopic()}`;
+      try {
+        const url = new URL(href);
+        const existingMessage = url.searchParams.get('body');
+        if (!url.searchParams.get('subject')) url.searchParams.set('subject', defaultSubject);
+        url.searchParams.set('body', existingMessage
+          ? messageWithAttribution(existingMessage)
+          : inquiryMessage(intent));
+        link.href = url.href;
+      } catch {
+        link.href = `mailto:${salesEmail}?subject=${encodeURIComponent(defaultSubject)}&body=${encodeURIComponent(inquiryMessage(intent))}`;
       }
       link.dataset.inquiryChannel ||= 'email';
       link.dataset.inquiryType ||= intent;

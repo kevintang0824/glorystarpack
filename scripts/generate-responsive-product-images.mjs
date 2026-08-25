@@ -13,13 +13,18 @@ const productPages = fs.readdirSync(productsDir, { withFileTypes: true })
   .filter(entry => entry.isDirectory() && /-p\d+$/.test(entry.name))
   .map(entry => path.join(productsDir, entry.name, 'index.html'))
   .filter(filePath => fs.existsSync(filePath));
+const landingPages = [
+  path.join(productsDir, 'aluminum-cosmetic-cans', 'index.html'),
+  path.join(productsDir, 'makeup-packaging', 'index.html')
+];
+const imagePages = [...productPages, ...landingPages];
 
 const sourceImages = new Set();
-for (const pagePath of productPages) {
+for (const pagePath of imagePages) {
   const source = fs.readFileSync(pagePath, 'utf8');
-  const imageUrl = source.match(/<div class="hero-media">[\s\S]*?<img\b[^>]*\bsrc="([^"]+)"/i)?.[1];
-  if (!imageUrl?.startsWith('/assets/product-photos/') || !/\.jpe?g$/i.test(imageUrl)) {
-    throw new Error(`Could not resolve the product hero JPEG in ${path.relative(rootDir, pagePath)}`);
+  const imageUrl = source.match(/<div class="(?:hero-media|hero-img)">[\s\S]*?<img\b[^>]*\bsrc="([^"]+)"/i)?.[1];
+  if (!/^\/assets\/(?:product-photos|brand)\/.+\.jpe?g$/i.test(imageUrl ?? '')) {
+    throw new Error(`Could not resolve the page hero JPEG in ${path.relative(rootDir, pagePath)}`);
   }
   const imagePath = path.join(rootDir, imageUrl.slice(1));
   if (!fs.existsSync(imagePath)) throw new Error(`Missing source image: ${imageUrl}`);
@@ -68,5 +73,5 @@ for (const sourcePath of [...sourceImages].sort()) {
 }
 
 const formatMiB = bytes => `${(bytes / 1024 / 1024).toFixed(2)} MiB`;
-console.log(`Responsive product images: ${generated} generated, ${skipped} current, ${sourceImages.size} products.`);
+console.log(`Responsive product images: ${generated} generated, ${skipped} current, ${sourceImages.size} page heroes.`);
 console.log(`Selected source JPEGs: ${formatMiB(sourceBytes)}; 480px + 960px AVIF variants: ${formatMiB(responsiveBytes)}.`);

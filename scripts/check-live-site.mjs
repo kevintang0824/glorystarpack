@@ -27,6 +27,37 @@ async function fetchText(pathname, expectedStatus = 200) {
   return { response, body };
 }
 
+async function verifyPermanentRedirect(pathname, destinationPath) {
+  const url = new URL(pathname, baseUrl);
+  let response;
+  try {
+    response = await fetch(url, {
+      redirect: 'manual',
+      headers: { 'user-agent': 'GloryStarPack release verifier/1.0' }
+    });
+  } catch (error) {
+    errors.push(`${url.href}: redirect check failed (${error.message})`);
+    return;
+  }
+  if (response.status !== 308) {
+    errors.push(`${url.href}: expected HTTP 308, received ${response.status}`);
+    return;
+  }
+  const rawLocation = response.headers.get('location');
+  const actualLocation = rawLocation ? new URL(rawLocation, url).href : '';
+  const expectedLocation = new URL(destinationPath, baseUrl).href;
+  if (actualLocation !== expectedLocation) {
+    errors.push(`${url.href}: expected redirect to ${expectedLocation}, received ${actualLocation || 'no Location header'}`);
+  }
+}
+
+await verifyPermanentRedirect('/index.html', '/');
+await verifyPermanentRedirect('/about/index.html', '/about/');
+await verifyPermanentRedirect(
+  '/insights/glass-bottle-defects-quality-inspection-guide/index.html',
+  '/insights/glass-bottle-defects-quality-inspection-guide/'
+);
+
 const homepage = await fetchText('/');
 if (!homepage.body.includes('<link rel="canonical" href="https://www.glorystarpack.com/">')) {
   errors.push('homepage canonical does not point to the production www URL');

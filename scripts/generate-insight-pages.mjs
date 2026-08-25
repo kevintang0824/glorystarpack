@@ -406,7 +406,7 @@ const insightDefinitions = {
   '14': {
     slug: 'cosmetic-packaging-compatibility-testing-guide',
     seoTitle: 'Cosmetic Packaging Compatibility Testing Guide | GloryStarPack',
-    dateModified: '2026-08-01',
+    dateModified: '2026-08-21',
     decisionTable: {
       heading: 'Compatibility review matrix',
       intro: 'The responsible technical team should turn each row into project-specific conditions, checkpoints and acceptance criteria. The matrix is a record structure, not a universal pass/fail protocol.',
@@ -431,6 +431,7 @@ const insightDefinitions = {
     sources: references('fdaCosmeticGmp', 'iso22716', 'astmDistribution'),
     sourceNote: 'These references are starting points, not a universal compatibility protocol. The responsible brand, filler or technical team must select the applicable regulations, standards, conditions and acceptance criteria for the actual formula, package and destination market.',
     resources: [
+      ['/products/skincare-packaging/', 'Skincare Packaging'],
       ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
       ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
       ['/insights/cosmetic-packaging-tamper-evident-seals-guide/', 'Tamper-Evident Seal Guide'],
@@ -475,7 +476,7 @@ const insightDefinitions = {
   '16': {
     slug: 'airless-pump-bottle-vs-jar-skincare-packaging',
     seoTitle: 'Airless Pump Bottle vs Jar for Skincare | Guide',
-    dateModified: '2026-08-09',
+    dateModified: '2026-08-21',
     decisionTable: {
       heading: 'Airless pump bottle vs jar comparison',
       intro: 'Use this matrix to create a packaging shortlist, then test the actual formula and production-intent components. Neither format is automatically better for every cream or serum.',
@@ -498,6 +499,7 @@ const insightDefinitions = {
     ],
     note: 'Do not choose an airless bottle from an “airtight” claim or reject a jar from a hygiene slogan alone. Compare the full formula, preservation system, consumer action, filling method and package performance with project-specific evidence.',
     resources: [
+      ['/products/skincare-packaging/', 'Skincare Packaging'],
       ['/products/airless-pump-bottles/', 'Airless Pump Bottles'],
       ['/products/cosmetic-jars/', 'Cosmetic Jars'],
       ['/airless-bottle-vs-dropper-bottle/', 'Airless Bottle vs Dropper Bottle'],
@@ -605,7 +607,7 @@ const insightDefinitions = {
   '20': {
     slug: 'cosmetic-packaging-product-evacuation-guide',
     seoTitle: 'Cosmetic Packaging Product Evacuation Guide | Residue',
-    dateModified: '2026-08-09',
+    dateModified: '2026-08-21',
     decisionTable: {
       heading: 'Product evacuation format comparison',
       intro: 'Use the same accepted endpoint and formula conditions when comparing formats. The pack should deliver a useful dose through normal use without hiding a new handling or protection problem.',
@@ -629,6 +631,7 @@ const insightDefinitions = {
     ],
     note: 'Avoid “100% evacuation,” “zero waste” or equivalent claims unless the finished configuration and stated consumer action support them. Record both residual mass and percentage under a protocol that excludes tools or pack modification not included in normal use.',
     resources: [
+      ['/products/skincare-packaging/', 'Skincare Packaging'],
       ['/products/cosmetic-tubes/', 'Cosmetic Tubes'],
       ['/products/cosmetic-pumps-closures/', 'Cosmetic Pumps and Closures'],
       ['/products/cosmetic-jars/', 'Cosmetic Jars'],

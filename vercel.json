@@ -3,6 +3,21 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*/index.html",
+      "destination": "/:path*/",
+      "permanent": true
+    },
+    {
+      "source": "/products/airless-bottles/",
+      "destination": "/products/airless-pump-bottles/",
+      "permanent": true
+    },
+    {
       "source": "/products/",
       "destination": "/products/product-index/",
       "permanent": true

@@ -31,6 +31,7 @@ jobs:
           node --check api/inquiry.js
           node --check scripts/check-seo.mjs
           node --check scripts/check-live-site.mjs
+          node --check scripts/check-inquiry-attribution.mjs
           node --check scripts/submit-indexnow.mjs
           node --check scripts/apply-inquiry-layer.mjs
           node --check scripts/enforce-accessible-colors.mjs
@@ -45,6 +46,7 @@ jobs:
           node scripts/check-seo.mjs
           node scripts/audit-content.mjs
           node scripts/apply-inquiry-layer.mjs --check
+          node scripts/check-inquiry-attribution.mjs
           node scripts/enforce-accessible-colors.mjs --check
 
       - name: Confirm generated files and image markup are current

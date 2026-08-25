@@ -430,6 +430,263 @@ if (!aluminumCansPage) {
   }
 }
 
+const airlessPumpPage = pageRecords.find(record => record.rel === 'products/airless-pump-bottles/index.html');
+if (!airlessPumpPage) {
+  errors.push('missing products/airless-pump-bottles/index.html');
+} else {
+  const source = airlessPumpPage.source;
+  if (!hasSchemaType(source, 'CollectionPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${airlessPumpPage.rel}: missing CollectionPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'ItemList')) errors.push(`${airlessPumpPage.rel}: unverified service ItemList schema must not return`);
+  const heroImage = firstMatch(source, /<picture>[^<]*<source[^>]*>\s*<img\b[^>]*\bsrc=["']([^"']+)/i);
+  if (heroImage !== '/assets/brand/airless-packaging-collection-2026.jpg') {
+    errors.push(`${airlessPumpPage.rel}: unexpected hero image ${heroImage || 'missing'}`);
+  } else {
+    for (const width of [480, 960]) {
+      const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+      const variantPath = localAssetPath(variantUrl, airlessPumpPage.filePath);
+      if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${airlessPumpPage.rel}: missing ${width}px AVIF hero variant`);
+      if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${airlessPumpPage.rel}: AVIF srcset is missing ${width}px hero variant`);
+    }
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${airlessPumpPage.rel}: hero preload is not responsive AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${airlessPumpPage.rel}: expected exactly one high-priority image`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Airless pump bottle route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${airlessPumpPage.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['airless-hero', 'airless-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${airlessPumpPage.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const unsupportedClaim of ['1,000-3,000 pcs', 'areaServed":"Worldwide', 'Airless Pump Bottles Manufacturer', 'OEM support:', 'oxygen-sensitive formulas']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${airlessPumpPage.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<p><strong>Short answer:<\/strong>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${airlessPumpPage.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== airlessPumpPage.title || twitterTitle !== airlessPumpPage.title) {
+    errors.push(`${airlessPumpPage.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== airlessPumpPage.description || twitterDescription !== airlessPumpPage.description) {
+    errors.push(`${airlessPumpPage.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const collection = graph.find(node => node['@type'] === 'CollectionPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = collection?.dateModified ?? '';
+    if (collection?.name !== airlessPumpPage.title || collection?.description !== airlessPumpPage.description) {
+      errors.push(`${airlessPumpPage.rel}: CollectionPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${airlessPumpPage.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 3) errors.push(`${airlessPumpPage.rel}: expected 3 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3>`) || !source.includes(`<p>${answer}</p>`)) {
+        errors.push(`${airlessPumpPage.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${airlessPumpPage.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/products\/airless-pump-bottles\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${airlessPumpPage.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
+const glassPackagingPage = pageRecords.find(record => record.rel === 'products/glass-packaging/index.html');
+if (!glassPackagingPage) {
+  errors.push('missing products/glass-packaging/index.html');
+} else {
+  const source = glassPackagingPage.source;
+  if (!hasSchemaType(source, 'CollectionPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${glassPackagingPage.rel}: missing CollectionPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'ItemList') || hasSchemaType(source, 'Service')) {
+    errors.push(`${glassPackagingPage.rel}: unverified ItemList or Service schema must not return`);
+  }
+  const heroImage = '/assets/brand/glass-complete-product-assortment-2026.jpg';
+  for (const width of [480, 960]) {
+    const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+    const variantPath = localAssetPath(variantUrl, glassPackagingPage.filePath);
+    if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${glassPackagingPage.rel}: missing ${width}px AVIF hero variant`);
+    if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${glassPackagingPage.rel}: preload srcset is missing ${width}px hero variant`);
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${glassPackagingPage.rel}: hero preload is not responsive AVIF`);
+  }
+  if (!source.includes('url("/assets/brand/glass-complete-product-assortment-2026-960.avif")')) {
+    errors.push(`${glassPackagingPage.rel}: hero background does not use the optimized AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${glassPackagingPage.rel}: expected exactly one high-priority hero preload`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Glass packaging route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${glassPackagingPage.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['glass-packaging-hero', 'glass-packaging-rfq-card', 'glass-packaging-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${glassPackagingPage.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const unsupportedClaim of ['7-10 working days', '15-20 working days', '25-35 working days', 'Factory-direct', '1,000 pcs', '3,000 pcs', '5,000 pcs', 'Glass is best', 'Plastic is better']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${glassPackagingPage.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<p><strong>Short answer:<\/strong>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${glassPackagingPage.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== glassPackagingPage.title || twitterTitle !== glassPackagingPage.title) {
+    errors.push(`${glassPackagingPage.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== glassPackagingPage.description || twitterDescription !== glassPackagingPage.description) {
+    errors.push(`${glassPackagingPage.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const collection = graph.find(node => node['@type'] === 'CollectionPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = collection?.dateModified ?? '';
+    if (collection?.name !== glassPackagingPage.title || collection?.description !== glassPackagingPage.description) {
+      errors.push(`${glassPackagingPage.rel}: CollectionPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${glassPackagingPage.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 4) errors.push(`${glassPackagingPage.rel}: expected 4 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<summary>${question}</summary><p>${answer}</p>`)) {
+        errors.push(`${glassPackagingPage.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${glassPackagingPage.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/products\/glass-packaging\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${glassPackagingPage.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
+const glassCosmeticPage = pageRecords.find(record => record.rel === 'products/glass-cosmetic-bottles/index.html');
+if (!glassCosmeticPage) {
+  errors.push('missing products/glass-cosmetic-bottles/index.html');
+} else {
+  const source = glassCosmeticPage.source;
+  if (!hasSchemaType(source, 'CollectionPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${glassCosmeticPage.rel}: missing CollectionPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'ItemList') || hasSchemaType(source, 'Service')) {
+    errors.push(`${glassCosmeticPage.rel}: unverified ItemList or Service schema must not return`);
+  }
+  const heroImage = '/assets/brand/glass-complete-product-assortment-2026.jpg';
+  for (const width of [480, 960]) {
+    const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+    const variantPath = localAssetPath(variantUrl, glassCosmeticPage.filePath);
+    if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${glassCosmeticPage.rel}: missing ${width}px AVIF hero variant`);
+    if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${glassCosmeticPage.rel}: responsive hero markup is missing ${width}px AVIF variant`);
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${glassCosmeticPage.rel}: hero preload is not responsive AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${glassCosmeticPage.rel}: expected exactly one high-priority hero image`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Glass cosmetic bottle route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${glassCosmeticPage.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['glass-cosmetic-hero', 'glass-cosmetic-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${glassCosmeticPage.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const unsupportedClaim of ['300-500 pcs', '7-10 working days', '15-20 working days', 'Factory-direct', 'areaServed":"Worldwide', 'Glass Cosmetic Bottles Supplier', 'worldwide shipping', 'OEM support:']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${glassCosmeticPage.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<h2 id=["']glass-cosmetic-route-title["']>[^<]+<\/h2>\s*<p>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${glassCosmeticPage.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== glassCosmeticPage.title || twitterTitle !== glassCosmeticPage.title) {
+    errors.push(`${glassCosmeticPage.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== glassCosmeticPage.description || twitterDescription !== glassCosmeticPage.description) {
+    errors.push(`${glassCosmeticPage.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const collection = graph.find(node => node['@type'] === 'CollectionPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = collection?.dateModified ?? '';
+    if (collection?.name !== glassCosmeticPage.title || collection?.description !== glassCosmeticPage.description) {
+      errors.push(`${glassCosmeticPage.rel}: CollectionPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${glassCosmeticPage.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 3) errors.push(`${glassCosmeticPage.rel}: expected 3 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3><p>${answer}</p>`)) {
+        errors.push(`${glassCosmeticPage.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${glassCosmeticPage.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/products\/glass-cosmetic-bottles\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${glassCosmeticPage.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
 const unsupportedProductSchemaPages = pageRecords.filter(record => hasSchemaType(record.source, 'Product'));
 for (const record of unsupportedProductSchemaPages) {
   errors.push(`${record.rel}: Product schema requires a truthful offer, review or aggregate rating; use B2B Service/Thing schema for RFQ-only pages`);

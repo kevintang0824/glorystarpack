@@ -687,6 +687,190 @@ if (!glassCosmeticPage) {
   }
 }
 
+const serumDropperPage = pageRecords.find(record => record.rel === 'products/serum-dropper-bottles/index.html');
+if (!serumDropperPage) {
+  errors.push('missing products/serum-dropper-bottles/index.html');
+} else {
+  const source = serumDropperPage.source;
+  if (!hasSchemaType(source, 'CollectionPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${serumDropperPage.rel}: missing CollectionPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'ItemList') || hasSchemaType(source, 'Service')) {
+    errors.push(`${serumDropperPage.rel}: unverified ItemList or Service schema must not return`);
+  }
+  const heroImage = '/assets/brand/glass-dropper-rollon-vials-2026.jpg';
+  for (const width of [480, 960]) {
+    const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+    const variantPath = localAssetPath(variantUrl, serumDropperPage.filePath);
+    if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${serumDropperPage.rel}: missing ${width}px AVIF hero variant`);
+    if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${serumDropperPage.rel}: responsive hero markup is missing ${width}px AVIF variant`);
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${serumDropperPage.rel}: hero preload is not responsive AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${serumDropperPage.rel}: expected exactly one high-priority hero image`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Serum dropper bottle route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${serumDropperPage.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['serum-dropper-hero', 'serum-dropper-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${serumDropperPage.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const productPath of [
+    '/products/serum-dropper-bottle-glass-p7/',
+    '/products/clear-glass-serum-dropper-bottle-p33/',
+    '/products/boston-round-glass-dropper-bottle-p34/',
+    '/products/child-resistant-glass-dropper-bottle-p131/'
+  ]) {
+    if (!source.includes(`href="${productPath}"`)) errors.push(`${serumDropperPage.rel}: missing catalog starting point ${productPath}`);
+  }
+  for (const unsupportedClaim of ['500 pcs', 'areaServed":"Worldwide', 'Serum Dropper Bottles Supplier', 'UV protection', 'UV-protective', 'Common sizes:', 'best when', 'Ideal for', 'Calibrated pipette', 'shortlist compatible']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${serumDropperPage.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<h2 id=["']dropper-route-title["']>[^<]+<\/h2>\s*<p>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${serumDropperPage.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== serumDropperPage.title || twitterTitle !== serumDropperPage.title) {
+    errors.push(`${serumDropperPage.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== serumDropperPage.description || twitterDescription !== serumDropperPage.description) {
+    errors.push(`${serumDropperPage.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const collection = graph.find(node => node['@type'] === 'CollectionPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = collection?.dateModified ?? '';
+    if (collection?.name !== serumDropperPage.title || collection?.description !== serumDropperPage.description) {
+      errors.push(`${serumDropperPage.rel}: CollectionPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${serumDropperPage.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 3) errors.push(`${serumDropperPage.rel}: expected 3 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3><p>${answer}</p>`)) {
+        errors.push(`${serumDropperPage.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${serumDropperPage.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/products\/serum-dropper-bottles\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${serumDropperPage.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
+const serumGuidePage = pageRecords.find(record => record.rel === 'serum-packaging-guide/index.html');
+if (!serumGuidePage) {
+  errors.push('missing serum-packaging-guide/index.html');
+} else {
+  const source = serumGuidePage.source;
+  if (!hasSchemaType(source, 'WebPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${serumGuidePage.rel}: missing WebPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'Article') || hasSchemaType(source, 'ItemList') || hasSchemaType(source, 'Service')) {
+    errors.push(`${serumGuidePage.rel}: unsupported Article, ItemList or Service schema must not return`);
+  }
+  const heroImage = '/assets/brand/skincare-packaging-application-2026.jpg';
+  for (const width of [640, 1280]) {
+    const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+    const variantPath = localAssetPath(variantUrl, serumGuidePage.filePath);
+    if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${serumGuidePage.rel}: missing ${width}px AVIF hero variant`);
+    if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${serumGuidePage.rel}: responsive hero markup is missing ${width}px AVIF variant`);
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${serumGuidePage.rel}: hero preload is not responsive AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${serumGuidePage.rel}: expected exactly one high-priority hero image`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Serum bottle packaging route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${serumGuidePage.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['serum-guide-hero', 'serum-guide-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${serumGuidePage.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const routePath of [
+    '/products/serum-dropper-bottles/',
+    '/products/airless-pump-bottles/',
+    '/products/cosmetic-pumps-closures/',
+    '/products/cosmetic-sample-packaging/'
+  ]) {
+    if (!source.includes(`href="${routePath}"`)) errors.push(`${serumGuidePage.rel}: missing route-specific link ${routePath}`);
+  }
+  for (const unsupportedClaim of ['300-500 pcs', 'Better protection from air and light', 'Less exposure during use', 'UV-protective', 'Common Sizes', 'Recommended Packaging', 'Which bottle is best for vitamin C or retinol serum?']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${serumGuidePage.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<h2 id=["']serum-route-title["']>[^<]+<\/h2>\s*<p>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${serumGuidePage.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== serumGuidePage.title || twitterTitle !== serumGuidePage.title) {
+    errors.push(`${serumGuidePage.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== serumGuidePage.description || twitterDescription !== serumGuidePage.description) {
+    errors.push(`${serumGuidePage.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const webpage = graph.find(node => node['@type'] === 'WebPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = webpage?.dateModified ?? '';
+    if (webpage?.name !== serumGuidePage.title || webpage?.description !== serumGuidePage.description) {
+      errors.push(`${serumGuidePage.rel}: WebPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${serumGuidePage.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 3) errors.push(`${serumGuidePage.rel}: expected 3 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3><p>${answer}</p>`)) {
+        errors.push(`${serumGuidePage.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${serumGuidePage.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/serum-packaging-guide\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${serumGuidePage.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
 const unsupportedProductSchemaPages = pageRecords.filter(record => hasSchemaType(record.source, 'Product'));
 for (const record of unsupportedProductSchemaPages) {
   errors.push(`${record.rel}: Product schema requires a truthful offer, review or aggregate rating; use B2B Service/Thing schema for RFQ-only pages`);
@@ -862,6 +1046,16 @@ try {
   }
   if (!Array.isArray(aiContext.claimBoundaries) || aiContext.claimBoundaries.length < 4) {
     errors.push('ai-context.json claimBoundaries must explain B2B offer, compatibility and evidence limits');
+  }
+  const serumRouteMapping = aiContext.keywordMap?.find(entry => entry.queryGroup?.includes('serum packaging'));
+  const expectedSerumRouteUrls = [`${siteUrl}/serum-packaging-guide/`];
+  if (JSON.stringify(serumRouteMapping?.preferredUrls) !== JSON.stringify(expectedSerumRouteUrls)) {
+    errors.push('ai-context.json serum packaging intent must resolve only to the serum packaging guide');
+  }
+  const airlessComparisonMapping = aiContext.keywordMap?.find(entry => entry.queryGroup?.includes('airless bottle vs dropper bottle'));
+  const expectedAirlessComparisonUrls = [`${siteUrl}/airless-bottle-vs-dropper-bottle/`];
+  if (JSON.stringify(airlessComparisonMapping?.preferredUrls) !== JSON.stringify(expectedAirlessComparisonUrls)) {
+    errors.push('ai-context.json airless-vs-dropper intent must resolve only to the dedicated comparison guide');
   }
 } catch (error) {
   errors.push(`ai-context.json is invalid: ${error.message}`);

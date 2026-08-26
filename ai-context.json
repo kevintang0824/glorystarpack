@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-08-14",
+  "dateModified": "2026-08-26",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -755,7 +755,7 @@
       "url": "https://www.glorystarpack.com/cosmetic-packaging-moq/",
       "pageType": "buyer guide",
       "primaryIntent": "cosmetic packaging MOQ",
-      "summary": "MOQ, sample timing, bulk lead time and quote checklist for cosmetic packaging projects."
+      "summary": "Configuration-specific MOQ, sample stages, production milestones and comparable quote inputs for cosmetic packaging projects."
     },
     {
       "url": "https://www.glorystarpack.com/cosmetic-packaging-guides/",
@@ -779,7 +779,7 @@
       "url": "https://www.glorystarpack.com/serum-packaging-guide/",
       "pageType": "buyer guide",
       "primaryIntent": "serum bottle packaging guide",
-      "summary": "Serum bottle guide covering glass droppers, airless bottles, amber or opaque packs, common sizes, leakage, dosage and compatibility checks."
+      "summary": "Serum packaging route guide comparing dropper, treatment-pump, airless and sample-pack systems by formula, filling, dose, exposure brief and production-intent evidence."
     },
     {
       "url": "https://www.glorystarpack.com/sunscreen-packaging-guide/",
@@ -1380,8 +1380,7 @@
         "best packaging for vitamin C serum"
       ],
       "preferredUrls": [
-        "https://www.glorystarpack.com/airless-bottle-vs-dropper-bottle/",
-        "https://www.glorystarpack.com/serum-packaging-guide/"
+        "https://www.glorystarpack.com/airless-bottle-vs-dropper-bottle/"
       ]
     },
     {
@@ -1392,9 +1391,7 @@
         "facial oil packaging"
       ],
       "preferredUrls": [
-        "https://www.glorystarpack.com/serum-packaging-guide/",
-        "https://www.glorystarpack.com/products/serum-dropper-bottles/",
-        "https://www.glorystarpack.com/products/airless-pump-bottles/"
+        "https://www.glorystarpack.com/serum-packaging-guide/"
       ]
     },
     {

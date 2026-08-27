@@ -180,8 +180,10 @@ const insightDefinitions = {
   },
   '5': {
     slug: 'cosmetic-discovery-kit-packaging',
-    seoTitle: 'Cosmetic Sample Packaging & Discovery Kit Guide',
-    dateModified: '2026-08-09',
+    seoTitle: 'Cosmetic Sample Packaging for Discovery Kits | Buyer Guide',
+    dateModified: '2026-08-27',
+    relatedIds: ['21', '9', '3'],
+    inquiryCopy: 'Share the formula or product type, intended trial uses, fill quantity, preferred sachet, vial, tube, jar, pump or spray format, number of variants, labels, insert and carton needs, assembly plan, order quantity, destination and launch timing. Final component availability, MOQ, filling, testing and packing requirements are confirmed for the complete sample kit.',
     decisionTable: {
       heading: 'Cosmetic sample format selection matrix',
       intro: 'Match each sample to the number of uses and product action the trial must support. A miniature package should not be selected from visual scale alone.',
@@ -1243,6 +1245,12 @@ function footerMarkup() {
 }
 
 function relatedInsights(article) {
+  if (article.relatedIds?.length) {
+    const explicit = article.relatedIds
+      .map(id => insights.find(item => item.id === String(id)))
+      .filter(Boolean);
+    if (explicit.length) return explicit.slice(0, 3);
+  }
   const index = insights.findIndex(item => item.id === article.id);
   return [1, 2, 3].map(offset => insights[(index + offset) % insights.length]);
 }
@@ -1266,7 +1274,7 @@ function decisionTableMarkup(table) {
 function articleWordCount(article) {
   const sourceText = (article.sources ?? []).flat().join(' ');
   const discussionText = (article.discussionSignals ?? []).flat().join(' ');
-  return `${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${inquiryCopy} ${discussionText} ${sourceText} ${article.sourceNote ?? ''}`
+  return `${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${article.inquiryCopy ?? inquiryCopy} ${discussionText} ${sourceText} ${article.sourceNote ?? ''}`
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -1396,7 +1404,7 @@ function articlePage(article) {
       <ul>${questionsMarkup}</ul>
       <div class="article-note"><strong>Procurement note:</strong> ${escapeHtml(article.note)}</div>
       <h2>What to send with an inquiry</h2>
-      <p>${escapeHtml(inquiryCopy)}</p>${buyerQuestionsMarkup ? `\n      ${buyerQuestionsMarkup}` : ''}${referencesMarkup ? `\n      ${referencesMarkup}` : ''}`);
+      <p>${escapeHtml(article.inquiryCopy ?? inquiryCopy)}</p>${buyerQuestionsMarkup ? `\n      ${buyerQuestionsMarkup}` : ''}${referencesMarkup ? `\n      ${referencesMarkup}` : ''}`);
   const tableOfContents = articleBody.sections
     .map(section => `<li><a href="#${section.id}">${escapeHtml(section.label)}</a></li>`)
     .join('');

@@ -14,6 +14,11 @@ window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
 window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
+const brandFontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>`;
+const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">';
 const modifiedDate = '2026-08-01';
 const indexModifiedDate = '2026-08-20';
 
@@ -1236,12 +1241,31 @@ function commonGraphNodes() {
   ];
 }
 
-function headerMarkup() {
-  return `<header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">GloryStarPack</a><nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/glass-bottle-buying-guides/">Glass Guides</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav></div></header>`;
+function currentLocation(activeSection, navSection) {
+  return activeSection === navSection ? ' aria-current="location"' : '';
 }
 
-function footerMarkup() {
-  return `<footer class="site-footer"><div class="wrap"><span>GloryStarPack Packaging Desk · Xiamen, Fujian, China</span><span><a href="/glass-bottle-buying-guides/">Glass Guides</a> · <a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/site-index/">Site Index</a></span></div></footer>`;
+function headerMarkup(activeSection = '') {
+  return `<header class="site-header gsp-site-header">
+  <a class="gsp-skip-link" href="#main-content">Skip to main content</a>
+  <div class="gsp-header-inner">
+    <a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a>
+    <nav class="gsp-primary-nav" aria-label="Primary navigation"><a href="/products/product-index/">Products</a><a href="/products/glass-packaging/">Glass Packaging</a><a${currentLocation(activeSection, 'guides')} href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/about/">About</a></nav>
+    <a class="gsp-header-cta" href="/contact/"><span class="gsp-cta-long">Request a Quote</span><span class="gsp-cta-short">Quote</span></a>
+  </div>
+</header>`;
+}
+
+function footerMarkup(date = '') {
+  const reviewed = date ? `<span>Page reviewed ${date}</span>` : '<span>Business-to-business inquiries worldwide</span>';
+  return `<footer class="site-footer gsp-site-footer" data-nosnippet>
+  <div class="gsp-footer-inner">
+    <div class="gsp-footer-brand"><a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" loading="lazy" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a><p>Glass bottles and packaging systems for beverage, fragrance, beauty and personal-care projects, with component matching, decoration and export coordination.</p></div>
+    <nav class="gsp-footer-nav" aria-label="Footer navigation"><a href="/products/product-index/">Product Index</a><a href="/products/glass-packaging/">Glass Packaging</a><a href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/insights/">Packaging Insights</a><a href="/about/">About</a><a href="/site-index/">Site Index</a></nav>
+    <div class="gsp-footer-contact"><strong>Start a packaging project</strong><a href="mailto:kevin@glorystarpack.com">kevin@glorystarpack.com</a><a href="https://wa.me/8619577608248" rel="noopener">WhatsApp +86 195-7760-8248</a><span>Xiamen, Fujian, China</span></div>
+  </div>
+  <div class="gsp-footer-bottom"><span>© 2026 GloryStarPack. Project specifications are confirmed against the selected configuration.</span>${reviewed}</div>
+</footer>`;
 }
 
 function relatedInsights(article) {
@@ -1427,6 +1451,7 @@ ${googleTagMarkup}
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="preload" as="image" href="${responsiveImagePath(article.imagePath, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 1160px" fetchpriority="high">
+  ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
   <meta property="og:type" content="article">
@@ -1446,11 +1471,13 @@ ${googleTagMarkup}
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${article.imagePath}">
   <script type="application/ld+json">${jsonLd(article, canonical, description)}</script>
+  ${siteShellStylesheet}
   <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
-${headerMarkup()}
-<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/insights/">Packaging Insights</a> / <span>${escapeHtml(article.title)}</span></div>
+${headerMarkup('guides')}
+<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><a href="/insights/">Packaging Insights</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">${escapeHtml(article.title)}</span></div></nav>
+<div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main>
   <header class="wrap insight-hero">
     <div class="eyebrow">${escapeHtml(article.cat)}</div>
@@ -1475,7 +1502,7 @@ ${headerMarkup()}
     <div class="insight-grid">${relatedMarkup}</div>
   </section>
 </main>
-${footerMarkup()}
+${footerMarkup(article.dateModified)}
 <script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
@@ -1536,6 +1563,7 @@ ${googleTagMarkup}
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
+  ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
   <meta property="og:type" content="website">
@@ -1547,17 +1575,19 @@ ${googleTagMarkup}
   <meta property="og:image:alt" content="Packaging samples, drawings and quality tools used for procurement planning">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
+  ${siteShellStylesheet}
   <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body class="insights-index">
-${headerMarkup()}
-<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Packaging Insights</span></div>
+${headerMarkup('guides')}
+<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">Packaging Insights</span></div></nav>
+<div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main class="wrap">
   <section class="index-hero"><div class="eyebrow">Packaging desk</div><h1>Packaging Insights &amp; Procurement Notes</h1><p>Use these concise guides to prepare clearer RFQs, compare packaging systems and identify the samples, components and approval checks a project may need. Start with the <a href="/glass-bottle-buying-guides/">glass bottle buying guide center</a> for MOQ, closure matching and sample approval.</p></section>
   <div class="insight-grid">${cards}</div>
   <section class="section rfq"><div><div class="eyebrow">From research to sourcing</div><h2>Need an item-specific answer?</h2><p>Browse individual product pages or prepare a structured packaging inquiry.</p></div><div class="actions"><a class="btn" href="/products/product-index/">Product Index</a><a class="btn alt" href="/contact/">Build an RFQ</a></div></section>
 </main>
-${footerMarkup()}
+${footerMarkup(indexModifiedDate)}
 <script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
@@ -1663,6 +1693,7 @@ ${googleTagMarkup}
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   <link rel="preload" as="image" href="${responsiveImagePath(heroImage, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(heroImage, 640)} 640w, ${responsiveImagePath(heroImage, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
+  ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
   <meta property="og:type" content="website">
@@ -1679,11 +1710,13 @@ ${googleTagMarkup}
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${heroImage}">
   <script type="application/ld+json">${schema}</script>
+  ${siteShellStylesheet}
   <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
-${headerMarkup()}
-<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Glass Bottle Buying Guides</span></div>
+${headerMarkup('guides')}
+<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">Glass Bottle Buying Guides</span></div></nav>
+<div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main>
   <section class="hero">
     <div class="wrap hero-grid">
@@ -1714,7 +1747,7 @@ ${headerMarkup()}
     <section class="section rfq"><div><div class="eyebrow">Project-specific confirmation</div><h2>Turn research into a comparable RFQ</h2><p>Share the application, capacity, bottle reference, closure, decoration, quantity, destination and timing. Final specification, MOQ, samples and tests are confirmed for the selected configuration.</p></div><div class="actions"><a class="btn" href="/contact/">Prepare Your RFQ</a><a class="btn alt" href="/products/product-index/">View Product Index</a></div></section>
   </div>
 </main>
-${footerMarkup()}
+${footerMarkup(indexModifiedDate)}
 <script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>

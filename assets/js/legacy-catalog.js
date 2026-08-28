@@ -402,9 +402,11 @@ function toggleMobileNav() {
 }
 
 function setActiveNav(page, sub) {
-  document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-  const direct = document.querySelector(`.nav-link[data-page="${page}"]`);
-  if (direct) direct.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.classList.remove('active');
+    link.removeAttribute('aria-current');
+  });
+  let activeLink = document.querySelector(`.nav-link[data-page="${page}"]`);
   if (page === 'products') {
     let group = '';
     if (sub === 'material-glass' || (sub && sub.startsWith('glass'))) group = 'glass';
@@ -414,9 +416,24 @@ function setActiveNav(page, sub) {
     else if (sub === 'material-bamboo-wood' || (sub && sub.startsWith('bamboo'))) group = 'bamboo';
     else if (sub === 'material-metal' || (sub && sub.startsWith('alu'))) group = 'alu';
     else if (['material-paper-pulp','material-flexible','material-bio','material-mixed','bio','paper-tube','paper-box','eco','eco-wheat','eco-pulp','eco-refill'].includes(sub)) group = 'eco';
-    const productLink = document.querySelector(`.nav-link[data-group="${group}"]`) || document.querySelector('.nav-link[data-page="products"]');
-    if (productLink) productLink.classList.add('active');
+    activeLink = document.querySelector(`.nav-link[data-group="${group}"]`) || document.querySelector('.nav-link[data-page="products"]');
   }
+  if (activeLink) {
+    activeLink.classList.add('active');
+    activeLink.setAttribute('aria-current', page === 'home' ? 'page' : 'location');
+  }
+}
+
+function focusCatalogView(page) {
+  const targetIds = { products: 'prod-title', detail: 'det-name', search: 'search-title' };
+  const target = document.getElementById(targetIds[page]);
+  if (!target) return;
+  target.setAttribute('tabindex', '-1');
+  requestAnimationFrame(() => {
+    target.focus({preventScroll: true});
+    const announcer = document.getElementById('catalog-announcer');
+    if (announcer) announcer.textContent = target.textContent.trim() || `${page} view`;
+  });
 }
 
 // =========================================================== NAVIGATION
@@ -442,6 +459,7 @@ function go(page, sub, skipHash, productPage = 1) {
 
   if (page === 'home') renderHomeGrid();
   if (page === 'products') { const c = sub || 'hot'; filterCatByKey(c, productPage); }
+  if (['products', 'detail', 'search'].includes(page)) focusCatalogView(page);
 }
 
 // =========================================================== PRODUCT CARD HTML
@@ -790,7 +808,7 @@ function pcHTML(p, small) {
     : `${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span>`;
   const nameMarkup = seoUrl
     ? `<a class="pc-name" href="${seoUrl}" onclick="event.stopPropagation()">${safeText(displayName)}</a>`
-    : `<div class="pc-name">${safeText(displayName)}</div>`;
+    : `<button class="pc-name pc-name-button" type="button" onclick="event.stopPropagation();showDetail('${p.id}')">${safeText(displayName)}</button>`;
   return `<article class="pc fade-in" onclick="showDetail('${p.id}')">
     <div class="pc-img">${imageMarkup}</div>
     <span class="pc-badge ${bc}">${bl}</span>
@@ -847,6 +865,13 @@ function filterCat(el, cat) {
   filterCatByKey(cat, 1);
   if (el && window.matchMedia('(max-width: 720px)').matches) {
     setProductFiltersOpen(el.closest('.sidebar'), false);
+    const title = document.getElementById('prod-title');
+    if (title) {
+      title.setAttribute('tabindex', '-1');
+      title.focus({preventScroll: true});
+    }
+    const announcer = document.getElementById('catalog-announcer');
+    if (announcer) announcer.textContent = `${title?.textContent || 'Product category'} results loaded`;
   }
 }
 
@@ -900,7 +925,9 @@ function setProductView(view) {
   const grid = document.getElementById('products-grid');
   if (grid) grid.classList.toggle('list-view', currentProductView === 'list');
   document.querySelectorAll('#page-products .view-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.view === currentProductView);
+    const active = btn.dataset.view === currentProductView;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
   });
 }
 
@@ -911,9 +938,11 @@ function filterCatByKey(cat, page = 1) {
   let activeSidebarLink = null;
   document.querySelectorAll('#page-products .sb-link').forEach(l => {
     l.classList.remove('active');
+    l.setAttribute('aria-pressed', 'false');
     const oc = l.getAttribute('onclick');
     if (oc && oc.includes("'"+cat+"'")) {
       l.classList.add('active');
+      l.setAttribute('aria-pressed', 'true');
       activeSidebarLink = l;
     }
   });
@@ -972,7 +1001,7 @@ function renderPagination(totalPages, activePage) {
   }
   let html = '';
   for (let i = 1; i <= totalPages; i++) {
-    html += `<button class="pg-btn${i === activePage ? ' active' : ''}" data-page="${i}" aria-label="Go to product page ${i}">${i}</button>`;
+    html += `<button class="pg-btn${i === activePage ? ' active' : ''}" data-page="${i}" aria-label="Go to product page ${i}"${i === activePage ? ' aria-current="page"' : ''}>${i}</button>`;
   }
   html += `<button class="pg-btn wide" data-page="${activePage === totalPages ? 1 : activePage + 1}" aria-label="Next product page">Next ›</button>`;
   wrap.innerHTML = html;
@@ -988,7 +1017,13 @@ function goProductPage(page) {
   renderProductPage(products, page);
   history.replaceState(null, '', `#products/${currentProductCat}/page-${currentProductPage}`);
   const grid = document.getElementById('products-grid');
-  if (grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
+  if (grid) {
+    grid.scrollIntoView({behavior:'smooth', block:'start'});
+    const firstProductLink = grid.querySelector('.pc-name');
+    if (firstProductLink) firstProductLink.focus({preventScroll: true});
+  }
+  const announcer = document.getElementById('catalog-announcer');
+  if (announcer) announcer.textContent = `Product results page ${currentProductPage}`;
 }
 
 function showDetail(pid) {
@@ -1024,7 +1059,7 @@ function showDetail(pid) {
   if (quoteBtn) quoteBtn.onclick = () => openModal('quote', p.name);
   if (sampleBtn) sampleBtn.onclick = () => openModal('sample', p.name);
   document.getElementById('det-thumbs').innerHTML = productGalleryImages(p).map((img,i) =>
-    `<div class="detail-thumb${i===0?' active':''}" onclick="setThumb(this,'${img.src}','${safeText(p.name)} ${img.label}')"><img src="${img.src}" alt="${safeText(p.name)} ${img.label}" loading="lazy" onerror="this.parentElement.textContent='${p.ic}'"></div>`
+    `<button type="button" class="detail-thumb${i===0?' active':''}" aria-label="Show ${safeText(p.name)} ${img.label}" aria-pressed="${i===0?'true':'false'}" onclick="setThumb(this,'${img.src}','${safeText(p.name)} ${img.label}')"><img src="${img.src}" alt="" loading="lazy" onerror="this.parentElement.textContent='${p.ic}'"></button>`
   ).join('');
   const bc = {hot:'b-hot',new:'b-new',eco:'b-eco',custom:'b-custom'}[p.badge]||'b-hot';
   const bl = {hot:'HOT',new:'NEW',eco:'MATERIAL',custom:'CUSTOM'}[p.badge]||'HOT';
@@ -1039,15 +1074,12 @@ function showDetail(pid) {
   ].map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
   const sizes = p.size.split('/').map(s => s.trim());
   document.getElementById('det-sizes').innerHTML = sizes.map((s,i) =>
-    `<button class="opt-btn${i===0?' active':''}" onclick="setOpt(this)">${s}</button>`
+    `<button class="opt-btn${i===0?' active':''}" aria-pressed="${i===0?'true':'false'}" onclick="setOpt(this)">${s}</button>`
   ).join('');
-  document.getElementById('det-finishes').innerHTML = `<button class="opt-btn active">${safeText(p.finish)}</button>`;
+  document.getElementById('det-finishes').innerHTML = `<span class="opt-btn active">${safeText(p.finish)}</span>`;
   const related = PRODS.filter(x => x.id !== pid && x.cats.some(c => p.cats.includes(c))).slice(0,4);
   document.getElementById('related-grid').innerHTML = related.map(x => pcHTML(x)).join('');
-  document.querySelectorAll('#page-detail .tab-pane').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('#page-detail .tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-desc').classList.add('active');
-  document.querySelector('#page-detail .tab-btn').classList.add('active');
+  switchTab(document.getElementById('tab-desc-button'), 'tab-desc');
 
   go('detail');
   const productTitle = `${p.name} | OEM Cosmetic Packaging Supplier | GloryStarPack`;
@@ -1085,24 +1117,46 @@ function showDetail(pid) {
 }
 
 function setThumb(el, src, alt) {
-  el.closest('.detail-thumbs').querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('active'));
+  el.closest('.detail-thumbs').querySelectorAll('.detail-thumb').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-pressed', 'false');
+  });
   el.classList.add('active');
+  el.setAttribute('aria-pressed', 'true');
   document.getElementById('det-main-img').innerHTML = `<img src="${src}" alt="${safeText(alt || 'Product photo')}" onerror="this.parentElement.textContent='📦'">`;
 }
 function setOpt(el) {
-  el.closest('.opt-group').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+  el.closest('.opt-group').querySelectorAll('.opt-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed', 'false');
+  });
   el.classList.add('active');
+  el.setAttribute('aria-pressed', 'true');
 }
 
 // =========================================================== TABS (detail)
 function switchTab(btn, id) {
   const bar = btn.closest('.tab-bar');
-  bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  ['tab-desc','tab-spec','tab-custom','tab-ship'].forEach(t => {
-    const el = document.getElementById(t); if(el) el.classList.remove('active');
+  bar.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+    b.setAttribute('tabindex', '-1');
   });
-  const el = document.getElementById(id); if(el) el.classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  btn.setAttribute('tabindex', '0');
+  ['tab-desc','tab-spec','tab-custom','tab-ship'].forEach(t => {
+    const el = document.getElementById(t);
+    if (el) {
+      el.classList.remove('active');
+      el.hidden = true;
+    }
+  });
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.add('active');
+    el.hidden = false;
+  }
 }
 
 // =========================================================== SEARCH

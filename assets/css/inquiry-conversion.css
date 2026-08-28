@@ -69,7 +69,10 @@
   border-radius: 6px;
   background: var(--gsp-inquiry-gold);
   color: #fff;
-  font: 700 12px/1.2 Arial, Helvetica, sans-serif;
+  font-family: "DM Sans", "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
   padding: 9px 12px;
   text-align: center;
   text-decoration: none;
@@ -100,7 +103,9 @@
   background: transparent;
   color: #d9cfbc;
   cursor: pointer;
-  font: 18px/1 Arial, Helvetica, sans-serif;
+  font-family: "DM Sans", "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .gsp-inquiry-action:focus-visible,

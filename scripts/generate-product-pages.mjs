@@ -14,6 +14,11 @@ window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
 window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
+const brandFontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>`;
+const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">';
 const modifiedDate = '2026-08-02';
 const productIndexModifiedDate = '2026-08-28';
 const productModifiedDates = new Map([
@@ -567,17 +572,30 @@ function jsonLd(product, category, canonical, description) {
   }).replace(/</g, '\\u003c');
 }
 
-function headerMarkup() {
-  return `<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">GloryStarPack</a>
-    <nav class="site-nav" aria-label="Primary navigation"><a href="/products/product-index/">Product Index</a><a href="/products/glass-packaging/">Glass Packaging</a><a href="/products/beverage-bottles/">Beverage Bottles</a><a href="/insights/">Insights</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+function currentLocation(activeSection, navSection, activePage = false) {
+  return activeSection === navSection ? ` aria-current="${activePage ? 'page' : 'location'}"` : '';
+}
+
+function headerMarkup(activeSection = '', activePage = false) {
+  return `<header class="site-header gsp-site-header">
+  <a class="gsp-skip-link" href="#main-content">Skip to main content</a>
+  <div class="gsp-header-inner">
+    <a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a>
+    <nav class="gsp-primary-nav" aria-label="Primary navigation"><a${currentLocation(activeSection, 'products', activePage)} href="/products/product-index/">Products</a><a${currentLocation(activeSection, 'glass', activePage)} href="/products/glass-packaging/">Glass Packaging</a><a href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/about/">About</a></nav>
+    <a class="gsp-header-cta" href="/contact/"><span class="gsp-cta-long">Request a Quote</span><span class="gsp-cta-short">Quote</span></a>
   </div>
 </header>`;
 }
 
 function footerMarkup(date = modifiedDate) {
-  return `<footer class="site-footer"><div class="wrap"><span>GloryStarPack · Xiamen, Fujian, China · Updated ${date}</span><span><a href="/insights/">Insights</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/products/product-index/">Product Index</a></span></div></footer>`;
+  return `<footer class="site-footer gsp-site-footer" data-nosnippet>
+  <div class="gsp-footer-inner">
+    <div class="gsp-footer-brand"><a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" loading="lazy" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a><p>Glass bottles and packaging systems for beverage, fragrance, beauty and personal-care projects, with component matching, decoration and export coordination.</p></div>
+    <nav class="gsp-footer-nav" aria-label="Footer navigation"><a href="/products/product-index/">Product Index</a><a href="/products/glass-packaging/">Glass Packaging</a><a href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/insights/">Packaging Insights</a><a href="/about/">About</a><a href="/site-index/">Site Index</a></nav>
+    <div class="gsp-footer-contact"><strong>Start a packaging project</strong><a href="mailto:kevin@glorystarpack.com">kevin@glorystarpack.com</a><a href="https://wa.me/8619577608248" rel="noopener">WhatsApp +86 195-7760-8248</a><span>Xiamen, Fujian, China</span></div>
+  </div>
+  <div class="gsp-footer-bottom"><span>© 2026 GloryStarPack. Project specifications are confirmed against the selected configuration.</span><span>Page reviewed ${date}</span></div>
+</footer>`;
 }
 
 function productPage(product) {
@@ -614,6 +632,7 @@ ${googleTagMarkup}
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="preload" as="image" href="${productImageVariant(product, 960)}" type="image/avif" imagesrcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
+  ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <meta property="og:type" content="product">
   <meta property="og:title" content="${escapeHtml(title)}">
@@ -627,11 +646,13 @@ ${googleTagMarkup}
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <meta name="twitter:image" content="${siteUrl}${productImage(product)}">
   <script type="application/ld+json">${jsonLd(product, category, canonical, description)}</script>
+${siteShellStylesheet}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
-${headerMarkup()}
-<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="${category.path}">${escapeHtml(category.label)}</a> / <span>${escapeHtml(name)}</span></div>
+${headerMarkup(/\bglass\b/i.test(product.mat) ? 'glass' : 'products')}
+<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><a href="${category.path}">${escapeHtml(category.label)}</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">${escapeHtml(name)}</span></div></nav>
+<div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main>
   <section class="hero">
     <div class="wrap hero-grid">
@@ -769,6 +790,7 @@ ${googleTagMarkup}
   <link rel="canonical" href="${siteUrl}/products/product-index/">
   <link rel="alternate" hreflang="en" href="${siteUrl}/products/product-index/">
   <link rel="alternate" hreflang="x-default" href="${siteUrl}/products/product-index/">
+  ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Packaging Product Index | GloryStarPack">
@@ -778,11 +800,13 @@ ${googleTagMarkup}
   <meta property="og:image" content="${siteUrl}/assets/brand/glass-complete-product-assortment-2026.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
+${siteShellStylesheet}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
-${headerMarkup()}
-<div class="wrap breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Packaging Product Index</span></div>
+${headerMarkup('products', true)}
+<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">Packaging Product Index</span></div></nav>
+<div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main class="wrap">
   <section class="index-hero"><div class="eyebrow">Crawlable product catalog</div><h1>Packaging Product Index</h1><p>Browse ${products.length} reviewed product pages by format, capacity and material. Every result links to a stable sourcing page with specifications, sample checks and related packaging routes.</p><div class="index-hero-meta" aria-label="Catalog scope"><span>${products.length} reviewed products</span><span>${groupValues.length} sourcing categories</span><span>Stable product URLs</span></div></section>
   <section class="catalog-finder" aria-labelledby="catalog-finder-title">

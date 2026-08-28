@@ -900,8 +900,8 @@ window.gtag('config', 'G-NYY1MTZ6HM');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>
 <style>
 :root{--gold:#c8a96e;--gold-light:#e8d5a3;--gold-dark:#76571f;--dark:#1a1a1a;--text:#2c2c2c;--muted:#6b6b6b;--bg:#faf9f7;--white:#fff;--border:#e5e0d8;--nav-bg:#1c1c1c;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -945,7 +945,7 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 .nav-link.hot{color:var(--gold);font-weight:500;}
 .nav-link[aria-expanded="true"]{color:var(--gold);background:rgba(200,169,110,.12);}
 .dropdown{display:none;position:absolute;top:100%;left:0;background:var(--white);border:1px solid var(--border);border-top:2px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:230px;max-height:calc(100vh - 150px);overflow-y:auto;z-index:600;padding:8px 0;}
-.nav-item:hover .dropdown,.nav-item.open .dropdown,.nav-item:focus-within .dropdown{display:block;}
+.nav-item:hover .dropdown,.nav-item.open .dropdown{display:block;}
 .dd-link{display:block;padding:9px 20px;color:var(--text);font-size:13px;border-left:3px solid transparent;transition:all .15s;cursor:pointer;text-decoration:none;}
 .dd-link:hover{background:#faf5ec;color:var(--gold-dark);border-left-color:var(--gold);}
 
@@ -1027,6 +1027,7 @@ nav{background:var(--nav-bg);border-bottom:2px solid var(--gold);position:sticky
 .pc-info{padding:14px 16px 16px;}
 .pc-name{font-size:14px;font-weight:500;color:var(--dark);line-height:1.42;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 a.pc-name{text-decoration:none;}
+.pc-name-button{width:100%;border:0;background:transparent;padding:0;font-family:inherit;text-align:left;}
 .pc-specs{font-size:12px;color:var(--muted);margin-bottom:8px;}
 .pc-subitems{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0 2px;}
 .pc-subitems span{font-size:10px;color:var(--gold-dark);background:#faf5ec;border:1px solid #eadcc2;border-radius:12px;padding:3px 7px;line-height:1;}
@@ -1564,8 +1565,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .float-btn:hover .float-label{opacity:1;transform:none;}
 .float-btn.whatsapp{background:rgba(31,31,31,.9);color:#25d366;}
 .float-btn.whatsapp:hover{background:#25d366;color:#fff;width:150px;}
-.float-btn.icon-only{width:42px;min-width:42px;padding:0;font-size:16px;opacity:0;pointer-events:none;transform:translateY(8px);justify-content:center;}
-.float-btn.icon-only.show{opacity:1;pointer-events:auto;transform:none;}
+.float-btn.icon-only{width:42px;min-width:42px;padding:0;font-size:16px;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(8px);justify-content:center;}
+.float-btn.icon-only.show{opacity:1;visibility:visible;pointer-events:auto;transform:none;}
 .mobile-quickbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:890;background:var(--white);border-top:1px solid var(--border);box-shadow:0 -6px 20px rgba(0,0,0,.08);}
 .mobile-quickbar button,.mobile-quickbar a{flex:1;border:none;background:transparent;padding:11px 8px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--dark);border-right:1px solid var(--border);text-align:center;text-decoration:none;}
 .mobile-quickbar button:last-child,.mobile-quickbar a:last-child{border-right:none;background:var(--gold);color:var(--dark);font-weight:600;}
@@ -1619,7 +1620,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .resource-card{display:block;border:1px solid var(--border);border-radius:10px;padding:20px;text-decoration:none;background:#faf9f7;transition:all .2s;}
 .resource-card:hover{border-color:var(--gold-light);background:#fffaf1;transform:translateY(-2px);}
-.dd-link:focus-visible,.sb-link:focus-visible,.helper-item:focus-visible{outline:3px solid rgba(200,169,110,.65);outline-offset:2px;}
+.dd-link:focus-visible,.sb-link:focus-visible,.helper-item:focus-visible{outline:2px solid var(--white);outline-offset:1px;box-shadow:0 0 0 4px var(--gold-dark);}
 .resource-card span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-dark);font-weight:700;margin-bottom:8px;}
 .resource-card strong{display:block;font-size:15px;color:var(--dark);margin-bottom:6px;}
 .resource-card p{font-size:12px;color:var(--muted);line-height:1.65;}
@@ -1636,7 +1637,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 }
 
 @media (max-width: 1024px){
-  .header-search{display:none;}
+  .header-contact{display:none;}
   .cat-grid-large,.prod-grid{grid-template-columns:repeat(3,1fr);}
   .why-split,.buyer-grid,.detail-layout{grid-template-columns:1fr;display:grid;}
   .trust-showcase{padding:44px 0 46px;}
@@ -1677,6 +1678,22 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .detail-img-col{flex:auto;}
 }
 
+@media (min-width: 721px) and (max-width: 900px){
+  .topbar-left{gap:12px;}
+  .topbar-left span:nth-child(3){display:none;}
+  header,nav{position:static;}
+  .header-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;height:auto;padding:12px 20px;gap:10px 16px;}
+  .header-search{grid-column:1/-1;grid-row:2;max-width:none;width:100%;}
+  .header-actions{grid-column:2;grid-row:1;margin-left:0;gap:10px;}
+  .menu-toggle{display:inline-flex;}
+  nav:not(.mobile-open) .nav-inner{display:none;}
+  .nav-inner{overflow:visible;flex-wrap:wrap;padding:8px 12px;}
+  .nav-item{position:relative;width:100%;}
+  .nav-link{width:100%;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);}
+  .nav-item.open{display:block;flex:1 0 100%;background:rgba(200,169,110,.06);}
+  .nav-item.open .dropdown{position:static;min-width:220px;max-height:62vh;overflow:auto;margin-bottom:8px;}
+}
+
 @media (max-width: 720px){
   .topbar-inner,.header-inner,.footer-bottom,.stats-inner,.cta-inner{align-items:flex-start;flex-direction:column;gap:12px;}
   .topbar-left,.topbar-right,.header-actions,.hero-stats,.cs-stats{flex-wrap:wrap;}
@@ -1695,6 +1712,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .nav-item.open .nav-link{width:100%;justify-content:space-between;}
   .nav-item.open .dropdown{position:static;min-width:220px;max-height:62vh;overflow:auto;margin-bottom:8px;}
   .header-inner{height:auto;padding:16px 20px;}
+  .header-search{width:100%;max-width:none;}
   .header-actions{width:100%;margin-left:0;justify-content:space-between;}
   .menu-toggle{display:inline-flex;}
   .header-contact{display:none;}
@@ -1815,9 +1833,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .cs-btns>a,.cs-btns>button{width:100%;}
 }
 </style>
+<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
+<a class="gsp-skip-link" href="#main-content">Skip to main content</a>
 
 <!-- ========== TOP BAR ========== -->
 <div class="topbar">
@@ -1842,12 +1862,12 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <img class="logo-mark" src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async">
       <div class="logo-text">
         <span class="brand">GLORYSTARPACK</span>
-        <span class="sub">Custom Glass Bottle Manufacturer</span>
+        <span class="sub">Custom Bottles &amp; Packaging</span>
       </div>
     </a>
     <div class="header-search">
-      <span class="search-ico">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search products (e.g. glass bottle, bamboo jar...)" onkeydown="if(event.key==='Enter')doSearch(this.value)">
+      <span class="search-ico" aria-hidden="true">🔍</span>
+      <input type="search" id="searchInput" aria-label="Search packaging products" placeholder="Search products (e.g. glass bottle, bamboo jar...)" onkeydown="if(event.key==='Enter')doSearch(this.value)">
     </div>
     <div class="header-actions">
       <div class="header-contact">
@@ -1855,125 +1875,64 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <div class="email">kevin@glorystarpack.com</div>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-controls="siteNav" aria-expanded="false" onclick="toggleMobileNav()">☰ Menu</button>
-      <button class="btn-quote" onclick="openModal('quote')">Get Free Quote</button>
+      <button class="btn-quote" onclick="openModal('quote')">Request a Quote</button>
     </div>
   </div>
 </header>
 
 <!-- ========== NAV ========== -->
-<nav id="siteNav">
+<nav id="siteNav" aria-label="Primary navigation">
   <div class="nav-inner">
-    <div class="nav-item"><a class="nav-link" data-page="home" href="/">Home</a></div>
-    <div class="nav-item"><a class="nav-link" href="/about/">About</a></div>
-    <div class="nav-item"><button class="nav-link hot" data-page="products" onclick="go('products','hot')">Hot</button></div>
+    <div class="nav-item"><a class="nav-link active" data-page="home" href="/" aria-current="page">Home</a></div>
     <div class="nav-item">
-      <button class="nav-link" data-group="glass" aria-haspopup="true" aria-expanded="false">Glass ▾</button>
+      <button class="nav-link" data-page="products" aria-haspopup="true" aria-expanded="false">Products ▾</button>
       <div class="dropdown">
-        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','material-glass')">All Glass Packaging</a>
-        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','glass-food')">Glass Food Bottles &amp; Jars</a>
-        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','food-jar')">Glass Honey, Spice &amp; Food Jars</a>
-        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','glass-apothecary')">Glass Apothecary &amp; Supplement Bottles</a>
-        <a class="dd-link" href="/products/beer-bottles/" onclick="event.preventDefault();go('products','beer-bottle')">Glass Beer &amp; Growler Bottles</a>
-        <a class="dd-link" href="/products/liquor-bottles/" onclick="event.preventDefault();go('products','glass-decanter')">Glass Decanter &amp; Flask Bottles</a>
-        <a class="dd-link" href="/products/beverage-bottles/" onclick="event.preventDefault();go('products','juice-soda-bottle')">Glass Juice &amp; Soda Bottles</a>
-        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','oil-vinegar-bottle')">Glass Oil &amp; Vinegar Bottles</a>
-        <a class="dd-link" href="/products/glass-packaging/" onclick="event.preventDefault();go('products','sauce-syrup-bottle')">Glass Sauce &amp; Syrup Bottles</a>
-        <span class="dd-link" onclick="go('products','glass-oil')">Glass Essential Oil Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-dropper')">Glass Dropper Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-rollon')">Glass Roll On Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-spray')">Glass Spray Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-ampoule')">Glass Ampoule &amp; Vial</span>
-        <span class="dd-link" onclick="go('products','glass-jar')">Glass Cream Jar</span>
-        <span class="dd-link" onclick="go('products','glass-lotion')">Glass Lotion Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-perfume')">Glass Perfume Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-diffuser')">Glass Diffuser Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-violet')">Violet Glass Bottle</span>
-        <span class="dd-link" onclick="go('products','glass-nail')">Glass Nail Polish Bottle</span>
+        <a class="dd-link" href="/products/product-index/" onclick="event.preventDefault();go('products','hot')">All Products &amp; Product Finder</a>
+        <a class="dd-link" href="/products/plastic-packaging/">Plastic Packaging</a>
+        <a class="dd-link" href="/products/airless-pump-bottles/">Airless Pump Bottles</a>
+        <a class="dd-link" href="/products/cosmetic-jars/">Cosmetic Jars</a>
+        <a class="dd-link" href="/products/cosmetic-pumps-closures/">Pumps &amp; Closures</a>
+        <a class="dd-link" href="/products/personal-care-packaging/">Personal Care Packaging</a>
+        <a class="dd-link" href="/products/refill-packaging/">Refill Packaging</a>
+        <a class="dd-link" href="/products/aluminum-packaging/">Aluminum Packaging</a>
+        <a class="dd-link" href="/products/bamboo-packaging/">Bamboo Packaging</a>
+        <a class="dd-link" href="/products/cosmetic-packaging-accessories/">Packaging Accessories</a>
+        <a class="dd-link" href="/oem-cosmetic-packaging/">OEM / ODM Projects</a>
       </div>
     </div>
     <div class="nav-item">
-      <button class="nav-link" data-group="beverage" aria-haspopup="true" aria-expanded="false">Beverage ▾</button>
+      <button class="nav-link" data-group="glass" aria-haspopup="true" aria-expanded="false">Glass Packaging ▾</button>
       <div class="dropdown">
-        <a class="dd-link" href="/products/beverage-bottles/">Beverage Bottle Packaging</a>
+        <a class="dd-link" href="/products/glass-packaging/">All Glass Packaging</a>
         <a class="dd-link" href="/products/wine-bottles/">Wine Bottles</a>
-        <a class="dd-link" href="/products/beer-bottles/">Beer Bottles</a>
         <a class="dd-link" href="/products/liquor-bottles/">Liquor &amp; Spirit Bottles</a>
-        <a class="dd-link" href="/products/whiskey-bottles/">Whiskey Bottles</a>
-        <a class="dd-link" href="/products/vodka-bottles/">Vodka Bottles</a>
-        <a class="dd-link" href="/products/gin-bottles/">Gin Bottles</a>
+        <a class="dd-link" href="/products/beverage-bottles/">Beverage Bottles</a>
+        <a class="dd-link" href="/products/beer-bottles/">Beer &amp; Growler Bottles</a>
         <a class="dd-link" href="/products/sparkling-wine-bottles/">Sparkling Wine Bottles</a>
-        <span class="dd-link" onclick="go('products','beverage-closure')">Corks, Caps &amp; Closures</span>
+        <a class="dd-link" href="/products/glass-cosmetic-bottles/">Glass Cosmetic Bottles</a>
+        <a class="dd-link" href="/products/perfume-bottles/">Perfume Bottles</a>
+        <a class="dd-link" href="/products/serum-dropper-bottles/">Serum Dropper Bottles</a>
+        <a class="dd-link" href="/products/cream-jars/">Glass Cream Jars</a>
       </div>
     </div>
     <div class="nav-item">
-      <button class="nav-link" data-group="plastic" aria-haspopup="true" aria-expanded="false">Plastic ▾</button>
+      <button class="nav-link" aria-haspopup="true" aria-expanded="false">Buyer Guides ▾</button>
       <div class="dropdown">
-        <a class="dd-link" href="/products/plastic-packaging/" onclick="event.preventDefault();go('products','material-plastic')">All Plastic Packaging</a>
-        <span class="dd-link" onclick="go('products','plastic-pump')">Plastic Pump Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-airless')">Airless Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-airless-jar')">Airless Jar</span>
-        <span class="dd-link" onclick="go('products','plastic-dual')">Dual Chamber Packaging</span>
-        <span class="dd-link" onclick="go('products','plastic-lotion')">Lotion Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-pet')">PET Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-hdpe')">HDPE Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-spray')">Plastic Spray Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-jar')">Plastic Jar</span>
-        <span class="dd-link" onclick="go('products','plastic-acrylic')">Acrylic Container</span>
-        <span class="dd-link" onclick="go('products','plastic-foam')">Plastic Foam Bottle</span>
-        <span class="dd-link" onclick="go('products','plastic-tube')">Plastic Tube</span>
-        <span class="dd-link" onclick="go('products','plastic-deodorant')">Deodorant Stick</span>
-        <span class="dd-link" onclick="go('products','plastic-makeup')">Makeup Packaging</span>
-        <span class="dd-link" onclick="go('products','plastic-travel')">Travel Size Set</span>
-        <span class="dd-link" onclick="go('products','personal-care')">Personal Care Packaging</span>
-        <span class="dd-link" onclick="go('products','men-grooming')">Men's Grooming Packaging</span>
-        <span class="dd-link" onclick="go('products','plastic-pcr')">PCR &amp; Refill Plastic</span>
-        <span class="dd-link" onclick="go('products','plastic-closure')">Pumps, Caps &amp; Accessories</span>
+        <a class="dd-link" href="/cosmetic-packaging-guides/">Cosmetic Packaging Guides</a>
+        <a class="dd-link" href="/glass-bottle-buying-guides/">Glass Bottle Buying Guides</a>
+        <a class="dd-link" href="/insights/">Packaging Insights</a>
+        <a class="dd-link" href="/cosmetic-packaging-buying-guide/">Packaging Buying Guide</a>
+        <a class="dd-link" href="/cosmetic-packaging-moq/">MOQ Planning Guide</a>
+        <a class="dd-link" href="/cosmetic-logo-printing-methods/">Logo Printing Methods</a>
+        <a class="dd-link" href="/cosmetic-packaging-sample-approval-checklist/">Sample Approval Checklist</a>
       </div>
     </div>
-    <div class="nav-item">
-      <button class="nav-link" data-group="bamboo" aria-haspopup="true" aria-expanded="false">Bamboo ▾</button>
-      <div class="dropdown">
-        <a class="dd-link" href="/products/bamboo-packaging/" onclick="event.preventDefault();go('products','material-bamboo-wood')">All Bamboo &amp; Wood</a>
-        <span class="dd-link" onclick="go('products','bamboo-bottle')">Bamboo Bottles</span>
-        <span class="dd-link" onclick="go('products','bamboo-jar')">Bamboo Jars</span>
-        <span class="dd-link" onclick="go('products','bamboo-cap')">Bamboo Caps &amp; Lids</span>
-        <span class="dd-link" onclick="go('products','bamboo-dropper')">Bamboo Dropper Bottles</span>
-        <span class="dd-link" onclick="go('products','bamboo-rollon')">Bamboo Roll On Bottles</span>
-        <span class="dd-link" onclick="go('products','bamboo-makeup')">Bamboo Makeup Series</span>
-      </div>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" data-group="alu" aria-haspopup="true" aria-expanded="false">Aluminum ▾</button>
-      <div class="dropdown">
-        <a class="dd-link" href="/products/aluminum-packaging/" onclick="event.preventDefault();go('products','material-metal')">All Aluminum &amp; Metal</a>
-        <span class="dd-link" onclick="go('products','alu-bottle')">Aluminum Bottle</span>
-        <span class="dd-link" onclick="go('products','alu-can')">Aluminum Can</span>
-        <span class="dd-link" onclick="go('products','alu-tin')">Aluminum Tin</span>
-        <span class="dd-link" onclick="go('products','alu-tube')">Aluminum Tube</span>
-        <span class="dd-link" onclick="go('products','alu-atomizer')">Aluminum Atomizer</span>
-        <span class="dd-link" onclick="go('products','alu-jar')">Aluminum Jar</span>
-        <span class="dd-link" onclick="go('products','alu-bag')">Aluminum Bag</span>
-      </div>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" data-group="eco" aria-haspopup="true" aria-expanded="false">Eco ▾</button>
-      <div class="dropdown">
-        <a class="dd-link" href="/products/eco-friendly-packaging/" onclick="event.preventDefault();go('products','eco')">All Sustainable Packaging</a>
-        <span class="dd-link" onclick="go('products','bio')">Biodegradable</span>
-        <span class="dd-link" onclick="go('products','eco-wheat')">Wheat Straw Packaging</span>
-        <span class="dd-link" onclick="go('products','eco-pulp')">Molded Pulp Packaging</span>
-        <span class="dd-link" onclick="go('products','eco-refill')">Refill Packaging</span>
-        <span class="dd-link" onclick="go('products','paper-tube')">Paper Tube</span>
-        <span class="dd-link" onclick="go('products','paper-box')">Paper Box</span>
-      </div>
-    </div>
-    <div class="nav-item"><a class="nav-link" href="/oem-cosmetic-packaging/">OEM/ODM</a></div>
-    <div class="nav-item"><a class="nav-link" href="/insights/">Insights</a></div>
-    <div class="nav-item"><a class="nav-link" href="/contact/">Contact</a></div>
+    <div class="nav-item"><a class="nav-link" href="/about/">About</a></div>
   </div>
 </nav>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1">
+<div id="catalog-announcer" class="gsp-visually-hidden" aria-live="polite" aria-atomic="true"></div>
 <!-- ======================= PAGE: HOME ======================= -->
 <div id="page-home" class="page active">
 
@@ -2510,7 +2469,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 
 <!-- ======================= PAGE: PRODUCTS ======================= -->
 <div id="page-products" class="page" data-nosnippet>
-  <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <span class="cur" id="bc-prod">Hot Picks</span></div></div>
+  <nav class="breadcrumb-bar gsp-breadcrumbs" aria-label="Breadcrumb"><div class="bc gsp-breadcrumbs-inner"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">›</span><span class="cur" id="bc-prod" aria-current="page">Hot Picks</span></div></nav>
   <div class="page-layout">
     <aside class="sidebar">
       <button class="mobile-filter-toggle" type="button" aria-controls="product-filter-panel" aria-expanded="false" onclick="toggleProductFilters(this)">Browse product categories <span aria-hidden="true">+</span></button>
@@ -2660,8 +2619,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <div class="sec-title"><h2 id="prod-title">Hot Picks</h2><span class="sec-cnt" id="prod-cnt">12 Products</span></div>
         <div class="view-ctrls">
           <select class="sort-sel" id="sortSelect" onchange="setProductSort(this.value)"><option value="default">Featured First</option><option value="newest">Newest First</option><option value="popular">Most Popular</option><option value="moq">Lowest MOQ</option></select>
-          <button class="view-btn active" data-view="grid" aria-label="Grid view">⊞</button>
-          <button class="view-btn" data-view="list" aria-label="List view">☰</button>
+          <button class="view-btn active" data-view="grid" aria-label="Grid view" aria-pressed="true">⊞</button>
+          <button class="view-btn" data-view="list" aria-label="List view" aria-pressed="false">☰</button>
         </div>
       </div>
       <div class="cat-copy" id="cat-copy"></div>
@@ -2733,7 +2692,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 
 <!-- ======================= PAGE: PRODUCT DETAIL ======================= -->
 <div id="page-detail" class="page" data-nosnippet>
-  <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <a href="/#products/hot" onclick="event.preventDefault();go('products','hot')" id="bc-detail-cat">Products</a> › <span class="cur" id="bc-detail">Product</span></div></div>
+  <nav class="breadcrumb-bar gsp-breadcrumbs" aria-label="Breadcrumb"><div class="bc gsp-breadcrumbs-inner"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">›</span><a href="/#products/hot" onclick="event.preventDefault();go('products','hot')" id="bc-detail-cat">Products</a><span class="gsp-breadcrumb-separator" aria-hidden="true">›</span><span class="cur" id="bc-detail" aria-current="page">Product</span></div></nav>
   <div class="detail-layout">
     <div class="detail-img-col">
       <div class="detail-main-img" id="det-main-img"></div>
@@ -2758,16 +2717,16 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </div>
   </div>
   <div style="max-width:1280px;margin:0 auto;padding:0 24px 20px;">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'tab-desc')">Description</button>
-      <button class="tab-btn" onclick="switchTab(this,'tab-spec')">Specifications</button>
-      <button class="tab-btn" onclick="switchTab(this,'tab-custom')">Customization</button>
-      <button class="tab-btn" onclick="switchTab(this,'tab-ship')">Shipping</button>
+    <div class="tab-bar" role="tablist" aria-label="Product information">
+      <button class="tab-btn active" id="tab-desc-button" role="tab" aria-selected="true" aria-controls="tab-desc" tabindex="0" onclick="switchTab(this,'tab-desc')">Description</button>
+      <button class="tab-btn" id="tab-spec-button" role="tab" aria-selected="false" aria-controls="tab-spec" tabindex="-1" onclick="switchTab(this,'tab-spec')">Specifications</button>
+      <button class="tab-btn" id="tab-custom-button" role="tab" aria-selected="false" aria-controls="tab-custom" tabindex="-1" onclick="switchTab(this,'tab-custom')">Customization</button>
+      <button class="tab-btn" id="tab-ship-button" role="tab" aria-selected="false" aria-controls="tab-ship" tabindex="-1" onclick="switchTab(this,'tab-ship')">Shipping</button>
     </div>
-    <div id="tab-desc" class="tab-pane active"><p id="det-tab-desc"></p></div>
-    <div id="tab-spec" class="tab-pane"><p id="det-tab-spec"></p></div>
-    <div id="tab-custom" class="tab-pane"><p id="det-tab-custom"></p></div>
-    <div id="tab-ship" class="tab-pane"><p id="det-tab-ship"></p></div>
+    <div id="tab-desc" class="tab-pane active" role="tabpanel" aria-labelledby="tab-desc-button"><p id="det-tab-desc"></p></div>
+    <div id="tab-spec" class="tab-pane" role="tabpanel" aria-labelledby="tab-spec-button" hidden><p id="det-tab-spec"></p></div>
+    <div id="tab-custom" class="tab-pane" role="tabpanel" aria-labelledby="tab-custom-button" hidden><p id="det-tab-custom"></p></div>
+    <div id="tab-ship" class="tab-pane" role="tabpanel" aria-labelledby="tab-ship-button" hidden><p id="det-tab-ship"></p></div>
   </div>
   <div style="max-width:1280px;margin:0 auto;padding:0 24px 60px;">
     <div class="sec-head"><h2>Related Products</h2><div class="line"></div><a href="/#products/hot" onclick="event.preventDefault();go('products','hot')">View All →</a></div>
@@ -2778,7 +2737,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <!-- Company, service, insight and contact content use crawlable standalone URLs. -->
 <!-- ======================= PAGE: SEARCH RESULTS ======================= -->
 <div id="page-search" class="page" data-nosnippet>
-  <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <span class="cur">Search Results</span></div></div>
+  <nav class="breadcrumb-bar gsp-breadcrumbs" aria-label="Breadcrumb"><div class="bc gsp-breadcrumbs-inner"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">›</span><span class="cur" aria-current="page">Search Results</span></div></nav>
   <div class="section">
     <div class="sec-head"><h2 id="search-title">Search Results</h2><div class="line"></div></div>
     <div class="prod-grid" id="search-grid"></div>

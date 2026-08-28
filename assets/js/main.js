@@ -57,8 +57,15 @@ function activateOnlyPage(page) {
 function showHomePage(skipHash) {
   activateOnlyPage('home');
   restoreHomeDocumentState();
-  document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-  document.querySelector('.nav-link[data-page="home"]')?.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.classList.remove('active');
+    link.removeAttribute('aria-current');
+  });
+  const homeLink = document.querySelector('.nav-link[data-page="home"]');
+  if (homeLink) {
+    homeLink.classList.add('active');
+    homeLink.setAttribute('aria-current', 'page');
+  }
   if (!skipHash) history.replaceState(null, '', '#home');
   window.scrollTo(0, 0);
   window.GSP_CATALOG?.renderHomeGrid();
@@ -289,6 +296,9 @@ function enhanceKeyboardControls() {
     control.setAttribute('role', 'button');
     control.setAttribute('tabindex', '0');
     control.dataset.keyboardClick = 'true';
+    if (control.classList.contains('sb-link')) {
+      control.setAttribute('aria-pressed', control.classList.contains('active') ? 'true' : 'false');
+    }
   });
 }
 
@@ -325,15 +335,54 @@ document.addEventListener('click', e => {
 });
 
 document.addEventListener('keydown', e => {
+  const tab = e.target.closest?.('[role="tab"]');
+  if (tab && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) {
+    const tabs = Array.from(tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]'));
+    const currentIndex = tabs.indexOf(tab);
+    const nextIndex = e.key === 'Home' ? 0
+      : e.key === 'End' ? tabs.length - 1
+        : (currentIndex + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    e.preventDefault();
+    tabs[nextIndex].focus();
+    tabs[nextIndex].click();
+    return;
+  }
   const keyboardControl = e.target.closest?.('[data-keyboard-click="true"]');
   if (keyboardControl && (e.key === 'Enter' || e.key === ' ')) {
     e.preventDefault();
     keyboardControl.click();
     return;
   }
+  if (activeModalType && e.key === 'Tab') {
+    const modal = document.getElementById(`modal-${activeModalType}`);
+    const focusable = modal ? Array.from(modal.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter(element => element.offsetParent !== null) : [];
+    if (focusable.length) {
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    return;
+  }
   if (e.key !== 'Escape') return;
-  if (activeModalType) closeModal(activeModalType);
-  else closeMobileNav();
+  if (activeModalType) {
+    closeModal(activeModalType);
+    return;
+  }
+  const focusedItem = document.activeElement?.closest?.('.nav-item');
+  const focusedTrigger = focusedItem?.querySelector(':scope > .nav-link[aria-haspopup="true"]');
+  const nav = document.getElementById('siteNav');
+  const mobileWasOpen = nav?.classList.contains('mobile-open');
+  closeMobileNav();
+  if (focusedTrigger) focusedTrigger.focus();
+  else if (mobileWasOpen) document.getElementById('menuToggle')?.focus();
 });
 
 document.addEventListener('input', e => {
@@ -349,6 +398,7 @@ document.addEventListener('change', e => {
 });
 
 function scrollTopSmooth() {
+  document.getElementById('main-content')?.focus({preventScroll: true});
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 

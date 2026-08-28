@@ -11,6 +11,8 @@ const siteUrl = 'https://www.glorystarpack.com';
 const retiredAirlessPath = '/products/airless-bottles/';
 const primaryAirlessPath = '/products/airless-pump-bottles/';
 const googleTagId = 'G-NYY1MTZ6HM';
+const siteShellPath = '/assets/css/site-shell.css';
+const brandFontMarker = 'family=Cormorant+Garamond';
 const indexNowKey = 'f5c6d8e91a2b47c0ad74e69321fb805e';
 const indexNowKeyFileName = `${indexNowKey}.txt`;
 const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
@@ -36,6 +38,10 @@ function relative(filePath) {
 
 function firstMatch(source, pattern) {
   return source.match(pattern)?.[1]?.replace(/\s+/g, ' ').trim() ?? '';
+}
+
+function visibleModifiedDate(source) {
+  return firstMatch(source, /(?:Updated|Page reviewed)\s+(\d{4}-\d{2}-\d{2})/);
 }
 
 function metaContent(source, name) {
@@ -154,6 +160,36 @@ for (const filePath of htmlFiles) {
   }
   if (!source.includes('/assets/css/inquiry-conversion.css')) {
     errors.push(`${rel}: missing shared inquiry conversion stylesheet`);
+  }
+  const siteShellCount = source.split(siteShellPath).length - 1;
+  if (siteShellCount !== 1) {
+    errors.push(`${rel}: expected one shared site shell stylesheet, found ${siteShellCount}`);
+  }
+  if (!source.includes(brandFontMarker)) {
+    errors.push(`${rel}: missing shared brand font loader`);
+  }
+  const mainTargetCount = (source.match(/\bid=["']main-content["']/gi) ?? []).length;
+  const mainLandmarkCount = (source.match(/<main\b/gi) ?? []).length
+    + (source.match(/\brole=["']main["']/gi) ?? []).length;
+  const skipLinkCount = (source.match(/class=["'][^"']*\bgsp-skip-link\b[^"']*["']/gi) ?? []).length;
+  if (mainTargetCount !== 1) errors.push(`${rel}: expected one main-content target, found ${mainTargetCount}`);
+  if (mainLandmarkCount !== 1) errors.push(`${rel}: expected one main landmark, found ${mainLandmarkCount}`);
+  if (skipLinkCount !== 1) errors.push(`${rel}: expected one shared skip link, found ${skipLinkCount}`);
+  if (source.indexOf(siteShellPath) > source.indexOf('/assets/css/inquiry-conversion.css')) {
+    errors.push(`${rel}: shared site shell must load before inquiry conversion styles`);
+  }
+  if (rel !== 'index.html') {
+    const sharedHeaderCount = source.split('gsp-site-header').length - 1;
+    const sharedFooterCount = source.split('gsp-site-footer').length - 1;
+    const sharedBreadcrumbCount = source.split('class="gsp-breadcrumbs"').length - 1;
+    const breadcrumbSource = source.match(/<nav\b[^>]*class=["'][^"']*\bgsp-breadcrumbs\b[^"']*["'][^>]*>[\s\S]*?<\/nav>/i)?.[0] ?? '';
+    if (sharedHeaderCount !== 1) errors.push(`${rel}: expected one shared site header, found ${sharedHeaderCount}`);
+    if (sharedFooterCount !== 1) errors.push(`${rel}: expected one shared site footer, found ${sharedFooterCount}`);
+    if (sharedBreadcrumbCount !== 1) errors.push(`${rel}: expected one shared visible breadcrumb, found ${sharedBreadcrumbCount}`);
+    if (!/\baria-current=["']page["']/i.test(breadcrumbSource)) errors.push(`${rel}: shared breadcrumb is missing its current-page state`);
+    if (/class=["'][^"']*\bwrap\s+breadcrumbs\b/i.test(source)) errors.push(`${rel}: legacy visible breadcrumb remains`);
+    if (!source.includes('class="gsp-header-cta"')) errors.push(`${rel}: shared quote action is not integrated with the site header`);
+    if (source.includes('gsp-nav-cta')) errors.push(`${rel}: legacy full-width mobile quote row remains`);
   }
   if (!source.includes('/assets/js/inquiry-conversion.js')) {
     errors.push(`${rel}: missing shared inquiry conversion script`);
@@ -339,7 +375,7 @@ for (const productPage of productPages) {
     errors.push(`${productPage.rel}: canonical mismatch (${productPage.canonical} != ${expectedCanonical})`);
   }
   const structuredModified = firstMatch(productPage.source, /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/);
-  const visibleModified = firstMatch(productPage.source, /Updated\s+(\d{4}-\d{2}-\d{2})/);
+  const visibleModified = visibleModifiedDate(productPage.source);
   const escapedCanonical = productPage.canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const sitemapModified = firstMatch(
     sitemapSource,
@@ -416,7 +452,7 @@ if (!aluminumCansPage) {
     const collection = graph.find(node => node['@type'] === 'CollectionPage');
     const faq = graph.find(node => node['@type'] === 'FAQPage');
     structuredModified = collection?.dateModified ?? '';
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${aluminumCansPage.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -502,7 +538,7 @@ if (!airlessPumpPage) {
     if (collection?.name !== airlessPumpPage.title || collection?.description !== airlessPumpPage.description) {
       errors.push(`${airlessPumpPage.rel}: CollectionPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${airlessPumpPage.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -589,7 +625,7 @@ if (!glassPackagingPage) {
     if (collection?.name !== glassPackagingPage.title || collection?.description !== glassPackagingPage.description) {
       errors.push(`${glassPackagingPage.rel}: CollectionPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${glassPackagingPage.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -673,7 +709,7 @@ if (!glassCosmeticPage) {
     if (collection?.name !== glassCosmeticPage.title || collection?.description !== glassCosmeticPage.description) {
       errors.push(`${glassCosmeticPage.rel}: CollectionPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${glassCosmeticPage.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -765,7 +801,7 @@ if (!serumDropperPage) {
     if (collection?.name !== serumDropperPage.title || collection?.description !== serumDropperPage.description) {
       errors.push(`${serumDropperPage.rel}: CollectionPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${serumDropperPage.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -857,7 +893,7 @@ if (!serumGuidePage) {
     if (webpage?.name !== serumGuidePage.title || webpage?.description !== serumGuidePage.description) {
       errors.push(`${serumGuidePage.rel}: WebPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${serumGuidePage.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -947,7 +983,7 @@ if (!airlessDropperGuide) {
     if (webpage?.name !== airlessDropperGuide.title || webpage?.description !== airlessDropperGuide.description) {
       errors.push(`${airlessDropperGuide.rel}: WebPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${airlessDropperGuide.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -1041,7 +1077,7 @@ if (!sunscreenGuide) {
     if (webpage?.name !== sunscreenGuide.title || webpage?.description !== sunscreenGuide.description) {
       errors.push(`${sunscreenGuide.rel}: WebPage metadata is not synchronized`);
     }
-    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    const visibleModified = visibleModifiedDate(source);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
       errors.push(`${sunscreenGuide.rel}: structured and visible modified dates are not synchronized`);
     }
@@ -1203,7 +1239,7 @@ if (!logoPrintingPage) {
     sitemapSource,
     /<loc>https:\/\/www\.glorystarpack\.com\/cosmetic-logo-printing-methods\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
   );
-  if (logoModified !== '2026-08-28' || logoModified !== logoSitemapModified || !logoPrintingPage.source.includes('Updated 2026-08-28')) {
+  if (logoModified !== '2026-08-28' || logoModified !== logoSitemapModified || visibleModifiedDate(logoPrintingPage.source) !== logoModified) {
     errors.push(`${logoPrintingPage.rel}: visible, structured and sitemap modified dates are not synchronized`);
   }
 }
@@ -1617,7 +1653,7 @@ else {
   if (!hasSchemaType(insightIndex.source, 'CollectionPage')) errors.push('insights/index.html: missing CollectionPage schema');
   if (!hasSchemaType(insightIndex.source, 'ItemList')) errors.push('insights/index.html: missing ItemList schema');
   if (!hasSchemaType(insightIndex.source, 'Organization')) errors.push('insights/index.html: missing Organization schema');
-  const footerCount = (insightIndex.source.match(/class="site-footer"/g) ?? []).length;
+  const footerCount = (insightIndex.source.match(/class="[^"]*\bsite-footer\b[^"]*"/g) ?? []).length;
   if (footerCount !== 1) errors.push(`insights/index.html: expected 1 site footer, found ${footerCount}`);
   const indexPictureCount = (insightIndex.source.match(/<picture>/g) ?? []).length;
   if (indexPictureCount !== insightArticles.length) errors.push(`insights/index.html: expected ${insightArticles.length} responsive article pictures, found ${indexPictureCount}`);
@@ -1963,7 +1999,7 @@ const customPackagingPage = pageRecords.find(record => record.rel === 'custom-co
 const oemPackagingPage = pageRecords.find(record => record.rel === 'oem-cosmetic-packaging/index.html');
 if (!customPackagingPage) errors.push('missing custom-cosmetic-packaging/index.html');
 else {
-  if (!customPackagingPage.source.includes('href="/products/product-index/">View Products')) {
+  if (!customPackagingPage.source.includes('href="/products/product-index/"')) {
     errors.push('custom cosmetic packaging navigation does not lead to the product catalog');
   }
   if (!customPackagingPage.source.includes('Which custom packaging route fits?')) {
@@ -1975,7 +2011,7 @@ else {
 }
 if (!oemPackagingPage) errors.push('missing oem-cosmetic-packaging/index.html');
 else {
-  if (!oemPackagingPage.source.includes('href="/products/product-index/">View Products')) {
+  if (!oemPackagingPage.source.includes('href="/products/product-index/"')) {
     errors.push('OEM/ODM packaging navigation does not lead to the product catalog');
   }
   if (!oemPackagingPage.source.includes('OEM vs ODM cosmetic packaging: what is the difference?')) {

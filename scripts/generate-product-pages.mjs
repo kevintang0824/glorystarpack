@@ -15,7 +15,31 @@ window.gtag('js', new Date());
 window.gtag('config', '${googleTagId}');
 </script>`;
 const modifiedDate = '2026-08-02';
-const productIndexModifiedDate = '2026-08-09';
+const productIndexModifiedDate = '2026-08-28';
+const productModifiedDates = new Map([
+  ['p1', '2026-08-28'],
+  ['p2', '2026-08-28'],
+  ['p4', '2026-08-28'],
+  ['p7', '2026-08-28'],
+  ['p18', '2026-08-28'],
+  ['p34', '2026-08-28'],
+  ['p43', '2026-08-28'],
+  ['p124', '2026-08-28'],
+  ['p131', '2026-08-28'],
+  ['p150', '2026-08-28'],
+  ['p151', '2026-08-28'],
+  ['p164', '2026-08-28'],
+  ['p170', '2026-08-28'],
+  ['p171', '2026-08-28'],
+  ['p289', '2026-08-28'],
+  ['p294', '2026-08-28'],
+  ['p357', '2026-08-28'],
+  ['p359', '2026-08-28']
+]);
+
+function productModifiedDate(product) {
+  return productModifiedDates.get(product.id) ?? modifiedDate;
+}
 
 const selectedProductIds = [
   'p1', 'p2', 'p4', 'p7', 'p18', 'p33', 'p34', 'p39', 'p43', 'p53',
@@ -30,6 +54,8 @@ const selectedProductIds = [
 const productNameOverrides = new Map([
   ['p2', 'Plastic Airless Pump Bottle'],
   ['p7', 'Glass Serum Dropper Bottle'],
+  ['p131', 'Glass Dropper Bottle with Push-and-Turn Cap'],
+  ['p289', 'Amber Dropper Kit with Push-and-Turn Cap'],
   ['p357', 'External-Spring Lotion Pump'],
   ['p358', 'High-Output Pump for Refill Jugs'],
   ['p359', 'Hair and Body Fine-Mist Sprayer'],
@@ -38,6 +64,9 @@ const productNameOverrides = new Map([
 ]);
 
 const productSlugOverrides = new Map([
+  ['p131', 'child-resistant-glass-dropper-bottle-p131'],
+  ['p164', 'uv-black-glass-gel-nail-polish-bottle-p164'],
+  ['p289', 'child-resistant-amber-dropper-and-reducer-kit-p289'],
   ['p171', 'treatment-pump-serum-bottles-p171'],
   ['p183', 'airless-pump-actuator-replacement-p183'],
   ['p203', 'salon-trigger-sprayer-p203'],
@@ -72,8 +101,8 @@ const applicationDetailOverrides = new Map([
   }],
   ['p357', {
     heading: 'External-spring pump product-path planning',
-    copy: 'This external-spring lotion pump direction is designed for projects that want to keep the dispensed product path free from direct metal contact. The complete pump is not described as metal-free until its construction is confirmed. Compare 24/410 and 28/410 options by formula viscosity, output, spring location, dip-tube length and leak performance.',
-    terms: ['external spring lotion pump', 'metal-free product path pump', '24/410 lotion pump', '28/410 dispensing pump']
+    copy: 'This external-spring lotion pump direction is intended for projects evaluating metal contact in the dispensed-product path. Confirm the complete wetted-component construction before making a product-path claim. Compare 24/410 and 28/410 options by formula viscosity, output, spring location, dip-tube length and leak performance.',
+    terms: ['external spring lotion pump', 'external-spring product-path pump', '24/410 lotion pump', '28/410 dispensing pump']
   }],
   ['p358', {
     heading: 'High-output pump for 1L to 5L jugs',
@@ -492,7 +521,7 @@ function jsonLd(product, category, canonical, description) {
         mainEntity: { '@id': `${canonical}#service` },
         primaryImageOfPage: `${siteUrl}${productImage(product)}`,
         breadcrumb: { '@id': `${canonical}#breadcrumbs` },
-        dateModified: modifiedDate
+        dateModified: productModifiedDate(product)
       },
       {
         '@type': 'Service',
@@ -665,7 +694,7 @@ ${applicationDetail ? `    <section class="section">
     </section>
   </div>
 </main>
-${footerMarkup()}
+${footerMarkup(productModifiedDate(product))}
 <script src="/assets/js/inquiry-conversion.js" defer></script>
 </body>
 </html>
@@ -802,7 +831,7 @@ const sitemapEntries = [
   </url>`,
   ...products.map(product => `  <url>
     <loc>${siteUrl}${productPath(product)}</loc>
-    <lastmod>${modifiedDate}</lastmod>
+    <lastmod>${productModifiedDate(product)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.72</priority>
   </url>`)

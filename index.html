@@ -752,7 +752,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       "url": "https://www.glorystarpack.com/",
       "name": "Custom Glass Bottle Manufacturer",
       "description": "Factory-direct custom glass bottle manufacturer in Xiamen, China, supplying liquor, wine, beer, perfume, nail polish and cosmetic glass bottles with decoration, closures and export support.",
-      "dateModified": "2026-08-27",
+      "dateModified": "2026-08-28",
       "isPartOf": {
         "@id": "https://www.glorystarpack.com/#website"
       },
@@ -2736,12 +2736,12 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   <div class="breadcrumb-bar"><div class="bc"><a href="/#home" onclick="event.preventDefault();go('home')">Home</a> › <a href="/#products/hot" onclick="event.preventDefault();go('products','hot')" id="bc-detail-cat">Products</a> › <span class="cur" id="bc-detail">Product</span></div></div>
   <div class="detail-layout">
     <div class="detail-img-col">
-      <div class="detail-main-img" id="det-main-img">🫙</div>
+      <div class="detail-main-img" id="det-main-img"></div>
       <div class="detail-thumbs" id="det-thumbs"></div>
     </div>
     <div class="detail-info">
       <div id="det-badges" style="display:flex;gap:8px;margin-bottom:14px;"></div>
-      <h2 id="det-name">Product Name</h2>
+      <h2 id="det-name"></h2>
       <p class="detail-desc" id="det-desc"></p>
       <div class="variant-strip" id="det-subitems"></div>
       <table class="spec-table" id="det-specs"></table>
@@ -2749,12 +2749,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <h4>Select Capacity:</h4>
         <div class="opt-group" id="det-sizes"></div>
         <h4>Select Finish:</h4>
-        <div class="opt-group">
-          <button class="opt-btn active">Clear</button>
-          <button class="opt-btn">Frosted</button>
-          <button class="opt-btn">Amber</button>
-          <button class="opt-btn">Custom Color</button>
-        </div>
+        <div class="opt-group" id="det-finishes"></div>
       </div>
       <div class="detail-actions">
         <button class="btn-inquire" id="det-quote-btn">Send Inquiry</button>
@@ -2770,9 +2765,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <button class="tab-btn" onclick="switchTab(this,'tab-ship')">Shipping</button>
     </div>
     <div id="tab-desc" class="tab-pane active"><p id="det-tab-desc"></p></div>
-    <div id="tab-spec" class="tab-pane"><p><strong>Weight &amp; Dimensions:</strong> Varies by capacity. All measurements ±2mm tolerance.</p><p>All products undergo strict dimensional QC before shipment. Please contact us for exact technical drawings.</p></div>
-    <div id="tab-custom" class="tab-pane"><p>We offer full OEM/ODM customization:</p><ul><li>Custom mold development (15–20 days)</li><li>Logo engraving, silk screen, hot stamping, UV printing</li><li>Custom color via electroplating or powder coating</li><li>Pantone color matching for glass and plastic</li><li>Custom packaging boxes and inserts</li></ul></div>
-    <div id="tab-ship" class="tab-pane"><p>Worldwide shipping via DHL, FedEx, UPS, sea or air freight.</p><ul><li>Stock samples: 7–10 working days</li><li>Custom samples: 15–20 working days</li><li>Bulk production: 25–35 working days</li><li>Express delivery: 3–7 days international</li></ul></div>
+    <div id="tab-spec" class="tab-pane"><p id="det-tab-spec"></p></div>
+    <div id="tab-custom" class="tab-pane"><p id="det-tab-custom"></p></div>
+    <div id="tab-ship" class="tab-pane"><p id="det-tab-ship"></p></div>
   </div>
   <div style="max-width:1280px;margin:0 auto;padding:0 24px 60px;">
     <div class="sec-head"><h2>Related Products</h2><div class="line"></div><a href="/#products/hot" onclick="event.preventDefault();go('products','hot')">View All →</a></div>

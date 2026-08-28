@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
@@ -336,6 +337,16 @@ for (const productPage of productPages) {
   const expectedCanonical = `${siteUrl}/${productPage.rel.replace(/index\.html$/, '')}`;
   if (productPage.canonical !== expectedCanonical) {
     errors.push(`${productPage.rel}: canonical mismatch (${productPage.canonical} != ${expectedCanonical})`);
+  }
+  const structuredModified = firstMatch(productPage.source, /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/);
+  const visibleModified = firstMatch(productPage.source, /Updated\s+(\d{4}-\d{2}-\d{2})/);
+  const escapedCanonical = productPage.canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    new RegExp(`<loc>${escapedCanonical}<\\/loc>\\s*<lastmod>(\\d{4}-\\d{2}-\\d{2})<\\/lastmod>`)
+  );
+  if (!structuredModified || structuredModified !== visibleModified || structuredModified !== sitemapModified) {
+    errors.push(`${productPage.rel}: structured, visible and sitemap modified dates are not synchronized`);
   }
   const heroImage = firstMatch(productPage.source, /<div class=["']hero-media["']>[\s\S]*?<img\b[^>]*\bsrc=["']([^"']+)/i);
   if (!heroImage) {
@@ -871,6 +882,190 @@ if (!serumGuidePage) {
   }
 }
 
+const airlessDropperGuide = pageRecords.find(record => record.rel === 'airless-bottle-vs-dropper-bottle/index.html');
+if (!airlessDropperGuide) {
+  errors.push('missing airless-bottle-vs-dropper-bottle/index.html');
+} else {
+  const source = airlessDropperGuide.source;
+  if (!hasSchemaType(source, 'WebPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${airlessDropperGuide.rel}: missing WebPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'Article') || hasSchemaType(source, 'ItemList') || hasSchemaType(source, 'Service')) {
+    errors.push(`${airlessDropperGuide.rel}: unsupported Article, ItemList or Service schema must not return`);
+  }
+  const heroImage = '/assets/brand/skincare-packaging-application-2026.jpg';
+  for (const width of [640, 1280]) {
+    const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+    const variantPath = localAssetPath(variantUrl, airlessDropperGuide.filePath);
+    if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${airlessDropperGuide.rel}: missing ${width}px AVIF hero variant`);
+    if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${airlessDropperGuide.rel}: responsive hero markup is missing ${width}px AVIF variant`);
+  }
+  if (source.includes('/assets/product-photos/p20-0.jpg')) {
+    errors.push(`${airlessDropperGuide.rel}: unrelated tube image must not return as the comparison hero`);
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${airlessDropperGuide.rel}: hero preload is not responsive AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${airlessDropperGuide.rel}: expected exactly one high-priority hero image`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Airless bottle and dropper evidence comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${airlessDropperGuide.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['airless-dropper-hero', 'airless-dropper-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${airlessDropperGuide.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const routePath of ['/products/airless-pump-bottles/', '/products/serum-dropper-bottles/', '/serum-packaging-guide/']) {
+    if (!source.includes(`href="${routePath}"`)) errors.push(`${airlessDropperGuide.rel}: missing route-specific link ${routePath}`);
+  }
+  for (const unsupportedClaim of ['less air exposure', 'less contamination risk', 'oxygen-sensitive formulas', 'UV-protective', 'Better for reducing repeated air contact', 'Good for many oils', 'Choose Airless For', 'Choose Dropper For', 'Consistent pump output', 'Formula protection', 'Capacity: 10 ml']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${airlessDropperGuide.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<h2 id=["']airless-dropper-title["']>[^<]+<\/h2>\s*<p>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${airlessDropperGuide.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== airlessDropperGuide.title || twitterTitle !== airlessDropperGuide.title) {
+    errors.push(`${airlessDropperGuide.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== airlessDropperGuide.description || twitterDescription !== airlessDropperGuide.description) {
+    errors.push(`${airlessDropperGuide.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const webpage = graph.find(node => node['@type'] === 'WebPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = webpage?.dateModified ?? '';
+    if (webpage?.name !== airlessDropperGuide.title || webpage?.description !== airlessDropperGuide.description) {
+      errors.push(`${airlessDropperGuide.rel}: WebPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${airlessDropperGuide.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 3) errors.push(`${airlessDropperGuide.rel}: expected 3 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3><p>${answer}</p>`)) {
+        errors.push(`${airlessDropperGuide.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${airlessDropperGuide.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/airless-bottle-vs-dropper-bottle\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${airlessDropperGuide.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
+const sunscreenGuide = pageRecords.find(record => record.rel === 'sunscreen-packaging-guide/index.html');
+if (!sunscreenGuide) {
+  errors.push('missing sunscreen-packaging-guide/index.html');
+} else {
+  const source = sunscreenGuide.source;
+  if (!hasSchemaType(source, 'WebPage') || !hasSchemaType(source, 'BreadcrumbList') || !hasSchemaType(source, 'FAQPage')) {
+    errors.push(`${sunscreenGuide.rel}: missing WebPage, BreadcrumbList or FAQPage schema`);
+  }
+  if (hasSchemaType(source, 'Article') || hasSchemaType(source, 'ItemList') || hasSchemaType(source, 'Service')) {
+    errors.push(`${sunscreenGuide.rel}: unsupported Article, ItemList or Service schema must not return`);
+  }
+  const heroImage = '/assets/brand/cosmetic-tubes-complete-product-assortment-2026.jpg';
+  if (!source.includes(`src="${heroImage}"`)) errors.push(`${sunscreenGuide.rel}: expected sunscreen route-selection hero image is missing`);
+  for (const width of [640, 1280]) {
+    const variantUrl = heroImage.replace(/\.jpe?g$/i, `-${width}.avif`);
+    const variantPath = localAssetPath(variantUrl, sunscreenGuide.filePath);
+    if (!variantPath || !fs.existsSync(variantPath)) errors.push(`${sunscreenGuide.rel}: missing ${width}px AVIF hero variant`);
+    if (!source.includes(`${variantUrl} ${width}w`)) errors.push(`${sunscreenGuide.rel}: responsive hero markup is missing ${width}px AVIF variant`);
+  }
+  const imagePreload = source.match(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']image["'][^>]*>/i)?.[0] ?? '';
+  if (!imagePreload.includes('type="image/avif"') || !imagePreload.includes('imagesrcset=')) {
+    errors.push(`${sunscreenGuide.rel}: hero preload is not responsive AVIF`);
+  }
+  if ((source.match(/fetchpriority=["']high["']/g) ?? []).length !== 1) {
+    errors.push(`${sunscreenGuide.rel}: expected exactly one high-priority hero image`);
+  }
+  for (const marker of ['<caption>', 'scope="col"', 'aria-label="Sunscreen packaging route comparison"', '.table-scroll:focus-visible']) {
+    if (!source.includes(marker)) errors.push(`${sunscreenGuide.rel}: accessible comparison table is missing ${marker}`);
+  }
+  for (const location of ['sunscreen-guide-hero', 'sunscreen-guide-decision']) {
+    if (!source.includes(`data-inquiry-location="${location}"`)) errors.push(`${sunscreenGuide.rel}: missing ${location} RFQ attribution`);
+  }
+  for (const routePath of ['/products/cosmetic-tubes/', '/products/personal-care-packaging/', '/products/airless-pump-bottles/', '/products/cosmetic-sample-packaging/']) {
+    if (!source.includes(`href="${routePath}"`)) errors.push(`${sunscreenGuide.rel}: missing route-specific link ${routePath}`);
+  }
+  for (const evidenceUrl of [
+    'https://www.fda.gov/drugs/understanding-over-counter-medicines/sunscreen-how-help-protect-your-skin-sun',
+    'https://www.fda.gov/drugs/understanding-over-counter-medicines/over-counter-drug-facts-label'
+  ]) {
+    if (!source.includes(`href="${evidenceUrl}"`)) errors.push(`${sunscreenGuide.rel}: missing primary FDA evidence link ${evidenceUrl}`);
+  }
+  for (const unsupportedClaim of ['30-50 ml', '50-150 ml', '5-15 ml', 'Best For', 'reduced repeated air exposure', 'Tubes are usually better', 'Bottles are practical', 'Common options include', 'SPF tubes & Sticks']) {
+    if (source.includes(unsupportedClaim)) errors.push(`${sunscreenGuide.rel}: unsupported claim remains: ${unsupportedClaim}`);
+  }
+  const directAnswer = firstMatch(source, /<h2 id=["']sunscreen-route-title["']>[^<]+<\/h2>\s*<p>([\s\S]*?)<\/p>/i);
+  const directAnswerWords = directAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (directAnswerWords < 40 || directAnswerWords > 80) {
+    errors.push(`${sunscreenGuide.rel}: direct answer must contain 40-80 words, found ${directAnswerWords}`);
+  }
+  const openGraphTitle = firstMatch(source, /<meta property=["']og:title["'] content=["']([^"']+)/i);
+  const twitterTitle = firstMatch(source, /<meta name=["']twitter:title["'] content=["']([^"']+)/i);
+  const openGraphDescription = firstMatch(source, /<meta property=["']og:description["'] content=["']([^"']+)/i);
+  const twitterDescription = firstMatch(source, /<meta name=["']twitter:description["'] content=["']([^"']+)/i);
+  if (openGraphTitle !== sunscreenGuide.title || twitterTitle !== sunscreenGuide.title) {
+    errors.push(`${sunscreenGuide.rel}: social titles are not synchronized with the page title`);
+  }
+  if (openGraphDescription !== sunscreenGuide.description || twitterDescription !== sunscreenGuide.description) {
+    errors.push(`${sunscreenGuide.rel}: social descriptions are not synchronized with the meta description`);
+  }
+  const schemaSource = firstMatch(source, /<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/i);
+  let structuredModified = '';
+  try {
+    const graph = JSON.parse(schemaSource)['@graph'] ?? [];
+    const webpage = graph.find(node => node['@type'] === 'WebPage');
+    const faq = graph.find(node => node['@type'] === 'FAQPage');
+    structuredModified = webpage?.dateModified ?? '';
+    if (webpage?.name !== sunscreenGuide.title || webpage?.description !== sunscreenGuide.description) {
+      errors.push(`${sunscreenGuide.rel}: WebPage metadata is not synchronized`);
+    }
+    const visibleModified = firstMatch(source, /Updated (\d{4}-\d{2}-\d{2})/);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(structuredModified) || visibleModified !== structuredModified) {
+      errors.push(`${sunscreenGuide.rel}: structured and visible modified dates are not synchronized`);
+    }
+    const faqEntries = faq?.mainEntity ?? [];
+    if (faqEntries.length !== 4) errors.push(`${sunscreenGuide.rel}: expected 4 synchronized FAQ entries, found ${faqEntries.length}`);
+    for (const entry of faqEntries) {
+      const question = entry.name ?? '';
+      const answer = entry.acceptedAnswer?.text ?? '';
+      if (!source.includes(`<h3>${question}</h3><p>${answer}</p>`)) {
+        errors.push(`${sunscreenGuide.rel}: FAQPage is not synchronized with visible FAQ content`);
+      }
+    }
+  } catch {
+    errors.push(`${sunscreenGuide.rel}: could not parse page-specific JSON-LD`);
+  }
+  const sitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/sunscreen-packaging-guide\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (!sitemapModified || sitemapModified !== structuredModified) {
+    errors.push(`${sunscreenGuide.rel}: sitemap and structured modified dates are not synchronized`);
+  }
+}
+
 const unsupportedProductSchemaPages = pageRecords.filter(record => hasSchemaType(record.source, 'Product'));
 for (const record of unsupportedProductSchemaPages) {
   errors.push(`${record.rel}: Product schema requires a truthful offer, review or aggregate rating; use B2B Service/Thing schema for RFQ-only pages`);
@@ -901,6 +1096,31 @@ for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', 
 for (const id of ['page-products', 'page-detail', 'page-search']) {
   const openingTag = homepage.match(new RegExp(`<div\\b[^>]*\\bid=["']${id}["'][^>]*>`, 'i'))?.[0] ?? '';
   if (!openingTag.includes('data-nosnippet')) errors.push(`homepage ${id} is missing data-nosnippet`);
+}
+const homepageProductDetailShell = firstMatch(homepage, /<div\b[^>]*\bid=["']page-detail["'][^>]*>([\s\S]*?)<!-- Company, service, insight and contact content/i);
+for (const unsupportedPlaceholder of [
+  'Product Name',
+  'All measurements ±2mm tolerance',
+  'Custom mold development (15–20 days)',
+  'Worldwide shipping via DHL, FedEx, UPS, sea or air freight',
+  'Stock samples: 7–10 working days',
+  'Bulk production: 25–35 working days'
+]) {
+  if (homepageProductDetailShell.includes(unsupportedPlaceholder)) {
+    errors.push(`homepage product-detail shell exposes an unverified placeholder: ${unsupportedPlaceholder}`);
+  }
+}
+for (const requiredId of ['det-tab-spec', 'det-tab-custom', 'det-tab-ship', 'det-finishes']) {
+  if (!homepageProductDetailShell.includes(`id="${requiredId}"`)) {
+    errors.push(`homepage product-detail shell is missing dynamic field ${requiredId}`);
+  }
+}
+const homepageMainScript = fs.readFileSync(path.join(rootDir, 'assets/js/main.js'), 'utf8');
+const homepageCatalogScript = fs.readFileSync(path.join(rootDir, 'assets/js/legacy-catalog.js'), 'utf8');
+for (const unsupportedGenericTiming of ['7–10 working days', '25–35 days (bulk order)']) {
+  if (`${homepageMainScript}\n${homepageCatalogScript}`.includes(unsupportedGenericTiming)) {
+    errors.push(`homepage product-detail script exposes generic timing: ${unsupportedGenericTiming}`);
+  }
 }
 for (const id of ['page-about', 'page-oem', 'page-news', 'page-newsdetail', 'page-contact']) {
   if (new RegExp(`\\bid=["']${id}["']`, 'i').test(homepage)) {
@@ -949,6 +1169,78 @@ else {
   if (!contactPage.source.includes('Original interest page: ${attributedSourcePage}')) errors.push('contact/index.html: RFQ builder does not preserve the original landing-page attribution');
   if (!contactPage.source.includes('data-inquiry-type="rfq-builder"')) errors.push('contact/index.html: RFQ actions are missing future analytics attributes');
   if (!contactPage.source.includes('https://glorystarpack.en.alibaba.com/')) errors.push('contact/index.html: missing Organization sameAs URL');
+}
+
+const logoPrintingPage = pageRecords.find(record => record.rel === 'cosmetic-logo-printing-methods/index.html');
+const decorationApprovalPage = pageRecords.find(record => record.rel === 'insights/cosmetic-packaging-decoration-methods/index.html');
+const logoPrintingPath = '/cosmetic-logo-printing-methods/';
+const decorationApprovalPath = '/insights/cosmetic-packaging-decoration-methods/';
+if (!logoPrintingPage) {
+  errors.push('missing cosmetic-logo-printing-methods/index.html');
+} else {
+  for (const requiredType of ['WebPage', 'Service', 'BreadcrumbList']) {
+    if (!hasSchemaType(logoPrintingPage.source, requiredType)) {
+      errors.push(`${logoPrintingPage.rel}: missing ${requiredType} schema for the commercial quote route`);
+    }
+  }
+  for (const unsupportedType of ['Article', 'BlogPosting']) {
+    if (hasSchemaType(logoPrintingPage.source, unsupportedType)) {
+      errors.push(`${logoPrintingPage.rel}: commercial quote route must not use ${unsupportedType} schema`);
+    }
+  }
+  if (!logoPrintingPage.source.includes('<h1>Custom Logo Printing for Cosmetic Packaging</h1>')) {
+    errors.push(`${logoPrintingPage.rel}: missing quote-focused H1`);
+  }
+  if (!logoPrintingPage.source.includes(`href="${decorationApprovalPath}"`)) {
+    errors.push(`${logoPrintingPage.rel}: missing link to the separate decoration testing guide`);
+  }
+  if (!logoPrintingPage.source.includes('<caption>Inputs needed to quote four common logo application routes</caption>')
+    || (logoPrintingPage.source.match(/scope="col"/g) ?? []).length < 4) {
+    errors.push(`${logoPrintingPage.rel}: quote comparison table is missing its caption or column scope`);
+  }
+  const logoModified = firstMatch(logoPrintingPage.source, /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/);
+  const logoSitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/cosmetic-logo-printing-methods\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (logoModified !== '2026-08-28' || logoModified !== logoSitemapModified || !logoPrintingPage.source.includes('Updated 2026-08-28')) {
+    errors.push(`${logoPrintingPage.rel}: visible, structured and sitemap modified dates are not synchronized`);
+  }
+}
+if (!decorationApprovalPage) {
+  errors.push('missing insights/cosmetic-packaging-decoration-methods/index.html');
+} else {
+  for (const requiredType of ['WebPage', 'BlogPosting', 'BreadcrumbList']) {
+    if (!hasSchemaType(decorationApprovalPage.source, requiredType)) {
+      errors.push(`${decorationApprovalPage.rel}: missing ${requiredType} schema for the technical guide`);
+    }
+  }
+  if (hasSchemaType(decorationApprovalPage.source, 'Service')) {
+    errors.push(`${decorationApprovalPage.rel}: technical guide must not use Service schema`);
+  }
+  if (!decorationApprovalPage.source.includes('<h1>How to Test and Approve Cosmetic Packaging Decoration</h1>')) {
+    errors.push(`${decorationApprovalPage.rel}: missing testing-and-approval H1`);
+  }
+  if (!decorationApprovalPage.source.includes(`href="${logoPrintingPath}"`)) {
+    errors.push(`${decorationApprovalPage.rel}: missing link to the separate logo printing quote route`);
+  }
+  for (const primarySource of ['https://store.astm.org/d3359-23.html', 'https://www.fda.gov/cosmetics/cosmetics-labeling-regulations/summary-cosmetics-labeling-requirements', 'https://www.iso.org/standard/36437.html']) {
+    if (!decorationApprovalPage.source.includes(primarySource)) {
+      errors.push(`${decorationApprovalPage.rel}: missing scoped primary reference ${primarySource}`);
+    }
+  }
+  const decorationWordCount = Number(decorationApprovalPage.source.match(/"wordCount":(\d+)/)?.[1] ?? 0);
+  if (decorationWordCount < 900) {
+    errors.push(`${decorationApprovalPage.rel}: technical guide wordCount is only ${decorationWordCount}`);
+  }
+  const decorationModified = firstMatch(decorationApprovalPage.source, /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})T/);
+  const decorationSitemapModified = firstMatch(
+    sitemapSource,
+    /<loc>https:\/\/www\.glorystarpack\.com\/insights\/cosmetic-packaging-decoration-methods\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/
+  );
+  if (decorationModified !== '2026-08-28' || decorationModified !== decorationSitemapModified) {
+    errors.push(`${decorationApprovalPage.rel}: structured and sitemap modified dates are not synchronized`);
+  }
 }
 
 const robotsSource = fs.readFileSync(path.join(rootDir, 'robots.txt'), 'utf8');
@@ -1013,6 +1305,15 @@ if (!llmsSource.includes('https://glorystarpack.en.alibaba.com/')) {
 if (!llmsSource.includes('## Citation and Claim Boundaries')) {
   errors.push('llms.txt is missing citation and claim boundaries');
 }
+for (const requiredRoute of [
+  `Best logo printing quote route: ${siteUrl}${logoPrintingPath}`,
+  `Best decoration testing and approval citation: ${siteUrl}${decorationApprovalPath}`
+]) {
+  if (!llmsSource.includes(requiredRoute)) errors.push(`llms.txt is missing split decoration route: ${requiredRoute}`);
+}
+if (llmsSource.includes(`Best logo decoration citation: ${siteUrl}${logoPrintingPath}`)) {
+  errors.push('llms.txt still routes technical decoration citation intent to the commercial logo printing page');
+}
 for (const requiredUrl of [
   `${siteUrl}/about/`,
   `${siteUrl}/contact/`,
@@ -1056,6 +1357,29 @@ try {
   const expectedAirlessComparisonUrls = [`${siteUrl}/airless-bottle-vs-dropper-bottle/`];
   if (JSON.stringify(airlessComparisonMapping?.preferredUrls) !== JSON.stringify(expectedAirlessComparisonUrls)) {
     errors.push('ai-context.json airless-vs-dropper intent must resolve only to the dedicated comparison guide');
+  }
+  const sunscreenRouteMapping = aiContext.keywordMap?.find(entry => entry.queryGroup?.includes('sunscreen packaging'));
+  const expectedSunscreenRouteUrls = [`${siteUrl}/sunscreen-packaging-guide/`];
+  if (JSON.stringify(sunscreenRouteMapping?.preferredUrls) !== JSON.stringify(expectedSunscreenRouteUrls)) {
+    errors.push('ai-context.json sunscreen packaging intent must resolve only to the sunscreen packaging guide');
+  }
+  const logoPrintingRouteMapping = aiContext.keywordMap?.find(entry => entry.queryGroup?.includes('cosmetic logo printing'));
+  const expectedLogoPrintingUrls = [`${siteUrl}${logoPrintingPath}`];
+  if (JSON.stringify(logoPrintingRouteMapping?.preferredUrls) !== JSON.stringify(expectedLogoPrintingUrls)) {
+    errors.push('ai-context.json logo-printing quote intent must resolve only to the commercial service page');
+  }
+  const decorationApprovalRouteMapping = aiContext.keywordMap?.find(entry => entry.queryGroup?.includes('cosmetic packaging decoration testing'));
+  const expectedDecorationApprovalUrls = [`${siteUrl}${decorationApprovalPath}`];
+  if (JSON.stringify(decorationApprovalRouteMapping?.preferredUrls) !== JSON.stringify(expectedDecorationApprovalUrls)) {
+    errors.push('ai-context.json decoration testing intent must resolve only to the technical guide');
+  }
+  const logoPrintingDirectoryEntry = aiContext.pageMap?.find(entry => entry.url === `${siteUrl}${logoPrintingPath}`);
+  const decorationApprovalDirectoryEntry = aiContext.pageMap?.find(entry => entry.url === `${siteUrl}${decorationApprovalPath}`);
+  if (logoPrintingDirectoryEntry?.pageType !== 'service page' || logoPrintingDirectoryEntry?.primaryIntent !== 'cosmetic packaging logo printing quote') {
+    errors.push('ai-context.json commercial logo printing page directory entry is not quote-specific');
+  }
+  if (decorationApprovalDirectoryEntry?.pageType !== 'technical buyer guide' || decorationApprovalDirectoryEntry?.primaryIntent !== 'cosmetic packaging decoration testing and approval') {
+    errors.push('ai-context.json decoration approval page directory entry is not technical-guide specific');
   }
 } catch (error) {
   errors.push(`ai-context.json is invalid: ${error.message}`);
@@ -1400,6 +1724,58 @@ for (const slideClass of ['cs-bg-2', 'cs-bg-3', 'cs-bg-4', 'cs-bg-5']) {
   if (cssRule.includes('background-image')) errors.push(`homepage ${slideClass} still declares an eager background image`);
 }
 const mainJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/main.js'), 'utf8');
+const legacyCatalogSource = fs.readFileSync(path.join(rootDir, 'assets/js/legacy-catalog.js'), 'utf8');
+const catalogRuntimeSource = `${mainJsSource}\n${legacyCatalogSource}`;
+const productDataSource = fs.readFileSync(path.join(rootDir, 'assets/js/product-data.js'), 'utf8');
+const legacyIndexableProductBlock = legacyCatalogSource.match(/const INDEXABLE_PRODUCT_IDS = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
+const legacyIndexableProductIds = new Set(
+  [...legacyIndexableProductBlock.matchAll(/['"](p\d+)['"]/g)].map(match => match[1])
+);
+function legacyProductMap(constantName) {
+  const block = legacyCatalogSource.match(new RegExp(`const ${constantName} = \\{([\\s\\S]*?)\\n\\};`))?.[1] ?? '';
+  return new Map([...block.matchAll(/\b(p\d+)\s*:\s*'([^']+)'/g)].map(match => [match[1], match[2]]));
+}
+const legacyProductNameOverrides = legacyProductMap('PRODUCT_NAME_OVERRIDES');
+const legacyProductSlugOverrides = legacyProductMap('PRODUCT_SLUG_OVERRIDES');
+const productDataContext = { window: {} };
+vm.createContext(productDataContext);
+vm.runInContext(productDataSource, productDataContext);
+const runtimeProductsById = new Map((productDataContext.window.GSP_PRODUCTS ?? []).map(product => [product.id, product]));
+const staticProductIds = new Set();
+for (const productPage of productPages) {
+  const productId = productPage.rel.match(/-(p\d+)\/index\.html$/)?.[1] ?? '';
+  if (!productId) continue;
+  staticProductIds.add(productId);
+  if (!legacyIndexableProductIds.has(productId)) {
+    errors.push(`assets/js/legacy-catalog.js does not link static product ${productId} to its crawlable page`);
+  }
+  const product = runtimeProductsById.get(productId);
+  if (!product) {
+    errors.push(`assets/js/product-data.js is missing static product ${productId}`);
+    continue;
+  }
+  const generatedSlug = `${String(product.name || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')}-${productId}`;
+  const expectedDynamicPath = `/products/${legacyProductSlugOverrides.get(productId) || generatedSlug}/`;
+  const staticPath = new URL(productPage.canonical).pathname;
+  if (expectedDynamicPath !== staticPath) {
+    errors.push(`assets/js/legacy-catalog.js maps ${productId} to ${expectedDynamicPath} instead of ${staticPath}`);
+  }
+  const expectedDynamicName = legacyProductNameOverrides.get(productId) || product.name;
+  const staticHeading = firstMatch(productPage.source, /<h1>([^<]+)<\/h1>/i);
+  if (expectedDynamicName !== staticHeading) {
+    errors.push(`assets/js/legacy-catalog.js names ${productId} "${expectedDynamicName}" instead of static H1 "${staticHeading}"`);
+  }
+}
+for (const productId of legacyIndexableProductIds) {
+  if (!staticProductIds.has(productId)) {
+    errors.push(`assets/js/legacy-catalog.js marks ${productId} indexable without a static product page`);
+  }
+}
 const inquiryJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/inquiry-conversion.js'), 'utf8');
 const inquiryCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/inquiry-conversion.css'), 'utf8');
 const productCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/product-page.css'), 'utf8');
@@ -1407,6 +1783,38 @@ const productIndexJsSource = fs.readFileSync(path.join(rootDir, 'assets/js/produ
 const insightCssSource = fs.readFileSync(path.join(rootDir, 'assets/css/insight-page.css'), 'utf8');
 const mainJsBytes = Buffer.byteLength(mainJsSource);
 const mainJsGzipBytes = gzipSync(mainJsSource).length;
+const legacyCatalogBytes = Buffer.byteLength(legacyCatalogSource);
+const legacyCatalogGzipBytes = gzipSync(legacyCatalogSource).length;
+for (const unsupportedProductClaim of [
+  'prevents oxidation',
+  '100% product evacuation',
+  'FSC-certified sustainable forests',
+  'ensures full formula compatibility',
+  '100% biodegradable PLA jar',
+  'Biodegrades within 6–24 months',
+  'naturally antimicrobial',
+  'eliminates leakage',
+  'Fully biodegradable and customizable',
+  'Leakproof Travel Pump and Spray Sample Set',
+  'with Metal-Free Product Path',
+  'Helps reduce packaging waste while protecting active formulas'
+]) {
+  if (productDataSource.includes(unsupportedProductClaim)) {
+    errors.push(`assets/js/product-data.js contains an unsupported absolute claim: ${unsupportedProductClaim}`);
+  }
+}
+for (const requiredConditionalClaim of [
+  'Child-resistant status requires testing the exact pack to the applicable market protocol.',
+  'Any material-reduction or reuse claim requires a complete-pack bill of materials',
+  'Confirm the final wetted components, neck finish, dose'
+]) {
+  if (!productDataSource.includes(requiredConditionalClaim)) {
+    errors.push(`assets/js/product-data.js is missing a claim boundary: ${requiredConditionalClaim}`);
+  }
+}
+if (catalogRuntimeSource.includes("eco:'ECO'")) {
+  errors.push('catalog JavaScript exposes an unqualified ECO badge');
+}
 if (!insightCssSource.includes('.decision-table-scroll:focus-visible')) {
   errors.push('assets/css/insight-page.css is missing a visible keyboard focus state for decision matrices');
 }
@@ -1468,27 +1876,40 @@ for (const obsoleteSchemaMarker of [
   'current-product-schema',
   'category-schema'
 ]) {
-  if (mainJsSource.includes(obsoleteSchemaMarker)) {
-    errors.push(`assets/js/main.js still contains obsolete hash-route schema marker ${obsoleteSchemaMarker}`);
+  if (catalogRuntimeSource.includes(obsoleteSchemaMarker)) {
+    errors.push(`catalog JavaScript still contains obsolete hash-route schema marker ${obsoleteSchemaMarker}`);
   }
 }
-if (/['"]@type['"]\s*:\s*['"]Offer['"]|schema\.org\/InStock/.test(mainJsSource)) {
-  errors.push('assets/js/main.js contains an unsupported dynamic Product offer claim');
+if (/['"]@type['"]\s*:\s*['"]Offer['"]|schema\.org\/InStock/.test(catalogRuntimeSource)) {
+  errors.push('catalog JavaScript contains an unsupported dynamic Product offer claim');
 }
 if (!mainJsSource.includes("['products', 'detail', 'search'].includes(page)")
-  || !mainJsSource.includes("robots = 'noindex, follow, max-image-preview:large'")) {
-  errors.push('assets/js/main.js does not keep internal hash-route views out of the index');
+  || !legacyCatalogSource.includes("robots = 'noindex, follow, max-image-preview:large'")) {
+  errors.push('catalog JavaScript does not keep internal hash-route views out of the index');
 }
-if (!mainJsSource.includes("canonical = 'https://www.glorystarpack.com/products/product-index/'")
-  || !mainJsSource.includes('const detailCanonical = staticProductUrl')) {
-  errors.push('assets/js/main.js does not canonicalize hash product details to crawlable static URLs');
+if (!legacyCatalogSource.includes("canonical = 'https://www.glorystarpack.com/products/product-index/'")
+  || !legacyCatalogSource.includes('const detailCanonical = staticProductUrl')) {
+  errors.push('assets/js/legacy-catalog.js does not canonicalize hash product details to crawlable static URLs');
 }
-if (!mainJsSource.includes("meta[name=\"twitter:title\"]")
-  || !mainJsSource.includes('const productImageUrl =')) {
-  errors.push('assets/js/main.js does not keep product social metadata aligned with the selected detail');
+if (!legacyCatalogSource.includes("meta[name=\"twitter:title\"]")
+  || !legacyCatalogSource.includes('const productImageUrl =')) {
+  errors.push('assets/js/legacy-catalog.js does not keep product social metadata aligned with the selected detail');
 }
-if (mainJsBytes > 108_000 || mainJsGzipBytes > 25_000) {
+if (!mainJsSource.includes("script.src = '/assets/js/legacy-catalog.js'")
+  || !mainJsSource.includes('window.GSP_CATALOG')) {
+  errors.push('assets/js/main.js is missing the lazy catalog loader');
+}
+if (!legacyCatalogSource.includes('window.GSP_CATALOG = Object.freeze')) {
+  errors.push('assets/js/legacy-catalog.js does not expose the compatibility API');
+}
+if (homepage.includes('src="/assets/js/legacy-catalog.js"')) {
+  errors.push('homepage eagerly loads the legacy catalog script');
+}
+if (mainJsBytes > 32_000 || mainJsGzipBytes > 10_000) {
   errors.push(`assets/js/main.js startup payload regressed to ${mainJsBytes} raw bytes / ${mainJsGzipBytes} gzip bytes`);
+}
+if (legacyCatalogBytes > 100_000 || legacyCatalogGzipBytes > 24_000) {
+  errors.push(`assets/js/legacy-catalog.js payload regressed to ${legacyCatalogBytes} raw bytes / ${legacyCatalogGzipBytes} gzip bytes`);
 }
 const trustPanelCount = (homepage.match(/<div class="why-split-left">/g) ?? []).length;
 if (trustPanelCount !== 1) errors.push(`homepage expected 1 trust-panel opening element, found ${trustPanelCount}`);
@@ -1583,10 +2004,18 @@ for (const cannibalizingMap of [
   }
 }
 
+for (const record of pageRecords) {
+  for (const machineDirectedLabel of ['Short Answer for AI Search', 'Best citation for']) {
+    if (record.source.includes(machineDirectedLabel)) {
+      errors.push(`${record.rel}: visible copy targets a machine instead of the buyer (${machineDirectedLabel})`);
+    }
+  }
+}
+
 console.log(`Checked ${pageRecords.length} HTML pages, ${sitemapUrls.length} sitemap URLs, ${productPages.length} product pages and ${insightArticles.length} insight articles.`);
 console.log(`Homepage crawlable individual product detail links: ${homepageProductDetailLinks.size}.`);
 console.log(`Homepage crawlable insight links: ${homepageInsightLinks.size}.`);
-console.log(`Homepage startup JavaScript: ${mainJsBytes} raw bytes / ${mainJsGzipBytes} gzip bytes.`);
+console.log(`Homepage startup JavaScript: ${mainJsBytes} raw bytes / ${mainJsGzipBytes} gzip bytes; lazy catalog: ${legacyCatalogBytes} raw / ${legacyCatalogGzipBytes} gzip.`);
 if (warnings.length) {
   console.log(`Warnings (${warnings.length}):`);
   warnings.forEach(warning => console.log(`- ${warning}`));

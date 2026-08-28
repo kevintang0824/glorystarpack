@@ -333,21 +333,21 @@ const insightDefinitions = {
   },
   '10': {
     slug: 'cosmetic-packaging-decoration-methods',
-    seoTitle: 'Cosmetic Packaging Decoration Methods | GloryStarPack',
-    dateModified: '2026-08-20',
+    seoTitle: 'Cosmetic Packaging Decoration Testing & Approval Guide',
+    dateModified: '2026-08-28',
     sources: references('astmCoatingAdhesion', 'fdaCosmeticLabeling', 'iso22716'),
-    sourceNote: 'ASTM D3359 has substrate and method limitations and should not be applied indiscriminately to every glass, plastic, metal or paper decoration. Agree the relevant adhesion, rub, chemical-exposure, artwork and labeling checks for the actual decorated package.',
+    sourceNote: 'ASTM D3359 covers tape-test procedures for relatively ductile coating films on metallic substrates and has method and sensitivity limits. It is not a universal approval method for every decorated glass, plastic, metal or paper pack. FDA and destination-market labeling responsibilities remain with the responsible business, while ISO 22716 quality guidance does not replace a project-specific decoration specification.',
     questions: [
-      'What substrate, surface curve and handling exposure will the decoration face?',
-      'Does the artwork require fine detail, metallic effects, full color or frequent changes?',
-      'Which blank sample and decorated proof must be approved before bulk production?'
+      'Which exact substrate, surface treatment, artwork revision and component set will the proof represent?',
+      'Which rub, formula, humidity, temperature, scuff or edge-lift exposures match the intended use and route?',
+      'What acceptance criteria, golden sample and production changes trigger reapproval?'
     ],
-    note: 'Decoration should be selected after the base package and formula requirements are understood. The lowest-cost method is not useful if it cannot reproduce the artwork or withstand handling.',
+    note: 'Approve the base component before decoration, then record the decorated proof, golden sample, test conditions and change-control triggers. A method name or attractive mockup is not a production acceptance criterion.',
     resources: [
-      ['/cosmetic-logo-printing-methods/', 'Logo Printing Methods'],
-      ['/custom-cosmetic-packaging/', 'Custom Packaging Process'],
+      ['/cosmetic-logo-printing-methods/', 'Logo Printing Quote Route'],
       ['/insights/cosmetic-bottle-labels-peeling-adhesive-guide/', 'Cosmetic Bottle Label Adhesion Guide'],
-      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist']
+      ['/cosmetic-packaging-sample-approval-checklist/', 'Sample Approval Checklist'],
+      ['/contact/', 'Discuss a Decoration Approval Plan']
     ]
   },
   '11': {
@@ -1035,7 +1035,7 @@ const insightConsiderations = {
   '7': 'Translate complaints about broken necks, messy caps, overloaded applicators and dry product into filled-system controls. Use the actual formula to approve the tube, neck, wiper, stem, applicator, cap and seal together, and repeat relevant tests when a component, fill or formula changes.',
   '8': 'Create a component approval record that identifies the exact bottle mold, neck finish, liner, dip-tube length and closure version. Similar-looking pumps or caps may not be interchangeable. Repeating the approved configuration on purchase orders helps prevent substitutions that change dispensing or seal performance.',
   '9': 'Compare molded pulp with paperboard, corrugated, foam, thermoformed plastic and hybrid structures against the same product and route. Model production-intent decorated components, then assess fit, removal, scuffing, humidity, assembly and distribution inside the final retail and shipping pack. Material category alone does not prove protection or recyclability.',
-  '10': 'Start decoration trials on the approved base material and surface treatment. Glass coating, plastic resin, metal finishes and paper labels respond differently to inks, foils and adhesives. Confirm color tolerance, artwork position, rub resistance and formula exposure before the decorated sample becomes the production reference.',
+  '10': 'Separate appearance proofing from production approval. Freeze the base component and artwork revision, translate handling and formula exposure into agreed tests, retain a signed golden sample, and identify which substrate, ink, foil, coating, adhesive or process changes require reapproval.',
   '11': 'Use stock bottles to validate the pack architecture before committing to custom tooling when the shape is still flexible. If a proprietary form is essential, define capacity, target weight, neck finish, decoration area, filling constraints and case packing before the mold brief is frozen.',
   '12': 'Ask for the bottle finish drawing and the closure specification in the same technical review. Nominal diameter is only one dimension; threads, beads, sealing surfaces, liner contact and application equipment determine whether the system can be approved.',
   '13': 'Build the approval checklist around the production-intent system rather than a display sample. A final decorated bottle can behave differently on a filling line or inside a divider, and a substituted liner, gasket or cap can change sealing performance even when the package looks identical.',

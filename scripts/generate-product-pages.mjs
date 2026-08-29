@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
+import { primaryNavigationMarkup } from './site-navigation.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -18,7 +19,8 @@ const brandFontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.c
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>`;
-const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">';
+const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">';
+const siteShellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>';
 const modifiedDate = '2026-08-02';
 const productIndexModifiedDate = '2026-08-28';
 const productModifiedDates = new Map([
@@ -572,16 +574,15 @@ function jsonLd(product, category, canonical, description) {
   }).replace(/</g, '\\u003c');
 }
 
-function currentLocation(activeSection, navSection, activePage = false) {
-  return activeSection === navSection ? ` aria-current="${activePage ? 'page' : 'location'}"` : '';
-}
-
 function headerMarkup(activeSection = '', activePage = false) {
+  const primaryNavigation = primaryNavigationMarkup({
+    productsCurrent: activeSection === 'products' ? (activePage ? 'page' : 'location') : ''
+  });
   return `<header class="site-header gsp-site-header">
   <a class="gsp-skip-link" href="#main-content">Skip to main content</a>
   <div class="gsp-header-inner">
     <a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a>
-    <nav class="gsp-primary-nav" aria-label="Primary navigation"><a${currentLocation(activeSection, 'products', activePage)} href="/products/product-index/">Products</a><a${currentLocation(activeSection, 'glass', activePage)} href="/products/glass-packaging/">Glass Packaging</a><a href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/about/">About</a></nav>
+    ${primaryNavigation}
     <a class="gsp-header-cta" href="/contact/"><span class="gsp-cta-long">Request a Quote</span><span class="gsp-cta-short">Quote</span></a>
   </div>
 </header>`;
@@ -647,10 +648,11 @@ ${googleTagMarkup}
   <meta name="twitter:image" content="${siteUrl}${productImage(product)}">
   <script type="application/ld+json">${jsonLd(product, category, canonical, description)}</script>
 ${siteShellStylesheet}
+${siteShellScript}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
-${headerMarkup(/\bglass\b/i.test(product.mat) ? 'glass' : 'products')}
+${headerMarkup('products')}
 <nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><a href="${category.path}">${escapeHtml(category.label)}</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">${escapeHtml(name)}</span></div></nav>
 <div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main>
@@ -801,6 +803,7 @@ ${googleTagMarkup}
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
 ${siteShellStylesheet}
+${siteShellScript}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>

@@ -1128,6 +1128,32 @@ for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', 
 for (const requiredPath of ['/about/', '/contact/', '/products/product-index/', '/insights/', '/glass-bottle-buying-guides/']) {
   if (!uniqueSitemapUrls.has(`${siteUrl}${requiredPath}`)) errors.push(`sitemap.xml is missing ${requiredPath}`);
 }
+for (const unsupportedHomepageClaim of [
+  '<span class="cs-num">15+</span>',
+  '<span class="cs-num">300</span><span class="cs-lbl">MOQ from</span>',
+  '<span class="cs-num">80+</span>',
+  '<strong>15+</strong><span>Years</span>',
+  '<strong>300+</strong><span>MOQ From</span>',
+  '<strong>80+</strong><span>Countries</span>',
+  '>Free Samples<',
+  '>Request Free Sample<'
+]) {
+  if (homepage.includes(unsupportedHomepageClaim)) {
+    errors.push(`homepage exposes an unverified company or sample claim: ${unsupportedHomepageClaim}`);
+  }
+}
+for (const requiredProcurementSignal of [
+  'aria-label="Glass bottle project routes"',
+  'aria-label="GloryStarPack procurement routes"',
+  '<strong>RFQ</strong><span>Project Brief</span>',
+  '<strong>FIT</strong><span>Component Review</span>',
+  '<strong>SMP</strong><span>Approval Path</span>',
+  'Sample availability, charges, shipping and timing are confirmed'
+]) {
+  if (!homepage.includes(requiredProcurementSignal)) {
+    errors.push(`homepage is missing evidence-bounded procurement signal: ${requiredProcurementSignal}`);
+  }
+}
 
 for (const id of ['page-products', 'page-detail', 'page-search']) {
   const openingTag = homepage.match(new RegExp(`<div\\b[^>]*\\bid=["']${id}["'][^>]*>`, 'i'))?.[0] ?? '';
@@ -1341,6 +1367,12 @@ if (!llmsSource.includes('https://glorystarpack.en.alibaba.com/')) {
 if (!llmsSource.includes('## Citation and Claim Boundaries')) {
   errors.push('llms.txt is missing citation and claim boundaries');
 }
+for (const unsupportedMachineClaim of ['Experience: 15+ years', 'Markets served: worldwide', 'QC and worldwide shipping']) {
+  if (llmsSource.includes(unsupportedMachineClaim)) errors.push(`llms.txt exposes an unverified machine-readable claim: ${unsupportedMachineClaim}`);
+}
+for (const requiredClaimBoundary of ['Project routes: stock selection', 'Destination policy: packing, shipment route, feasibility and timing require confirmation']) {
+  if (!llmsSource.includes(requiredClaimBoundary)) errors.push(`llms.txt is missing machine-readable claim boundary: ${requiredClaimBoundary}`);
+}
 for (const requiredRoute of [
   `Best logo printing quote route: ${siteUrl}${logoPrintingPath}`,
   `Best decoration testing and approval citation: ${siteUrl}${decorationApprovalPath}`
@@ -1383,6 +1415,15 @@ try {
   }
   if (!Array.isArray(aiContext.claimBoundaries) || aiContext.claimBoundaries.length < 4) {
     errors.push('ai-context.json claimBoundaries must explain B2B offer, compatibility and evidence limits');
+  }
+  if (Object.hasOwn(aiContext.businessSummary ?? {}, 'experience') || Object.hasOwn(aiContext.businessSummary ?? {}, 'marketsServed')) {
+    errors.push('ai-context.json businessSummary must not expose unsupported experience or markets-served claims');
+  }
+  if (!aiContext.businessSummary?.projectRoutes || !aiContext.businessSummary?.destinationPolicy) {
+    errors.push('ai-context.json businessSummary is missing project route or destination claim boundaries');
+  }
+  if (/worldwide/i.test(aiContext.bestShortAnswer ?? '')) {
+    errors.push('ai-context.json bestShortAnswer must not imply unsupported worldwide service evidence');
   }
   const serumRouteMapping = aiContext.keywordMap?.find(entry => entry.queryGroup?.includes('serum packaging'));
   const expectedSerumRouteUrls = [`${siteUrl}/serum-packaging-guide/`];

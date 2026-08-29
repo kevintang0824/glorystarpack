@@ -20,6 +20,7 @@ let legacyCatalogPromise = null;
 function closeNavMenus() {
   document.querySelectorAll('.nav-item.open').forEach(item => item.classList.remove('open'));
   document.querySelectorAll('.nav-link[aria-expanded]').forEach(button => button.setAttribute('aria-expanded', 'false'));
+  document.querySelectorAll('.gsp-products-group[open]').forEach(group => { group.open = false; });
 }
 
 function closeMobileNav() {
@@ -327,10 +328,20 @@ document.addEventListener('click', e => {
     dropdownTrigger.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
     return;
   }
+  const productCategoryLink = e.target.closest?.('.gsp-products-panel a[href]');
+  if (productCategoryLink && document.getElementById('siteNav')?.contains(productCategoryLink)) {
+    const hashCategory = new URL(productCategoryLink.href, window.location.href).hash.match(/^#products\/([^/]+)/)?.[1];
+    const category = productCategoryLink.dataset.productCategory || hashCategory;
+    if (!category) return;
+    e.preventDefault();
+    closeMobileNav();
+    go('products', category);
+    return;
+  }
   if (!e.target.closest('.nav-item')) {
     closeNavMenus();
   }
-  if (e.target.classList.contains('dd-link')) {
+  if (e.target.closest?.('.dd-link')) {
     closeNavMenus();
   }
   const paginationButton = e.target.closest?.('#products-pagination .pg-btn');
@@ -342,6 +353,51 @@ document.addEventListener('click', e => {
     setProductView(e.target.dataset.view);
   }
 });
+
+const fineNavPointer = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
+const siteNav = document.getElementById('siteNav');
+
+function setNavItemOpen(item, open) {
+  if (!item) return;
+  const trigger = item.querySelector(':scope > .nav-link[aria-expanded]');
+  const dropdown = trigger?.nextElementSibling;
+  if (!trigger || !dropdown?.classList.contains('dropdown')) return;
+  item.classList.toggle('open', open);
+  trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (!open) item.querySelectorAll('.gsp-products-group[open]').forEach(group => { group.open = false; });
+}
+
+function openProductGroup(group) {
+  if (!group) return;
+  group.open = true;
+}
+
+siteNav?.addEventListener('pointerover', event => {
+  if (!fineNavPointer.matches) return;
+  const item = event.target.closest?.('.nav-item');
+  if (item) {
+    document.querySelectorAll('.nav-item.open').forEach(openItem => {
+      if (openItem !== item) setNavItemOpen(openItem, false);
+    });
+    setNavItemOpen(item, true);
+  }
+  openProductGroup(event.target.closest?.('.gsp-products-group'));
+});
+
+siteNav?.addEventListener('pointerout', event => {
+  if (!fineNavPointer.matches) return;
+  const item = event.target.closest?.('.nav-item');
+  if (item && !item.contains(event.relatedTarget) && !item.contains(document.activeElement)) setNavItemOpen(item, false);
+});
+
+siteNav?.addEventListener('focusout', event => {
+  const item = event.target.closest?.('.nav-item');
+  requestAnimationFrame(() => {
+    if (item && !item.contains(document.activeElement)) setNavItemOpen(item, false);
+  });
+});
+
+fineNavPointer.addEventListener?.('change', closeNavMenus);
 
 document.addEventListener('keydown', e => {
   const tab = e.target.closest?.('[role="tab"]');
@@ -383,6 +439,12 @@ document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (activeModalType) {
     closeModal(activeModalType);
+    return;
+  }
+  const focusedProductGroup = document.activeElement?.closest?.('.gsp-products-group[open]');
+  if (focusedProductGroup) {
+    focusedProductGroup.open = false;
+    focusedProductGroup.querySelector(':scope > summary')?.focus();
     return;
   }
   const focusedItem = document.activeElement?.closest?.('.nav-item');
@@ -563,6 +625,11 @@ function initFromHash() {
   if (query) {
     const searchPage = Math.max(1, Number(searchParams.get('sp')) || 1);
     doSearch(query, true, searchPage);
+    return;
+  }
+  const requestedCategory = searchParams.get('category');
+  if (requestedCategory) {
+    go('products', requestedCategory);
     return;
   }
   if (!raw) { go('home'); return; }

@@ -1,14 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { primaryNavigationMarkup } from './site-navigation.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
 const ignoredFiles = new Set(['glorystarpack (1).html', 'google130558f0f0763df4.html']);
 const checkOnly = process.argv.includes('--check');
-const shellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">';
+const shellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">';
 const shellStylesheetPattern = /<link\b[^>]*href=["']\/assets\/css\/site-shell\.css(?:\?[^"']*)?["'][^>]*\/?\s*>/i;
+const shellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>';
+const shellScriptPattern = /<script\b[^>]*src=["']\/assets\/js\/site-shell-navigation\.js(?:\?[^"']*)?["'][^>]*>\s*<\/script>/i;
 const inquiryStylesheetPattern = /<link\b[^>]*href=["']\/assets\/css\/inquiry-conversion\.css["'][^>]*\/?\s*>/i;
 const fontMarker = 'family=Cormorant+Garamond';
 const fontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,23 +32,6 @@ const guidePages = new Set([
   'sunscreen-packaging-guide/index.html'
 ]);
 
-const glassCategoryPages = new Set([
-  'products/beer-bottles/index.html',
-  'products/beverage-bottles/index.html',
-  'products/cream-jars/index.html',
-  'products/gin-bottles/index.html',
-  'products/glass-cosmetic-bottles/index.html',
-  'products/glass-packaging/index.html',
-  'products/liquor-bottles/index.html',
-  'products/nail-polish-bottles/index.html',
-  'products/perfume-bottles/index.html',
-  'products/serum-dropper-bottles/index.html',
-  'products/sparkling-wine-bottles/index.html',
-  'products/vodka-bottles/index.html',
-  'products/whiskey-bottles/index.html',
-  'products/wine-bottles/index.html'
-]);
-
 function walk(directory) {
   const files = [];
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -62,14 +48,7 @@ function activeSectionFor(rel, source) {
   if (rel === 'about/index.html') return 'about';
   if (rel === 'contact/index.html') return 'contact';
   if (rel.startsWith('insights/') || guidePages.has(rel)) return 'guides';
-  if (rel.startsWith('products/')) {
-    if (glassCategoryPages.has(rel)) return 'glass';
-    if (/^products\/.+-p\d+\/index\.html$/.test(rel)) {
-      const materialIsGlass = /<th\s+scope=["']row["']>Material<\/th>\s*<td>[^<]*\bGlass\b/i.test(source);
-      if (materialIsGlass || /(?:^|-)glass(?:-|\/)/i.test(rel)) return 'glass';
-    }
-    return 'products';
-  }
+  if (rel.startsWith('products/')) return 'products';
   if (/^(?:custom|oem|private-label|wholesale)-cosmetic-packaging\//.test(rel)
     || rel === 'cosmetic-packaging-supplier-china/index.html') return 'products';
   return '';
@@ -77,7 +56,6 @@ function activeSectionFor(rel, source) {
 
 function isExactSectionPage(rel, activeSection) {
   return (activeSection === 'products' && rel === 'products/product-index/index.html')
-    || (activeSection === 'glass' && rel === 'products/glass-packaging/index.html')
     || (activeSection === 'guides' && rel === 'cosmetic-packaging-guides/index.html')
     || (activeSection === 'about' && rel === 'about/index.html')
     || (activeSection === 'contact' && rel === 'contact/index.html');
@@ -89,11 +67,16 @@ function currentLocation(activeSection, navSection, exact = false) {
 }
 
 function headerMarkup(activeSection = '', activePage = false) {
+  const primaryNavigation = primaryNavigationMarkup({
+    productsCurrent: activeSection === 'products' ? (activePage ? 'page' : 'location') : '',
+    guidesCurrent: activeSection === 'guides' ? (activePage ? 'page' : 'location') : '',
+    aboutCurrent: activeSection === 'about' ? (activePage ? 'page' : 'location') : ''
+  });
   return `<header class="site-header gsp-site-header">
   <a class="gsp-skip-link" href="#main-content">Skip to main content</a>
   <div class="gsp-header-inner">
     <a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a>
-    <nav class="gsp-primary-nav" aria-label="Primary navigation"><a${currentLocation(activeSection, 'products', activePage)} href="/products/product-index/">Products</a><a${currentLocation(activeSection, 'glass', activePage)} href="/products/glass-packaging/">Glass Packaging</a><a${currentLocation(activeSection, 'guides', activePage)} href="/cosmetic-packaging-guides/">Buyer Guides</a><a${currentLocation(activeSection, 'about', activePage)} href="/about/">About</a></nav>
+    ${primaryNavigation}
     <a class="gsp-header-cta"${currentLocation(activeSection, 'contact', true)} href="/contact/"><span class="gsp-cta-long">Request a Quote</span><span class="gsp-cta-short">Quote</span></a>
   </div>
 </header>`;
@@ -130,6 +113,11 @@ function installHeadAssets(source) {
     } else {
       output = output.replace(/<\/head>/i, `${shellStylesheet}\n</head>`);
     }
+  }
+  if (shellScriptPattern.test(output)) {
+    output = output.replace(shellScriptPattern, shellScript);
+  } else {
+    output = output.replace(/<\/head>/i, `${shellScript}\n</head>`);
   }
   return output;
 }
@@ -265,6 +253,7 @@ for (const filePath of walk(rootDir)) {
   }
 
   const stylesheetCount = output.split('/assets/css/site-shell.css').length - 1;
+  const shellScriptCount = output.split('/assets/js/site-shell-navigation.js').length - 1;
   const headerCount = output.split('gsp-site-header').length - 1;
   const footerCount = output.split('gsp-site-footer').length - 1;
   const inquiryIndex = output.indexOf('/assets/css/inquiry-conversion.css');
@@ -273,6 +262,7 @@ for (const filePath of walk(rootDir)) {
   const skipLinkCount = (output.match(/class=["'][^"']*\bgsp-skip-link\b[^"']*["']/gi) ?? []).length;
   const issues = [];
   if (stylesheetCount !== 1) issues.push(`expected one shared stylesheet, found ${stylesheetCount}`);
+  if (shellScriptCount !== 1) issues.push(`expected one shared navigation script, found ${shellScriptCount}`);
   if (!output.includes(fontMarker)) issues.push('missing shared brand font loader');
   if (inquiryIndex !== -1 && shellIndex > inquiryIndex) issues.push('shared stylesheet must load before inquiry styles');
   if (rel !== 'index.html' && headerCount !== 1) issues.push(`expected one shared header, found ${headerCount}`);

@@ -382,6 +382,7 @@ function setSearchMeta(q, count) {
 function closeNavMenus() {
   document.querySelectorAll('.nav-item.open').forEach(item => item.classList.remove('open'));
   document.querySelectorAll('.nav-link[aria-expanded]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+  document.querySelectorAll('.gsp-products-group[open]').forEach(group => { group.open = false; });
 }
 
 function closeMobileNav() {
@@ -408,15 +409,7 @@ function setActiveNav(page, sub) {
   });
   let activeLink = document.querySelector(`.nav-link[data-page="${page}"]`);
   if (page === 'products') {
-    let group = '';
-    if (sub === 'material-glass' || (sub && sub.startsWith('glass'))) group = 'glass';
-    else if (['beverage','wine-bottle','spirit-bottle','beer-bottle','juice-soda-bottle','beverage-closure'].includes(sub)) group = 'beverage';
-    else if (['oil-vinegar-bottle','sauce-syrup-bottle','glass-food','food-jar','glass-apothecary'].includes(sub)) group = 'glass';
-    else if (sub === 'material-plastic' || sub === 'components' || (sub && sub.startsWith('plastic'))) group = 'plastic';
-    else if (sub === 'material-bamboo-wood' || (sub && sub.startsWith('bamboo'))) group = 'bamboo';
-    else if (sub === 'material-metal' || (sub && sub.startsWith('alu'))) group = 'alu';
-    else if (['bio','eco','eco-wheat','eco-pulp','eco-refill'].includes(sub)) group = 'eco';
-    activeLink = document.querySelector(`.nav-link[data-group="${group}"]`) || document.querySelector('.nav-link[data-page="products"]');
+    activeLink = document.querySelector('.nav-link[data-page="products"]');
   }
   if (activeLink) {
     activeLink.classList.add('active');

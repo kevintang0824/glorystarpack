@@ -752,7 +752,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       "url": "https://www.glorystarpack.com/",
       "name": "Custom Glass Bottle Manufacturer",
       "description": "Factory-direct custom glass bottle manufacturer in Xiamen, China, supplying liquor, wine, beer, perfume, nail polish and cosmetic glass bottles with decoration, closures and export support.",
-      "dateModified": "2026-08-28",
+      "dateModified": "2026-08-29",
       "isPartOf": {
         "@id": "https://www.glorystarpack.com/#website"
       },
@@ -1834,8 +1834,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .cs-btns>a,.cs-btns>button{width:100%;}
 }
 </style>
-<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">
+<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>
 </head>
 <body>
 <a class="gsp-skip-link" href="#main-content">Skip to main content</a>
@@ -1849,7 +1850,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <span>📍 Xiamen, Fujian, China</span>
     </div>
     <div class="topbar-right">
-      <a href="/contact/" onclick="event.preventDefault();openModal('sample')">Free Samples</a>
+      <a href="/contact/" onclick="event.preventDefault();openModal('sample')">Request Samples</a>
       <a href="/oem-cosmetic-packaging/">OEM/ODM</a>
       <a href="/about/#project-capabilities">Quality Support</a>
     </div>
@@ -1883,38 +1884,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 
 <!-- ========== NAV ========== -->
 <nav id="siteNav" aria-label="Primary navigation">
-  <div class="nav-inner">
+<div class="nav-inner">
     <div class="nav-item"><a class="nav-link active" data-page="home" href="/" aria-current="page">Home</a></div>
     <div class="nav-item">
-      <button class="nav-link" data-page="products" aria-haspopup="true" aria-expanded="false">Products ▾</button>
-      <div class="dropdown">
-        <a class="dd-link" href="/products/product-index/" onclick="event.preventDefault();go('products','all')">All Products &amp; Product Finder</a>
-        <a class="dd-link" href="/products/plastic-packaging/">Plastic Packaging</a>
-        <a class="dd-link" href="/products/airless-pump-bottles/">Airless Pump Bottles</a>
-        <a class="dd-link" href="/products/cosmetic-jars/">Cosmetic Jars</a>
-        <a class="dd-link" href="/products/cosmetic-pumps-closures/">Pumps &amp; Closures</a>
-        <a class="dd-link" href="/products/personal-care-packaging/">Personal Care Packaging</a>
-        <a class="dd-link" href="/products/refill-packaging/">Refill Packaging</a>
-        <a class="dd-link" href="/products/aluminum-packaging/">Aluminum Packaging</a>
-        <a class="dd-link" href="/products/bamboo-packaging/">Bamboo Packaging</a>
-        <a class="dd-link" href="/products/cosmetic-packaging-accessories/">Packaging Accessories</a>
-        <a class="dd-link" href="/oem-cosmetic-packaging/">OEM / ODM Projects</a>
-      </div>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" data-group="glass" aria-haspopup="true" aria-expanded="false">Glass Packaging ▾</button>
-      <div class="dropdown">
-        <a class="dd-link" href="/products/glass-packaging/">All Glass Packaging</a>
-        <a class="dd-link" href="/products/wine-bottles/">Wine Bottles</a>
-        <a class="dd-link" href="/products/liquor-bottles/">Liquor &amp; Spirit Bottles</a>
-        <a class="dd-link" href="/products/beverage-bottles/">Beverage Bottles</a>
-        <a class="dd-link" href="/products/beer-bottles/">Beer &amp; Growler Bottles</a>
-        <a class="dd-link" href="/products/sparkling-wine-bottles/">Sparkling Wine Bottles</a>
-        <a class="dd-link" href="/products/glass-cosmetic-bottles/">Glass Cosmetic Bottles</a>
-        <a class="dd-link" href="/products/perfume-bottles/">Perfume Bottles</a>
-        <a class="dd-link" href="/products/serum-dropper-bottles/">Serum Dropper Bottles</a>
-        <a class="dd-link" href="/products/cream-jars/">Glass Cream Jars</a>
-      </div>
+      <button class="nav-link" id="productsNavToggle" type="button" data-page="products" aria-haspopup="true" aria-expanded="false" aria-controls="productsNavPanel">Products<span aria-hidden="true">▾</span></button>
+<div class="dropdown gsp-products-panel" id="productsNavPanel" aria-labelledby="productsNavToggle"><div class="gsp-products-shortcuts"><a class="gsp-products-shortcut" data-product-category="all" href="/products/product-index/"><span>All Products</span><span class="gsp-products-count" data-total-products>2353</span></a><a class="gsp-products-shortcut" data-product-category="hot" href="/#products/hot"><span>★ Hot Picks</span><span class="gsp-products-count" data-cat-count="hot">142</span></a></div><p class="gsp-products-heading">Shop by material</p><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">GL</span>Glass Packaging</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-glass">All Glass Products</a><a href="/#products/wine-bottle">Wine Bottles</a><a href="/#products/glass-perfume">Perfume Bottles</a><a href="/#products/glass-dropper">Dropper Bottles</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">PL</span>Plastic Packaging</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-plastic">All Plastic Products</a><a href="/#products/plastic-pump">Pump Bottles</a><a href="/#products/plastic-airless">Airless Bottles</a><a href="/#products/plastic-jar">Plastic Jars</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">AL</span>Aluminum &amp; Metal</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-metal">All Metal Products</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">BW</span>Bamboo &amp; Wood</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-bamboo-wood">All Bamboo Products</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">PP</span>Paper &amp; Molded Pulp</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-paper-pulp">All Paper &amp; Pulp</a><a href="/#products/paper-box">Paper Boxes &amp; Retail Kits</a><a href="/#products/eco-pulp">Molded Pulp Inserts</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">FL</span>Flexible Films &amp; Laminates</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-flexible">All Flexible Packaging</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">BI</span>Bio-Based Materials</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-bio">All Bio-Based Products</a></div></details><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">MX</span>Mixed-Material Kits</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/material-mixed">All Mixed-Material Kits</a></div></details><p class="gsp-products-heading">Sustainable options</p><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">RC</span>Recycled &amp; Refill</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/plastic-pcr">PCR Plastic Packaging</a><a href="/#products/eco-refill">Refill Systems</a></div></details><p class="gsp-products-heading">Components &amp; applications</p><details class="gsp-products-group"><summary><span class="gsp-products-group-label"><span class="gsp-products-icon" aria-hidden="true">CP</span>Pumps, Caps &amp; Components</span><span class="gsp-products-plus" aria-hidden="true"></span></summary><div class="gsp-products-children"><a href="/#products/components">All Components</a><a href="/#products/packaging-accessories">Packaging Accessories</a></div></details></div>
     </div>
     <div class="nav-item">
       <button class="nav-link" aria-haspopup="true" aria-expanded="false">Buyer Guides ▾</button>
@@ -1948,10 +1922,10 @@ footer{background:var(--dark);color:#aaa;padding:0;}
               <div class="cs-tag">Glass bottle manufacturing · Xiamen, China</div>
               <h1 class="cs-title">Custom Glass Bottle Manufacturer <span>for Beverage &amp; Beauty Brands</span></h1>
               <p class="cs-desc">Develop liquor, wine, beer, perfume and nail polish bottles with custom molds, heavy glass, surface decoration, matched closures and export-ready packing from one project team.</p>
-              <div class="cs-stats" aria-label="Supplier highlights">
-                <div class="cs-stat"><span class="cs-num">15+</span><span class="cs-lbl">Years experience</span></div>
-                <div class="cs-stat"><span class="cs-num">300</span><span class="cs-lbl">MOQ from</span></div>
-                <div class="cs-stat"><span class="cs-num">80+</span><span class="cs-lbl">Countries served</span></div>
+              <div class="cs-stats" aria-label="Glass bottle project routes">
+                <div class="cs-stat"><span class="cs-num">Stock</span><span class="cs-lbl">Existing shapes</span></div>
+                <div class="cs-stat"><span class="cs-num">Mold</span><span class="cs-lbl">Custom route</span></div>
+                <div class="cs-stat"><span class="cs-num">Fit</span><span class="cs-lbl">Closure review</span></div>
               </div>
               <div class="cs-btns">
                 <a class="cs-btn-primary" href="#glass-applications">Explore Glass Bottles</a>
@@ -2055,13 +2029,13 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   </div>
 
   <!-- SUPPLIER SNAPSHOT -->
-  <div class="stats-bar" aria-label="GloryStarPack supplier statistics">
+  <div class="stats-bar" aria-label="GloryStarPack procurement routes">
     <div class="stats-inner">
-      <div class="stat-item"><div class="stat-num">15<span>+</span></div><div class="stat-lbl">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num">Glass</div><div class="stat-lbl">Bottle Focus</div></div>
       <div class="stat-divider"></div>
-      <div class="stat-item"><div class="stat-num">300<span>+</span></div><div class="stat-lbl">MOQ from</div></div>
+      <div class="stat-item"><div class="stat-num">Stock</div><div class="stat-lbl">Existing Shapes</div></div>
       <div class="stat-divider"></div>
-      <div class="stat-item"><div class="stat-num">80<span>+</span></div><div class="stat-lbl">Countries Served</div></div>
+      <div class="stat-item"><div class="stat-num">Mold</div><div class="stat-lbl">Custom Route</div></div>
       <div class="stat-divider"></div>
       <div class="stat-item"><div class="stat-num">QC</div><div class="stat-lbl">Project Review</div></div>
     </div>
@@ -2422,9 +2396,9 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <h2>One bottle brief.<br>Clearer <span>next steps.</span></h2>
         <p>Bring the application, capacity, filling route, quantity and target market. We help turn those inputs into a glass route with bottle structure, closure, samples and delivery planning in view.</p>
         <div class="ws-proof-row">
-          <div class="ws-proof"><strong>15+</strong><span>Years</span></div>
-          <div class="ws-proof"><strong>300+</strong><span>MOQ From</span></div>
-          <div class="ws-proof"><strong>80+</strong><span>Countries</span></div>
+          <div class="ws-proof"><strong>RFQ</strong><span>Project Brief</span></div>
+          <div class="ws-proof"><strong>FIT</strong><span>Component Review</span></div>
+          <div class="ws-proof"><strong>SMP</strong><span>Approval Path</span></div>
         </div>
         <div class="ws-btns">
           <a class="btn-primary" href="/about/">About GloryStarPack</a>
@@ -2724,7 +2698,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       </div>
       <div class="detail-actions">
         <button class="btn-inquire" id="det-quote-btn">Send Inquiry</button>
-        <button class="btn-sample-sm" id="det-sample-btn">Request Free Sample</button>
+        <button class="btn-sample-sm" id="det-sample-btn">Request Samples</button>
       </div>
     </div>
   </div>
@@ -2813,7 +2787,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="footer-col">
       <h2>Services</h2>
       <a href="/oem-cosmetic-packaging/">OEM / ODM</a>
-      <a href="/contact/" onclick="event.preventDefault();openModal('sample')">Free Samples</a>
+      <a href="/contact/" onclick="event.preventDefault();openModal('sample')">Request Samples</a>
       <a href="/contact/" onclick="event.preventDefault();openModal('quote')">Get Quote</a>
       <a href="/about/#project-capabilities">Quality Support</a>
       <a href="/about/#project-process">Project Process</a>
@@ -2933,8 +2907,8 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 <div class="modal-overlay" id="modal-sample" role="dialog" aria-modal="true" aria-labelledby="sample-title" aria-hidden="true" data-nosnippet onclick="if(event.target===this)closeModal('sample')">
   <div class="modal">
     <button class="modal-close" type="button" aria-label="Close sample form" onclick="closeModal('sample')">✕</button>
-    <h2 id="sample-title">Request Free Sample</h2>
-    <p class="modal-sub">We offer free samples for qualified buyers. Shipping costs may apply.</p>
+    <h2 id="sample-title">Request Packaging Samples</h2>
+    <p class="modal-sub">Sample availability, charges, shipping and timing are confirmed after the exact packaging specification and review goal are defined.</p>
     <div id="sample-form-body">
       <div class="modal-context" id="sample-context"></div>
       <div class="form-row">

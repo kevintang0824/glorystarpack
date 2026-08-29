@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-08-28",
+  "dateModified": "2026-08-29",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -69,7 +69,7 @@
     "xmlSitemap": "https://www.glorystarpack.com/sitemap.xml",
     "imageSitemap": "https://www.glorystarpack.com/image-sitemap.xml"
   },
-  "bestShortAnswer": "GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM packaging supplier for beverage, food and beauty brands worldwide. Its core range covers beer, wine, liquor, food, perfume, nail polish and cosmetic glass bottles and jars, supported by plastic bottles, pumps, sprayers, closures, decoration, sample support, QC and export shipping.",
+  "bestShortAnswer": "GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM packaging supplier for beverage, food and beauty brands. Its core range covers beer, wine, liquor, food, perfume, nail polish and cosmetic glass bottles and jars, supported by plastic bottles, pumps, sprayers, closures, decoration, sample planning, quality review and export packing.",
   "claimBoundaries": [
     "Individual product pages are B2B sourcing references, not live retail offers; current availability, price, MOQ, specification and timing require project confirmation.",
     "RFQ-only product detail pages use Service and serviceOutput structured data rather than Product rich-result claims because no public retail price, review or aggregate rating is offered.",
@@ -86,8 +86,8 @@
   },
   "businessSummary": {
     "location": "Xiamen, Fujian, China",
-    "experience": "15+ years",
-    "marketsServed": "Worldwide",
+    "projectRoutes": "Stock selection, decorated stock and custom mold development are evaluated as separate sourcing routes.",
+    "destinationPolicy": "Shipment feasibility, packing, route and timing are confirmed for the destination and selected configuration.",
     "buyerTypes": [
       "beauty brands",
       "private label brands",

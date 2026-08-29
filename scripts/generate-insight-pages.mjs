@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
+import { primaryNavigationMarkup } from './site-navigation.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -18,7 +19,8 @@ const brandFontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.c
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>`;
-const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260828-2">';
+const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">';
+const siteShellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>';
 const modifiedDate = '2026-08-01';
 const indexModifiedDate = '2026-08-20';
 
@@ -1241,16 +1243,15 @@ function commonGraphNodes() {
   ];
 }
 
-function currentLocation(activeSection, navSection) {
-  return activeSection === navSection ? ' aria-current="location"' : '';
-}
-
 function headerMarkup(activeSection = '') {
+  const primaryNavigation = primaryNavigationMarkup({
+    guidesCurrent: activeSection === 'guides' ? 'location' : ''
+  });
   return `<header class="site-header gsp-site-header">
   <a class="gsp-skip-link" href="#main-content">Skip to main content</a>
   <div class="gsp-header-inner">
     <a class="gsp-brand" href="/" aria-label="GloryStarPack home"><img src="/assets/brand/glorystarpack-logo-mark-96-2026.png" width="96" height="96" alt="" decoding="async"><span class="gsp-brand-copy"><strong>GLORYSTARPACK</strong><small>Custom Bottles &amp; Packaging</small></span></a>
-    <nav class="gsp-primary-nav" aria-label="Primary navigation"><a href="/products/product-index/">Products</a><a href="/products/glass-packaging/">Glass Packaging</a><a${currentLocation(activeSection, 'guides')} href="/cosmetic-packaging-guides/">Buyer Guides</a><a href="/about/">About</a></nav>
+    ${primaryNavigation}
     <a class="gsp-header-cta" href="/contact/"><span class="gsp-cta-long">Request a Quote</span><span class="gsp-cta-short">Quote</span></a>
   </div>
 </header>`;
@@ -1472,7 +1473,8 @@ ${googleTagMarkup}
   <meta name="twitter:image" content="${siteUrl}${article.imagePath}">
   <script type="application/ld+json">${jsonLd(article, canonical, description)}</script>
   ${siteShellStylesheet}
-  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+  ${siteShellScript}
+<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup('guides')}
@@ -1576,7 +1578,8 @@ ${googleTagMarkup}
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
   ${siteShellStylesheet}
-  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+  ${siteShellScript}
+<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body class="insights-index">
 ${headerMarkup('guides')}
@@ -1711,7 +1714,8 @@ ${googleTagMarkup}
   <meta name="twitter:image" content="${siteUrl}${heroImage}">
   <script type="application/ld+json">${schema}</script>
   ${siteShellStylesheet}
-  <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+  ${siteShellScript}
+<link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
 </head>
 <body>
 ${headerMarkup('guides')}

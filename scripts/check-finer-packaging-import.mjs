@@ -9,6 +9,7 @@ const productDataPath = path.join(rootDir, 'assets/js/product-data.js');
 const reportPath = path.join(rootDir, 'data/finer-packaging-import-report.json');
 const homepagePath = path.join(rootDir, 'index.html');
 const errors = [];
+const maximumProductDataBytes = 1_000_000;
 
 if (!fs.existsSync(reportPath)) {
   throw new Error('Missing data/finer-packaging-import-report.json; run the importer first.');
@@ -21,6 +22,11 @@ const allProducts = context.window.GSP_PRODUCTS ?? [];
 const importedProducts = allProducts.filter(product => product.referenceMoq === true && product.sourceCategory);
 const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
 const homepage = fs.readFileSync(homepagePath, 'utf8');
+const productDataBytes = fs.statSync(productDataPath).size;
+
+if (productDataBytes > maximumProductDataBytes) {
+  errors.push(`product data payload is ${productDataBytes} bytes; expected no more than ${maximumProductDataBytes}`);
+}
 
 if (importedProducts.length !== report.importedProductCount) {
   errors.push(`published import count ${importedProducts.length} does not match report ${report.importedProductCount}`);
@@ -123,3 +129,4 @@ if (errors.length) {
 
 console.log(`Checked ${importedProducts.length} imported products and ${referencedImages.size} unique AVIF images.`);
 console.log(`Duplicate listing consolidation: ${report.sourceProductCount} source listings → ${report.importedProductCount} website products.`);
+console.log(`Product data payload: ${(productDataBytes / 1024).toFixed(1)} KiB.`);

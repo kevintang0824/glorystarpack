@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -457,7 +458,111 @@ for (const job of imageJobs) {
   }
 }
 
-const generatedBlock = `${generatedStart}\nwindow.GSP_FINER_CATEGORY_TITLES = ${JSON.stringify(importedCategoryTitles)};\nwindow.GSP_FINER_CATEGORY_COPY = ${JSON.stringify(importedCategoryCopy)};\nwindow.GSP_PRODUCTS = window.GSP_PRODUCTS.concat([\n${products.map(product => `  ${JSON.stringify(product)}`).join(',\n')}\n]);\n${generatedEnd}`;
+function createDictionary(values) {
+  const items = [];
+  const indexByValue = new Map();
+  for (const value of values) {
+    const key = JSON.stringify(value);
+    if (!indexByValue.has(key)) {
+      indexByValue.set(key, items.length);
+      items.push(value);
+    }
+  }
+  return {
+    items,
+    indexOf(value) {
+      const index = indexByValue.get(JSON.stringify(value));
+      if (index === undefined) throw new Error(`Dictionary value was not indexed: ${JSON.stringify(value)}`);
+      return index;
+    }
+  };
+}
+
+function importedImageHash(imagePath) {
+  const match = /^assets\/product-photos\/fp-([a-f0-9]{20})\.avif$/.exec(imagePath);
+  if (!match) throw new Error(`Unexpected imported image path: ${imagePath}`);
+  return match[1];
+}
+
+const materialDictionary = createDictionary(products.map(product => product.mat));
+const finishDictionary = createDictionary(products.map(product => product.finish));
+const categoryDictionary = createDictionary(products.map(product => product.cats));
+const materialGroupDictionary = createDictionary(products.map(product => product.materialGroup));
+const sourceCategoryDictionary = createDictionary(products.map(product => product.sourceCategory));
+const imageDictionary = createDictionary(products.flatMap(product => product.images.map(importedImageHash)));
+const descriptionSuffixDictionary = createDictionary(products.map(product => {
+  if (!product.desc.startsWith(product.name)) {
+    throw new Error(`Imported product description does not start with its name: ${product.id}`);
+  }
+  return product.desc.slice(product.name.length);
+}));
+const reviewNoteDictionary = createDictionary(products.map(product => product.tab));
+const productRows = products.map(product => [
+  product.id.slice(1),
+  product.name,
+  materialDictionary.indexOf(product.mat),
+  finishDictionary.indexOf(product.finish),
+  product.moq,
+  categoryDictionary.indexOf(product.cats),
+  materialGroupDictionary.indexOf(product.materialGroup),
+  sourceCategoryDictionary.indexOf(product.sourceCategory),
+  descriptionSuffixDictionary.indexOf(product.desc.slice(product.name.length)),
+  reviewNoteDictionary.indexOf(product.tab),
+  product.images.map(imagePath => imageDictionary.indexOf(importedImageHash(imagePath)))
+]);
+
+const generatedBlock = `${generatedStart}
+window.GSP_FINER_CATEGORY_TITLES = ${JSON.stringify(importedCategoryTitles)};
+window.GSP_FINER_CATEGORY_COPY = ${JSON.stringify(importedCategoryCopy)};
+(() => {
+  const materials = ${JSON.stringify(materialDictionary.items)};
+  const finishes = ${JSON.stringify(finishDictionary.items)};
+  const categorySets = ${JSON.stringify(categoryDictionary.items)};
+  const materialGroups = ${JSON.stringify(materialGroupDictionary.items)};
+  const sourceCategories = ${JSON.stringify(sourceCategoryDictionary.items)};
+  const imageHashes = ${JSON.stringify(imageDictionary.items)};
+  const descriptionSuffixes = ${JSON.stringify(descriptionSuffixDictionary.items)};
+  const reviewNotes = ${JSON.stringify(reviewNoteDictionary.items)};
+  // Row: offer ID, name, material, finish, MOQ, categories, material group, source category, description, review note, images.
+  const productRows = [
+${productRows.map(row => `    ${JSON.stringify(row)}`).join(',\n')}
+  ];
+  const importedProducts = productRows.map(row => {
+    const cats = categorySets[row[5]];
+    return {
+      id: 'p' + row[0],
+      name: row[1],
+      size: 'Custom Size',
+      mat: materials[row[2]],
+      finish: finishes[row[3]],
+      moq: row[4],
+      ic: '📦',
+      badge: 'custom',
+      cats: cats.slice(),
+      desc: row[1] + descriptionSuffixes[row[8]],
+      tab: reviewNotes[row[9]],
+      materialGroup: materialGroups[row[6]],
+      sourceCategory: sourceCategories[row[7]],
+      referenceMoq: true,
+      images: row[10].map(imageIndex => 'assets/product-photos/fp-' + imageHashes[imageIndex] + '.avif')
+    };
+  });
+  window.GSP_PRODUCTS = window.GSP_PRODUCTS.concat(importedProducts);
+})();
+${generatedEnd}`;
+const generatedContext = { window: { GSP_PRODUCTS: [] } };
+vm.createContext(generatedContext);
+vm.runInContext(generatedBlock, generatedContext);
+const hydratedProducts = generatedContext.window.GSP_PRODUCTS;
+if (JSON.stringify(hydratedProducts) !== JSON.stringify(products)) {
+  throw new Error('Generated compact product data does not hydrate to the source product records');
+}
+if (new Set(hydratedProducts.map(product => product.cats)).size !== products.length) {
+  throw new Error('Generated compact product data shares category arrays between products');
+}
+if (new Set(hydratedProducts.map(product => product.images)).size !== products.length) {
+  throw new Error('Generated compact product data shares image arrays between products');
+}
 let productDataSource = fs.readFileSync(productDataPath, 'utf8').trimEnd();
 const existingStart = productDataSource.indexOf(generatedStart);
 const existingEnd = productDataSource.indexOf(generatedEnd);

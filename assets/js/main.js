@@ -52,6 +52,7 @@ function activateOnlyPage(page) {
     element.style.display = active ? 'block' : 'none';
     element.classList.toggle('active', active);
   });
+  if (page !== 'search') document.getElementById('search-grid')?.replaceChildren();
 }
 
 function showHomePage(skipHash) {
@@ -66,7 +67,13 @@ function showHomePage(skipHash) {
     homeLink.classList.add('active');
     homeLink.setAttribute('aria-current', 'page');
   }
-  if (!skipHash) history.replaceState(null, '', '#home');
+  if (!skipHash) {
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.delete('q');
+    nextUrl.searchParams.delete('sp');
+    nextUrl.hash = 'home';
+    history.replaceState(null, '', nextUrl);
+  }
   window.scrollTo(0, 0);
   window.GSP_CATALOG?.renderHomeGrid();
 }
@@ -548,12 +555,17 @@ function csInit() {
 }
 
 function initFromHash() {
-  const query = new URLSearchParams(window.location.search).get('q');
-  if (query) { doSearch(query, true); return; }
   const raw = window.location.hash.replace('#', '');
-  if (!raw) { go('home'); return; }
   const [page, sub, pagePart] = raw.split('/');
   if (page === 'detail' && sub) { showDetail(sub); return; }
+  const searchParams = new URLSearchParams(window.location.search);
+  const query = searchParams.get('q');
+  if (query) {
+    const searchPage = Math.max(1, Number(searchParams.get('sp')) || 1);
+    doSearch(query, true, searchPage);
+    return;
+  }
+  if (!raw) { go('home'); return; }
   if (page === 'products') {
     const requestedPage = Math.max(1, pagePart?.startsWith('page-') ? Number(pagePart.slice(5)) || 1 : 1);
     go('products', sub || 'hot', true, requestedPage);

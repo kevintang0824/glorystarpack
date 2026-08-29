@@ -453,7 +453,7 @@ function go(page, sub, skipHash, productPage = 1) {
   setActiveNav(page, sub);
   if (!skipHash) {
     const hash = sub ? `#${page}/${sub}` : `#${page}`;
-    history.replaceState(null, '', hash);
+    history.replaceState(null, '', location.pathname+hash);
   }
 
   if (page === 'home') renderHomeGrid();
@@ -1183,12 +1183,15 @@ function switchTab(btn, id) {
   }
 }
 
-function doSearch(q, preserveUrl = false, limit = 96) {
+const searchUrl=(q,p)=>`?q=${encodeURIComponent(q)}${p>1?`&sp=${p}`:''}`;
+
+function doSearch(q, preserveUrl = false, page = 1) {
   q = (q||'').trim();
   if (!q) return;
+  page=Math.max(1,Number(page)||1);
   if (!hasProductData()) {
     go('search', null, true);
-    if (!preserveUrl) history.replaceState(null, '', `?q=${encodeURIComponent(q)}`);
+    if (!preserveUrl) history.replaceState(null, '', searchUrl(q, page));
     setSearchMeta(q, 0);
     const title = document.getElementById('search-title');
     const empty = document.getElementById('search-empty');
@@ -1197,7 +1200,7 @@ function doSearch(q, preserveUrl = false, limit = 96) {
     if (empty) empty.style.display = 'none';
     if (input) input.value = q;
     showProductLoading('search-grid', 'Searching packaging products...');
-    ensureProductData().then(() => doSearch(q, true)).catch(() => {});
+    ensureProductData().then(() => doSearch(q, true, page)).catch(() => {});
     return;
   }
   const query = q.toLowerCase();
@@ -1210,8 +1213,10 @@ function doSearch(q, preserveUrl = false, limit = 96) {
     p.tab.toLowerCase().includes(query) ||
     p.cats.some(c => c.includes(query))
   );
+  const pages=Math.max(1,Math.ceil(filtered.length/96));
+  page=Math.min(page,pages);
   go('search', null, true);
-  if (!preserveUrl) history.replaceState(null, '', `?q=${encodeURIComponent(q)}`);
+  if (!preserveUrl) history.replaceState(null, '', searchUrl(q, page));
   setSearchMeta(q, filtered.length);
   document.getElementById('search-title').textContent = `Search: "${q}" — ${filtered.length} result${filtered.length!==1?'s':''}`;
   const g = document.getElementById('search-grid');
@@ -1219,14 +1224,18 @@ function doSearch(q, preserveUrl = false, limit = 96) {
   if (filtered.length) {
     g.style.display = 'grid';
     empty.style.display = 'none';
-    const visibleResults = filtered.slice(0, limit);
-    const refineMessage = filtered.length > visibleResults.length
-      ? `<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px;">Showing ${visibleResults.length} of ${filtered.length} matches. <button type="button" id="search-more" class="pg-btn wide">Show more</button></p>`
+    const start=(page-1)*96;
+    const visible=filtered.slice(start,start+96);
+    const controls = pages > 1
+      ? `<p style="grid-column:1/-1;text-align:center;">Showing ${start + 1}–${start + visible.length} of ${filtered.length} · Page ${page}/${pages} ${page > 1 ? '<button id="search-prev" class="pg-btn wide">‹ Prev</button>' : ''} ${page < pages ? '<button id="search-next" class="pg-btn wide">Next ›</button>' : ''}</p>`
       : '';
-    g.innerHTML = `${visibleResults.map(p => pcHTML(p)).join('')}${refineMessage}`;
-    const more = document.getElementById('search-more');
-    if (more) more.onclick = () => doSearch(q, true, limit + 96);
+    g.innerHTML = `${visible.map(p => pcHTML(p)).join('')}${controls}`;
+    g.onclick = e => {
+      if (e.target.id === 'search-prev') doSearch(q, false, page - 1);
+      if (e.target.id === 'search-next') doSearch(q, false, page + 1);
+    };
   } else {
+    g.replaceChildren();
     g.style.display = 'none';
     empty.style.display = 'block';
   }

@@ -1,9 +1,4 @@
 (() => {
-// This compatibility layer is intentionally lazy-loaded by main.js. It keeps
-// the historical hash catalog available without charging every homepage visit
-// for product filtering, search and detail-rendering code.
-
-// =========================================================== PRODUCT DATA
 let PRODS = [];
 let productDataPromise = null;
 
@@ -14,6 +9,10 @@ function hasProductData() {
 function syncProductData() {
   if (!hasProductData() && Array.isArray(window.GSP_PRODUCTS)) {
     PRODS = window.GSP_PRODUCTS;
+  }
+  if (hasProductData()) {
+    Object.assign(CAT_TITLES, window.GSP_FINER_CATEGORY_TITLES || {});
+    Object.assign(CAT_COPY, window.GSP_FINER_CATEGORY_COPY || {});
   }
   return hasProductData();
 }
@@ -50,6 +49,7 @@ function ensureProductData() {
     document.head.appendChild(script);
   }).catch(err => {
     productDataPromise = null;
+    document.querySelector('script[data-product-data="true"]')?.remove();
     showProductDataError(err);
     throw err;
   });
@@ -231,8 +231,8 @@ const PAGE_META = {
     desc: 'Factory-direct custom glass bottle manufacturer for spirits, wine, beer, perfume and nail polish, with custom molds, decoration, closures and global shipping.'
   },
   products: {
-    title: 'Cosmetic Packaging Products | Bottles, Jars, Tubes, Pumps & Kits',
-    desc: 'Browse cosmetic packaging products including glass bottles, cream jars, perfume bottles, serum droppers, airless pumps, cosmetic tubes, pumps, caps, sprayers, liners, sample kits, aluminum cans, refill pouches, makeup packaging and eco packaging.'
+    title: 'Packaging Products | Bottles, Jars, Pumps, Boxes & Bags',
+    desc: 'Browse packaging products by primary material, format and application, including glass and plastic containers, pumps and closures, paper boxes, mailers, bags, printed retail packs and flexible pouches.'
   },
   detail: {
     title: 'Cosmetic Packaging Product Details | GloryStarPack',
@@ -274,9 +274,9 @@ const FILTER_SEO_URLS = {
   bamboo: '/products/bamboo-packaging/',
   'material-bamboo-wood': '/products/bamboo-packaging/',
   eco: '/products/eco-friendly-packaging/',
-  'material-paper-pulp': '/products/eco-friendly-packaging/',
-  'material-flexible': '/products/refill-packaging/',
-  'material-bio': '/products/eco-friendly-packaging/',
+  'material-paper-pulp': '/products/product-index/',
+  'material-flexible': '/products/product-index/',
+  'material-bio': '/products/product-index/',
   'material-mixed': '/products/cosmetic-packaging-kits/',
   'eco-refill': '/products/refill-packaging/',
   components: '/products/cosmetic-pumps-closures/',
@@ -294,8 +294,8 @@ function filterCanonicalUrl(sub) {
   if (sub && sub.startsWith('plastic')) return '/products/plastic-packaging/';
   if (sub && sub.startsWith('alu')) return '/products/aluminum-packaging/';
   if (sub && sub.startsWith('bamboo')) return '/products/bamboo-packaging/';
-  if (['bio','eco-wheat','eco-pulp','paper-tube','paper-box'].includes(sub)) return '/products/eco-friendly-packaging/';
-  return '/';
+  if (['bio','eco-wheat','eco-pulp'].includes(sub)) return '/products/eco-friendly-packaging/';
+  return '/products/product-index/';
 }
 
 function setMeta(page, sub) {
@@ -415,7 +415,7 @@ function setActiveNav(page, sub) {
     else if (sub === 'material-plastic' || sub === 'components' || (sub && sub.startsWith('plastic'))) group = 'plastic';
     else if (sub === 'material-bamboo-wood' || (sub && sub.startsWith('bamboo'))) group = 'bamboo';
     else if (sub === 'material-metal' || (sub && sub.startsWith('alu'))) group = 'alu';
-    else if (['material-paper-pulp','material-flexible','material-bio','material-mixed','bio','paper-tube','paper-box','eco','eco-wheat','eco-pulp','eco-refill'].includes(sub)) group = 'eco';
+    else if (['bio','eco','eco-wheat','eco-pulp','eco-refill'].includes(sub)) group = 'eco';
     activeLink = document.querySelector(`.nav-link[data-group="${group}"]`) || document.querySelector('.nav-link[data-page="products"]');
   }
   if (activeLink) {
@@ -436,7 +436,6 @@ function focusCatalogView(page) {
   });
 }
 
-// =========================================================== NAVIGATION
 function go(page, sub, skipHash, productPage = 1) {
   closeMobileNav();
   const staticUrl = STATIC_PAGE_ROUTES[page];
@@ -462,7 +461,6 @@ function go(page, sub, skipHash, productPage = 1) {
   if (['products', 'detail', 'search'].includes(page)) focusCatalogView(page);
 }
 
-// =========================================================== PRODUCT CARD HTML
 const productPhotoIds = new Set([
   ...Array.from({length:316}, (_, i) => `p${i + 1}`),
   ...Array.from({length:59}, (_, i) => `p${i + 329}`)
@@ -577,6 +575,8 @@ const PRODUCT_DETAIL_IMAGE_SETS = {
 
 function productImage(p, offset = 0) {
   const variant = Math.max(0, Math.min(4, Number(offset) || 0));
+  const suppliedImages = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
+  if (suppliedImages.length) return suppliedImages[variant % suppliedImages.length];
   const hasDedicatedPhoto = productPhotoIds.has(p.id);
   if (hasDedicatedPhoto && variant === 0) return `assets/product-photos/${p.id}-0.jpg`;
   const imageSet = PRODUCT_IMAGE_SETS.find(set => p.cats.includes(set.cat));
@@ -591,6 +591,13 @@ function productImage(p, offset = 0) {
 
 function productGalleryImages(p) {
   const labels = ['Product View', 'Related Option', 'Matching Family', 'Component Option'];
+  const suppliedImages = Array.isArray(p.images) ? [...new Set(p.images.filter(Boolean))] : [];
+  if (suppliedImages.length) {
+    return suppliedImages.slice(0, 6).map((src, index) => ({
+      label: index === 0 ? 'Main Product View' : `Product View ${index + 1}`,
+      src
+    }));
+  }
   const curated = PRODUCT_DETAIL_IMAGE_SETS[p.id];
   if (curated) return curated.map((src, index) => ({label: labels[index], src}));
   const sources = [productImage(p)];
@@ -606,6 +613,10 @@ function productGalleryImages(p) {
 }
 
 function productSubitems(p) {
+  if (p.referenceMoq) return [
+    {k:'Size',v:p.size}, {k:'Finish',v:p.finish},
+    {k:'Structure',v:'Confirm by Project'}, {k:'Application',v:p.sourceCategory.split('>')[0].trim()}
+  ];
   const isAccessory = p.cats.includes('packaging-accessories');
   const isPackagingKit = /Kit|Set/.test(p.name) && !isAccessory;
   const componentNames = {
@@ -801,7 +812,7 @@ function pcHTML(p, small) {
     : `<img src="${img}" alt="${safeText(displayName)} packaging product photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
   const safeName = displayName.replace(/'/g, "\\'");
-  const moqLabel = isConceptProduct(p) ? 'Planning MOQ' : 'MOQ';
+  const moqLabel = p.referenceMoq ? 'Reference MOQ' : isConceptProduct(p) ? 'Planning MOQ' : 'MOQ';
   const seoUrl = productSeoUrl(p);
   const imageMarkup = seoUrl
     ? `<a class="pc-primary-link" href="${seoUrl}" onclick="event.stopPropagation()" aria-label="View ${safeText(displayName)} product page">${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span></a>`
@@ -827,7 +838,6 @@ function pcHTML(p, small) {
   </article>`;
 }
 
-// =========================================================== HOME GRID
 function renderHomeGrid() {
   const g = document.getElementById('home-grid');
   if (!g || !hasProductData()) return;
@@ -837,7 +847,6 @@ function renderHomeGrid() {
   g.innerHTML = [...picked, ...fallback].slice(0,4).map(p => pcHTML(p)).join('');
 }
 
-// =========================================================== FILTER PRODUCTS
 let currentProductCat = 'hot';
 let currentProductPage = 1;
 let currentProductSort = 'default';
@@ -877,13 +886,14 @@ function filterCat(el, cat) {
 
 function getProductsByCat(cat) {
   if (!hasProductData()) return [];
-  if (PRIMARY_MATERIAL_SETS[cat]) return PRODS.filter(p => PRIMARY_MATERIAL_SETS[cat].has(p.id));
+  if (cat === 'all') return PRODS;
+  if (PRIMARY_MATERIAL_SETS[cat]) return PRODS.filter(p => p.materialGroup === cat || PRIMARY_MATERIAL_SETS[cat].has(p.id));
   return PRODS.filter(p => {
     if (cat === 'glass') return p.cats.some(c => c.startsWith('glass')) || p.cats.includes('glass');
     if (cat === 'plastic') return p.cats.some(c => c.startsWith('plastic')) || p.cats.includes('plastic');
     if (cat === 'bamboo') return p.cats.some(c => c.startsWith('bamboo'));
     if (cat === 'alu') return p.cats.some(c => c.startsWith('alu'));
-    if (cat === 'eco') return p.cats.some(c => ['eco','bio','paper-tube','paper-box'].includes(c));
+    if (cat === 'eco') return p.cats.some(c => ['eco','bio'].includes(c));
     if (cat === 'beverage') return p.cats.includes('beverage');
     if (cat === 'components') return p.cats.some(c => ['plastic-closure','beverage-closure','packaging-accessories'].includes(c));
     return p.cats.includes(cat);
@@ -934,7 +944,6 @@ function setProductView(view) {
 function filterCatByKey(cat, page = 1) {
   currentProductCat = cat;
   currentProductPage = page;
-  // Update sidebar active
   let activeSidebarLink = null;
   document.querySelectorAll('#page-products .sb-link').forEach(l => {
     l.classList.remove('active');
@@ -975,12 +984,13 @@ function filterCatByKey(cat, page = 1) {
   const filtered = getProductsByCat(cat);
   if (c) c.textContent = filtered.length + ' Products';
   renderProductPage(filtered, page);
+  history.replaceState(null, '', currentProductPage > 1 ? `#products/${cat}/page-${currentProductPage}` : `#products/${cat}`);
 }
 
 function renderProductPage(products, page) {
   const ordered = sortedProducts(products);
   const totalPages = Math.max(1, Math.ceil(ordered.length / PRODUCTS_PER_PAGE));
-  const safePage = Math.min(Math.max(1, page), totalPages);
+  const safePage = Math.min(Math.max(1, Number(page) || 1), totalPages);
   currentProductPage = safePage;
   const start = (safePage - 1) * PRODUCTS_PER_PAGE;
   const visible = ordered.slice(start, start + PRODUCTS_PER_PAGE);
@@ -999,11 +1009,25 @@ function renderPagination(totalPages, activePage) {
     wrap.innerHTML = '';
     return;
   }
-  let html = '';
-  for (let i = 1; i <= totalPages; i++) {
-    html += `<button class="pg-btn${i === activePage ? ' active' : ''}" data-page="${i}" aria-label="Go to product page ${i}"${i === activePage ? ' aria-current="page"' : ''}>${i}</button>`;
+  const visiblePages = [...new Set([
+    1,
+    totalPages,
+    activePage - 2,
+    activePage - 1,
+    activePage,
+    activePage + 1,
+    activePage + 2
+  ].filter(page => page >= 1 && page <= totalPages))].sort((left, right) => left - right);
+  let html = activePage > 1
+    ? `<button class="pg-btn wide" data-page="${activePage - 1}" aria-label="Previous product page">‹ Prev</button>`
+    : '';
+  let previousPage = 0;
+  for (const page of visiblePages) {
+    if (previousPage && page - previousPage > 1) html += '<span class="pg-gap" aria-hidden="true">…</span>';
+    html += `<button class="pg-btn${page === activePage ? ' active' : ''}" data-page="${page}" aria-label="Go to product page ${page}"${page === activePage ? ' aria-current="page"' : ''}>${page}</button>`;
+    previousPage = page;
   }
-  html += `<button class="pg-btn wide" data-page="${activePage === totalPages ? 1 : activePage + 1}" aria-label="Next product page">Next ›</button>`;
+  if (activePage < totalPages) html += `<button class="pg-btn wide" data-page="${activePage + 1}" aria-label="Next product page">Next ›</button>`;
   wrap.innerHTML = html;
 }
 
@@ -1059,15 +1083,16 @@ function showDetail(pid) {
   if (quoteBtn) quoteBtn.onclick = () => openModal('quote', p.name);
   if (sampleBtn) sampleBtn.onclick = () => openModal('sample', p.name);
   document.getElementById('det-thumbs').innerHTML = productGalleryImages(p).map((img,i) =>
-    `<button type="button" class="detail-thumb${i===0?' active':''}" aria-label="Show ${safeText(p.name)} ${img.label}" aria-pressed="${i===0?'true':'false'}" onclick="setThumb(this,'${img.src}','${safeText(p.name)} ${img.label}')"><img src="${img.src}" alt="" loading="lazy" onerror="this.parentElement.textContent='${p.ic}'"></button>`
+    `<button type="button" class="detail-thumb${i===0?' active':''}" aria-label="Show ${safeText(p.name)} ${img.label}" aria-pressed="${i===0?'true':'false'}" onclick="setThumb(this,'${img.src}',${safeText(JSON.stringify(`${p.name} ${img.label}`))})"><img src="${img.src}" alt="" loading="lazy" onerror="this.parentElement.textContent='${p.ic}'"></button>`
   ).join('');
   const bc = {hot:'b-hot',new:'b-new',eco:'b-eco',custom:'b-custom'}[p.badge]||'b-hot';
   const bl = {hot:'HOT',new:'NEW',eco:'MATERIAL',custom:'CUSTOM'}[p.badge]||'HOT';
   document.getElementById('det-badges').innerHTML = `<span class="pc-badge ${bc}" style="position:static;">${bl}</span>`;
   const conceptProduct = isConceptProduct(p);
+  const referenceMoq = Boolean(p.referenceMoq);
   document.getElementById('det-specs').innerHTML = [
     ['Material', p.mat],['Capacity / Size', p.size],['Finish', p.finish],
-    [conceptProduct ? 'Planning MOQ' : 'MOQ', p.moq + (conceptProduct ? ' pcs; confirm by project' : ' pcs per color')],
+    [referenceMoq ? 'Reference MOQ' : conceptProduct ? 'Planning MOQ' : 'MOQ', referenceMoq ? `${p.moq} pcs in source listing; confirm current project MOQ` : p.moq + (conceptProduct ? ' pcs; confirm by project' : ' pcs per color')],
     ['Sample Route', conceptProduct ? 'Confirmed after drawing and tooling review' : 'Confirm availability, charges and timing for the selected configuration'],
     ['Production Timing', 'Confirmed after specification and sample approval'],
     ['Documentation', 'Confirm project-specific requirements with our team']
@@ -1077,13 +1102,13 @@ function showDetail(pid) {
     `<button class="opt-btn${i===0?' active':''}" aria-pressed="${i===0?'true':'false'}" onclick="setOpt(this)">${s}</button>`
   ).join('');
   document.getElementById('det-finishes').innerHTML = `<span class="opt-btn active">${safeText(p.finish)}</span>`;
-  const related = PRODS.filter(x => x.id !== pid && x.cats.some(c => p.cats.includes(c))).slice(0,4);
+  const related = PRODS.filter(x => x.id !== pid && (!referenceMoq || x.referenceMoq) && x.cats.some(c => p.cats.includes(c))).slice(0,4);
   document.getElementById('related-grid').innerHTML = related.map(x => pcHTML(x)).join('');
   switchTab(document.getElementById('tab-desc-button'), 'tab-desc');
 
   go('detail');
   const productTitle = `${p.name} | OEM Cosmetic Packaging Supplier | GloryStarPack`;
-  const productDesc = `${p.desc} ${conceptProduct ? `Planning MOQ ${p.moq} pcs; confirm by project.` : `MOQ ${p.moq} pcs.`} Material: ${p.mat}. Finish: ${p.finish}. Request samples or OEM customization from GloryStarPack.`;
+  const productDesc = `${p.desc} ${referenceMoq ? `Source reference MOQ ${p.moq} pcs; confirm current project terms.` : conceptProduct ? `Planning MOQ ${p.moq} pcs; confirm by project.` : `MOQ ${p.moq} pcs.`} Material: ${p.mat}. Finish: ${p.finish}. Request samples or OEM customization from GloryStarPack.`;
   document.title = productTitle;
   const descEl = document.querySelector('meta[name="description"]');
   if (descEl) descEl.setAttribute('content', productDesc);
@@ -1134,7 +1159,6 @@ function setOpt(el) {
   el.setAttribute('aria-pressed', 'true');
 }
 
-// =========================================================== TABS (detail)
 function switchTab(btn, id) {
   const bar = btn.closest('.tab-bar');
   bar.querySelectorAll('.tab-btn').forEach(b => {
@@ -1159,8 +1183,7 @@ function switchTab(btn, id) {
   }
 }
 
-// =========================================================== SEARCH
-function doSearch(q, preserveUrl = false) {
+function doSearch(q, preserveUrl = false, limit = 96) {
   q = (q||'').trim();
   if (!q) return;
   if (!hasProductData()) {
@@ -1196,7 +1219,13 @@ function doSearch(q, preserveUrl = false) {
   if (filtered.length) {
     g.style.display = 'grid';
     empty.style.display = 'none';
-    g.innerHTML = filtered.map(p => pcHTML(p)).join('');
+    const visibleResults = filtered.slice(0, limit);
+    const refineMessage = filtered.length > visibleResults.length
+      ? `<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:24px;">Showing ${visibleResults.length} of ${filtered.length} matches. <button type="button" id="search-more" class="pg-btn wide">Show more</button></p>`
+      : '';
+    g.innerHTML = `${visibleResults.map(p => pcHTML(p)).join('')}${refineMessage}`;
+    const more = document.getElementById('search-more');
+    if (more) more.onclick = () => doSearch(q, true, limit + 96);
   } else {
     g.style.display = 'none';
     empty.style.display = 'block';

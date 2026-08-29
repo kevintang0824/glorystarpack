@@ -1127,7 +1127,8 @@ a.pc-name{text-decoration:none;}
 .promo-action{margin-left:auto;flex-shrink:0;}
 
 /* PAGINATION */
-.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:32px;}
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:32px;}
+.pg-gap{min-width:20px;text-align:center;color:var(--muted);}
 .pg-btn{width:34px;height:34px;border:1px solid var(--border);background:var(--white);border-radius:5px;font-size:13px;color:var(--text);display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .pg-btn.active,.pg-btn:hover{background:var(--dark);color:var(--gold);border-color:var(--dark);}
 .pg-btn.wide{width:auto;min-width:72px;padding:0 12px;}
@@ -1147,7 +1148,7 @@ a.pc-name{text-decoration:none;}
 .detail-img-col{flex:0 0 420px;}
 .detail-main-img{width:100%;height:460px;padding:18px;background:linear-gradient(180deg,#faf8f3 0%,#eee8dc 100%);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:110px;margin-bottom:12px;overflow:hidden;}
 .detail-main-img img{width:100%;height:100%;object-fit:contain;display:block;border-radius:4px;}
-.detail-thumbs{display:flex;gap:10px;}
+.detail-thumbs{display:flex;gap:10px;flex-wrap:wrap;}
 .detail-thumb{width:72px;height:72px;background:#f4f1ec;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;transition:border-color .2s;overflow:hidden;}
 .detail-thumb img{width:100%;height:100%;object-fit:contain;display:block;background:#f4f1ec;border-radius:4px;}
 .detail-thumb.active,.detail-thumb:hover{border-color:var(--gold);}
@@ -1887,7 +1888,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="nav-item">
       <button class="nav-link" data-page="products" aria-haspopup="true" aria-expanded="false">Products ▾</button>
       <div class="dropdown">
-        <a class="dd-link" href="/products/product-index/" onclick="event.preventDefault();go('products','hot')">All Products &amp; Product Finder</a>
+        <a class="dd-link" href="/products/product-index/" onclick="event.preventDefault();go('products','all')">All Products &amp; Product Finder</a>
         <a class="dd-link" href="/products/plastic-packaging/">Plastic Packaging</a>
         <a class="dd-link" href="/products/airless-pump-bottles/">Airless Pump Bottles</a>
         <a class="dd-link" href="/products/cosmetic-jars/">Cosmetic Jars</a>
@@ -2475,6 +2476,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <button class="mobile-filter-toggle" type="button" aria-controls="product-filter-panel" aria-expanded="false" onclick="toggleProductFilters(this)">Browse product categories <span aria-hidden="true">+</span></button>
       <div class="sb-box" id="product-filter-panel">
         <div class="sb-title">Product Finder</div>
+        <div class="sb-link" onclick="filterCat(this,'all')"><span>All Products</span><span class="sb-count" data-cat-count="all">—</span></div>
         <div class="sb-link active" onclick="filterCat(this,'hot')"><span>★ Hot Picks</span><span class="sb-count" data-cat-count="hot">—</span></div>
         <div class="sb-section-label">Shop by material</div>
 
@@ -2550,6 +2552,15 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <details class="sb-group">
           <summary>📦 Paper &amp; Molded Pulp</summary>
           <div class="sb-link material-all" onclick="filterCat(this,'material-paper-pulp')"><span>All Paper &amp; Pulp</span><span class="sb-count" data-cat-count="material-paper-pulp">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'cosmetic-paper-packaging')">Cosmetic Paper Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'mailer-box')">Mailer &amp; Shipping Boxes</div>
+          <div class="sb-link sub" onclick="filterCat(this,'paper-bag')">Paper Bags &amp; Mailers</div>
+          <div class="sb-link sub" onclick="filterCat(this,'gift-box')">Gift Boxes</div>
+          <div class="sb-link sub" onclick="filterCat(this,'food-paper-packaging')">Food Paper Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'candle-packaging')">Candle Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'clothing-packaging')">Apparel Packaging</div>
+          <div class="sb-link sub" onclick="filterCat(this,'retail-display')">Retail Displays</div>
+          <div class="sb-link sub" onclick="filterCat(this,'labels-cards')">Labels, Tags &amp; Printed Cards</div>
           <div class="sb-link sub" onclick="filterCat(this,'paper-tube')">Paper Tubes</div>
           <div class="sb-link sub" onclick="filterCat(this,'paper-box')">Paper Boxes &amp; Retail Kits</div>
           <div class="sb-link sub" onclick="filterCat(this,'eco-pulp')">Molded Pulp Packaging</div>
@@ -2558,6 +2569,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
         <details class="sb-group">
           <summary>◫ Flexible Films &amp; Laminates</summary>
           <div class="sb-link material-all" onclick="filterCat(this,'material-flexible')"><span>All Flexible Packaging</span><span class="sb-count" data-cat-count="material-flexible">—</span></div>
+          <div class="sb-link sub" onclick="filterCat(this,'flexible-pouch')">Flexible Pouches &amp; Poly Bags</div>
           <div class="sb-link sub" onclick="filterCat(this,'alu-bag')">Sachets, Films &amp; Pouches</div>
         </details>
 
@@ -2612,7 +2624,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     </aside>
     <div class="main-content">
       <div class="promo">
-        <div class="promo-text"><h3>Browse <span data-total-products>387</span> Products by Material</h3><p>Start with the container material, then narrow by bottle type, closure, application and decoration requirement.</p></div>
+        <div class="promo-text"><h3>Browse <span data-total-products>2353</span> Products by Material</h3><p>Start with the packaging material, then narrow by format, application, closure, structure and decoration requirement.</p></div>
         <div class="promo-action"><button class="btn-primary" onclick="openModal('sample')">Request Sample</button></div>
       </div>
       <div class="sec-hdr">
@@ -2745,7 +2757,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
       <div style="font-size:48px;margin-bottom:16px;">🔍</div>
       <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--dark);margin-bottom:10px;">No Results Found</h3>
       <p style="color:var(--muted);margin-bottom:24px;">Try a different keyword or browse our categories.</p>
-      <button class="btn-primary" onclick="go('products','hot')">Browse All Products</button>
+      <button class="btn-primary" onclick="go('products','all')">Browse All Products</button>
     </div>
   </div>
 </div>

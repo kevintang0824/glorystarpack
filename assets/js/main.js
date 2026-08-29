@@ -117,6 +117,7 @@ function ensureLegacyCatalog() {
     document.head.appendChild(script);
   }).catch(error => {
     legacyCatalogPromise = null;
+    document.querySelector('script[data-legacy-catalog="true"]')?.remove();
     showCatalogLoadError(error);
     throw error;
   });
@@ -325,8 +326,9 @@ document.addEventListener('click', e => {
   if (e.target.classList.contains('dd-link')) {
     closeNavMenus();
   }
-  if (e.target.classList.contains('pg-btn')) {
-    const page = Number(e.target.dataset.page || '1');
+  const paginationButton = e.target.closest?.('#products-pagination .pg-btn');
+  if (paginationButton) {
+    const page = Number(paginationButton.dataset.page || '1');
     goProductPage(page);
   }
   if (e.target.classList.contains('view-btn')) {
@@ -553,7 +555,7 @@ function initFromHash() {
   const [page, sub, pagePart] = raw.split('/');
   if (page === 'detail' && sub) { showDetail(sub); return; }
   if (page === 'products') {
-    const requestedPage = pagePart && pagePart.startsWith('page-') ? Number(pagePart.replace('page-', '')) : 1;
+    const requestedPage = Math.max(1, pagePart?.startsWith('page-') ? Number(pagePart.slice(5)) || 1 : 1);
     go('products', sub || 'hot', true, requestedPage);
     return;
   }
@@ -563,4 +565,6 @@ function initFromHash() {
 // =========================================================== INIT
 enhanceKeyboardControls();
 initFromHash();
+window.addEventListener('hashchange', initFromHash);
+window.addEventListener('popstate', initFromHash);
 csInit();

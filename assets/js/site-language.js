@@ -6,6 +6,72 @@
   const links = [...switcher.querySelectorAll('[data-gsp-language]')];
   const currentLanguage = document.documentElement.lang || 'en';
   const localeCodes = ['fr', 'es', 'pt', 'ru', 'zh-CN'];
+  let runtimeTranslations = null;
+
+  const normalizeText = value => String(value || '').replace(/\s+/g, ' ').trim();
+  const decodeHtml = value => {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = value;
+    return textarea.value;
+  };
+  const translatedValue = value => {
+    if (!runtimeTranslations) return '';
+    const key = normalizeText(value);
+    return runtimeTranslations.get(key) || '';
+  };
+  const translateElement = element => {
+    if (!runtimeTranslations || !element || element.nodeType !== 1) return;
+    if (element.closest?.('.gsp-language') || /^(SCRIPT|STYLE|NOSCRIPT|SVG|CODE|PRE)$/.test(element.tagName)) return;
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      if (node.parentElement?.closest('.gsp-language') || /^(SCRIPT|STYLE|NOSCRIPT|SVG|CODE|PRE)$/.test(node.parentElement?.tagName || '')) return;
+      const translation = translatedValue(node.nodeValue);
+      if (!translation || translation === normalizeText(node.nodeValue)) return;
+      const leading = node.nodeValue.match(/^\s*/)?.[0] || '';
+      const trailing = node.nodeValue.match(/\s*$/)?.[0] || '';
+      node.nodeValue = `${leading}${translation}${trailing}`;
+    });
+    [element, ...element.querySelectorAll('[alt],[aria-label],[placeholder],[title]')].forEach(node => {
+      if (node.closest?.('.gsp-language')) return;
+      ['alt', 'aria-label', 'placeholder', 'title'].forEach(attribute => {
+        if (!node.hasAttribute?.(attribute)) return;
+        const translation = translatedValue(node.getAttribute(attribute));
+        if (translation) node.setAttribute(attribute, translation);
+      });
+    });
+  };
+  const localizeProductData = () => {
+    if (!runtimeTranslations || !Array.isArray(window.GSP_PRODUCTS)) return;
+    window.GSP_PRODUCTS.forEach(product => {
+      ['name', 'mat', 'finish', 'desc', 'tab'].forEach(field => {
+        const translation = translatedValue(product[field]);
+        if (translation) product[field] = translation;
+      });
+    });
+  };
+  window.GSP_TRANSLATE_TEXT = value => translatedValue(value) || value;
+  window.GSP_LOCALIZE_PRODUCT_DATA = localizeProductData;
+
+  const needsRuntimeTranslations = currentLanguage !== 'en' && (
+    new RegExp(`^/(?:${localeCodes.join('|')})/?$`).test(location.pathname)
+    || location.pathname.endsWith('/products/product-index/')
+  );
+  if (needsRuntimeTranslations) {
+    fetch(`/data/full-translations/${currentLanguage}.json`)
+      .then(response => response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`)))
+      .then(dictionary => {
+        runtimeTranslations = new Map();
+        Object.entries(dictionary).forEach(([english, localized]) => {
+          runtimeTranslations.set(normalizeText(english), localized);
+          runtimeTranslations.set(normalizeText(decodeHtml(english)), localized);
+        });
+        localizeProductData();
+        translateElement(document.body);
+      })
+      .catch(error => console.error('Unable to load static interface translations', error));
+  }
 
   // Product cards and related links created after page load stay inside the current static locale.
   const keepLinkInLocale = anchor => {
@@ -21,6 +87,7 @@
     if (node.nodeType !== 1) return;
     if (node.matches?.('a[href]')) keepLinkInLocale(node);
     node.querySelectorAll?.('a[href]').forEach(keepLinkInLocale);
+    translateElement(node);
   }))).observe(document.body, { childList: true, subtree: true });
 
   // Language links are complete static URLs; preserve the visitor's filter and page state.

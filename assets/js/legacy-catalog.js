@@ -11,8 +11,13 @@ function syncProductData() {
     PRODS = window.GSP_PRODUCTS;
   }
   if (hasProductData()) {
+    window.GSP_LOCALIZE_PRODUCT_DATA?.();
     Object.assign(CAT_TITLES, window.GSP_FINER_CATEGORY_TITLES || {});
     Object.assign(CAT_COPY, window.GSP_FINER_CATEGORY_COPY || {});
+    if (typeof window.GSP_TRANSLATE_TEXT === 'function') {
+      for (const key of Object.keys(CAT_TITLES)) CAT_TITLES[key] = window.GSP_TRANSLATE_TEXT(CAT_TITLES[key]);
+      for (const key of Object.keys(CAT_COPY)) CAT_COPY[key] = CAT_COPY[key].map(window.GSP_TRANSLATE_TEXT);
+    }
   }
   return hasProductData();
 }

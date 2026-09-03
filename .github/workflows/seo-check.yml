@@ -28,6 +28,7 @@ jobs:
         run: |
           node --check assets/js/main.js
           node --check assets/js/site-language.js
+          node --check assets/js/product-index.js
           node --check assets/js/inquiry-conversion.js
           node --check api/inquiry.js
           node --check scripts/check-seo.mjs
@@ -43,6 +44,7 @@ jobs:
           node --check scripts/generate-insight-pages.mjs
           node --check scripts/generate-localized-site.mjs
           node --check scripts/check-localized-site.mjs
+          node --check scripts/extract-dynamic-translation-strings.mjs
 
       - name: Confirm generated site content is current
         run: |

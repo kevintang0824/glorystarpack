@@ -19,6 +19,7 @@ fi
 echo "Running release checks..."
 node --check assets/js/main.js
 node --check assets/js/site-language.js
+node --check assets/js/product-index.js
 node --check assets/js/legacy-catalog.js
 node --check assets/js/inquiry-conversion.js
 node --check scripts/check-seo.mjs
@@ -31,6 +32,7 @@ node --check data/localized-products.mjs
 node --check scripts/generate-insight-pages.mjs
 node --check scripts/generate-localized-site.mjs
 node --check scripts/check-localized-site.mjs
+node --check scripts/extract-dynamic-translation-strings.mjs
 node scripts/generate-insight-pages.mjs
 node scripts/apply-language-switcher.mjs --check
 node scripts/generate-localized-site.mjs

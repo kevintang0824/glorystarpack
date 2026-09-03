@@ -12,13 +12,49 @@ const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, enc
 const routeForFile = file => file === 'index.html' ? '/' : file === '404.html' ? '/404.html' : `/${file.replace(/index\.html$/, '')}`;
 const fileForLocale = (language, file) => file === '404.html' ? path.join(root, language, '404.html') : path.join(root, language, file);
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
+  const file = path.join(root, 'data', 'full-translations', `${language}.json`);
+  return [language, fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {}];
+}));
 const sitemapEnglishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
   .filter(route => !localeCodes.some(language => route.startsWith(`/${language}/`)));
 const failures = [];
 let pages = 0;
 
+function normalizedTranslationSource(value) { return String(value || '').replace(/\s+/g, ' ').trim(); }
+function shouldTranslate(value) {
+  const decoded = value.replace(/&[a-z0-9#]+;/gi, ' ');
+  if (!/[A-Za-z]{2}/.test(decoded)) return false;
+  if ((decoded.includes('://') || decoded.includes('@')) && /^(?:https?:\/\/|mailto:|tel:)?\S+@?\S*$/.test(decoded)) return false;
+  if (/^[A-Z0-9][A-Z0-9 /+_.:#×–—-]{0,24}$/.test(decoded)) return false;
+  return !['GloryStarPack', 'WhatsApp', 'Instagram', 'LinkedIn'].includes(decoded);
+}
+const currentTranslationStrings = new Set();
+for (const file of sourceFiles) {
+  const source = fs.readFileSync(path.join(root, file), 'utf8').replace(/<(script|style|svg|noscript|code|pre)\b[\s\S]*?<\/\1\s*>/gi, '');
+  for (const match of source.matchAll(/>([^<>]+)</g)) {
+    const value = normalizedTranslationSource(match[1]);
+    if (shouldTranslate(value)) currentTranslationStrings.add(value);
+  }
+  for (const match of source.matchAll(/\b(?:alt|aria-label|placeholder|title)=(?:"([^"]*)"|'([^']*)')/gi)) {
+    const value = normalizedTranslationSource(match[1] ?? match[2]);
+    if (shouldTranslate(value)) currentTranslationStrings.add(value);
+  }
+}
+const dynamicStrings = JSON.parse(execFileSync(process.execPath, ['scripts/extract-dynamic-translation-strings.mjs'], { cwd: root, encoding: 'utf8' }));
+for (const raw of dynamicStrings) {
+  const value = normalizedTranslationSource(raw);
+  if (shouldTranslate(value)) currentTranslationStrings.add(value);
+}
+
 function expect(condition, message) { if (!condition) failures.push(message); }
 function body(source) { return source.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || ''; }
+function visibleTextNodes(source) {
+  source = body(source)
+    .replace(/<details\b[^>]*class="gsp-language"[\s\S]*?<\/details>/gi, '')
+    .replace(/<(script|style|svg|noscript|code|pre)\b[\s\S]*?<\/\1\s*>/gi, '');
+  return [...source.matchAll(/>([^<>]+)</g)].map(match => match[1].replace(/\s+/g, ' ').trim()).filter(Boolean);
+}
 function tagSignature(source) {
   return [...body(source).matchAll(/<(\/)?([a-z][a-z0-9-]*)\b[^>]*>/gi)].map(match => `${match[1] || ''}${match[2].toLowerCase()}`).join('|');
 }
@@ -42,12 +78,14 @@ for (const file of sourceFiles) {
   const english = fs.readFileSync(path.join(root, file), 'utf8');
   const englishNoindex = /<meta name="robots" content="noindex/i.test(english);
   const englishCanonical = english.match(/<link rel="canonical" href="([^"]+)"/)?.[1] || '';
+  const englishText = visibleTextNodes(english);
   expect((english.match(/data-gsp-language=/g) || []).length === 6, `${file}: English selector does not contain six languages`);
   for (const language of localeCodes) {
     const target = fileForLocale(language, file);
     const rel = path.relative(root, target);
     if (!fs.existsSync(target)) { failures.push(`${rel}: parity page is missing`); continue; }
     const localized = fs.readFileSync(target, 'utf8');
+    const localizedText = visibleTextNodes(localized);
     pages++;
     expect(localized.includes(`<html lang="${language}">`), `${rel}: incorrect document language`);
     expect(tagSignature(localized) === tagSignature(english), `${rel}: HTML element hierarchy differs from English`);
@@ -56,6 +94,17 @@ for (const file of sourceFiles) {
     }
     expect(assetList(localized) === assetList(english), `${rel}: CSS or JavaScript assets differ from English`);
     expect(imageList(localized) === imageList(english), `${rel}: image set differs from English`);
+    expect(localizedText.length === englishText.length, `${rel}: visible text-node count differs from English`);
+    const dictionary = translationDictionaries[language];
+    let eligibleText = 0;
+    let changedText = 0;
+    for (let index = 0; index < Math.min(englishText.length, localizedText.length); index++) {
+      const sourceText = englishText[index];
+      if (!dictionary[sourceText] || dictionary[sourceText] === sourceText) continue;
+      eligibleText++;
+      if (localizedText[index] !== sourceText) changedText++;
+    }
+    expect(!eligibleText || changedText / eligibleText >= 0.98, `${rel}: only ${changedText}/${eligibleText} translatable text nodes changed`);
     expect((localized.match(/data-gsp-language=/g) || []).length === 6, `${rel}: expected six language choices`);
     const selector = localized.match(/<details\b[^>]*class="gsp-language"[\s\S]*?<\/details>/)?.[0] || '';
     expect(selector.includes(`data-gsp-language="${language}"`) && selector.match(new RegExp(`data-gsp-language="${language}"[^>]*aria-current="true"`)), `${rel}: current language is not selected`);
@@ -82,11 +131,19 @@ for (const file of sourceFiles) {
         expect(sitemap.includes(`<loc>${expectedCanonical}</loc>`), `${rel}: canonical URL is absent from sitemap`);
       }
     }
-    expect(localized.length >= english.length * 0.75, `${rel}: too much English page content is missing`);
+    const minimumLengthRatio = language === 'zh-CN' ? 0.45 : 0.65;
+    expect(localized.length >= english.length * minimumLengthRatio, `${rel}: too much page content is missing`);
   }
 }
 
 expect(sourceFiles.length === 142, `expected 142 English interfaces, found ${sourceFiles.length}`);
+for (const language of localeCodes) {
+  const keys = new Set(Object.keys(translationDictionaries[language]));
+  const missing = [...currentTranslationStrings].filter(value => !keys.has(value));
+  const obsolete = [...keys].filter(value => !currentTranslationStrings.has(value));
+  expect(!missing.length, `${language}: ${missing.length} current English strings are missing translations`);
+  expect(!obsolete.length, `${language}: ${obsolete.length} obsolete translation strings should be rebuilt`);
+}
 expect(pages === sourceFiles.length * localeCodes.length, `expected ${sourceFiles.length * localeCodes.length} parity pages, found ${pages}`);
 expect((sitemap.match(/<url>/g) || []).length === sitemapEnglishRoutes.length * (localeCodes.length + 1), 'sitemap URL count does not match English and localized indexable pages');
 

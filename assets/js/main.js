@@ -1,4 +1,13 @@
 // =========================================================== LAZY LEGACY CATALOG
+const GSP_UI_LANGUAGE = document.documentElement.lang || 'en';
+const GSP_UI_COPY = {
+  fr: { catalogLoading: 'Chargement du catalogue produits…', detailLoading: 'Chargement des détails du produit…', searchLoading: 'Recherche de produits d’emballage…', unavailable: 'Le catalogue produits est temporairement indisponible. Actualisez la page ou contactez-nous pour obtenir le catalogue actuel.', selected: 'Produit sélectionné' },
+  es: { catalogLoading: 'Cargando el catálogo de productos…', detailLoading: 'Cargando los detalles del producto…', searchLoading: 'Buscando productos de envase…', unavailable: 'El catálogo de productos no está disponible temporalmente. Actualice la página o contáctenos para obtener el catálogo actual.', selected: 'Producto seleccionado' },
+  pt: { catalogLoading: 'A carregar o catálogo de produtos…', detailLoading: 'A carregar os detalhes do produto…', searchLoading: 'A pesquisar produtos de embalagem…', unavailable: 'O catálogo de produtos está temporariamente indisponível. Atualize a página ou contacte-nos para obter o catálogo atual.', selected: 'Produto selecionado' },
+  ru: { catalogLoading: 'Загрузка каталога продукции…', detailLoading: 'Загрузка информации о товаре…', searchLoading: 'Поиск упаковочной продукции…', unavailable: 'Каталог продукции временно недоступен. Обновите страницу или свяжитесь с нами, чтобы получить актуальный каталог.', selected: 'Выбранный товар' },
+  'zh-CN': { catalogLoading: '正在加载产品目录…', detailLoading: '正在加载产品详情…', searchLoading: '正在搜索包装产品…', unavailable: '产品目录暂时无法加载，请刷新页面或联系我们获取最新目录。', selected: '已选产品' }
+}[GSP_UI_LANGUAGE];
+
 const STATIC_PAGE_ROUTES = Object.freeze({
   about: '/about/',
   oem: '/oem-cosmetic-packaging/',
@@ -82,9 +91,9 @@ function showHomePage(skipHash) {
 function showCatalogLoading(page) {
   activateOnlyPage(page);
   const states = {
-    products: ['products-grid', 'Loading product catalog...'],
-    detail: ['det-name', 'Loading product details...'],
-    search: ['search-title', 'Searching packaging products...']
+    products: ['products-grid', GSP_UI_COPY?.catalogLoading || 'Loading product catalog...'],
+    detail: ['det-name', GSP_UI_COPY?.detailLoading || 'Loading product details...'],
+    search: ['search-title', GSP_UI_COPY?.searchLoading || 'Searching packaging products...']
   };
   const [targetId, message] = states[page] || [];
   const target = targetId && document.getElementById(targetId);
@@ -96,7 +105,7 @@ function showCatalogLoadError(error) {
   console.error('Unable to load catalog compatibility layer', error);
   ['products-grid', 'search-grid', 'related-grid'].forEach(id => {
     const target = document.getElementById(id);
-    if (target) target.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px;">The product catalog is temporarily unavailable. Please refresh the page or contact us for the current catalog.</p>';
+    if (target) target.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px;">${GSP_UI_COPY?.unavailable || 'The product catalog is temporarily unavailable. Please refresh the page or contact us for the current catalog.'}</p>`;
   });
 }
 
@@ -197,7 +206,7 @@ function openModal(type, productName) {
   if (context) {
     if (productName) {
       context.style.display = 'block';
-      context.textContent = `Selected product: ${productName}`;
+      context.textContent = `${GSP_UI_COPY?.selected || 'Selected product'}: ${productName}`;
     } else {
       context.style.display = 'none';
       context.textContent = '';

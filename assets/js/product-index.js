@@ -7,6 +7,15 @@
   const emptyState = document.getElementById('product-index-empty');
   const cards = [...document.querySelectorAll('[data-product-card]')];
   const groups = [...document.querySelectorAll('[data-product-group]')];
+  const language = document.documentElement.lang || 'en';
+  const messages = {
+    en: { match: (count, query) => `${count} ${count === 1 ? 'product' : 'products'} match “${query}”.`, all: count => `Showing all ${count} products.` },
+    fr: { match: (count, query) => `${count} ${count === 1 ? 'produit correspond' : 'produits correspondent'} à « ${query} ».`, all: count => `${count} produits affichés.` },
+    es: { match: (count, query) => `${count} ${count === 1 ? 'producto coincide' : 'productos coinciden'} con «${query}».`, all: count => `Se muestran los ${count} productos.` },
+    pt: { match: (count, query) => `${count} ${count === 1 ? 'produto corresponde' : 'produtos correspondem'} a «${query}».`, all: count => `A mostrar todos os ${count} produtos.` },
+    ru: { match: (count, query) => `По запросу «${query}» найдено товаров: ${count}.`, all: count => `Показаны все товары: ${count}.` },
+    'zh-CN': { match: (count, query) => `“${query}”共有 ${count} 款匹配产品。`, all: count => `显示全部 ${count} 款产品。` }
+  }[language] || null;
 
   if (!searchInput || !clearButton || !resultStatus || !emptyState || !cards.length) return;
 
@@ -53,8 +62,8 @@
     clearButton.hidden = !hasQuery;
     emptyState.hidden = visibleCount !== 0;
     resultStatus.textContent = hasQuery
-      ? `${visibleCount} ${visibleCount === 1 ? 'product' : 'products'} match “${query.trim()}”.`
-      : `Showing all ${cards.length} products.`;
+      ? (messages ? messages.match(visibleCount, query.trim()) : `${visibleCount} ${visibleCount === 1 ? 'product' : 'products'} match “${query.trim()}”.`)
+      : (messages ? messages.all(cards.length) : `Showing all ${cards.length} products.`);
   }
 
   searchInput.addEventListener('input', updateResults);

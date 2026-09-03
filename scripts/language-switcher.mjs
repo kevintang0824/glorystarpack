@@ -1,8 +1,8 @@
 import { localeInfo, t } from '../data/site-locales.mjs';
 
 export const languages = Object.entries(localeInfo).map(([code, [name, flag]]) => [code, name, flag]);
-export const languageAssets = `<link rel="stylesheet" href="/assets/css/site-language.css?v=20260903-2">
-<script src="/assets/js/site-language.js?v=20260903-2" defer></script>`;
+export const languageAssets = `<link rel="stylesheet" href="/assets/css/site-language.css?v=20260904-3">
+<script src="/assets/js/site-language.js?v=20260904-3" defer></script>`;
 export const localePath = (language, route = '/') => language === 'en' ? route : `/${language}${route}`;
 
 export function languageSwitcherMarkup({ language = 'en', route = '/' } = {}) {

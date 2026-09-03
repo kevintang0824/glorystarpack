@@ -2,10 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { primaryNavigationMarkup } from './site-navigation.mjs';
+import { installLanguageSwitcher } from './language-switcher.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
-const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
+const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp', 'fr', 'es', 'pt', 'ru', 'zh-CN']);
 const ignoredFiles = new Set(['glorystarpack (1).html', 'google130558f0f0763df4.html']);
 const checkOnly = process.argv.includes('--check');
 const shellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">';
@@ -14,6 +15,7 @@ const shellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829
 const shellScriptPattern = /<script\b[^>]*src=["']\/assets\/js\/site-shell-navigation\.js(?:\?[^"']*)?["'][^>]*>\s*<\/script>/i;
 const inquiryStylesheetPattern = /<link\b[^>]*href=["']\/assets\/css\/inquiry-conversion\.css["'][^>]*\/?\s*>/i;
 const fontMarker = 'family=Cormorant+Garamond';
+const systemFontMarker = 'data-font-strategy="system"';
 const fontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -102,11 +104,13 @@ function pageDate(source) {
 
 function installHeadAssets(source) {
   let output = source;
-  if (!output.includes(fontMarker)) {
+  if (!output.includes(fontMarker) && !output.includes(systemFontMarker)) {
     output = output.replace(/<\/head>/i, `${fontMarkup}\n</head>`);
   }
   if (shellStylesheetPattern.test(output)) {
-    output = output.replace(shellStylesheetPattern, shellStylesheet);
+    if (!output.includes('id="gsp-critical-shell"')) {
+      output = output.replace(shellStylesheetPattern, shellStylesheet);
+    }
   } else {
     if (inquiryStylesheetPattern.test(output)) {
       output = output.replace(inquiryStylesheetPattern, `${shellStylesheet}\n$&`);
@@ -250,6 +254,7 @@ for (const filePath of walk(rootDir)) {
     output = installHeadAssets(output);
     if (rel !== 'index.html') output = normalizeInnerShell(output, rel);
     else output = normalizeHomepageShell(output);
+    output = installLanguageSwitcher(output);
   }
 
   const stylesheetCount = output.split('/assets/css/site-shell.css').length - 1;
@@ -263,7 +268,7 @@ for (const filePath of walk(rootDir)) {
   const issues = [];
   if (stylesheetCount !== 1) issues.push(`expected one shared stylesheet, found ${stylesheetCount}`);
   if (shellScriptCount !== 1) issues.push(`expected one shared navigation script, found ${shellScriptCount}`);
-  if (!output.includes(fontMarker)) issues.push('missing shared brand font loader');
+  if (!output.includes(fontMarker) && !output.includes(systemFontMarker)) issues.push('missing shared brand font strategy');
   if (inquiryIndex !== -1 && shellIndex > inquiryIndex) issues.push('shared stylesheet must load before inquiry styles');
   if (rel !== 'index.html' && headerCount !== 1) issues.push(`expected one shared header, found ${headerCount}`);
   if (rel !== 'index.html' && footerCount !== 1) issues.push(`expected one shared footer, found ${footerCount}`);
@@ -273,7 +278,7 @@ for (const filePath of walk(rootDir)) {
     const breadcrumbCount = output.split('class="gsp-breadcrumbs"').length - 1;
     const headerSource = output.match(/<header\b[^>]*\bgsp-site-header\b[^>]*>[\s\S]*?<\/header>/i)?.[0] ?? '';
     const expectedActiveSection = activeSectionFor(rel, output);
-    const headerCurrentCount = (headerSource.match(/\baria-current=/gi) ?? []).length;
+    const headerCurrentCount = (headerSource.replace(/<details class="gsp-language"[\s\S]*?<\/details>/g, '').match(/\baria-current=/gi) ?? []).length;
     const mainLandmarkCount = (output.match(/<main\b/gi) ?? []).length
       + (output.match(/\brole=["']main["']/gi) ?? []).length;
     if (breadcrumbCount !== 1) issues.push(`expected one shared breadcrumb, found ${breadcrumbCount}`);

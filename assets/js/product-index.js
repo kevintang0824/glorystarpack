@@ -15,7 +15,7 @@
       .normalize('NFKD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
-      .replace(/[^a-z0-9/]+/g, ' ')
+      .replace(/[^\p{L}\p{N}/]+/gu, ' ')
       .trim();
   }
 
@@ -27,7 +27,9 @@
   function matchesQuery(item, query) {
     const terms = normalize(query).split(/\s+/).filter(Boolean);
     if (!terms.length) return true;
-    return terms.every(term => item.text.includes(term) || item.compact.includes(term.replace(/\s+/g, '')));
+    const translatedText = normalize(item.card.textContent);
+    return terms.every(term => item.text.includes(term) || translatedText.includes(term)
+      || item.compact.includes(term.replace(/\s+/g, '')));
   }
 
   function updateResults() {

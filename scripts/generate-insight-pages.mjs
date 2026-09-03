@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
 import { primaryNavigationMarkup } from './site-navigation.mjs';
+import { installLanguageSwitcher } from './language-switcher.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -1803,16 +1804,16 @@ function updateGeneratedBlock(filePath, startMarker, endMarker, content, closing
 for (const article of insights) {
   const outputDir = path.join(rootDir, 'insights', article.slug);
   fs.mkdirSync(outputDir, { recursive: true });
-  fs.writeFileSync(path.join(outputDir, 'index.html'), articlePage(article));
+  fs.writeFileSync(path.join(outputDir, 'index.html'), installLanguageSwitcher(articlePage(article)));
 }
 
 const indexDir = path.join(rootDir, 'insights');
 fs.mkdirSync(indexDir, { recursive: true });
-fs.writeFileSync(path.join(indexDir, 'index.html'), indexPage());
+fs.writeFileSync(path.join(indexDir, 'index.html'), installLanguageSwitcher(indexPage()));
 fs.writeFileSync(path.join(rootDir, 'feed.xml'), rssFeed());
 const glassGuideHubDir = path.join(rootDir, 'glass-bottle-buying-guides');
 fs.mkdirSync(glassGuideHubDir, { recursive: true });
-fs.writeFileSync(path.join(glassGuideHubDir, 'index.html'), glassBottleGuideHubPage());
+fs.writeFileSync(path.join(glassGuideHubDir, 'index.html'), installLanguageSwitcher(glassBottleGuideHubPage()));
 
 const sitemapEntries = [
   `  <url>

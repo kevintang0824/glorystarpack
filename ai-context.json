@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-08-29",
+  "dateModified": "2026-09-01",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -725,7 +725,7 @@
       "url": "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",
       "pageType": "supplier landing page",
       "primaryIntent": "cosmetic packaging supplier China",
-      "summary": "China-based supplier page for buyers sourcing OEM/ODM cosmetic packaging, sample support, QC and global shipping."
+      "summary": "China supplier page for comparing OEM/ODM packaging routes, sample planning, quality review and destination-specific export packing inputs."
     },
     {
       "url": "https://www.glorystarpack.com/wholesale-cosmetic-packaging/",
@@ -749,7 +749,7 @@
       "url": "https://www.glorystarpack.com/oem-cosmetic-packaging/",
       "pageType": "service page",
       "primaryIntent": "OEM cosmetic packaging",
-      "summary": "OEM/ODM service page covering custom mold development, decoration, surface finishing, packaging inserts and export packing."
+      "summary": "OEM/ODM service page for comparing specification-led OEM and selection-led ODM routes, with component fit, decoration, samples, approval and destination-specific packing inputs."
     },
     {
       "url": "https://www.glorystarpack.com/cosmetic-packaging-buying-guide/",
@@ -1331,8 +1331,7 @@
         "OEM cosmetic packaging China"
       ],
       "preferredUrls": [
-        "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",
-        "https://www.glorystarpack.com/"
+        "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/"
       ]
     },
     {
@@ -1351,13 +1350,29 @@
     {
       "queryGroup": [
         "custom cosmetic packaging",
-        "OEM cosmetic packaging",
-        "private label cosmetic packaging",
         "custom logo cosmetic packaging"
       ],
       "preferredUrls": [
-        "https://www.glorystarpack.com/custom-cosmetic-packaging/",
-        "https://www.glorystarpack.com/oem-cosmetic-packaging/",
+        "https://www.glorystarpack.com/custom-cosmetic-packaging/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "OEM cosmetic packaging",
+        "ODM cosmetic packaging",
+        "OEM/ODM cosmetic packaging service"
+      ],
+      "preferredUrls": [
+        "https://www.glorystarpack.com/oem-cosmetic-packaging/"
+      ]
+    },
+    {
+      "queryGroup": [
+        "private label cosmetic packaging",
+        "private label cosmetics packaging",
+        "private label packaging selection"
+      ],
+      "preferredUrls": [
         "https://www.glorystarpack.com/private-label-cosmetic-packaging/"
       ]
     },

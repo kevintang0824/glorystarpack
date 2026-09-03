@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
 const checkOnly = process.argv.includes('--check');
-const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
+const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp', 'fr', 'es', 'pt', 'ru', 'zh-CN']);
 const ignoredFiles = new Set(['index.html', 'glorystarpack (1).html', 'google130558f0f0763df4.html']);
 const inaccessibleGoldPatterns = [/--gold:#c8a96e/gi, /--gold:\s+#c8a96e/gi];
 const accessibleGold = '--gold:#8a6c34';

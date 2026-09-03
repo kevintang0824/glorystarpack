@@ -3,6 +3,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { primaryNavigationMarkup } from './site-navigation.mjs';
+import { installLanguageSwitcher } from './language-switcher.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -842,12 +843,12 @@ for (const product of products) {
   if (!imageExists(product)) throw new Error(`Missing product image for ${product.id}: ${productImage(product)}`);
   const outputDir = path.join(rootDir, 'products', productSlug(product));
   fs.mkdirSync(outputDir, { recursive: true });
-  fs.writeFileSync(path.join(outputDir, 'index.html'), productPage(product));
+  fs.writeFileSync(path.join(outputDir, 'index.html'), installLanguageSwitcher(productPage(product)));
 }
 
 const indexDir = path.join(rootDir, 'products', 'product-index');
 fs.mkdirSync(indexDir, { recursive: true });
-fs.writeFileSync(path.join(indexDir, 'index.html'), productIndexPage());
+fs.writeFileSync(path.join(indexDir, 'index.html'), installLanguageSwitcher(productIndexPage()));
 
 const sitemapEntries = [
   `  <url>

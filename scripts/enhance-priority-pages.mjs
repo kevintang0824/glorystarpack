@@ -27,6 +27,49 @@ const enhancements = {
 };
 
 const pageReplacements = {
+  'oem-cosmetic-packaging/index.html': [
+    {
+      from: 'OEM cosmetic packaging service for custom molds, logo printing, hot stamping, frosting, coating, color matching, retail boxes, samples and global shipping.',
+      to: 'Plan OEM or ODM cosmetic packaging by specification, component fit, decoration, samples, approval and destination-specific packing requirements.',
+      all: true
+    },
+    {
+      from: '<meta property="og:description" content="OEM and ODM cosmetic packaging service for custom molds, logo printing, color matching, surface treatment, packaging inserts and retail boxes."/>',
+      to: '<meta property="og:description" content="Plan OEM or ODM cosmetic packaging by specification, component fit, decoration, samples, approval and destination-specific packing requirements."/>'
+    },
+    {
+      from: '<div class="eyebrow">Factory-direct cosmetic packaging</div>',
+      to: '<div class="eyebrow">Project-specific cosmetic packaging</div>'
+    },
+    {
+      from: '<p class="lead"> OEM production follows a buyer-defined packaging specification; ODM support helps develop or select the packaging configuration. Both routes cover components, decoration, samples, packing and production records for beauty brands. </p>',
+      to: '<p class="lead">OEM cosmetic packaging follows a buyer-approved specification for the container, closure, decoration and packing. ODM support helps when elements still need selection or development. Start with application, capacity, quantity, destination and approval goal, then compare stock, decorated stock and custom-mold routes. Confirm component fit, availability, sampling and timing for the selected configuration.</p>'
+    },
+    {
+      from: '<h2>What We Supply</h2> <p> OEM/ODM Cosmetic Packaging Service options include stock and custom formats for skincare, fragrance, makeup, hair care, body care and sample programs. </p>',
+      to: '<h2>What We Supply</h2> <p>Compare stock and custom formats for skincare, fragrance, makeup, hair care, body care and sample programs against the intended application, component system and approval plan.</p>'
+    },
+    {
+      from: '<h2>Best For</h2> <p> OEM/ODM Cosmetic Packaging Service is commonly selected for beauty brands that need private label packaging, custom decoration, matched product families and factory-direct development. </p>',
+      to: '<h2>Best For</h2> <p>Use this route when a beauty brand needs a controlled packaging specification, custom decoration, a matched product family or support choosing the component system.</p>'
+    },
+    {
+      from: '<h3>Customization</h3> <p> Logo printing, hot stamping, UV printing, frosting, coating, electroplating, laser engraving, color matching and custom boxes are available. </p>',
+      to: '<h3>Customization</h3> <p>Possible decoration and secondary-packaging routes depend on the selected material, geometry, artwork, quantity and handling exposure. Confirm the production-intent configuration before bulk planning.</p>'
+    },
+    {
+      from: '<h3>Can I request samples?</h3> <p> Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days. </p>',
+      to: '<h3>Can I request samples for an OEM or ODM project?</h3> <p>Yes. Sample availability, scope, charges and timing are confirmed after the selected components, decoration, approval goal and destination are defined. A visual stock sample does not replace a production-intent component set for fit, filling, dispensing or decoration review.</p>'
+    },
+    {
+      from: '<h3>What information is needed for a quote?</h3> <p> Please share product type, capacity, material, decoration, quantity, destination country and any reference photos or drawings. </p>',
+      to: '<h3>What information is needed for a quote?</h3> <p>Share the application or formula, capacity, component system, decoration and artwork status, quantity per SKU, destination, timing, sample goal and reference photos or drawings. Final MOQ, availability and timing depend on the selected configuration.</p>'
+    },
+    {
+      from: 'Page reviewed 2026-08-12',
+      to: 'Page reviewed 2026-08-31'
+    }
+  ],
   'products/skincare-packaging/index.html': [
     {
       from: 'ul{margin:0;padding-left:20px}.faq{display:grid;gap:12px}',

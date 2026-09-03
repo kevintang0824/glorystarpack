@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const rootDir = path.resolve(import.meta.dirname, '..');
-const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
+const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp', 'fr', 'es', 'pt', 'ru', 'zh-CN']);
 const ignoredFiles = new Set(['glorystarpack (1).html']);
 
 function htmlFiles(directory) {

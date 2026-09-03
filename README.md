@@ -23,4 +23,12 @@ node scripts/submit-indexnow.mjs --all
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for release, indexing and recovery instructions.
 
+## Website languages
+
+The shared header offers English, French, Spanish, Portuguese, Russian and Simplified Chinese. Each language has complete static URLs under `/fr/`, `/es/`, `/pt/`, `/ru/` and `/zh-CN/`; no automatic translation service, translation API or third-party widget is used. The selector keeps visitors on the equivalent page, and every indexable localized page has its own canonical URL, structured data and reciprocal `hreflang` links.
+
+`node scripts/generate-localized-site.mjs` builds all 142 English interfaces in each of the five additional languages. It starts from the English HTML so navigation, content sections, product details, articles, tables, images, forms and related links remain structurally identical, then applies the authored language titles, summaries and interface labels from `data/site-locales.mjs`, `data/localized-topics.mjs` and `data/localized-products.mjs`. `node scripts/check-localized-site.mjs` compares every localized page with its English source and fails if the element hierarchy, content-block counts, CSS, JavaScript or image set differs.
+
+Product/insight generators and the shared-shell installer also keep the English language selector current. After adding another English page, add its localized topic or category copy when needed, run the localized generator, then run both localization checks.
+
 The evidence-first daily SEO/AEO workflow, quality gates, KPI definitions and publishing red lines are documented in [SEO_DAILY_OPERATING_SYSTEM.md](SEO_DAILY_OPERATING_SYSTEM.md).

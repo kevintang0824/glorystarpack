@@ -18,14 +18,23 @@ fi
 
 echo "Running release checks..."
 node --check assets/js/main.js
+node --check assets/js/site-language.js
 node --check assets/js/legacy-catalog.js
 node --check assets/js/inquiry-conversion.js
 node --check scripts/check-seo.mjs
 node --check scripts/apply-inquiry-layer.mjs
 node --check scripts/enforce-accessible-colors.mjs
 node --check data/insight-source.mjs
+node --check data/site-locales.mjs
+node --check data/localized-topics.mjs
+node --check data/localized-products.mjs
 node --check scripts/generate-insight-pages.mjs
+node --check scripts/generate-localized-site.mjs
+node --check scripts/check-localized-site.mjs
 node scripts/generate-insight-pages.mjs
+node scripts/apply-language-switcher.mjs --check
+node scripts/generate-localized-site.mjs
+node scripts/check-localized-site.mjs
 node scripts/check-finer-packaging-import.mjs
 node scripts/check-seo.mjs
 node scripts/audit-content.mjs

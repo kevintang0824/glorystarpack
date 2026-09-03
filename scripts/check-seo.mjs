@@ -13,9 +13,10 @@ const primaryAirlessPath = '/products/airless-pump-bottles/';
 const googleTagId = 'G-NYY1MTZ6HM';
 const siteShellPath = '/assets/css/site-shell.css';
 const brandFontMarker = 'family=Cormorant+Garamond';
+const systemFontMarker = 'data-font-strategy="system"';
 const indexNowKey = 'f5c6d8e91a2b47c0ad74e69321fb805e';
 const indexNowKeyFileName = `${indexNowKey}.txt`;
-const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp']);
+const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp', 'fr', 'es', 'pt', 'ru', 'zh-CN']);
 const ignoredFiles = new Set(['glorystarpack (1).html']);
 const errors = [];
 const warnings = [];
@@ -165,8 +166,8 @@ for (const filePath of htmlFiles) {
   if (siteShellCount !== 1) {
     errors.push(`${rel}: expected one shared site shell stylesheet, found ${siteShellCount}`);
   }
-  if (!source.includes(brandFontMarker)) {
-    errors.push(`${rel}: missing shared brand font loader`);
+  if (!source.includes(brandFontMarker) && !source.includes(systemFontMarker)) {
+    errors.push(`${rel}: missing shared brand font strategy`);
   }
   const mainTargetCount = (source.match(/\bid=["']main-content["']/gi) ?? []).length;
   const mainLandmarkCount = (source.match(/<main\b/gi) ?? []).length
@@ -2057,6 +2058,37 @@ else {
   }
   if (!oemPackagingPage.source.includes('OEM vs ODM cosmetic packaging: what is the difference?')) {
     errors.push('OEM/ODM packaging page is missing the OEM-versus-ODM answer');
+  }
+  const oemSource = oemPackagingPage.source;
+  const oemDescription = 'Plan OEM or ODM cosmetic packaging by specification, component fit, decoration, samples, approval and destination-specific packing requirements.';
+  for (const requiredFragment of [
+    'Project-specific cosmetic packaging',
+    'Can I request samples for an OEM or ODM project?',
+    'Final MOQ, availability and timing depend on the selected configuration.',
+    'Page reviewed 2026-08-31'
+  ]) {
+    if (!oemSource.includes(requiredFragment)) errors.push(`OEM/ODM packaging page is missing evidence-bounded content: ${requiredFragment}`);
+  }
+  for (const unsupportedClaim of ['Factory-direct cosmetic packaging', 'factory-direct development', 'Stock samples usually take 7-10 working days', 'Custom samples usually take 15-20 working days', 'global shipping']) {
+    if (oemSource.includes(unsupportedClaim)) errors.push(`OEM/ODM packaging page retains an unsupported claim: ${unsupportedClaim}`);
+  }
+  for (const socialDescription of [
+    `<meta name="description" content="${oemDescription}"/>`,
+    `<meta property="og:description" content="${oemDescription}"/>`,
+    `<meta name="twitter:description" content="${oemDescription}"/>`,
+    `"description": "${oemDescription}"`
+  ]) {
+    if (!oemSource.includes(socialDescription)) errors.push('OEM/ODM packaging page metadata is not synchronized');
+  }
+  const oemDirectAnswer = firstMatch(oemSource, /<p class="lead">([\s\S]*?)<\/p>/i);
+  const oemDirectAnswerWords = oemDirectAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (oemDirectAnswerWords < 40 || oemDirectAnswerWords > 80) {
+    errors.push(`OEM/ODM packaging page direct answer must contain 40-80 words, found ${oemDirectAnswerWords}`);
+  }
+  const oemModified = firstMatch(oemSource, /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})"/);
+  const oemSitemapModified = firstMatch(sitemapSource, /<loc>https:\/\/www\.glorystarpack\.com\/oem-cosmetic-packaging\/<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/);
+  if (oemModified !== '2026-08-31' || oemModified !== oemSitemapModified) {
+    errors.push('OEM/ODM packaging page structured and sitemap modified dates are not synchronized');
   }
 }
 if (!homepage.includes(`href="${glassShippingGuidePath}"`)) {

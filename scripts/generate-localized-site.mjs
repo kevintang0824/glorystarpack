@@ -200,17 +200,31 @@ function cleanLocalizedTerms(source, language) {
     protectedTags.push(tag);
     return token;
   });
-  for (const [bad, good] of Object.entries(localizedCleanup[language] || {})) {
+  const cleanupEntries = Object.entries(localizedCleanup[language] || {});
+  const applyCleanup = value => {
+    for (const [bad, good] of cleanupEntries) {
     // Word-bound the simple Latin terms so short replacements such as
     // "Top" or "Cap" cannot alter a larger word like "Stop" or "Capsule".
-    if (/^[A-Za-z][A-Za-z0-9]*(?: [A-Za-z][A-Za-z0-9]*)*$/.test(bad)) {
-      const pattern = new RegExp(`(?<![A-Za-z])${escapeRegExp(bad)}(?![A-Za-z])`, 'g');
-      source = source.replace(pattern, good);
-    } else {
-      source = source.replaceAll(bad, good);
+      if (/^[A-Za-z][A-Za-z0-9]*(?: [A-Za-z][A-Za-z0-9]*)*$/.test(bad)) {
+        const pattern = new RegExp(`(?<![A-Za-z])${escapeRegExp(bad)}(?![A-Za-z])`, 'g');
+        value = value.replace(pattern, good);
+      } else {
+        value = value.replaceAll(bad, good);
+      }
     }
-  }
+    return value;
+  };
+  source = applyCleanup(source);
   source = source.replace(/\uE100(\d+)\uE101/g, (_match, index) => protectedTags[Number(index)]);
+  // Accessibility-facing text attributes are visible to screen readers, so
+  // apply the same cleanup there while leaving URLs and structural attributes
+  // untouched.
+  source = source.replace(/\b(alt|aria-label|placeholder|title)=("([^"]*)"|'([^']*)')/gi, (match, name, quoted, doubleValue, singleValue) => {
+    const raw = doubleValue ?? singleValue ?? '';
+    const quote = quoted[0];
+    const cleaned = applyCleanup(raw);
+    return `${name}=${quote}${cleaned}${quote}`;
+  });
   return source.replace(/\uE000(\d+)\uE001/g, (_match, index) => protectedBlocks[Number(index)]);
 }
 

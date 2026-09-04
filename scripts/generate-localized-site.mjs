@@ -6,6 +6,7 @@ import vm from 'node:vm';
 import { localeCodes, copy, t } from '../data/site-locales.mjs';
 import { categories, domainNotes, serviceTitles, topics, topicNotes } from '../data/localized-topics.mjs';
 import { productNames } from '../data/localized-products.mjs';
+import { localizedCleanup, translationOverrides } from '../data/translation-overrides.mjs';
 import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -101,12 +102,14 @@ const packagingTerms = {
 };
 
 for (const [english, values] of Object.entries(packagingTerms)) commonUi[english] = values;
+for (const [english, values] of Object.entries(translationOverrides)) commonUi[english] = values;
 
 function replaceTextPhrase(source, english, localized) {
   for (const variant of new Set([english, escapeHtml(english)])) {
     const pattern = new RegExp(`>(\\s*)${escapeRegExp(variant)}(\\s*)<`, 'g');
     source = source.replace(pattern, (_match, before, after) => `>${before}${localized}${after}<`);
     source = source.replaceAll(`="${variant}"`, `="${localized}"`);
+    source = source.replaceAll(`"${variant}"`, `"${localized}"`);
   }
   return source;
 }
@@ -181,6 +184,36 @@ function translateStaticHtml(source, language) {
   return source.replace(/\uE000(\d+)\uE001/g, (_match, index) => protectedBlocks[Number(index)]);
 }
 
+function cleanLocalizedTerms(source, language) {
+  const protectedBlocks = [];
+  const protectedTags = [];
+  source = source.replace(/<(script|style|svg|noscript|code|pre)\b[\s\S]*?<\/\1\s*>/gi, block => {
+    const token = `\uE000${protectedBlocks.length}\uE001`;
+    protectedBlocks.push(block);
+    return token;
+  });
+  // Cleanup is intended for visible text only. Protect every remaining HTML
+  // tag so a translation term can never rewrite an href, class, id or other
+  // structural attribute (for example, replacing "Jar" inside a URL slug).
+  source = source.replace(/<[^>]+>/g, tag => {
+    const token = `\uE100${protectedTags.length}\uE101`;
+    protectedTags.push(tag);
+    return token;
+  });
+  for (const [bad, good] of Object.entries(localizedCleanup[language] || {})) {
+    // Word-bound the simple Latin terms so short replacements such as
+    // "Top" or "Cap" cannot alter a larger word like "Stop" or "Capsule".
+    if (/^[A-Za-z][A-Za-z0-9]*(?: [A-Za-z][A-Za-z0-9]*)*$/.test(bad)) {
+      const pattern = new RegExp(`(?<![A-Za-z])${escapeRegExp(bad)}(?![A-Za-z])`, 'g');
+      source = source.replace(pattern, good);
+    } else {
+      source = source.replaceAll(bad, good);
+    }
+  }
+  source = source.replace(/\uE100(\d+)\uE101/g, (_match, index) => protectedTags[Number(index)]);
+  return source.replace(/\uE000(\d+)\uE001/g, (_match, index) => protectedBlocks[Number(index)]);
+}
+
 function localizeInternalPath(value, language) {
   if (!value.startsWith('/') || value.startsWith('//')) return value;
   if (localeCodes.some(code => value === `/${code}` || value.startsWith(`/${code}/`))) return value;
@@ -229,6 +262,7 @@ function localizePage(file, language) {
   if (englishTitle && title && englishTitle !== title) source = replaceTextPhrase(source, englishTitle, escapeHtml(title));
   for (const [english, localized] of Object.entries(authoredOverrides[language])) source = replaceTextPhrase(source, english, localized);
   source = translateStaticHtml(source, language);
+  source = cleanLocalizedTerms(source, language);
   source = installLanguageSwitcher(source, { language, route });
   source = source.replace(/<html lang="[^"]+">/, `<html lang="${language}">`);
   source = source.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)} | GloryStarPack</title>`);

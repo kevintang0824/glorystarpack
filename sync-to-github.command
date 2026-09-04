@@ -29,6 +29,7 @@ node --check data/insight-source.mjs
 node --check data/site-locales.mjs
 node --check data/localized-topics.mjs
 node --check data/localized-products.mjs
+node --check data/translation-overrides.mjs
 node --check scripts/generate-insight-pages.mjs
 node --check scripts/generate-localized-site.mjs
 node --check scripts/check-localized-site.mjs

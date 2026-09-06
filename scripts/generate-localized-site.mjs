@@ -244,6 +244,21 @@ function localizeLinks(source, language) {
   });
 }
 
+// Localized pages live one directory below the site root. Keep every asset URL
+// root-relative so images, CSS backgrounds, and responsive srcset candidates
+// resolve to /assets/... instead of /<locale>/assets/... (which 404s).
+function normalizeAssetPaths(source) {
+  source = source.replace(/\b(?:src|srcset|href|imagesrcset)=("[^"]*"|'[^']*')/gi, (match, quoted) => {
+    const quote = quoted[0];
+    const value = quoted.slice(1, -1).replace(/(^|[\s,])assets\//g, '$1/assets/');
+    return match.replace(quoted, `${quote}${value}${quote}`);
+  });
+  source = source.replace(/(url\(\s*["']?)assets\//gi, '$1/assets/');
+  // Normalize asset strings used by inline scripts without touching ordinary
+  // prose or external URLs that merely contain the word "assets".
+  return source.replace(/(["'`])assets\//g, '$1/assets/');
+}
+
 function pageLocalization(route, source, language) {
   const index = localeIndex(language);
   const slug = slugForRoute(route);
@@ -273,6 +288,7 @@ function localizePage(file, language) {
   let source = fs.readFileSync(path.join(root, file), 'utf8');
   const { englishTitle, title, summary } = pageLocalization(route, source, language);
   source = localizeLinks(source, language);
+  source = normalizeAssetPaths(source);
   if (englishTitle && title && englishTitle !== title) source = replaceTextPhrase(source, englishTitle, escapeHtml(title));
   for (const [english, localized] of Object.entries(authoredOverrides[language])) source = replaceTextPhrase(source, english, localized);
   source = translateStaticHtml(source, language);

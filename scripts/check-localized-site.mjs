@@ -48,6 +48,19 @@ for (const raw of dynamicStrings) {
 }
 
 function expect(condition, message) { if (!condition) failures.push(message); }
+
+// Asset paths must be root-relative. A bare assets/... URL resolves inside a
+// locale directory (for example /fr/assets/...) and makes multilingual images
+// disappear even though the same asset works on the English page.
+for (const assetScript of ['assets/js/legacy-catalog.js', 'assets/js/product-data.js']) {
+  const script = fs.readFileSync(path.join(root, assetScript), 'utf8');
+  if (assetScript.endsWith('legacy-catalog.js')) {
+    expect(/const assetPath =/.test(script), `${assetScript}: missing runtime asset path normalizer`);
+  } else {
+    expect(!/(?<!\/)assets\//.test(script), `${assetScript}: relative asset path remains`);
+  }
+}
+
 function body(source) { return source.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || ''; }
 function visibleTextNodes(source) {
   source = body(source)
@@ -63,7 +76,9 @@ function assetList(source) {
   return [...source.matchAll(/<(?:link|script)\b[^>]*(?:href|src)="([^"]+)"[^>]*>/g)]
     .map(match => match[1]).filter(value => value.startsWith('/assets/')).sort().join('|');
 }
-function imageList(source) { return [...source.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(match => match[1]).sort().join('|'); }
+function normalizeAssetUrl(value) { return value.replace(/(?<![A-Za-z0-9_/-])assets\//g, '/assets/'); }
+function hasRelativeAssetUrl(source) { return /(?<![A-Za-z0-9_/-])assets\//.test(source); }
+function imageList(source) { return [...source.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(match => normalizeAssetUrl(match[1])).sort().join('|'); }
 function localTarget(href) {
   const pathname = decodeURIComponent(href.split(/[?#]/)[0]);
   if (!pathname || pathname === '/') return path.join(root, 'index.html');
@@ -110,6 +125,7 @@ for (const file of sourceFiles) {
     expect(selector.includes(`data-gsp-language="${language}"`) && selector.match(new RegExp(`data-gsp-language="${language}"[^>]*aria-current="true"`)), `${rel}: current language is not selected`);
     expect(!/(?:gtranslate|translate\.google|googleTranslateElement|doGTranslate)/i.test(localized), `${rel}: automatic translation code remains`);
     expect(!new RegExp(`/${language}/${language}/`).test(localized), `${rel}: locale prefix is duplicated`);
+    expect(!hasRelativeAssetUrl(localized), `${rel}: relative asset URL remains`);
     const internalLinks = [...localized.matchAll(/<a\b[^>]*href="(\/(?!\/)[^"]*)"/g)].map(match => match[1]);
     for (const href of internalLinks) {
       const targetFile = localTarget(href);

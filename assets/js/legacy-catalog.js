@@ -1,6 +1,7 @@
 (() => {
 let PRODS = [];
 let productDataPromise = null;
+const assetPath = value => value?.[0] === '/' ? value : '/' + value;
 
 function hasProductData() {
   return Array.isArray(PRODS) && PRODS.length > 0;
@@ -574,17 +575,17 @@ const PRODUCT_DETAIL_IMAGE_SETS = {
 function productImage(p, offset = 0) {
   const variant = Math.max(0, Math.min(4, Number(offset) || 0));
   const suppliedImages = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
-  if (suppliedImages.length) return suppliedImages[variant % suppliedImages.length];
+  if (suppliedImages.length) return assetPath(suppliedImages[variant % suppliedImages.length]);
   const hasDedicatedPhoto = productPhotoIds.has(p.id);
-  if (hasDedicatedPhoto && variant === 0) return `assets/product-photos/${p.id}-0.jpg`;
+  if (hasDedicatedPhoto && variant === 0) return `/assets/product-photos/${p.id}-0.jpg`;
   const imageSet = PRODUCT_IMAGE_SETS.find(set => p.cats.includes(set.cat));
   if (imageSet) {
     const base = Number(String(p.id).replace(/\D/g, '')) || 0;
     const imageOffset = hasDedicatedPhoto ? Math.max(0, variant - 1) : variant;
-    return imageSet.images[(base + imageOffset) % imageSet.images.length];
+    return assetPath(imageSet.images[(base + imageOffset) % imageSet.images.length]);
   }
-  if (hasDedicatedPhoto) return `assets/product-photos/${p.id}-0.jpg`;
-  return `assets/products/${p.id}-${variant}.svg`;
+  if (hasDedicatedPhoto) return `/assets/product-photos/${p.id}-0.jpg`;
+  return `/assets/products/${p.id}-${variant}.svg`;
 }
 
 function productGalleryImages(p) {
@@ -593,15 +594,15 @@ function productGalleryImages(p) {
   if (suppliedImages.length) {
     return suppliedImages.slice(0, 6).map((src, index) => ({
       label: index === 0 ? 'Main Product View' : `Product View ${index + 1}`,
-      src
+      src: assetPath(src)
     }));
   }
   const curated = PRODUCT_DETAIL_IMAGE_SETS[p.id];
-  if (curated) return curated.map((src, index) => ({label: labels[index], src}));
+  if (curated) return curated.map((src, index) => ({label: labels[index], src: assetPath(src)}));
   const sources = [productImage(p)];
   PRODUCT_IMAGE_SETS
     .filter(set => p.cats.includes(set.cat))
-    .forEach(set => sources.push(...set.images));
+    .forEach(set => sources.push(...set.images.map(assetPath)));
   for (let i = 1; i <= 4; i++) sources.push(productImage(p, i));
   const uniqueSources = [...new Set(sources)].slice(0, 4);
   return labels.slice(0, uniqueSources.length).map((label, index) => ({
@@ -806,7 +807,7 @@ function pcHTML(p, small) {
   const img = productImage(p);
   const displayName = productDisplayName(p);
   const responsiveImage = FEATURED_CARD_AVIF[p.id]
-    ? `<picture><source type="image/avif" srcset="${FEATURED_CARD_AVIF[p.id]}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(displayName)} packaging product photo" width="480" height="480" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='flex';"></picture>`
+    ? `<picture><source type="image/avif" srcset="${assetPath(FEATURED_CARD_AVIF[p.id])}" sizes="(max-width:720px) calc(100vw - 48px), 25vw"><img src="${img}" alt="${safeText(displayName)} packaging product photo" width="480" height="480" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('picture').nextElementSibling.style.display='flex';"></picture>`
     : `<img src="${img}" alt="${safeText(displayName)} packaging product photo" loading="lazy" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">`;
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
   const safeName = displayName.replace(/'/g, "\\'");

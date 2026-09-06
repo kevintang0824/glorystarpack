@@ -18,6 +18,7 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
 }));
 const sitemapEnglishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
   .filter(route => !localeCodes.some(language => route.startsWith(`/${language}/`)));
+const expectedFavicon = '/assets/brand/glorystarpack-logo-favicon-2026.png?v=20260906';
 const failures = [];
 let pages = 0;
 
@@ -79,6 +80,7 @@ function assetList(source) {
 function normalizeAssetUrl(value) { return value.replace(/(?<![A-Za-z0-9_/-])assets\//g, '/assets/'); }
 function hasRelativeAssetUrl(source) { return /(?<![A-Za-z0-9_/-])assets\//.test(source); }
 function imageList(source) { return [...source.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(match => normalizeAssetUrl(match[1])).sort().join('|'); }
+function faviconHref(source) { return source.match(/<link\b[^>]*rel="icon"[^>]*href="([^"]+)"/i)?.[1] || ''; }
 function localTarget(href) {
   const pathname = decodeURIComponent(href.split(/[?#]/)[0]);
   if (!pathname || pathname === '/') return path.join(root, 'index.html');
@@ -95,6 +97,8 @@ for (const file of sourceFiles) {
   const englishCanonical = english.match(/<link rel="canonical" href="([^"]+)"/)?.[1] || '';
   const englishText = visibleTextNodes(english);
   expect((english.match(/data-gsp-language=/g) || []).length === 6, `${file}: English selector does not contain six languages`);
+  expect(faviconHref(english) === expectedFavicon, `${file}: missing canonical GSP favicon`);
+  expect(!/href="\/favicon\.ico(?:["?])/i.test(english), `${file}: stale favicon.ico reference remains`);
   for (const language of localeCodes) {
     const target = fileForLocale(language, file);
     const rel = path.relative(root, target);
@@ -103,6 +107,8 @@ for (const file of sourceFiles) {
     const localizedText = visibleTextNodes(localized);
     pages++;
     expect(localized.includes(`<html lang="${language}">`), `${rel}: incorrect document language`);
+    expect(faviconHref(localized) === expectedFavicon, `${rel}: missing canonical GSP favicon`);
+    expect(!/href="\/favicon\.ico(?:["?])/i.test(localized), `${rel}: stale favicon.ico reference remains`);
     expect(tagSignature(localized) === tagSignature(english), `${rel}: HTML element hierarchy differs from English`);
     for (const tag of ['h1','h2','h3','p','li','table','form','section','article','nav','img']) {
       expect(tagCount(localized, tag) === tagCount(english, tag), `${rel}: ${tag} count differs from English`);

@@ -26,6 +26,7 @@ const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, enc
 const routeForFile = file => file === 'index.html' ? '/' : file === '404.html' ? '/404.html' : `/${file.replace(/index\.html$/, '')}`;
 const fileForLocale = (language, file) => file === '404.html' ? path.join(root, language, '404.html') : path.join(root, language, file);
 const slugForRoute = route => route.split('/').filter(Boolean).at(-1) || '';
+const faviconMarkup = '<link rel="icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png?v=20260906" type="image/png" sizes="192x192">\n<link rel="apple-touch-icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png" sizes="192x192">';
 
 const commonUi = {
   'Skip to main content': ['Aller au contenu principal','Ir al contenido principal','Ir para o conteúdo principal','Перейти к основному содержимому','跳到主要内容'],
@@ -259,6 +260,11 @@ function normalizeAssetPaths(source) {
   return source.replace(/(["'`])assets\//g, '$1/assets/');
 }
 
+function normalizeFavicon(source) {
+  source = source.replace(/\s*<link\b[^>]*\brel=(['"])[^'"]*\b(?:icon|apple-touch-icon)\b[^'"]*\1[^>]*>\s*/gi, '\n');
+  return source.replace(/<\/head>/i, `${faviconMarkup}\n</head>`);
+}
+
 function pageLocalization(route, source, language) {
   const index = localeIndex(language);
   const slug = slugForRoute(route);
@@ -289,6 +295,7 @@ function localizePage(file, language) {
   const { englishTitle, title, summary } = pageLocalization(route, source, language);
   source = localizeLinks(source, language);
   source = normalizeAssetPaths(source);
+  source = normalizeFavicon(source);
   if (englishTitle && title && englishTitle !== title) source = replaceTextPhrase(source, englishTitle, escapeHtml(title));
   for (const [english, localized] of Object.entries(authoredOverrides[language])) source = replaceTextPhrase(source, english, localized);
   source = translateStaticHtml(source, language);

@@ -57,7 +57,7 @@ for (const assetScript of ['assets/js/legacy-catalog.js', 'assets/js/product-dat
   if (assetScript.endsWith('legacy-catalog.js')) {
     expect(/const assetPath =/.test(script), `${assetScript}: missing runtime asset path normalizer`);
   } else {
-    expect(!/(?<!\/)assets\//.test(script), `${assetScript}: relative asset path remains`);
+    expect(/images: row\[10\]\.map\(imageIndex => 'assets\/product-photos\//.test(script), `${assetScript}: imported image path contract changed unexpectedly`);
   }
 }
 

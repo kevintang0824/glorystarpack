@@ -2387,7 +2387,7 @@ window.GSP_FINER_CATEGORY_COPY = {"all":["All Packaging Products","Browse the co
       materialGroup: materialGroups[row[6]],
       sourceCategory: sourceCategories[row[7]],
       referenceMoq: true,
-      images: row[10].map(imageIndex => '/assets/product-photos/fp-' + imageHashes[imageIndex] + '.avif')
+      images: row[10].map(imageIndex => 'assets/product-photos/fp-' + imageHashes[imageIndex] + '.avif')
     };
   });
   window.GSP_PRODUCTS = window.GSP_PRODUCTS.concat(importedProducts);

@@ -16,6 +16,16 @@ const escapeHtml = value => String(value ?? '').replace(/&/g, '&amp;').replace(/
 const escapeText = value => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const stripTags = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;/g, "'").trim();
+// Translation dictionaries are extracted from HTML, so some values retain
+// entities such as `&amp;` or `&quot;`. Decode those once before escaping the
+// translated text back into HTML; otherwise visible labels render as
+// `&amp;amp;`/`&amp;quot;` instead of a normal ampersand or quote.
+const decodeHtmlEntities = value => String(value ?? '')
+  .replace(/&amp;/g, '&')
+  .replace(/&quot;/g, '"')
+  .replace(/&#039;|&apos;/g, "'")
+  .replace(/&lt;/g, '<')
+  .replace(/&gt;/g, '>');
 const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   const file = path.join(root, 'data', 'full-translations', `${language}.json`);
   if (!fs.existsSync(file)) throw new Error(`Missing complete static translation dictionary: ${path.relative(root, file)}`);
@@ -141,6 +151,10 @@ const authoredOverrides = Object.fromEntries(localeCodes.map((language, index) =
     if (dataName) entries.push([dataName, localized]);
     if (pageName) entries.push([pageName, localized]);
   }
+  // Keep overrides even when the dictionary stores the source key with an
+  // HTML entity (for example `&amp;`). `replaceTextPhrase` handles both forms,
+  // so filtering against the raw dictionary key here would silently discard
+  // valid human-reviewed labels.
   return [language, Object.fromEntries(entries.filter(([english, localized]) => english && localized))];
 }));
 
@@ -148,8 +162,9 @@ for (const language of localeCodes) {
   const dictionary = translationDictionaries[language];
   let changed = false;
   for (const [english, localized] of Object.entries(authoredOverrides[language])) {
-    if (Object.hasOwn(dictionary, english) && dictionary[english] !== localized) {
-      dictionary[english] = localized;
+    const dictionaryKey = [english, escapeHtml(english)].find(key => Object.hasOwn(dictionary, key));
+    if (dictionaryKey && dictionary[dictionaryKey] !== localized) {
+      dictionary[dictionaryKey] = localized;
       changed = true;
     }
   }
@@ -173,14 +188,14 @@ function translateStaticHtml(source, language) {
     if (!translated || translated === key) return match;
     const leading = raw.match(/^\s*/)?.[0] || '';
     const trailing = raw.match(/\s*$/)?.[0] || '';
-    return `>${leading}${escapeText(translated)}${trailing}<`;
+    return `>${leading}${escapeText(decodeHtmlEntities(translated))}${trailing}<`;
   });
-  source = source.replace(/\b(alt|aria-label|placeholder|title)=("([^"]*)"|'([^']*)')/gi, (match, name, quoted, doubleValue, singleValue) => {
+  source = source.replace(/\b(alt|aria-label|placeholder|title|data-label)=("([^"]*)"|'([^']*)')/gi, (match, name, quoted, doubleValue, singleValue) => {
     const raw = doubleValue ?? singleValue ?? '';
     const translated = dictionary[normalizedText(raw)];
     if (!translated || translated === normalizedText(raw)) return match;
     const quote = quoted[0];
-    return `${name}=${quote}${escapeHtml(translated)}${quote}`;
+    return `${name}=${quote}${escapeHtml(decodeHtmlEntities(translated))}${quote}`;
   });
   return source.replace(/\uE000(\d+)\uE001/g, (_match, index) => protectedBlocks[Number(index)]);
 }
@@ -293,13 +308,17 @@ function localizePage(file, language) {
   const route = routeForFile(file);
   let source = fs.readFileSync(path.join(root, file), 'utf8');
   const { englishTitle, title, summary } = pageLocalization(route, source, language);
-  source = localizeLinks(source, language);
   source = normalizeAssetPaths(source);
   source = normalizeFavicon(source);
   if (englishTitle && title && englishTitle !== title) source = replaceTextPhrase(source, englishTitle, escapeHtml(title));
   for (const [english, localized] of Object.entries(authoredOverrides[language])) source = replaceTextPhrase(source, english, localized);
+  // Translate visible text while source URLs are still canonical. This keeps
+  // reference notes that include a URL (for example, "Primary reference for
+  // ...: https://www.glorystarpack.com/..." ) eligible for dictionary lookup.
   source = translateStaticHtml(source, language);
   source = cleanLocalizedTerms(source, language);
+  source = localizeLinks(source, language);
+  source = normalizeAssetPaths(source);
   source = installLanguageSwitcher(source, { language, route });
   source = source.replace(/<html lang="[^"]+">/, `<html lang="${language}">`);
   source = source.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)} | GloryStarPack</title>`);

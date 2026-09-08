@@ -642,6 +642,95 @@ body :where(.table, .decision-table, .spec-table) th {
   color: var(--dark);
 }
 
+.gsp-case-grid,
+.gsp-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.gsp-evidence-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.gsp-case-card,
+.gsp-evidence-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--gsp-radius);
+  background: var(--white);
+  box-shadow: 0 10px 30px rgba(31, 27, 20, .045);
+}
+
+.gsp-case-card h3,
+.gsp-evidence-card h3 {
+  margin: 6px 0 12px;
+}
+
+.gsp-case-card p,
+.gsp-evidence-card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.gsp-case-card p strong {
+  color: var(--dark);
+}
+
+.gsp-case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.gsp-case-links a,
+.gsp-procurement-path li > a {
+  color: var(--gold-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gsp-procurement-path > ol {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gsp-procurement-path li {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--gsp-radius);
+  background: var(--paper);
+}
+
+.gsp-procurement-path li h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.gsp-procurement-path li p {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+.gsp-procurement-path li > a {
+  margin-top: auto;
+}
+
 @media (max-width: 620px) {
   .gsp-theme-cluster {
     padding: 18px;
@@ -653,6 +742,23 @@ body :where(.table, .decision-table, .spec-table) th {
 
   .gsp-theme-cluster-links a {
     width: 100%;
+  }
+
+  .gsp-case-grid,
+  .gsp-evidence-grid,
+  .gsp-procurement-path > ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1100px) {
+  .gsp-case-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gsp-evidence-grid,
+  .gsp-procurement-path > ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

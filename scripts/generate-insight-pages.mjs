@@ -24,7 +24,7 @@ const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell
 const siteShellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>';
 const faviconMarkup = '<link rel="icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png?v=20260906" type="image/png" sizes="192x192">\n<link rel="apple-touch-icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png" sizes="192x192">';
 const modifiedDate = '2026-08-01';
-const indexModifiedDate = '2026-08-20';
+const indexModifiedDate = '2026-09-08';
 
 const primarySources = {
   astmClosureTorque: ['https://store.astm.org/d2063-91r02.html', 'ASTM D2063 closure torque-retention overview', 'Describes measurement of torque retention for packages with continuous-thread closures.'],
@@ -1747,6 +1747,18 @@ ${headerMarkup('guides')}
     <section class="section two-col">
       <article class="card"><div class="eyebrow">1 · Application</div><h2>Define the fill and process first</h2><p>Identify the product, nominal fill, destination and any carbonation, filling-temperature, thermal-process, fragrance or formula-contact requirements. These inputs can change the bottle specification, closure and validation plan.</p></article>
       <article class="card"><div class="eyebrow">2 · Pack architecture</div><h2>Lock bottle and closure together</h2><p>Select the stock or custom bottle route, then match the exact neck finish, closure, liner or gasket. Review decoration, filling-line handling and export packing with the same production-intent configuration.</p></article>
+    </section>
+    <section class="section gsp-procurement-path" id="procurement-path">
+      <div class="eyebrow">A five-step procurement path</div>
+      <h2>Use one approval trail from bottle choice to shipment</h2>
+      <p class="section-intro">Keep bottle selection, closure fit, sample approval, quality review and export packing in one traceable buying sequence.</p>
+      <ol>
+        <li><h3>1. Define the fill and destination</h3><p>Record the product, nominal capacity, pressure or temperature conditions, filling process, destination and quantity.</p><a href="/insights/glass-bottle-defects-quality-inspection-guide/">Glass Bottle Defects and Quality Inspection: A Buyer’s Guide</a></li>
+        <li><h3>2. Select stock or custom</h3><p>Compare stock availability, glass color, shape, tooling needs, decoration and the intended launch quantity.</p><a href="/insights/custom-glass-bottle-moq-stock-vs-custom-mold/">Custom Glass Bottle MOQ: Stock Bottle vs Custom Mold</a></li>
+        <li><h3>3. Match the neck and closure</h3><p>Confirm neck finish, thread or bead geometry, liner or gasket, closure fit and filling-line handling as one system.</p><a href="/insights/glass-bottle-neck-finish-closure-guide/">Glass Bottle Neck Finish and Closure Guide</a></li>
+        <li><h3>4. Approve production-intent samples</h3><p>Review dimensions, capacity, color, decoration, closure fit, filled-line trials and the agreed acceptance points.</p><a href="/insights/glass-bottle-sample-approval-qc-checklist/">Glass Bottle Sample Approval and QC Checklist</a></li>
+        <li><h3>5. Lock packing and reorder control</h3><p>Confirm dividers, cartons, pallets or parcel protection, inspection records, release rules and change-notice triggers.</p><a href="/insights/how-to-ship-glass-bottles-without-breaking/">How to Ship Glass Bottles Without Breaking</a></li>
+      </ol>
     </section>
     <section class="section">
       <div class="eyebrow">Buyer FAQ</div>

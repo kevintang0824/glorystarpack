@@ -342,6 +342,105 @@
       ]
     }
   ],
+  "caseStudies": [
+    {
+      "caseId": "public-beverage-bottle-program",
+      "url": "https://www.glorystarpack.com/about/#case-studies",
+      "title": "Glass beverage bottle program",
+      "caseType": "public sourcing example",
+      "evidenceStatus": "catalog-and-guide-backed; customer identity, commercial terms and project-specific results are not publicly disclosed",
+      "sourcePages": [
+        "https://www.glorystarpack.com/products/beverage-bottles/",
+        "https://www.glorystarpack.com/insights/glass-bottle-sample-approval-qc-checklist/",
+        "https://www.glorystarpack.com/insights/glass-bottle-defects-quality-inspection-guide/",
+        "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/"
+      ],
+      "buyerInputs": ["product type", "capacity", "neck finish", "closure", "filling conditions", "decoration", "quantity", "destination"],
+      "approvalGates": ["production-intent bottle and closure fit", "decoration approval", "packed configuration", "lot inspection record"]
+    },
+    {
+      "caseId": "public-serum-dispensing-program",
+      "url": "https://www.glorystarpack.com/about/#case-studies",
+      "title": "Serum dispensing program",
+      "caseType": "public sourcing example",
+      "evidenceStatus": "catalog-and-guide-backed; customer identity, formula results and project-specific performance are not publicly disclosed",
+      "sourcePages": [
+        "https://www.glorystarpack.com/products/serum-dropper-bottles/",
+        "https://www.glorystarpack.com/products/airless-pump-bottles/",
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
+        "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/"
+      ],
+      "buyerInputs": ["formula", "viscosity", "capacity", "target dose", "neck finish", "closure", "filling method", "light exposure"],
+      "approvalGates": ["filled dispensing set", "component-fit record", "leakage and dose checks", "agreed compatibility conditions"]
+    },
+    {
+      "caseId": "public-refill-packaging-program",
+      "url": "https://www.glorystarpack.com/about/#case-studies",
+      "title": "Refill packaging program",
+      "caseType": "public sourcing example",
+      "evidenceStatus": "catalog-and-guide-backed; customer identity, commercial terms and environmental outcomes are not publicly disclosed",
+      "sourcePages": [
+        "https://www.glorystarpack.com/products/refill-packaging/",
+        "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/"
+      ],
+      "buyerInputs": ["durable pack", "refill unit", "transfer step", "repeat-use cycle", "distribution route", "material evidence", "quantity"],
+      "approvalGates": ["user path", "refill-cycle protocol", "filled transport trial", "evidence for any environmental claim"]
+    }
+  ],
+  "factoryEvidence": {
+    "publicPage": "https://www.glorystarpack.com/about/#factory-evidence",
+    "publicEvidence": [
+      "stated legal entity and Xiamen location",
+      "published product and component scope",
+      "documented sample, decoration, quality-review and export-packing workflow"
+    ],
+    "requestBeforeOrder": [
+      "legal-entity and payment-contact match",
+      "exact item code, drawing, neck finish, closure and current availability",
+      "approved limit samples, inspection plan, dimension records and relevant reports",
+      "production-intent decorated samples and packing or transport trial where relevant",
+      "change-notice terms and reapproval triggers"
+    ],
+    "notEstablishedByPublicPage": [
+      "factory audit completion",
+      "specific certification status",
+      "formula compatibility or destination-market compliance",
+      "project-specific production performance or customer outcome"
+    ]
+  },
+  "procurementGuideRoutes": [
+    {
+      "stage": "Define the brief",
+      "intent": "Turn the product, formula, capacity, quantity and destination into comparable RFQ inputs.",
+      "cosmeticUrl": "https://www.glorystarpack.com/cosmetic-packaging-buying-guide/",
+      "glassUrl": "https://www.glorystarpack.com/glass-bottle-buying-guides/"
+    },
+    {
+      "stage": "Choose the sourcing route",
+      "intent": "Compare stock, decorated stock, custom components and custom mold requirements.",
+      "cosmeticUrl": "https://www.glorystarpack.com/cosmetic-packaging-moq/",
+      "glassUrl": "https://www.glorystarpack.com/insights/custom-glass-bottle-moq-stock-vs-custom-mold/"
+    },
+    {
+      "stage": "Match the system",
+      "intent": "Match bottle, closure, dispensing, formula, filling and decoration requirements.",
+      "cosmeticUrl": "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
+      "glassUrl": "https://www.glorystarpack.com/insights/glass-bottle-neck-finish-closure-guide/"
+    },
+    {
+      "stage": "Approve samples and quality",
+      "intent": "Use production-intent samples, acceptance points and packing checks before bulk.",
+      "cosmeticUrl": "https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/",
+      "glassUrl": "https://www.glorystarpack.com/insights/glass-bottle-sample-approval-qc-checklist/"
+    },
+    {
+      "stage": "Lock packing and change control",
+      "intent": "Record release rules, transport protection, approved configuration and reorder triggers.",
+      "cosmeticUrl": "https://www.glorystarpack.com/insights/how-to-vet-cosmetic-packaging-supplier-china/",
+      "glassUrl": "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/"
+    }
+  ],
   "primaryTopics": [
     "custom glass bottle manufacturer",
     "glass bottle buying guide",

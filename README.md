@@ -34,3 +34,14 @@ The shared header offers English, French, Spanish, Portuguese, Russian and Simpl
 Product/insight generators and the shared-shell installer also keep the English language selector current. After adding another English page, add its localized topic or category copy when needed, run the localized generator, then run both localization checks.
 
 The evidence-first daily SEO/AEO workflow, quality gates, KPI definitions and publishing red lines are documented in [SEO_DAILY_OPERATING_SYSTEM.md](SEO_DAILY_OPERATING_SYSTEM.md).
+
+## Phase 5 tracking
+
+The external-authority targets, fixed AI citation prompt set and weekly review cadence are tracked in `data/seo-phase-5-tracker.json`. Validate the tracker with:
+
+```bash
+node scripts/check-phase-5-tracker.mjs
+node scripts/create-weekly-seo-review.mjs --date=YYYY-MM-DD
+```
+
+The tracker is an internal measurement aid. It does not claim that a profile, backlink, AI mention or third-party publication exists until the owner supplies dated evidence.

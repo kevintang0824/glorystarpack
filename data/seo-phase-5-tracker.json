@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "phase": 5,
+  "phaseName": "External authority, AI citation tracking and weekly iteration",
+  "startedOn": "2026-09-08",
+  "siteUrl": "https://www.glorystarpack.com",
+  "measurementPolicy": {
+    "authority": "Record only owned, earned or editorially relevant references. Never count purchased, automated or irrelevant links as quality signals.",
+    "aiCitations": "A prompt result is an observation for the date, platform and locale tested; it is not a stable ranking, traffic or market-share metric.",
+    "indexing": "IndexNow and sitemap submission notify participating crawlers but do not guarantee crawling or indexing.",
+    "evidence": "Use a source URL, screenshot or export for every measured result. Keep unverified targets marked as unverified."
+  },
+  "currentBaseline": {
+    "capturedOn": "2026-09-08",
+    "liveSiteChecks": "passed",
+    "htmlPages": 852,
+    "indexableSitemapUrls": 834,
+    "languages": ["en", "fr", "es", "pt", "ru", "zh-CN"],
+    "indexNowAcceptedUrls": 834,
+    "gscRichResultValidation": "pending",
+    "externalMetrics": {
+      "googleSearchConsole": null,
+      "bingWebmaster": null,
+      "ga4": null,
+      "referringDomains": null,
+      "aiMentionRate": null,
+      "note": "Populate from account exports or dated manual observations before making performance claims."
+    }
+  },
+  "authorityTargets": [
+    {
+      "id": "alibaba-company-profile",
+      "channel": "Alibaba supplier profile",
+      "type": "owned-profile-reference",
+      "status": "reference_exists_unverified",
+      "publicUrl": "https://glorystarpack.en.alibaba.com/",
+      "siteDestination": "https://www.glorystarpack.com/about/",
+      "evidenceRequired": ["legal company name", "current product scope", "current contact details", "profile ownership"],
+      "nextAction": "Reconcile the public profile with the website entity record and keep claims within the evidence available."
+    },
+    {
+      "id": "google-business-profile",
+      "channel": "Google Business Profile",
+      "type": "owned-entity-profile",
+      "status": "owner_action_required",
+      "publicUrl": null,
+      "siteDestination": "https://www.glorystarpack.com/about/",
+      "evidenceRequired": ["business eligibility", "service-area or address choice", "verification method", "consistent company details"],
+      "nextAction": "Owner decides whether the business is eligible and completes verification; do not create a listing or publish an address from this tracker."
+    },
+    {
+      "id": "bing-webmaster-tools",
+      "channel": "Bing Webmaster Tools",
+      "type": "owned-search-property",
+      "status": "owner_action_required",
+      "publicUrl": null,
+      "siteDestination": "https://www.glorystarpack.com/sitemap.xml",
+      "evidenceRequired": ["verified domain property", "sitemap submission", "IndexNow activity", "inbound-link report when available"],
+      "nextAction": "Import or verify the domain, submit the sitemap and review IndexNow and URL inspection reports."
+    },
+    {
+      "id": "linkedin-company-page",
+      "channel": "LinkedIn company page",
+      "type": "owned-entity-profile",
+      "status": "owner_action_required",
+      "publicUrl": null,
+      "siteDestination": "https://www.glorystarpack.com/about/",
+      "evidenceRequired": ["official page ownership", "legal name", "company description", "approved logo and contact route"],
+      "nextAction": "Create or reconcile only if the company has an official page and an owner-approved description."
+    },
+    {
+      "id": "industry-association-membership",
+      "channel": "Packaging or glass-industry association",
+      "type": "earned-industry-reference",
+      "status": "candidate",
+      "publicUrl": null,
+      "siteDestination": "https://www.glorystarpack.com/about/#factory-evidence",
+      "evidenceRequired": ["membership eligibility", "real company documentation", "association editorial policy", "cost and renewal terms"],
+      "nextAction": "Shortlist relevant associations; pursue only a genuine membership or contribution, never a link-only listing."
+    },
+    {
+      "id": "trade-media-expert-contribution",
+      "channel": "Trade media or buyer publication",
+      "type": "earned-editorial-reference",
+      "status": "candidate",
+      "publicUrl": null,
+      "siteDestination": "https://www.glorystarpack.com/insights/",
+      "evidenceRequired": ["original technical contribution", "named responsible source", "supporting documents", "editorial relevance"],
+      "nextAction": "Prepare one evidence-backed packaging answer for a relevant editor or journalist; do not mass-submit guest posts."
+    },
+    {
+      "id": "customer-approved-reference",
+      "channel": "Customer, filler or distributor reference",
+      "type": "earned-partner-reference",
+      "status": "blocked_pending_evidence",
+      "publicUrl": null,
+      "siteDestination": "https://www.glorystarpack.com/about/#case-studies",
+      "evidenceRequired": ["written permission", "approved company name or anonymization", "project facts", "approved link and wording"],
+      "nextAction": "Request permission only after a real project owner supplies documents and approves the wording."
+    }
+  ],
+  "aiCitationQueries": [
+    {
+      "id": "cosmetic-supplier-china",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "Which China cosmetic packaging suppliers can help a skincare brand compare bottles, pumps and samples before an RFQ?",
+      "intent": "supplier discovery",
+      "targetUrls": ["https://www.glorystarpack.com/cosmetic-packaging-supplier-china/", "https://www.glorystarpack.com/insights/how-to-vet-cosmetic-packaging-supplier-china/"],
+      "observations": []
+    },
+    {
+      "id": "cosmetic-packaging-moq-lead-time",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "What should a buyer confirm about MOQ, samples, tooling and lead time for custom cosmetic packaging?",
+      "intent": "commercial planning",
+      "targetUrls": ["https://www.glorystarpack.com/cosmetic-packaging-moq/", "https://www.glorystarpack.com/custom-cosmetic-packaging/"],
+      "observations": []
+    },
+    {
+      "id": "serum-dropper-selection",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "How should a serum brand choose between a dropper bottle and an airless pump, and what needs testing?",
+      "intent": "format comparison",
+      "targetUrls": ["https://www.glorystarpack.com/airless-bottle-vs-dropper-bottle/", "https://www.glorystarpack.com/serum-packaging-guide/"],
+      "observations": []
+    },
+    {
+      "id": "packaging-compatibility-testing",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "What evidence should a cosmetic brand request before approving formula and packaging compatibility?",
+      "intent": "quality and validation",
+      "targetUrls": ["https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/", "https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/"],
+      "observations": []
+    },
+    {
+      "id": "pump-closure-troubleshooting",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "Why can a cosmetic pump leak, fail to prime or dispense inconsistently, and how should the buyer troubleshoot it?",
+      "intent": "problem solving",
+      "targetUrls": ["https://www.glorystarpack.com/insights/cosmetic-pump-not-working-troubleshooting/", "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/"],
+      "observations": []
+    },
+    {
+      "id": "glass-beverage-bottle-sourcing",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "How should a beverage brand compare stock and custom glass bottles before approving samples and export packing?",
+      "intent": "beverage packaging sourcing",
+      "targetUrls": ["https://www.glorystarpack.com/glass-bottle-buying-guides/", "https://www.glorystarpack.com/insights/how-to-ship-glass-bottles-without-breaking/"],
+      "observations": []
+    },
+    {
+      "id": "perfume-bottle-small-brand",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "What should a small fragrance brand confirm when sourcing perfume bottles, pumps, decoration and shipping?",
+      "intent": "small-brand sourcing",
+      "targetUrls": ["https://www.glorystarpack.com/insights/perfume-bottle-sourcing-small-brands/", "https://www.glorystarpack.com/products/perfume-bottles/"],
+      "observations": []
+    },
+    {
+      "id": "refill-hotel-amenity",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "en-US",
+      "query": "How should a hotel compare refillable amenity dispensers with mini bottles, including hygiene, packing and replenishment?",
+      "intent": "hospitality packaging",
+      "targetUrls": ["https://www.glorystarpack.com/insights/refill-ready-hotel-amenity-packaging/", "https://www.glorystarpack.com/about/#case-studies"],
+      "observations": []
+    },
+    {
+      "id": "supplier-evidence-request",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "zh-CN",
+      "query": "采购中国化妆品包装供应商时，应该要求哪些公司、质量、样品和工厂证据？",
+      "intent": "供应商审核",
+      "targetUrls": ["https://www.glorystarpack.com/zh-CN/cosmetic-packaging-supplier-china/", "https://www.glorystarpack.com/zh-CN/about/"],
+      "observations": []
+    },
+    {
+      "id": "serum-packaging-chinese",
+      "platforms": ["Google Search AI features", "ChatGPT Search", "Perplexity", "Gemini"],
+      "locale": "zh-CN",
+      "query": "精华液包装如何在滴管瓶和真空泵瓶之间选择，并制定样品确认和配方适配测试？",
+      "intent": "选型与测试",
+      "targetUrls": ["https://www.glorystarpack.com/zh-CN/serum-packaging-guide/", "https://www.glorystarpack.com/zh-CN/airless-bottle-vs-dropper-bottle/"],
+      "observations": []
+    }
+  ],
+  "weeklyIteration": {
+    "cadence": "weekly",
+    "steps": [
+      {
+        "day": "Monday",
+        "action": "Run the local technical baseline and import dated GSC, GA4 and Bing exports when available.",
+        "output": "baseline plus change log"
+      },
+      {
+        "day": "Tuesday",
+        "action": "Select 2-4 pages from indexed, impression-bearing queries, conversion paths or content decay; prioritize positions 8-20 when reliable GSC data exists.",
+        "output": "next-page queue"
+      },
+      {
+        "day": "Wednesday",
+        "action": "Upgrade the selected pages with a buyer answer, evidence boundary, source links, relevant internal links and a clear RFQ next step.",
+        "output": "reviewable page changes"
+      },
+      {
+        "day": "Thursday",
+        "action": "Complete one real authority action: reconcile an owned profile, prepare an evidence-backed editorial contribution or request permission for a genuine partner reference.",
+        "output": "authority action record"
+      },
+      {
+        "day": "Friday",
+        "action": "Run the fixed AI citation prompt set in the selected platforms and locales; record mention, exact cited URL, competing sources and uncertainty.",
+        "output": "AI citation observation log"
+      }
+    ],
+    "acceptanceCriteria": [
+      "No unverified customer, certification, factory-performance or traffic claim is published.",
+      "Every authority action has a channel, evidence status, owner and next action.",
+      "Every AI observation has a date, platform, locale, prompt and source URL or an explicit no-mention result.",
+      "Every release passes the existing SEO, content, inquiry and live-site checks.",
+      "The next cycle is chosen from evidence, not from page count or backlink count."
+    ]
+  },
+  "policyReferences": [
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+    "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+    "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+    "https://developers.google.com/search/docs/essentials/spam-policies",
+    "https://www.bing.com/indexnow/getstarted",
+    "https://www.bing.com/webmasters/help/add-and-verify-site-12184f8b"
+  ]
+}

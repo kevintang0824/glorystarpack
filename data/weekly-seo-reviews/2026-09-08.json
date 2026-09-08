@@ -1,0 +1,167 @@
+{
+  "reviewDate": "2026-09-08",
+  "siteUrl": "https://www.glorystarpack.com",
+  "phase": 5,
+  "localBaseline": {
+    "htmlPages": 852,
+    "sitemapUrls": 834,
+    "languages": [
+      "en",
+      "fr",
+      "es",
+      "pt",
+      "ru",
+      "zh-CN"
+    ],
+    "aiContextBytes": 89808,
+    "liveChecks": "run node scripts/check-live-site.mjs after release"
+  },
+  "externalMetrics": {
+    "googleSearchConsole": null,
+    "bingWebmaster": null,
+    "ga4": null,
+    "referringDomains": null,
+    "aiMentionRate": null,
+    "note": "Fill from dated account exports or manual observations. Null is not zero."
+  },
+  "authorityActions": [],
+  "aiCitationObservations": [
+    {
+      "id": "cosmetic-supplier-china",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "cosmetic-packaging-moq-lead-time",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "serum-dropper-selection",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "packaging-compatibility-testing",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "pump-closure-troubleshooting",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "glass-beverage-bottle-sourcing",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "perfume-bottle-small-brand",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "refill-hotel-amenity",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "supplier-evidence-request",
+      "platformLocales": [
+        "Google Search AI features / zh-CN",
+        "ChatGPT Search / zh-CN",
+        "Perplexity / zh-CN",
+        "Gemini / zh-CN"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "serum-packaging-chinese",
+      "platformLocales": [
+        "Google Search AI features / zh-CN",
+        "ChatGPT Search / zh-CN",
+        "Perplexity / zh-CN",
+        "Gemini / zh-CN"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    }
+  ],
+  "nextIteration": [],
+  "releaseChecks": [
+    "node scripts/check-seo.mjs",
+    "node scripts/audit-content.mjs",
+    "node scripts/check-phase-5-tracker.mjs",
+    "node scripts/check-live-site.mjs"
+  ]
+}

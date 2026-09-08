@@ -36,11 +36,17 @@
       },
       "bingWebmaster": {
         "capturedOn": "2026-09-08",
-        "status": "blocked_pending_sign_in",
-        "siteVerified": false,
-        "sitemapSubmitted": false,
+        "status": "verified_processing",
+        "siteVerified": true,
+        "sitemapSubmitted": true,
+        "submittedSitemap": "https://www.glorystarpack.com/sitemap.xml",
+        "sitemapStatus": "Submitted - Processing",
+        "knownSitemaps": 1,
+        "sitemapsWithErrors": 0,
+        "sitemapsWithWarnings": 0,
+        "urlsDiscovered": 0,
         "indexNowAcceptedUrls": 834,
-        "source": "Bing Webmaster UI shows a sign-in prompt"
+        "source": "Bing Webmaster verification and Sitemaps report"
       },
       "ga4": {
         "capturedOn": "2026-09-08",
@@ -57,7 +63,7 @@
       },
       "referringDomains": null,
       "aiMentionRate": null,
-      "note": "GSC and GA4 values are dated observations; Bing verification, referring domains and AI citation measurements remain pending."
+      "note": "GSC and GA4 values are dated observations; Bing is verified and its Sitemap is processing, while referring domains and AI citation measurements remain pending."
     }
   },
   "authorityTargets": [
@@ -85,11 +91,11 @@
       "id": "bing-webmaster-tools",
       "channel": "Bing Webmaster Tools",
       "type": "owned-search-property",
-      "status": "owner_action_required",
+      "status": "measured",
       "publicUrl": null,
       "siteDestination": "https://www.glorystarpack.com/sitemap.xml",
       "evidenceRequired": ["verified domain property", "sitemap submission", "IndexNow activity", "inbound-link report when available"],
-      "nextAction": "Import or verify the domain, submit the sitemap and review IndexNow and URL inspection reports."
+      "nextAction": "Wait for Sitemap processing, then record discovered URLs, crawl status and Bing URL Inspection results."
     },
     {
       "id": "linkedin-company-page",

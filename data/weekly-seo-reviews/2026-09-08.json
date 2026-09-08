@@ -34,11 +34,17 @@
     },
     "bingWebmaster": {
       "capturedOn": "2026-09-08",
-      "status": "blocked_pending_sign_in",
-      "siteVerified": false,
-      "sitemapSubmitted": false,
+      "status": "verified_processing",
+      "siteVerified": true,
+      "sitemapSubmitted": true,
+      "submittedSitemap": "https://www.glorystarpack.com/sitemap.xml",
+      "sitemapStatus": "Submitted - Processing",
+      "knownSitemaps": 1,
+      "sitemapsWithErrors": 0,
+      "sitemapsWithWarnings": 0,
+      "urlsDiscovered": 0,
       "indexNowAcceptedUrls": 834,
-      "source": "Bing Webmaster UI shows a sign-in prompt"
+      "source": "Bing Webmaster verification and Sitemaps report"
     },
     "ga4": {
       "capturedOn": "2026-09-08",
@@ -55,9 +61,18 @@
     },
     "referringDomains": null,
     "aiMentionRate": null,
-    "note": "GSC and GA4 values are dated observations; Bing verification, referring domains and AI citation measurements remain pending."
+    "note": "GSC and GA4 values are dated observations; Bing is verified and its Sitemap is processing, while referring domains and AI citation measurements remain pending."
   },
-  "authorityActions": [],
+  "authorityActions": [
+    {
+      "id": "bing-webmaster-site-verification",
+      "completedOn": "2026-09-08",
+      "status": "verified_processing",
+      "siteUrl": "https://www.glorystarpack.com/",
+      "sitemapUrl": "https://www.glorystarpack.com/sitemap.xml",
+      "result": "Site verified; Sitemap submitted and processing; 0 errors, 0 warnings, 0 URLs discovered at capture time."
+    }
+  ],
   "aiCitationObservations": [
     {
       "id": "cosmetic-supplier-china",

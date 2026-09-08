@@ -2082,7 +2082,7 @@ else {
     errors.push('OEM/ODM packaging page is missing the OEM-versus-ODM answer');
   }
   const oemSource = oemPackagingPage.source;
-  const oemDescription = 'Plan OEM or ODM cosmetic packaging by specification, component fit, decoration, samples, approval and destination-specific packing requirements.';
+  const oemDescription = 'Plan OEM or ODM cosmetic packaging by formula or application, component fit, decoration, samples, approval, packing and destination requirements.';
   for (const requiredFragment of [
     'Project-specific cosmetic packaging',
     'Can I request samples for an OEM or ODM project?',
@@ -2097,10 +2097,12 @@ else {
   for (const socialDescription of [
     `<meta name="description" content="${oemDescription}"/>`,
     `<meta property="og:description" content="${oemDescription}"/>`,
-    `<meta name="twitter:description" content="${oemDescription}"/>`,
-    `"description": "${oemDescription}"`
+    `<meta name="twitter:description" content="${oemDescription}"/>`
   ]) {
     if (!oemSource.includes(socialDescription)) errors.push('OEM/ODM packaging page metadata is not synchronized');
+  }
+  if (!new RegExp(`"description"\\s*:\\s*${JSON.stringify(oemDescription)}`).test(oemSource)) {
+    errors.push('OEM/ODM packaging page metadata is not synchronized');
   }
   const oemDirectAnswer = firstMatch(oemSource, /<p class="lead">([\s\S]*?)<\/p>/i);
   const oemDirectAnswerWords = oemDirectAnswer.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;

@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-09-01",
+  "dateModified": "2026-09-08",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -123,6 +123,128 @@
     },
     "moqGuidance": "Many stock glass and eco packaging items start around 300-500 pcs; plastic bottles often start around 1,000 pcs; tubes, makeup components, printed pouches and deeper customization usually require higher quantities."
   },
+  "commercialIntentPages": [
+    {
+      "url": "https://www.glorystarpack.com/custom-cosmetic-packaging/",
+      "primaryIntent": "Request a custom cosmetic packaging quote",
+      "buyerStage": "Route selection and RFQ planning",
+      "shortAnswer": "Compare decorated stock, matched components, modified parts and custom molds before fixing samples, tooling, MOQ and lead time.",
+      "quoteInputs": ["formula or application", "fill volume", "container and closure", "decoration", "quantity", "destination", "reference drawings"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/oem-cosmetic-packaging/",
+      "primaryIntent": "Plan an OEM or ODM cosmetic packaging project",
+      "buyerStage": "Specification, sampling and approval",
+      "shortAnswer": "OEM follows a buyer-approved specification; ODM adds supplier-led selection or development before production-intent samples are approved.",
+      "quoteInputs": ["formula or application", "capacity", "component system", "artwork status", "quantity per SKU", "destination", "timing"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/private-label-cosmetic-packaging/",
+      "primaryIntent": "Select private label cosmetic packaging",
+      "buyerStage": "Launch assortment and branding",
+      "shortAnswer": "Start with the formula and packaging family, then compare stock or custom routes, decoration, samples, MOQ and retail-box requirements.",
+      "quoteInputs": ["formula or product type", "packaging family", "fill volume", "logo or decoration", "quantity per SKU", "samples", "retail box"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/wholesale-cosmetic-packaging/",
+      "primaryIntent": "Source wholesale cosmetic packaging",
+      "buyerStage": "Bulk sourcing and repeat-order planning",
+      "shortAnswer": "Coordinate bottles, jars, tubes, pumps, caps, boxes, samples, decoration, QC and export packing as one bulk packaging project.",
+      "quoteInputs": ["product type", "capacity", "material", "closure", "decoration", "order quantity", "destination", "timeline"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",
+      "primaryIntent": "Find a China cosmetic packaging supplier",
+      "buyerStage": "Supplier comparison and export sourcing",
+      "shortAnswer": "GloryStarPack is based in Xiamen, Fujian, China and evaluates stock, custom decoration, samples, QC and export packing for worldwide buyers.",
+      "quoteInputs": ["product type", "capacity", "material", "closure", "decoration", "quantity", "destination country", "timeline"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/cosmetic-packaging-moq/",
+      "primaryIntent": "Estimate cosmetic packaging MOQ and lead time",
+      "buyerStage": "Budget and launch feasibility",
+      "shortAnswer": "MOQ and timing vary by stock status, material, closure, decoration, testing, order mix and whether a custom mold is required.",
+      "quoteInputs": ["stock or custom route", "material", "capacity", "decoration", "quantity per SKU", "testing", "destination"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/",
+      "primaryIntent": "Approve cosmetic packaging samples before bulk production",
+      "buyerStage": "Sample review and production sign-off",
+      "shortAnswer": "Review blank and decorated samples with the real formula, closure, dispensing performance, decoration and export packing before bulk approval.",
+      "quoteInputs": ["formula", "capacity", "filling method", "artwork", "closure", "destination", "packing requirements"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/glass-cosmetic-bottles/",
+      "primaryIntent": "Compare glass cosmetic bottle formats",
+      "buyerStage": "Packaging format shortlist",
+      "shortAnswer": "Shortlist glass cosmetic bottles by formula, fill process, neck finish, closure, dispensing, light exposure, decoration and testing needs.",
+      "quoteInputs": ["formula", "capacity", "neck finish", "closure", "dispensing", "decoration", "quantity"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/airless-pump-bottles/",
+      "primaryIntent": "Select airless pump bottle packaging",
+      "buyerStage": "Dispensing and formula-fit selection",
+      "shortAnswer": "Compare airless piston or pouch structures by formula, filling, dose, priming, evacuation, refill route and production-intent testing.",
+      "quoteInputs": ["formula viscosity", "capacity", "dose", "airless structure", "filling method", "decoration", "quantity"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/perfume-bottles/",
+      "primaryIntent": "Source perfume bottle packaging",
+      "buyerStage": "Fragrance format and decoration selection",
+      "shortAnswer": "Compare square, sculpted, thick-bottom, mini, roll-on and refillable perfume formats with matched pumps, caps, decoration and samples.",
+      "quoteInputs": ["capacity", "bottle shape", "neck and pump", "cap", "decoration", "quantity", "destination"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/serum-dropper-bottles/",
+      "primaryIntent": "Select serum dropper bottle packaging",
+      "buyerStage": "Formula, dose and closure fit",
+      "shortAnswer": "Compare serum droppers by viscosity, neck finish, gasket, bulb, pipette, target dose, leakage and light exposure.",
+      "quoteInputs": ["formula viscosity", "capacity", "neck finish", "gasket", "pipette and bulb", "dose", "decoration"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/nail-polish-bottles/",
+      "primaryIntent": "Source nail polish bottle packaging",
+      "buyerStage": "Nail-care component and private-label selection",
+      "shortAnswer": "Compare square, round and slim rectangular bottles, UV black gel polish formats, brush caps, decoration, samples and private-label needs.",
+      "quoteInputs": ["formula type", "capacity", "bottle shape", "brush and cap", "decoration", "quantity per SKU", "samples"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/beer-bottles/",
+      "primaryIntent": "Source wholesale glass beer bottles",
+      "buyerStage": "Brewery bottle and filling-process review",
+      "shortAnswer": "Match amber, green or flint beer bottles to the exact neck finish, closure, carbonation, filling and pasteurization conditions.",
+      "quoteInputs": ["beer type", "capacity", "glass color", "closure", "carbonation", "fill temperature", "pasteurization", "quantity"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/wine-bottles/",
+      "primaryIntent": "Source wholesale glass wine bottles",
+      "buyerStage": "Wine shape, color and closure selection",
+      "shortAnswer": "Compare Bordeaux, Burgundy, Hock, dessert, sparkling and mini formats, then match color, closure, decoration, samples and packing.",
+      "quoteInputs": ["wine type", "capacity", "shape", "color", "closure", "decoration", "quantity", "destination"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/whiskey-bottles/",
+      "primaryIntent": "Source wholesale glass whiskey bottles",
+      "buyerStage": "Spirit bottle and closure selection",
+      "shortAnswer": "Compare heavy-base square, round, flask and mini whiskey bottles with bar-top or screw closures, decoration, samples and export packing.",
+      "quoteInputs": ["capacity", "shape", "glass color", "base style", "closure", "decoration", "quantity", "destination"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    }
+  ],
   "primaryTopics": [
     "custom glass bottle manufacturer",
     "glass bottle buying guide",

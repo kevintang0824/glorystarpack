@@ -11,6 +11,21 @@ import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './l
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://www.glorystarpack.com';
+// Phase 2 adds FAQPage JSON-LD to the canonical English commercial pages.
+// The localization pipeline translates visible HTML but intentionally does not
+// machine-translate JSON-LD, so do not copy those new FAQ nodes into localized
+// pages where the visible questions would be in another language.
+const englishOnlyFaqRoutes = new Set([
+  '/custom-cosmetic-packaging/',
+  '/oem-cosmetic-packaging/',
+  '/wholesale-cosmetic-packaging/',
+  '/cosmetic-packaging-supplier-china/',
+  '/cosmetic-packaging-sample-approval-checklist/',
+  '/products/perfume-bottles/',
+  '/products/beer-bottles/',
+  '/products/wine-bottles/',
+  '/products/whiskey-bottles/'
+]);
 const localeIndex = language => localeCodes.indexOf(language);
 const escapeHtml = value => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 const escapeText = value => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -280,6 +295,18 @@ function normalizeFavicon(source) {
   return source.replace(/<\/head>/i, `${faviconMarkup}\n</head>`);
 }
 
+function removeEnglishOnlyFaqSchema(source, route) {
+  if (!englishOnlyFaqRoutes.has(route)) return source;
+  return source.replace(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi, (block, rawJson) => {
+    let data;
+    try { data = JSON.parse(rawJson); } catch { return block; }
+    if (!Array.isArray(data['@graph'])) return block;
+    const filteredGraph = data['@graph'].filter(node => node?.['@type'] !== 'FAQPage');
+    if (filteredGraph.length === data['@graph'].length) return block;
+    return `<script type="application/ld+json">${JSON.stringify({ ...data, '@graph': filteredGraph })}</script>`;
+  });
+}
+
 function pageLocalization(route, source, language) {
   const index = localeIndex(language);
   const slug = slugForRoute(route);
@@ -318,6 +345,7 @@ function localizePage(file, language) {
   source = translateStaticHtml(source, language);
   source = cleanLocalizedTerms(source, language);
   source = localizeLinks(source, language);
+  source = removeEnglishOnlyFaqSchema(source, route);
   source = normalizeAssetPaths(source);
   source = installLanguageSwitcher(source, { language, route });
   source = source.replace(/<html lang="[^"]+">/, `<html lang="${language}">`);

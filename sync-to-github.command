@@ -33,6 +33,7 @@ node --check data/localized-products.mjs
 node --check data/translation-overrides.mjs
 node --check scripts/generate-insight-pages.mjs
 node --check scripts/generate-localized-site.mjs
+node --check scripts/optimize-commercial-pages.mjs
 node --check scripts/check-localized-site.mjs
 node --check scripts/extract-dynamic-translation-strings.mjs
 node scripts/generate-insight-pages.mjs

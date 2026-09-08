@@ -19,12 +19,45 @@
     "indexNowAcceptedUrls": 834,
     "gscRichResultValidation": "pending",
     "externalMetrics": {
-      "googleSearchConsole": null,
-      "bingWebmaster": null,
-      "ga4": null,
+      "googleSearchConsole": {
+        "capturedOn": "2026-09-08",
+        "dateRange": "2026-06-06 to 2026-09-05",
+        "clicks": 66,
+        "impressions": 5850,
+        "ctrPercent": 1.1,
+        "averagePosition": 25.4,
+        "commercialPagesInspected": 15,
+        "commercialPagesIndexed": 15,
+        "commercialPagesWithImpressions": 15,
+        "commercialPagesWithClicks": 5,
+        "commercialPageClicks": 6,
+        "commercialPageImpressions": 1185,
+        "source": "Search Console performance and URL Inspection UI"
+      },
+      "bingWebmaster": {
+        "capturedOn": "2026-09-08",
+        "status": "blocked_pending_sign_in",
+        "siteVerified": false,
+        "sitemapSubmitted": false,
+        "indexNowAcceptedUrls": 834,
+        "source": "Bing Webmaster UI shows a sign-in prompt"
+      },
+      "ga4": {
+        "capturedOn": "2026-09-08",
+        "property": "Glorystarpack",
+        "propertyId": "548854103",
+        "dataStream": "glorystarpack",
+        "dataStreamId": "15390447000",
+        "last7DaysOrganicSearchSessions": 40,
+        "last7DaysAiAssistantSessions": 5,
+        "activeInquiryEvent": "inquiry_click",
+        "generateLeadObservedLast28Days": false,
+        "gscAssociation": "created 2026-09-08",
+        "source": "Google Analytics UI"
+      },
       "referringDomains": null,
       "aiMentionRate": null,
-      "note": "Populate from account exports or dated manual observations before making performance claims."
+      "note": "GSC and GA4 values are dated observations; Bing verification, referring domains and AI citation measurements remain pending."
     }
   },
   "authorityTargets": [

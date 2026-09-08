@@ -34,9 +34,11 @@ node --check data/translation-overrides.mjs
 node --check scripts/generate-insight-pages.mjs
 node --check scripts/generate-localized-site.mjs
 node --check scripts/optimize-commercial-pages.mjs
+node --check scripts/optimize-theme-clusters.mjs
 node --check scripts/check-localized-site.mjs
 node --check scripts/extract-dynamic-translation-strings.mjs
 node scripts/generate-insight-pages.mjs
+node scripts/optimize-theme-clusters.mjs
 node scripts/apply-language-switcher.mjs --check
 node scripts/generate-localized-site.mjs
 node scripts/check-localized-site.mjs

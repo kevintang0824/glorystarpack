@@ -593,6 +593,69 @@ body :where(.table, .decision-table, .spec-table) th {
   color: var(--gold-light);
 }
 
+.gsp-theme-cluster {
+  margin: 24px 0 0;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--gsp-radius);
+  background: var(--paper);
+  box-shadow: var(--gsp-shadow);
+}
+
+.gsp-theme-cluster .eyebrow {
+  margin-bottom: 7px;
+}
+
+.gsp-theme-cluster h2 {
+  margin: 0 0 10px;
+}
+
+.gsp-theme-cluster p {
+  max-width: 860px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.gsp-theme-cluster-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin-top: 16px;
+}
+
+.gsp-theme-cluster-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--gold-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.gsp-theme-cluster-links a:hover {
+  border-color: var(--gold-dark);
+  color: var(--dark);
+}
+
+@media (max-width: 620px) {
+  .gsp-theme-cluster {
+    padding: 18px;
+  }
+
+  .gsp-theme-cluster-links {
+    display: grid;
+  }
+
+  .gsp-theme-cluster-links a {
+    width: 100%;
+  }
+}
+
 /* The same closing structure now appears on every inner page. */
 body > .gsp-site-footer {
   margin-top: 0;

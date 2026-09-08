@@ -245,6 +245,103 @@
       "recommendedNextStep": "https://www.glorystarpack.com/contact/"
     }
   ],
+  "themeClusters": [
+    {
+      "clusterId": "beauty-personal-care",
+      "hub": "https://www.glorystarpack.com/products/personal-care-packaging/",
+      "intent": "Choose beauty and personal-care packaging by formula, dispensing and use case.",
+      "supportingPages": [
+        "https://www.glorystarpack.com/products/skincare-packaging/",
+        "https://www.glorystarpack.com/products/makeup-packaging/",
+        "https://www.glorystarpack.com/products/cosmetic-tubes/",
+        "https://www.glorystarpack.com/products/airless-pump-bottles/",
+        "https://www.glorystarpack.com/cosmetic-packaging-buying-guide/",
+        "https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/"
+      ],
+      "decisionGuides": [
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/",
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-product-evacuation-guide/"
+      ]
+    },
+    {
+      "clusterId": "dispensing-components",
+      "hub": "https://www.glorystarpack.com/products/cosmetic-pumps-closures/",
+      "intent": "Match pumps, caps, sprayers, droppers and applicators to the container, formula and dose.",
+      "supportingPages": [
+        "https://www.glorystarpack.com/products/serum-dropper-bottles/",
+        "https://www.glorystarpack.com/products/airless-pump-bottles/",
+        "https://www.glorystarpack.com/products/cosmetic-tubes/",
+        "https://www.glorystarpack.com/products/makeup-packaging/"
+      ],
+      "decisionGuides": [
+        "https://www.glorystarpack.com/insights/cosmetic-pump-closure-selection-guide/",
+        "https://www.glorystarpack.com/insights/cosmetic-pump-not-working-troubleshooting/",
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-compatibility-testing-guide/"
+      ]
+    },
+    {
+      "clusterId": "fragrance",
+      "hub": "https://www.glorystarpack.com/products/perfume-bottles/",
+      "intent": "Source perfume, body mist, atomizer and home-fragrance packaging by bottle, pump, decoration and packing.",
+      "supportingPages": [
+        "https://www.glorystarpack.com/products/home-fragrance-packaging/",
+        "https://www.glorystarpack.com/products/cosmetic-packaging-kits/",
+        "https://www.glorystarpack.com/products/cosmetic-pumps-closures/"
+      ],
+      "decisionGuides": [
+        "https://www.glorystarpack.com/insights/perfume-bottle-sourcing-small-brands/",
+        "https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/"
+      ]
+    },
+    {
+      "clusterId": "beverage-bottles",
+      "hub": "https://www.glorystarpack.com/products/beverage-bottles/",
+      "intent": "Compare beer, wine, spirit and sparkling bottle formats by closure, pressure, filling and distribution.",
+      "supportingPages": [
+        "https://www.glorystarpack.com/products/beer-bottles/",
+        "https://www.glorystarpack.com/products/wine-bottles/",
+        "https://www.glorystarpack.com/products/liquor-bottles/",
+        "https://www.glorystarpack.com/products/sparkling-wine-bottles/",
+        "https://www.glorystarpack.com/products/glass-packaging/"
+      ],
+      "decisionGuides": [
+        "https://www.glorystarpack.com/insights/glass-bottle-neck-finish-closure-guide/",
+        "https://www.glorystarpack.com/insights/glass-bottle-defects-quality-inspection-guide/",
+        "https://www.glorystarpack.com/insights/glass-bottle-sample-approval-qc-checklist/"
+      ]
+    },
+    {
+      "clusterId": "glass-food-packaging",
+      "hub": "https://www.glorystarpack.com/products/glass-packaging/",
+      "intent": "Choose glass bottle and jar routes for food, beverage, beauty and fragrance applications.",
+      "supportingPages": [
+        "https://www.glorystarpack.com/products/glass-cosmetic-bottles/",
+        "https://www.glorystarpack.com/products/beverage-bottles/",
+        "https://www.glorystarpack.com/products/wine-bottles/",
+        "https://www.glorystarpack.com/products/liquor-bottles/"
+      ],
+      "decisionGuides": [
+        "https://www.glorystarpack.com/insights/glass-bottle-neck-finish-closure-guide/",
+        "https://www.glorystarpack.com/insights/glass-bottle-sample-approval-qc-checklist/",
+        "https://www.glorystarpack.com/insights/glass-bottle-defects-quality-inspection-guide/"
+      ]
+    },
+    {
+      "clusterId": "refill-sustainability",
+      "hub": "https://www.glorystarpack.com/products/eco-friendly-packaging/",
+      "intent": "Compare refill, bamboo, recycled-content and reduced-material packaging as complete systems.",
+      "supportingPages": [
+        "https://www.glorystarpack.com/products/refill-packaging/",
+        "https://www.glorystarpack.com/products/refill-pouch-packaging/",
+        "https://www.glorystarpack.com/products/bamboo-packaging/",
+        "https://www.glorystarpack.com/products/cosmetic-packaging-kits/"
+      ],
+      "decisionGuides": [
+        "https://www.glorystarpack.com/insights/refill-pouches-reusable-bottles/",
+        "https://www.glorystarpack.com/insights/cosmetic-packaging-right-sizing-guide/"
+      ]
+    }
+  ],
   "primaryTopics": [
     "custom glass bottle manufacturer",
     "glass bottle buying guide",

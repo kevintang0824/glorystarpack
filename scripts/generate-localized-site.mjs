@@ -48,6 +48,27 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
 }));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')
   .filter(file => file && file !== 'google130558f0f0763df4.html' && !localeCodes.some(language => file.startsWith(`${language}/`)));
+const isSeedableTranslationString = value => {
+  const decoded = value.replace(/&[a-z0-9#]+;/gi, ' ');
+  if (!/[A-Za-z]{2}/.test(decoded)) return false;
+  if ((decoded.includes('://') || decoded.includes('@')) && /^(?:https?:\/\/|mailto:|tel:)?\S+@?\S*$/.test(decoded)) return false;
+  if (/^[A-Z0-9][A-Z0-9 /+_.:#×–—-]{0,24}$/.test(decoded)) return false;
+  if (/^\d{2}\s·/.test(decoded)) return false;
+  return !['GloryStarPack', 'WhatsApp', 'Instagram', 'LinkedIn'].includes(decoded);
+};
+const currentSourceStrings = new Set();
+for (const file of sourceFiles) {
+  const source = fs.readFileSync(path.join(root, file), 'utf8')
+    .replace(/<(script|style|svg|noscript|code|pre)\b[\s\S]*?<\/\1\s*>/gi, '');
+  for (const match of source.matchAll(/>([^<>]+)</g)) {
+    const value = String(match[1]).replace(/\s+/g, ' ').trim();
+    if (value && isSeedableTranslationString(value)) currentSourceStrings.add(value);
+  }
+  for (const match of source.matchAll(/\b(?:alt|aria-label|placeholder|title|data-label)=(?:"([^"]*)"|'([^']*)')/gi)) {
+    const value = String(match[1] ?? match[2] ?? '').replace(/\s+/g, ' ').trim();
+    if (value && isSeedableTranslationString(value)) currentSourceStrings.add(value);
+  }
+}
 const routeForFile = file => file === 'index.html' ? '/' : file === '404.html' ? '/404.html' : `/${file.replace(/index\.html$/, '')}`;
 const fileForLocale = (language, file) => file === '404.html' ? path.join(root, language, '404.html') : path.join(root, language, file);
 const slugForRoute = route => route.split('/').filter(Boolean).at(-1) || '';
@@ -180,6 +201,9 @@ for (const language of localeCodes) {
     const dictionaryKey = [english, escapeHtml(english)].find(key => Object.hasOwn(dictionary, key));
     if (dictionaryKey && dictionary[dictionaryKey] !== localized) {
       dictionary[dictionaryKey] = localized;
+      changed = true;
+    } else if (!dictionaryKey && currentSourceStrings.has(english)) {
+      dictionary[english] = localized;
       changed = true;
     }
   }

@@ -33,6 +33,7 @@ jobs:
           node --check api/inquiry.js
           node --check scripts/check-seo.mjs
           node --check scripts/check-live-site.mjs
+          node --check scripts/generate-seo-baseline.mjs
           node --check scripts/check-inquiry-attribution.mjs
           node --check scripts/submit-indexnow.mjs
           node --check scripts/apply-inquiry-layer.mjs
@@ -54,6 +55,7 @@ jobs:
       - name: Run SEO and content audits
         run: |
           node scripts/check-seo.mjs
+          node scripts/generate-seo-baseline.mjs
           node scripts/apply-language-switcher.mjs --check
           node scripts/check-localized-site.mjs
           node scripts/audit-content.mjs

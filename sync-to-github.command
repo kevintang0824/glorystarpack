@@ -23,6 +23,7 @@ node --check assets/js/product-index.js
 node --check assets/js/legacy-catalog.js
 node --check assets/js/inquiry-conversion.js
 node --check scripts/check-seo.mjs
+node --check scripts/generate-seo-baseline.mjs
 node --check scripts/apply-inquiry-layer.mjs
 node --check scripts/enforce-accessible-colors.mjs
 node --check data/insight-source.mjs
@@ -40,6 +41,7 @@ node scripts/generate-localized-site.mjs
 node scripts/check-localized-site.mjs
 node scripts/check-finer-packaging-import.mjs
 node scripts/check-seo.mjs
+node scripts/generate-seo-baseline.mjs
 node scripts/audit-content.mjs
 node scripts/apply-inquiry-layer.mjs --check
 node scripts/enforce-accessible-colors.mjs --check

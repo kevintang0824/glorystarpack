@@ -134,6 +134,21 @@ for (const filePath of htmlFiles) {
   const canonical = firstMatch(source, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']*)/i);
   const h1Count = (source.match(/<h1\b/gi) ?? []).length;
   const schemaBlocks = [...source.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  if (rel === 'index.html') {
+    if (schemaBlocks.length !== 1) {
+      errors.push(`${rel}: expected exactly one JSON-LD block, found ${schemaBlocks.length}`);
+    } else {
+      try {
+        const homepageGraph = JSON.parse(schemaBlocks[0][1])['@graph'] ?? [];
+        const homepageIds = homepageGraph.map(node => node['@id']).filter(Boolean);
+        if (new Set(homepageIds).size !== homepageIds.length) {
+          errors.push(`${rel}: top-level JSON-LD @id values must be unique`);
+        }
+      } catch {
+        // The per-block JSON-LD parser below reports the detailed syntax error.
+      }
+    }
+  }
   const indexable = !/(?:^|,)\s*noindex\b/i.test(robots);
   const wordCount = visibleWordCount(source);
   const isNotFoundPage = rel === '404.html';
@@ -316,6 +331,13 @@ const uniqueSitemapUrls = new Set(sitemapUrls);
 if (uniqueSitemapUrls.size !== sitemapUrls.length) errors.push('sitemap.xml contains duplicate URLs');
 if (uniqueSitemapUrls.has(`${siteUrl}${retiredAirlessPath}`)) {
   errors.push(`sitemap.xml must not include the redirected ${retiredAirlessPath} URL`);
+}
+
+const dynamicRobotsSource = fs.readFileSync(path.join(rootDir, 'robots.txt'), 'utf8');
+for (const blockedQuery of ['/*?category=', '/*?q=', '/*?sp=', '/*&category=', '/*&q=', '/*&sp=']) {
+  if (!dynamicRobotsSource.split(/\r?\n/).some(line => line.trim() === `Disallow: ${blockedQuery}`)) {
+    errors.push(`robots.txt is missing dynamic URL rule: Disallow: ${blockedQuery}`);
+  }
 }
 
 for (const url of sitemapUrls) {

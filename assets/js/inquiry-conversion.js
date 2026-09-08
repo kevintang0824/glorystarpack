@@ -219,7 +219,7 @@
       link.href = contactHref(intent);
       link.dataset.inquiryChannel ||= 'rfq-builder';
       link.dataset.inquiryType ||= intent;
-      link.dataset.inquiryLocation ||= 'contact-link';
+      link.dataset.inquiryLocation ||= link.closest('section.hero, .hero') ? 'hero-cta' : 'contact-link';
     });
   }
 

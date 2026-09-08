@@ -22,6 +22,7 @@ const brandFontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.c
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>`;
 const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">';
 const siteShellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>';
+const faviconMarkup = '<link rel="icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png?v=20260906" type="image/png" sizes="192x192">\n<link rel="apple-touch-icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png" sizes="192x192">';
 const modifiedDate = '2026-08-01';
 const indexModifiedDate = '2026-08-20';
 
@@ -1474,8 +1475,9 @@ ${googleTagMarkup}
   <meta name="twitter:image" content="${siteUrl}${article.imagePath}">
   <script type="application/ld+json">${jsonLd(article, canonical, description)}</script>
   ${siteShellStylesheet}
-  ${siteShellScript}
+${siteShellScript}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+${faviconMarkup}
 </head>
 <body>
 ${headerMarkup('guides')}
@@ -1579,8 +1581,9 @@ ${googleTagMarkup}
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">${schema}</script>
   ${siteShellStylesheet}
-  ${siteShellScript}
+${siteShellScript}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+${faviconMarkup}
 </head>
 <body class="insights-index">
 ${headerMarkup('guides')}
@@ -1715,8 +1718,9 @@ ${googleTagMarkup}
   <meta name="twitter:image" content="${siteUrl}${heroImage}">
   <script type="application/ld+json">${schema}</script>
   ${siteShellStylesheet}
-  ${siteShellScript}
+${siteShellScript}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+${faviconMarkup}
 </head>
 <body>
 ${headerMarkup('guides')}

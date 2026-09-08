@@ -117,6 +117,11 @@ for (const sitemapName of ['sitemap.xml', 'image-sitemap.xml', 'feed.xml']) {
     errors.push(`robots.txt is missing ${sitemapName}`);
   }
 }
+for (const blockedQuery of ['/*?category=', '/*?q=', '/*?sp=', '/*&category=', '/*&q=', '/*&sp=']) {
+  if (!robots.body.split(/\r?\n/).some(line => line.trim() === `Disallow: ${blockedQuery}`)) {
+    errors.push(`robots.txt is missing dynamic URL rule: Disallow: ${blockedQuery}`);
+  }
+}
 
 const sitemap = await fetchText('/sitemap.xml');
 const sitemapUrls = [...sitemap.body.matchAll(/<loc>(https:\/\/www\.glorystarpack\.com\/[^<]*)<\/loc>/g)];

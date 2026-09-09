@@ -2,12 +2,25 @@
 <html lang="es">
 <head>
 <meta name="msvalidate.01" content="5A111222872A783B35AA9F24F0C8906D">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NYY1MTZ6HM"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
 window.gtag('js', new Date());
 window.gtag('config', 'G-NYY1MTZ6HM');
+window.__gspLoadAnalytics = function(){
+  if (window.__gspAnalyticsLoaded) return;
+  window.__gspAnalyticsLoaded = true;
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-NYY1MTZ6HM';
+  document.head.appendChild(script);
+};
+var gspAnalyticsIdle = window.requestIdleCallback || function(callback){ return window.setTimeout(callback, 1800); };
+gspAnalyticsIdle(function(){ window.__gspLoadAnalytics(); }, {timeout: 2200});
+window.addEventListener('load', function(){ window.setTimeout(window.__gspLoadAnalytics, 1200); }, {once:true});
+['pointerdown', 'keydown', 'touchstart'].forEach(function(eventName){
+  window.addEventListener(eventName, window.__gspLoadAnalytics, {once:true, passive:true});
+});
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,8 +38,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
 <link rel="sitemap" type="application/xml" href="/image-sitemap.xml">
 <link rel="index" href="/es/site-index/">
 
-<link rel="preload" as="image" href="/assets/brand/custom-glass-bottle-hero-2026-1600.avif" type="image/avif" imagesrcset="/assets/brand/custom-glass-bottle-hero-2026-960.avif 960w, /assets/brand/custom-glass-bottle-hero-2026-1600.avif 1600w" imagesizes="100vw" fetchpriority="high">
-<link rel="preload" as="script" href="/assets/js/main.js" fetchpriority="low">
+<link rel="preload" as="image" href="/assets/brand/custom-glass-bottle-hero-2026-960.avif" type="image/avif" imagesrcset="/assets/brand/custom-glass-bottle-hero-2026-960.avif 960w, /assets/brand/custom-glass-bottle-hero-2026-1600.avif 1600w" imagesizes="(max-width:760px) 100vw, 50vw" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fabricante de botellas de vidrio para marcas de bebidas y belleza | GloryStarPack">
 <meta property="og:description" content="Botellas para licores, vino y cerveza; frascos para perfume y esmalte de uñas. Coordine el diseño, la decoración y el cierre en un mismo proyecto.">
@@ -484,10 +496,11 @@ footer{background:var(--dark);color:#aaa;padding:0;}
 .cs-slide:nth-child(4),.cs-slide:nth-child(5){background:radial-gradient(circle at 79% 48%,rgba(89,143,191,.16),transparent 30%),linear-gradient(112deg,#08131f 0%,#0c243a 58%,#12395b 100%);}
 .cs-slide::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:112px 100%;opacity:.22;pointer-events:none;}
 .cs-bg{position:absolute;z-index:1;top:32px;bottom:48px;left:calc(50% + 42px);right:max(72px,calc((100vw - 1380px)/2 + 72px));overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:18px;background-repeat:no-repeat;background-position:center;background-size:contain;box-shadow:0 22px 55px rgba(0,0,0,.34),inset 0 0 0 1px rgba(255,255,255,.035);transform-origin:58% 54%;transition:opacity .42s ease,transform .72s cubic-bezier(.2,.75,.2,1),box-shadow .42s ease;}
-.cs-bg-1{background-color:#111;background-image:url("/assets/brand/custom-glass-bottle-hero-2026.jpg");}
-@supports (background-image:image-set(url("/assets/brand/custom-glass-bottle-hero-2026-1600.avif") type("image/avif") 1x)){
-  .cs-bg-1{background-image:image-set(url("/assets/brand/custom-glass-bottle-hero-2026-1600.avif") type("image/avif") 1x,url("/assets/brand/custom-glass-bottle-hero-2026.jpg") type("image/jpeg") 1x);}
-}
+.cs-bg-1{background-color:#111;}
+.cs-bg-1>picture{position:absolute;inset:0;z-index:0;display:block;}
+.cs-bg-1>picture img{display:block;width:100%;height:100%;object-fit:contain;}
+.cs-bg-1::after{z-index:1;}
+.cs-bg-1::before{z-index:2;}
 .cs-bg-2{background-color:#15120e;background-size:cover;}
 .cs-bg-3{background-color:#15110f;}
 .cs-bg-4{background-color:#e8e5df;background-size:contain;}
@@ -861,10 +874,7 @@ footer{background:var(--dark);color:#aaa;padding:0;}
   .header-contact{display:none;}
   .carousel-track{display:block;transform:none !important;}
   .cs-bg{top:auto;left:18px;right:18px;bottom:20px;height:246px;border-radius:14px;background-position:center;background-size:contain;}
-  .cs-bg-1{background-color:#111;background-image:url("/assets/brand/custom-glass-bottle-hero-2026-960.jpg");}
-  @supports (background-image:image-set(url("/assets/brand/custom-glass-bottle-hero-2026-960.avif") type("image/avif") 1x)){
-    .cs-bg-1{background-image:image-set(url("/assets/brand/custom-glass-bottle-hero-2026-960.avif") type("image/avif") 1x,url("/assets/brand/custom-glass-bottle-hero-2026-960.jpg") type("image/jpeg") 1x);}
-  }
+  .cs-bg-1{background-color:#111;}
   .cs-slide{display:none;height:auto;min-height:640px;}
   .cs-slide:first-child{display:block;}
   .cs-slide:not(.is-active) .cs-content,.cs-slide:not(.is-active) .cs-bg{opacity:1;transform:none;}
@@ -1076,7 +1086,13 @@ footer{background:var(--dark);color:#aaa;padding:0;}
     <div class="carousel-wrap" role="region" aria-roledescription="carousel" aria-label="GloryStarPack vidrio, botella de plástico y colecciones de dispensación">
       <div class="carousel-track" id="carouselTrack">
         <section class="cs-slide" aria-label="1 de 5">
-          <div class="cs-bg cs-bg-1" data-label="01 · Sistemas de vidrio"></div>
+          <div class="cs-bg cs-bg-1" data-label="01 · Sistemas de vidrio">
+            <picture>
+              <source media="(max-width:760px)" type="image/avif" srcset="/assets/brand/custom-glass-bottle-hero-2026-960.avif 960w" sizes="100vw">
+              <source type="image/avif" srcset="/assets/brand/custom-glass-bottle-hero-2026-960.avif 960w, /assets/brand/custom-glass-bottle-hero-2026-1600.avif 1600w" sizes="50vw">
+              <img src="/assets/brand/custom-glass-bottle-hero-2026-960.jpg" width="1600" height="900" loading="eager" fetchpriority="high" decoding="async" alt="">
+            </picture>
+          </div>
           <div class="cs-inner">
             <div class="cs-content">
               <div class="cs-tag">Fabricación de botellas de vidrio · Xiamen, China</div>

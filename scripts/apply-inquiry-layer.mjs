@@ -35,7 +35,8 @@ let changed = 0;
 
 for (const filePath of walk(rootDir)) {
   let source = fs.readFileSync(filePath, 'utf8');
-  const missingGoogleTagLoader = !source.includes(googleTagLoader);
+  const hasDeferredGoogleTagLoader = source.includes(`script.src = 'https://www.googletagmanager.com/gtag/js?id=${googleTagId}'`);
+  const missingGoogleTagLoader = !source.includes(googleTagLoader) && !hasDeferredGoogleTagLoader;
   const missingGoogleTagBootstrap = !source.includes(`window.gtag('config', '${googleTagId}')`);
   const missingStylesheet = !source.includes('/assets/css/inquiry-conversion.css');
   const missingScript = !source.includes('/assets/js/inquiry-conversion.js');

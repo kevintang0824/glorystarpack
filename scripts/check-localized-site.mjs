@@ -7,6 +7,18 @@ import { localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://www.glorystarpack.com';
+const englishOnlyRoutes = new Set([
+  '/products/sunscreen-tube-packaging/',
+  '/products/cosmetic-paper-packaging/',
+  '/products/paper-boxes-retail-kits/',
+  '/products/mailer-box-packaging/',
+  '/products/gift-box-packaging/',
+  '/products/plastic-pump-bottles/',
+  '/products/plastic-travel-packaging/',
+  '/products/plastic-lotion-bottles/',
+  '/products/spa-body-care-packaging/',
+  '/products/candle-packaging/'
+]);
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')
   .filter(file => file && file !== 'google130558f0f0763df4.html' && !localeCodes.some(language => file.startsWith(`${language}/`)));
 const routeForFile = file => file === 'index.html' ? '/' : file === '404.html' ? '/404.html' : `/${file.replace(/index\.html$/, '')}`;
@@ -17,7 +29,7 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   return [language, fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {}];
 }));
 const sitemapEnglishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
-  .filter(route => !localeCodes.some(language => route.startsWith(`/${language}/`)));
+  .filter(route => !englishOnlyRoutes.has(route) && !localeCodes.some(language => route.startsWith(`/${language}/`)));
 const expectedFavicon = '/assets/brand/glorystarpack-logo-favicon-2026.png?v=20260906';
 const failures = [];
 let pages = 0;
@@ -167,7 +179,7 @@ for (const language of localeCodes) {
   expect(!obsolete.length, `${language}: ${obsolete.length} obsolete translation strings should be rebuilt`);
 }
 expect(pages === sourceFiles.length * localeCodes.length, `expected ${sourceFiles.length * localeCodes.length} parity pages, found ${pages}`);
-expect((sitemap.match(/<url>/g) || []).length === sitemapEnglishRoutes.length * (localeCodes.length + 1), 'sitemap URL count does not match English and localized indexable pages');
+expect((sitemap.match(/<url>/g) || []).length === sitemapEnglishRoutes.length * (localeCodes.length + 1) + englishOnlyRoutes.size, 'sitemap URL count does not match English and localized indexable pages');
 
 if (failures.length) {
   console.error(`Localized interface parity failed (${failures.length}):`);

@@ -7,6 +7,7 @@ import { localeCodes, copy, t } from '../data/site-locales.mjs';
 import { categories, domainNotes, serviceTitles, topics, topicNotes } from '../data/localized-topics.mjs';
 import { productNames } from '../data/localized-products.mjs';
 import { localizedCleanup, translationOverrides } from '../data/translation-overrides.mjs';
+import { localizedMetadata } from '../data/seo-batch-metadata.mjs';
 import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -26,6 +27,21 @@ const englishOnlyFaqRoutes = new Set([
   '/products/wine-bottles/',
   '/products/whiskey-bottles/'
 ]);
+// These English-first commercial hubs are deliberately not cloned into every
+// locale until there is human-reviewed localized copy for each page.
+const englishOnlyRoutes = new Set([
+  '/products/sunscreen-tube-packaging/',
+  '/products/cosmetic-paper-packaging/',
+  '/products/paper-boxes-retail-kits/',
+  '/products/mailer-box-packaging/',
+  '/products/gift-box-packaging/',
+  '/products/plastic-pump-bottles/',
+  '/products/plastic-travel-packaging/',
+  '/products/plastic-lotion-bottles/',
+  '/products/spa-body-care-packaging/',
+  '/products/candle-packaging/'
+]);
+const englishOnlySourceFiles = new Set([...englishOnlyRoutes].map(route => `${route.replace(/^\//, '')}index.html`));
 const localeIndex = language => localeCodes.indexOf(language);
 const escapeHtml = value => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 const escapeText = value => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -47,7 +63,7 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   return [language, JSON.parse(fs.readFileSync(file, 'utf8'))];
 }));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')
-  .filter(file => file && file !== 'google130558f0f0763df4.html' && !localeCodes.some(language => file.startsWith(`${language}/`)));
+  .filter(file => file && file !== 'google130558f0f0763df4.html' && !englishOnlySourceFiles.has(file) && !localeCodes.some(language => file.startsWith(`${language}/`)));
 const isSeedableTranslationString = value => {
   const decoded = value.replace(/&[a-z0-9#]+;/gi, ' ');
   if (!/[A-Za-z]{2}/.test(decoded)) return false;
@@ -286,6 +302,7 @@ function cleanLocalizedTerms(source, language) {
 function localizeInternalPath(value, language) {
   if (!value.startsWith('/') || value.startsWith('//')) return value;
   if (localeCodes.some(code => value === `/${code}` || value.startsWith(`/${code}/`))) return value;
+  if (englishOnlyRoutes.has(value)) return value;
   if (/^\/(?:assets|api)(?:\/|$)/.test(value) || /^\/(?:favicon|robots|sitemap|manifest|apple-touch)/.test(value)) return value;
   if (/\.[a-z0-9]{2,8}(?:[?#]|$)/i.test(value) && !/\.html(?:[?#]|$)/i.test(value)) return value;
   return localePath(language, value);
@@ -331,6 +348,22 @@ function removeEnglishOnlyFaqSchema(source, route) {
   });
 }
 
+function syncLocalizedStructuredMetadata(source, name, description) {
+  return source.replace(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/i, (block, rawJson) => {
+    let data;
+    try { data = JSON.parse(rawJson); } catch { return block; }
+    const graph = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+    const primaryTypes = new Set(['CollectionPage', 'Service', 'Article', 'WebPage']);
+    let changed = false;
+    for (const node of graph) {
+      if (!primaryTypes.has(node?.['@type'])) continue;
+      if (node.name !== name) { node.name = name; changed = true; }
+      if (node.description !== description) { node.description = description; changed = true; }
+    }
+    return changed ? `<script type="application/ld+json">${JSON.stringify(data)}</script>` : block;
+  });
+}
+
 function pageLocalization(route, source, language) {
   const index = localeIndex(language);
   const slug = slugForRoute(route);
@@ -352,13 +385,19 @@ function pageLocalization(route, source, language) {
     const productId = route.match(/-p(\d+)\/$/)?.[1];
     if (productId && productNames[`p${productId}`]) { title = productNames[`p${productId}`][index]; summary = t('productIntro', language); }
   }
-  return { englishTitle, title: title || englishTitle, summary: summary || t('catalogIntro', language) };
+  const targeted = localizedMetadata[route]?.[language];
+  return {
+    englishTitle,
+    title: targeted?.heading || title || englishTitle,
+    metaTitle: targeted?.title || null,
+    summary: targeted?.description || summary || t('catalogIntro', language)
+  };
 }
 
 function localizePage(file, language) {
   const route = routeForFile(file);
   let source = fs.readFileSync(path.join(root, file), 'utf8');
-  const { englishTitle, title, summary } = pageLocalization(route, source, language);
+  const { englishTitle, title, metaTitle, summary } = pageLocalization(route, source, language);
   source = normalizeAssetPaths(source);
   source = normalizeFavicon(source);
   if (englishTitle && title && englishTitle !== title) source = replaceTextPhrase(source, englishTitle, escapeHtml(title));
@@ -373,13 +412,15 @@ function localizePage(file, language) {
   source = normalizeAssetPaths(source);
   source = installLanguageSwitcher(source, { language, route });
   source = source.replace(/<html lang="[^"]+">/, `<html lang="${language}">`);
-  source = source.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)} | GloryStarPack</title>`);
-  source = source.replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(title)} | GloryStarPack">`);
-  source = source.replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${escapeHtml(title)} | GloryStarPack">`);
+  const renderedTitle = metaTitle || `${title} | GloryStarPack`;
+  source = source.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(renderedTitle)}</title>`);
+  source = source.replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(renderedTitle)}">`);
+  source = source.replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${escapeHtml(renderedTitle)}">`);
   source = source.replaceAll('"inLanguage":"en"', `"inLanguage":"${language}"`);
   source = source.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(summary)}">`);
   source = source.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(summary)}">`);
   source = source.replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${escapeHtml(summary)}">`);
+  source = syncLocalizedStructuredMetadata(source, renderedTitle, summary);
   source = source.replace(/(<p\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>)[\s\S]*?(<\/p>)/i, `$1${escapeHtml(summary)}$2`);
   const canonical = `${site}${localePath(language, route)}`;
   source = source.replace(/<link rel="canonical" href="[^"]+">/, `<link rel="canonical" href="${canonical}">`);
@@ -400,7 +441,7 @@ for (const language of localeCodes) {
 
 let sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
 const englishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
-  .filter(route => !localeCodes.some(language => route.startsWith(`/${language}/`)));
+  .filter(route => !englishOnlyRoutes.has(route) && !localeCodes.some(language => route.startsWith(`/${language}/`)));
 const localizedSitemap = localeCodes.flatMap(language => englishRoutes.map(route => `  <url>\n    <loc>${site}${localePath(language, route)}</loc>\n    <lastmod>2026-09-03</lastmod>\n  </url>`)).join('\n');
 const start = '<!-- BEGIN GENERATED LOCALIZED PAGES -->';
 const end = '<!-- END GENERATED LOCALIZED PAGES -->';

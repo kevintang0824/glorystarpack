@@ -512,6 +512,32 @@ Object.assign(translationOverrides, {
   '05 · Pumps &amp; closures': ['05 · Pompes et fermetures','05 · Bombas y cierres','05 · Bombas e fechos','05 · Насосы и укупорка','05 · 泵头与封口组件']
 });
 
+// First-batch commercial category hub labels and the three manually reviewed
+// multilingual landing-page headings.
+Object.assign(translationOverrides, {
+  'Aluminum Cosmetic Packaging': ['Emballages cosmétiques en aluminium','Envases cosméticos de aluminio','Embalagens cosméticas de alumínio','Алюминиевая косметическая упаковка','铝制化妆品包装'],
+  'Commercial category hubs': ['Hubs de catégories commerciales','Hubs de categorías comerciales','Hubs de categorias comerciais','Коммерческие категории','Коммерческие категории'],
+  'Browse packaging by high-intent format': ['Parcourir les emballages par format à forte intention','Explorar envases por formato de alta intención','Explorar embalagens por formato de alta intenção','Просмотреть упаковку по формату с высоким спросом','按高意向格式浏览包装'],
+  'Use these format hubs to compare materials, dispensing systems, retail structures and project-specific RFQ inputs.': ['Utilisez ces hubs pour comparer les matières, les systèmes de distribution, les structures de vente et les données RFQ propres au projet.','Use estos hubs para comparar materiales, sistemas de dispensación, estructuras retail y datos RFQ específicos del proyecto.','Use estes hubs para comparar materiais, sistemas de dosagem, estruturas de retalho e dados RFQ específicos do projeto.','Используйте эти разделы для сравнения материалов, систем дозирования, торговых конструкций и данных RFQ конкретного проекта.','通过这些分类入口比较材质、出料系统、零售结构及项目专属询价信息。'],
+  'Commercial packaging category hubs': ['Hubs de catégories d’emballages commerciaux','Hubs de categorías de envases comerciales','Hubs de categorias de embalagens comerciais','Коммерческие категории упаковки','商业包装分类入口'],
+  'Sunscreen Tube &amp; Stick Packaging': ['Emballages solaires en tubes et sticks','Envases solares en tubo y stick','Embalagens solares em tubo e stick','Упаковка солнцезащитных средств: тубы и стики','防晒管与防晒棒包装'],
+  'Paper Boxes &amp; Retail Packaging': ['Boîtes papier et emballages de vente','Cajas de papel y envases retail','Caixas de papel e embalagens de retalho','Бумажные коробки и торговая упаковка','纸盒与零售包装'],
+  'Mailer Boxes for Product Packaging': ['Boîtes d’expédition pour produits','Cajas de envío para productos','Caixas de envio para produtos','Почтовые коробки для продукции','产品邮寄盒'],
+  'Cosmetic Gift Boxes &amp; Packaging Kits': ['Boîtes cadeaux et kits d’emballage cosmétiques','Cajas de regalo y kits de envases cosméticos','Caixas de oferta e kits de embalagens cosméticas','Подарочные коробки и наборы для косметики','化妆品礼盒与包装套装'],
+  'Plastic Pump Bottles for Lotion, Foam &amp; Treatment': ['Flacons à pompe en plastique pour lotion, mousse et soins','Botellas de plástico con bomba para loción, espuma y tratamiento','Frascos de plástico com bomba para loção, espuma e tratamento','Пластиковые флаконы с помпой для лосьонов, пен и средств ухода','乳液、泡沫与护理用塑料泵瓶'],
+  'Travel Size Cosmetic Packaging': ['Emballages cosmétiques format voyage','Envases cosméticos de viaje','Embalagens cosméticas de viagem','Косметическая упаковка дорожного формата','旅行装化妆品包装'],
+  'Plastic Lotion Bottles: PET, HDPE &amp; PCR': ['Flacons pour lotions en plastique : PET, HDPE et PCR','Botellas de plástico para lociones: PET, HDPE y PCR','Frascos de plástico para loções: PET, HDPE e PCR','Пластиковые флаконы для лосьонов: PET, HDPE и PCR','塑料乳液瓶：PET、HDPE 与 PCR'],
+  'Spa &amp; Body Care Packaging': ['Emballages spa et soins du corps','Envases para spa y cuidado corporal','Embalagens para spa e cuidados corporais','Упаковка для спа и ухода за телом','水疗与身体护理包装'],
+  'Candle Packaging: Jars, Tins &amp; Retail Boxes': ['Emballages pour bougies : pots, boîtes métal et coffrets de vente','Envases para velas: tarros, latas y cajas retail','Embalagens para velas: boiões, latas e caixas de retalho','Упаковка для свечей: банки, жестяные коробки и торговые короба','蜡烛包装：罐、铝盒与零售盒'],
+  'Private Label Cosmetic Packaging Supplier | Stock & Custom Options': ['Fournisseur d’emballages cosmétiques private label | Stock et sur mesure','Proveedor de envases cosméticos private label | Stock y a medida','Fornecedor de embalagens cosméticas private label | Stock e personalizado','Поставщик упаковки private label | Стоковые и заказные решения','自有品牌化妆品包装供应商｜现货与定制方案'],
+  'Private Label Cosmetic Packaging Supplier': ['Fournisseur d’emballages cosmétiques private label','Proveedor de envases cosméticos private label','Fornecedor de embalagens cosméticas private label','Поставщик косметической упаковки private label','自有品牌化妆品包装供应商'],
+  'Aluminum Cosmetic Packaging | Bottles, Tins & Tubes': ['Emballages cosmétiques en aluminium | Flacons, boîtes et tubes','Envases cosméticos de aluminio | Frascos, latas y tubos','Embalagens cosméticas de alumínio | Frascos, latas e tubos','Алюминиевая косметическая упаковка | Флаконы, банки и тубы','铝制化妆品包装｜瓶、罐与软管'],
+  'Aluminum Cosmetic Packaging: Bottles, Tins &amp; Tubes': ['Emballages cosmétiques en aluminium : flacons, boîtes et tubes','Envases cosméticos de aluminio: frascos, latas y tubos','Embalagens cosméticas de alumínio: frascos, latas e tubos','Алюминиевая косметическая упаковка: флаконы, банки и тубы','铝制化妆品包装：瓶、罐与软管'],
+  'Sunscreen Tube & Stick Packaging | SPF Buyer Guide': ['Emballages solaires en tubes et sticks | Guide SPF','Envases solares en tubo y stick | Guía SPF','Embalagens solares em tubo e stick | Guia SPF','Упаковка солнцезащитных средств: тубы и стики | Гид SPF','防晒管与防晒棒包装｜SPF 选型指南'],
+  'Sunscreen Tube & Stick Packaging Guide': ['Guide des emballages solaires en tubes et sticks','Guía de envases solares en tubo y stick','Guia de embalagens solares em tubo e stick','Гид по упаковке солнцезащитных средств в тубах и стиках','防晒管与防晒棒包装选型指南']
+  ,'Sunscreen Tube &amp; Stick Packaging Guide': ['Guide des emballages solaires en tubes et sticks','Guía de envases solares en tubo y stick','Guia de embalagens solares em tubo e stick','Гид по упаковке солнцезащитных средств в тубах и стиках','防晒管与防晒棒包装选型指南']
+});
+
 export const localizedCleanup = {
   'zh-CN': {
     '荣耀星Pack': 'GloryStarPack',

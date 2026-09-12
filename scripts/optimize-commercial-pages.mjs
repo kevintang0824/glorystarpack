@@ -24,7 +24,10 @@ const pages = {
     ]
   },
   'private-label-cosmetic-packaging/index.html': {
-    description: 'Select private label cosmetic packaging by formula, stock or custom mold, bottles, jars, tubes, components, MOQ, decoration, samples and retail boxes.'
+    title: 'Private Label Cosmetic Packaging Supplier | Stock & Custom Options',
+    heading: 'Private Label Cosmetic Packaging Supplier',
+    legacyPhrases: [['Private Label Cosmetic Packaging Selection', 'Private Label Cosmetic Packaging Supplier']],
+    description: 'Source stock or custom private label cosmetic packaging with bottles, jars, tubes, pumps, decoration, samples, MOQ planning and retail boxes.'
   },
   'wholesale-cosmetic-packaging/index.html': {
     description: 'Wholesale cosmetic packaging supplier for bulk bottles, jars, tubes, pumps, caps, sample kits and OEM decoration with export-ready packing.',
@@ -57,6 +60,22 @@ const pages = {
   },
   'products/airless-pump-bottles/index.html': {
     description: 'Compare airless pump bottles by formula, piston or pouch structure, filling, dose, priming, evacuation, refill route and RFQ inputs.'
+  },
+  'sunscreen-packaging-guide/index.html': {
+    title: 'Sunscreen Tube & Stick Packaging | SPF Buyer Guide',
+    heading: 'Sunscreen Tube & Stick Packaging Guide',
+    legacyPhrases: [['Sunscreen Packaging Selection Guide', 'Sunscreen Tube & Stick Packaging Guide']],
+    description: 'Compare sunscreen tubes, sticks, pumps and sample packs by formula, filling, dose, barrier, label area, compatibility and SPF project requirements.'
+  },
+  'products/aluminum-packaging/index.html': {
+    title: 'Aluminum Cosmetic Packaging | Bottles, Tins & Tubes',
+    heading: 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes',
+    legacyPhrases: [['Aluminum Cosmetic Packaging', 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes']],
+    repairPhrases: [
+      ['Aluminum Cosmetic Packaging: Bottles, Tins &amp; Tubes: Bottles, Tins & Tubes', 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes'],
+      ['Aluminum Cosmetic Packaging: Bottles, Tins &amp; Tubes: Bottles, Tins &amp; Tubes', 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes']
+    ],
+    description: 'Compare aluminum bottles, tins, jars and tubes by formula contact, internal lining, filling, closure, decoration, recyclability and RFQ requirements.'
   },
   'products/perfume-bottles/index.html': {
     description: 'Perfume bottle manufacturer for square, sculpted oval and thick-bottom glass bottles, mini vials, roll-ons, refillable atomizers and matched pumps.',
@@ -107,6 +126,10 @@ function escapeHtml(value) {
   return value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function setMeta(source, identity, value) {
   const tagPattern = /<meta\b[^>]*>/gi;
   let found = false;
@@ -124,6 +147,48 @@ function setMeta(source, identity, value) {
   const tag = `<meta ${attribute}="${identity}" content="${escapeHtml(value)}"/>`;
   if (!updated.includes('</head>')) throw new Error(`Missing </head> for meta tag: ${identity}`);
   return updated.replace('</head>', `${tag}</head>`);
+}
+
+function escapeTitle(value) {
+  // Keep a standalone ampersand literal in titles so the HTML title, social
+  // title and JSON-LD name remain byte-for-byte comparable to the SEO checks.
+  return escapeHtml(value).replaceAll('&amp;', '&');
+}
+
+function setTitle(source, title) {
+  return source.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeTitle(title)}</title>`);
+}
+
+function setHeading(source, heading) {
+  return source.replace(/(<h1\b[^>]*>)[\s\S]*?(<\/h1>)/i, `$1${escapeHtml(heading)}$2`);
+}
+
+function replacePhrase(source, from, to) {
+  const rawPattern = new RegExp(`${escapeRegExp(from)}(?!:)`, 'g');
+  const escapedFrom = escapeHtml(from);
+  const escapedPattern = new RegExp(`${escapeRegExp(escapedFrom)}(?!:)`, 'g');
+  return source.replace(rawPattern, to).replace(escapedPattern, escapeHtml(to));
+}
+
+function setTitleMeta(source, identity, value) {
+  return setMeta(source, identity, value).replace(new RegExp(`(<meta\\s+(?:name|property)="${identity}"\\s+content=")[^"]*`, 'i'), `$1${escapeTitle(value)}`);
+}
+
+function syncStructuredName(source, title) {
+  const blockMatch = source.match(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/i);
+  if (!blockMatch) throw new Error('Missing JSON-LD block');
+  const data = JSON.parse(blockMatch[1]);
+  const graph = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+  const primaryTypes = new Set(['CollectionPage', 'Service', 'Article', 'WebPage']);
+  let changed = false;
+  for (const node of graph) {
+    if (primaryTypes.has(node?.['@type']) && node.name !== title) {
+      node.name = title;
+      changed = true;
+    }
+  }
+  if (!changed) return source;
+  return source.replace(blockMatch[0], `<script type="application/ld+json">${JSON.stringify(data)}</script>`);
 }
 
 function addFaqSchema(source, faqEntries) {
@@ -172,11 +237,39 @@ for (const [relativePath, config] of Object.entries(pages)) {
   const filePath = path.join(rootDir, relativePath);
   let source = fs.readFileSync(filePath, 'utf8');
   const before = source;
+  for (const [from, to] of config.repairPhrases || []) source = source.replaceAll(from, to);
+  for (const [from, to] of config.legacyPhrases || []) source = replacePhrase(source, from, to);
+  if (config.title) {
+    source = setTitle(source, config.title);
+    source = setTitleMeta(source, 'og:title', config.title);
+    source = setTitleMeta(source, 'twitter:title', config.title);
+    source = syncStructuredName(source, config.title);
+  }
+  if (config.heading) source = setHeading(source, config.heading);
   source = setMeta(source, 'description', config.description);
   source = setMeta(source, 'og:description', config.description);
   source = setMeta(source, 'twitter:description', config.description);
   source = syncStructuredDescription(source, config.description);
   source = addFaqSchema(source, config.faqs);
+  if (source !== before) {
+    fs.writeFileSync(filePath, source);
+    changed += 1;
+    console.log(`optimized ${relativePath}`);
+  }
+}
+
+for (const relativePath of ['site-index/index.html', 'index.html']) {
+  const filePath = path.join(rootDir, relativePath);
+  let source = fs.readFileSync(filePath, 'utf8');
+  const before = source;
+  for (const [from, to] of [
+    ['Sunscreen Packaging Selection Guide', 'Sunscreen Tube & Stick Packaging Guide'],
+    ['Private Label Cosmetic Packaging Selection', 'Private Label Cosmetic Packaging Supplier'],
+    ['Aluminum Cosmetic Packaging', 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes']
+  ]) source = replacePhrase(source, from, to);
+  source = source
+    .replaceAll('Aluminum Cosmetic Packaging: Bottles, Tins &amp; Tubes: Bottles, Tins & Tubes', 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes')
+    .replaceAll('Aluminum Cosmetic Packaging: Bottles, Tins &amp; Tubes: Bottles, Tins &amp; Tubes', 'Aluminum Cosmetic Packaging: Bottles, Tins & Tubes');
   if (source !== before) {
     fs.writeFileSync(filePath, source);
     changed += 1;

@@ -6,6 +6,18 @@ import { localeCodes } from '../data/site-locales.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ignored = new Set(['.git', '.vercel', '.wrangler', 'backups', 'node_modules', 'tmp', ...localeCodes]);
+const englishOnlyRoutes = new Set([
+  '/products/sunscreen-tube-packaging/',
+  '/products/cosmetic-paper-packaging/',
+  '/products/paper-boxes-retail-kits/',
+  '/products/mailer-box-packaging/',
+  '/products/gift-box-packaging/',
+  '/products/plastic-pump-bottles/',
+  '/products/plastic-travel-packaging/',
+  '/products/plastic-lotion-bottles/',
+  '/products/spa-body-care-packaging/',
+  '/products/candle-packaging/'
+]);
 const check = process.argv.includes('--check');
 let pages = 0;
 let changed = 0;
@@ -17,6 +29,8 @@ function walk(dir) {
     const file = path.join(dir, entry.name);
     if (entry.isDirectory()) { walk(file); continue; }
     if (!entry.name.endsWith('.html') || ['glorystarpack (1).html', 'google130558f0f0763df4.html'].includes(entry.name)) continue;
+    const route = `/${path.relative(root, file).split(path.sep).join('/')}`.replace(/index\.html$/, '');
+    if (englishOnlyRoutes.has(route)) continue;
     const source = fs.readFileSync(file, 'utf8');
     const output = check ? source : installLanguageSwitcher(source);
     pages++;

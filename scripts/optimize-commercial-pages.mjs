@@ -24,7 +24,7 @@ const pages = {
     ]
   },
   'private-label-cosmetic-packaging/index.html': {
-    title: 'Private Label Cosmetic Packaging Supplier | Stock & Custom Options',
+    title: 'Private Label Cosmetic Packaging | Stock & Custom Options',
     heading: 'Private Label Cosmetic Packaging Supplier',
     legacyPhrases: [['Private Label Cosmetic Packaging Selection', 'Private Label Cosmetic Packaging Supplier']],
     description: 'Source stock or custom private label cosmetic packaging with bottles, jars, tubes, pumps, decoration, samples, MOQ planning and retail boxes.'

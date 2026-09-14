@@ -19,8 +19,9 @@ const englishOnlyRoutes = new Set([
   '/products/spa-body-care-packaging/',
   '/products/candle-packaging/'
 ]);
+const englishOnlySourceFiles = new Set([...englishOnlyRoutes].map(route => `${route.replace(/^\//, '')}index.html`));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')
-  .filter(file => file && file !== 'google130558f0f0763df4.html' && !localeCodes.some(language => file.startsWith(`${language}/`)));
+  .filter(file => file && file !== 'google130558f0f0763df4.html' && !englishOnlySourceFiles.has(file) && !localeCodes.some(language => file.startsWith(`${language}/`)));
 const routeForFile = file => file === 'index.html' ? '/' : file === '404.html' ? '/404.html' : `/${file.replace(/index\.html$/, '')}`;
 const fileForLocale = (language, file) => file === '404.html' ? path.join(root, language, '404.html') : path.join(root, language, file);
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
@@ -170,7 +171,7 @@ for (const file of sourceFiles) {
   }
 }
 
-expect(sourceFiles.length === 142, `expected 142 English interfaces, found ${sourceFiles.length}`);
+expect(sourceFiles.length === 142, `expected 142 localized English interfaces, found ${sourceFiles.length}`);
 for (const language of localeCodes) {
   const keys = new Set(Object.keys(translationDictionaries[language]));
   const missing = [...currentTranslationStrings].filter(value => !keys.has(value));

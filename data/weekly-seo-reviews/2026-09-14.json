@@ -16,6 +16,27 @@
     "aiContextBytes": 89808,
     "liveChecks": "Production check passed before this local change; rerun after deployment."
   },
+  "pageActions": [
+    {
+      "route": "/private-label-cosmetic-packaging/",
+      "selectionEvidence": "The local SEO audit identified its 66-character title as the only title-length warning; account-side query and conversion data were unavailable.",
+      "change": "Shortened the English title and synchronized Open Graph, Twitter and Service schema name through the commercial-page generator; existing approved localized titles remain unchanged.",
+      "outcome": "Post-deployment title and social metadata matched the new title on the production URL."
+    },
+    {
+      "scope": "10 English-only commercial routes",
+      "selectionEvidence": "The localization generator intentionally excludes these routes pending human-reviewed translations, while the validator did not apply the same exclusion.",
+      "change": "Aligned the validator with the generator so it validates the 142 localized English interfaces and does not treat intentionally absent translations as a failure.",
+      "outcome": "Localized parity passed: 710 pages across five locales; no untranslated locale page was generated or published."
+    }
+  ],
+  "releaseStatus": {
+    "commit": "1c18d5f0",
+    "deployment": "https://glorystarpack-584jre7yn-glorystarpack-s-projects.vercel.app",
+    "deployedAt": "2026-09-14T01:08:06Z",
+    "productionVerification": "Passed: HTTP, canonicals, robots, sitemap, image sitemap, RSS, IndexNow key, key pages, 404 and inquiry endpoint.",
+    "indexNow": "Accepted one changed URL with HTTP 200."
+  },
   "externalMetrics": {
     "googleSearchConsole": null,
     "bingWebmaster": null,

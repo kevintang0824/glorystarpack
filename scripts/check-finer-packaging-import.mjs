@@ -19,7 +19,7 @@ const context = { window: {} };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync(productDataPath, 'utf8'), context);
 const allProducts = context.window.GSP_PRODUCTS ?? [];
-const importedProducts = allProducts.filter(product => product.referenceMoq === true && product.sourceCategory);
+const importedProducts = allProducts.filter(product => product.referenceMoq === true && product.sourceCategory && !product.sourceSpecs);
 const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
 const homepage = fs.readFileSync(homepagePath, 'utf8');
 const productDataBytes = fs.statSync(productDataPath).size;

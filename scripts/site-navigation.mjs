@@ -37,6 +37,7 @@ export function productsNavigationPanelMarkup() {
     categoryLink('glass-jar', 'Cream Jars', '/products/cream-jars/'),
     categoryLink('glass-lotion', 'Lotion Bottles'),
     categoryLink('glass-perfume', 'Perfume Bottles', '/products/perfume-bottles/'),
+    categoryLink('perfume-bottle-shape', 'Imported Perfume Bottle Shapes'),
     categoryLink('glass-diffuser', 'Diffuser Bottles'),
     categoryLink('glass-violet', 'Violet Glass Bottles'),
     categoryLink('glass-nail', 'Nail Polish Bottles')
@@ -123,6 +124,8 @@ export function productsNavigationPanelMarkup() {
     categoryLink('components', 'All Components', '/products/cosmetic-pumps-closures/'),
     categoryLink('plastic-closure', 'Pumps, Caps &amp; Closures'),
     categoryLink('beverage-closure', 'Beverage Closures'),
+    categoryLink('perfume-bottle-caps', 'Perfume Bottle Caps'),
+    categoryLink('perfume-sprayers', 'Perfume Sprayer Heads'),
     categoryLink('packaging-accessories', 'Packaging Accessories', '/products/cosmetic-packaging-accessories/')
   ]);
 
@@ -136,7 +139,7 @@ export function productsNavigationPanelMarkup() {
 
   return `<div class="gsp-products-panel">
   <div class="gsp-products-shortcuts">
-    <a class="gsp-products-shortcut" data-product-category="all" href="/products/product-index/"><span>All Products</span><span class="gsp-products-count" data-total-products>2353</span></a>
+    <a class="gsp-products-shortcut" data-product-category="all" href="/products/product-index/"><span>All Products</span><span class="gsp-products-count" data-total-products>3212</span></a>
     <a class="gsp-products-shortcut" data-product-category="hot" href="/products/product-index/"><span>★ Hot Picks</span><span class="gsp-products-count" data-cat-count="hot">142</span></a>
   </div>
   <p class="gsp-products-heading">Shop by material</p>

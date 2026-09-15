@@ -13,8 +13,8 @@ function syncProductData() {
   }
   if (hasProductData()) {
     window.GSP_LOCALIZE_PRODUCT_DATA?.();
-    Object.assign(CAT_TITLES, window.GSP_FINER_CATEGORY_TITLES || {});
-    Object.assign(CAT_COPY, window.GSP_FINER_CATEGORY_COPY || {});
+    Object.assign(CAT_TITLES, window.GSP_FINER_CATEGORY_TITLES || {}, window.GSP_BDXSP_CATEGORY_TITLES || {});
+    Object.assign(CAT_COPY, window.GSP_FINER_CATEGORY_COPY || {}, window.GSP_BDXSP_CATEGORY_COPY || {});
     if (typeof window.GSP_TRANSLATE_TEXT === 'function') {
       for (const key of Object.keys(CAT_TITLES)) CAT_TITLES[key] = window.GSP_TRANSLATE_TEXT(CAT_TITLES[key]);
       for (const key of Object.keys(CAT_COPY)) CAT_COPY[key] = CAT_COPY[key].map(window.GSP_TRANSLATE_TEXT);
@@ -88,7 +88,6 @@ CAT_TITLES['glass-food'] = 'Glass Food Bottles & Jars';
 CAT_TITLES['food-jar'] = 'Glass Food, Honey & Spice Jars';
 CAT_TITLES['glass-apothecary'] = 'Glass Apothecary & Supplement Bottles';
 CAT_TITLES.components = 'Pumps, Caps & Components';
-
 const CAT_COPY = {
   hot:['Bestselling Cosmetic Packaging', 'Popular stock and custom packaging options for skincare, fragrance, makeup, hair care and sample programs. These products are commonly selected for fast sampling, proven compatibility and flexible decoration.'],
   'material-glass':['Primary-Material Glass Packaging', 'Glass bottles, jars, vials and primary containers grouped by the material of the main visible pack. This collection includes beverage, fragrance, nail care, serum and skincare glass formats.'],
@@ -611,7 +610,15 @@ function productGalleryImages(p) {
   }));
 }
 
+function sourceSpecItems(p) {
+  const s = p.sourceSpecs;
+  if (!s) return [];
+  const labels = {typeLabel:'Source category', mouthDiameter:'Mouth diameter'};
+  return Object.entries(s).filter(([k]) => k !== 'type').map(([k,v]) => [labels[k] || k.replace(/^./, k[0].toUpperCase()), v]);
+}
+
 function productSubitems(p) {
+  if (p.sourceSpecs) return sourceSpecItems(p).filter(([k]) => !['Source category','Weight'].includes(k)).map(([k,v]) => ({k,v}));
   if (p.referenceMoq) return [
     {k:'Size',v:p.size}, {k:'Finish',v:p.finish},
     {k:'Structure',v:'Confirm by Project'}, {k:'Application',v:p.sourceCategory.split('>')[0].trim()}
@@ -812,6 +819,7 @@ function pcHTML(p, small) {
   const chips = productSubitems(p).slice(0,3).map(x => `<span>${safeText(x.v.split('/')[0].trim())}</span>`).join('');
   const safeName = displayName.replace(/'/g, "\\'");
   const moqLabel = p.referenceMoq ? 'Reference MOQ' : isConceptProduct(p) ? 'Planning MOQ' : 'MOQ';
+  const moqValue = p.moq ? `${p.moq} pcs` : 'Confirm by project';
   const seoUrl = productSeoUrl(p);
   const imageMarkup = seoUrl
     ? `<a class="pc-primary-link" href="${seoUrl}" onclick="event.stopPropagation()" aria-label="View ${safeText(displayName)} product page">${responsiveImage}<span class="img-fallback" style="display:none;">${p.ic}</span></a>`
@@ -827,7 +835,7 @@ function pcHTML(p, small) {
       <div class="pc-specs">${p.mat} · ${p.size}</div>
       <div class="pc-subitems">${chips}</div>
       <div class="pc-bot">
-        <div class="moq-val">${moqLabel} <strong>${p.moq} pcs</strong></div>
+        <div class="moq-val">${moqLabel} <strong>${moqValue}</strong></div>
         <div class="card-actions">
           <button class="card-btn soft" onclick="event.stopPropagation();openModal('sample','${safeName}')">Sample</button>
           <button class="card-btn" onclick="event.stopPropagation();openModal('quote','${safeName}')">Quote</button>
@@ -1071,7 +1079,7 @@ function showDetail(pid) {
   document.getElementById('det-name').textContent = p.name;
   document.getElementById('det-desc').textContent = p.desc;
   document.getElementById('det-tab-desc').textContent = p.tab;
-  document.getElementById('det-tab-spec').textContent = `Catalog capacity: ${p.size}. Catalog finish: ${p.finish}. Confirm dimensions, tolerances and unit weight in the current project drawing.`;
+  document.getElementById('det-tab-spec').textContent = `Catalog capacity or size: ${p.size}. Catalog finish: ${p.finish}. Confirm dimensions, tolerances and unit weight in the current project drawing.`;
   document.getElementById('det-tab-custom').textContent = `Decoration, color and tooling routes depend on the ${p.mat} construction, geometry, artwork, quantity and use. Approve the production-intent reference before bulk planning.`;
   document.getElementById('det-tab-ship').textContent = 'Confirm sample availability, packing, shipment route and timing for the exact components, quantity, destination and approval stage.';
   const mainImg = productImage(p);
@@ -1089,13 +1097,17 @@ function showDetail(pid) {
   document.getElementById('det-badges').innerHTML = `<span class="pc-badge ${bc}" style="position:static;">${bl}</span>`;
   const conceptProduct = isConceptProduct(p);
   const referenceMoq = Boolean(p.referenceMoq);
-  document.getElementById('det-specs').innerHTML = [
+  const referenceMoqText = referenceMoq
+    ? (p.moq ? `${p.moq} pcs in source listing; confirm current project MOQ` : 'Not provided in source export; confirm current project MOQ')
+    : p.moq + (conceptProduct ? ' pcs; confirm by project' : ' pcs per color');
+  const sourceSpecRows = sourceSpecItems(p);
+  document.getElementById('det-specs').innerHTML = [...sourceSpecRows, ...[
     ['Material', p.mat],['Capacity / Size', p.size],['Finish', p.finish],
-    [referenceMoq ? 'Reference MOQ' : conceptProduct ? 'Planning MOQ' : 'MOQ', referenceMoq ? `${p.moq} pcs in source listing; confirm current project MOQ` : p.moq + (conceptProduct ? ' pcs; confirm by project' : ' pcs per color')],
+    [referenceMoq ? 'Reference MOQ' : conceptProduct ? 'Planning MOQ' : 'MOQ', referenceMoqText],
     ['Sample Route', conceptProduct ? 'Confirmed after drawing and tooling review' : 'Confirm availability, charges and timing for the selected configuration'],
     ['Production Timing', 'Confirmed after specification and sample approval'],
     ['Documentation', 'Confirm project-specific requirements with our team']
-  ].map(([k,v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+  ]].map(([k,v]) => `<tr><td>${k}</td><td>${safeText(v)}</td></tr>`).join('');
   const sizes = p.size.split('/').map(s => s.trim());
   document.getElementById('det-sizes').innerHTML = sizes.map((s,i) =>
     `<button class="opt-btn${i===0?' active':''}" aria-pressed="${i===0?'true':'false'}" onclick="setOpt(this)">${s}</button>`
@@ -1107,7 +1119,7 @@ function showDetail(pid) {
 
   go('detail');
   const productTitle = `${p.name} | OEM Cosmetic Packaging Supplier | GloryStarPack`;
-  const productDesc = `${p.desc} ${referenceMoq ? `Source reference MOQ ${p.moq} pcs; confirm current project terms.` : conceptProduct ? `Planning MOQ ${p.moq} pcs; confirm by project.` : `MOQ ${p.moq} pcs.`} Material: ${p.mat}. Finish: ${p.finish}. Request samples or OEM customization from GloryStarPack.`;
+  const productDesc = `${p.desc} ${referenceMoq ? (p.moq ? `Source reference MOQ ${p.moq} pcs; confirm current project terms.` : 'Source MOQ was not provided; confirm current project terms.') : conceptProduct ? `Planning MOQ ${p.moq} pcs; confirm by project.` : `MOQ ${p.moq} pcs.`} Material: ${p.mat}. Finish: ${p.finish}. Request samples or OEM customization from GloryStarPack.`;
   document.title = productTitle;
   const descEl = document.querySelector('meta[name="description"]');
   if (descEl) descEl.setAttribute('content', productDesc);

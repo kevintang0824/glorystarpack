@@ -85,6 +85,12 @@ for (const file of sourceFiles) {
     if (value && isSeedableTranslationString(value)) currentSourceStrings.add(value);
   }
 }
+const dynamicSourceStrings = JSON.parse(execFileSync(process.execPath, ['scripts/extract-dynamic-translation-strings.mjs'], {
+  cwd: root,
+  encoding: 'utf8',
+  maxBuffer: 32 * 1024 * 1024
+}));
+dynamicSourceStrings.forEach(value => currentSourceStrings.add(value));
 const routeForFile = file => file === 'index.html' ? '/' : file === '404.html' ? '/404.html' : `/${file.replace(/index\.html$/, '')}`;
 const fileForLocale = (language, file) => file === '404.html' ? path.join(root, language, '404.html') : path.join(root, language, file);
 const slugForRoute = route => route.split('/').filter(Boolean).at(-1) || '';

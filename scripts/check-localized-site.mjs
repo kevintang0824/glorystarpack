@@ -55,7 +55,11 @@ for (const file of sourceFiles) {
     if (shouldTranslate(value)) currentTranslationStrings.add(value);
   }
 }
-const dynamicStrings = JSON.parse(execFileSync(process.execPath, ['scripts/extract-dynamic-translation-strings.mjs'], { cwd: root, encoding: 'utf8' }));
+const dynamicStrings = JSON.parse(execFileSync(process.execPath, ['scripts/extract-dynamic-translation-strings.mjs'], {
+  cwd: root,
+  encoding: 'utf8',
+  maxBuffer: 32 * 1024 * 1024
+}));
 for (const raw of dynamicStrings) {
   const value = normalizedTranslationSource(raw);
   if (shouldTranslate(value)) currentTranslationStrings.add(value);

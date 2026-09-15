@@ -36,6 +36,8 @@ node --check scripts/generate-localized-site.mjs
 node --check scripts/optimize-commercial-pages.mjs
 node --check scripts/optimize-theme-clusters.mjs
 node --check scripts/check-localized-site.mjs
+node --check scripts/import-bdxsp-catalog.mjs
+node --check scripts/check-bdxsp-catalog-import.mjs
 node --check scripts/extract-dynamic-translation-strings.mjs
 node scripts/generate-insight-pages.mjs
 node scripts/optimize-theme-clusters.mjs
@@ -43,6 +45,7 @@ node scripts/apply-language-switcher.mjs --check
 node scripts/generate-localized-site.mjs
 node scripts/check-localized-site.mjs
 node scripts/check-finer-packaging-import.mjs
+node scripts/check-bdxsp-catalog-import.mjs
 node scripts/check-seo.mjs
 node scripts/generate-seo-baseline.mjs
 node scripts/audit-content.mjs

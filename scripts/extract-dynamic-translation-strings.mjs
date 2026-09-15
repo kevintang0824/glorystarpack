@@ -12,6 +12,10 @@ const add = value => {
 const productContext = vm.createContext({ window: {} });
 vm.runInContext(fs.readFileSync(path.join(root, 'assets/js/product-data.js'), 'utf8'), productContext);
 for (const product of productContext.window.GSP_PRODUCTS || []) {
+  // The bulk-imported BDXSP reference catalog is intentionally English-first:
+  // its model names and source-derived technical notes remain exact catalog
+  // identifiers until human-reviewed translations are authored.
+  if (product.sourceSpecs) continue;
   for (const field of ['name', 'mat', 'finish', 'desc', 'tab']) add(product[field]);
 }
 
@@ -21,6 +25,8 @@ const catalogContext = vm.createContext({ window: {} });
 vm.runInContext(`${catalogPrefix}\nthis.__copy = { titles: CAT_TITLES, copy: CAT_COPY };\n})();`, catalogContext);
 Object.values(catalogContext.__copy.titles).forEach(add);
 Object.values(catalogContext.__copy.copy).flat().forEach(add);
+Object.values(productContext.window.GSP_BDXSP_CATEGORY_TITLES || {}).forEach(add);
+Object.values(productContext.window.GSP_BDXSP_CATEGORY_COPY || {}).flat().forEach(add);
 
 [
   'Loading packaging products...', 'Loading product catalog...', 'Loading product details...',

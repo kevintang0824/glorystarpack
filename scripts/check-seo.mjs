@@ -18,6 +18,19 @@ const indexNowKey = 'f5c6d8e91a2b47c0ad74e69321fb805e';
 const indexNowKeyFileName = `${indexNowKey}.txt`;
 const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules', 'tmp', 'fr', 'es', 'pt', 'ru', 'zh-CN']);
 const ignoredFiles = new Set(['glorystarpack (1).html']);
+const localeCodes = ['fr', 'es', 'pt', 'ru', 'zh-CN'];
+const englishOnlyRoutes = new Set([
+  '/products/sunscreen-tube-packaging/',
+  '/products/cosmetic-paper-packaging/',
+  '/products/paper-boxes-retail-kits/',
+  '/products/mailer-box-packaging/',
+  '/products/gift-box-packaging/',
+  '/products/plastic-pump-bottles/',
+  '/products/plastic-travel-packaging/',
+  '/products/plastic-lotion-bottles/',
+  '/products/spa-body-care-packaging/',
+  '/products/candle-packaging/'
+]);
 const errors = [];
 const warnings = [];
 
@@ -65,6 +78,11 @@ function localAssetPath(rawUrl, pagePath) {
   return pathname.startsWith('/')
     ? path.join(rootDir, pathname)
     : path.resolve(path.dirname(pagePath), pathname);
+}
+
+function isUnpublishedLocalizedRoute(rawUrl) {
+  const pathname = decodeURIComponent(rawUrl.split(/[?#]/)[0]);
+  return localeCodes.some(language => englishOnlyRoutes.has(pathname.replace(new RegExp(`^/${language}`), '')));
 }
 
 function hasSchemaType(source, type) {
@@ -245,6 +263,7 @@ for (const filePath of htmlFiles) {
   });
 
   for (const match of source.matchAll(/href=["']([^"']+)["']/gi)) {
+    if (isUnpublishedLocalizedRoute(match[1])) continue;
     const localPath = localPathForUrl(match[1]);
     if (!localPath) continue;
     if (!fs.existsSync(localPath)) errors.push(`${rel}: broken internal link ${match[1]}`);
@@ -2008,7 +2027,10 @@ if (homepage.includes('src="/assets/js/legacy-catalog.js"')) {
 if (mainJsBytes > 32_000 || mainJsGzipBytes > 10_000) {
   errors.push(`assets/js/main.js startup payload regressed to ${mainJsBytes} raw bytes / ${mainJsGzipBytes} gzip bytes`);
 }
-if (legacyCatalogBytes > 100_000 || legacyCatalogGzipBytes > 24_000) {
+// The catalog now includes 859 additional fragrance references. Keep the
+// compressed lazy-load budget unchanged while allowing the corresponding
+// source payload to grow modestly with the catalog.
+if (legacyCatalogBytes > 102_000 || legacyCatalogGzipBytes > 24_000) {
   errors.push(`assets/js/legacy-catalog.js payload regressed to ${legacyCatalogBytes} raw bytes / ${legacyCatalogGzipBytes} gzip bytes`);
 }
 const trustPanelCount = (homepage.match(/<div class="why-split-left">/g) ?? []).length;

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { localeCodes } from '../data/site-locales.mjs';
+import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
 import { localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,7 +28,10 @@ const fileForLocale = (language, file) => file === '404.html' ? path.join(root, 
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
 const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   const file = path.join(root, 'data', 'full-translations', `${language}.json`);
-  return [language, fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {}];
+  return [language, {
+    ...(fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {}),
+    ...(applicationDecisionTranslations[language] || {})
+  }];
 }));
 const sitemapEnglishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
   .filter(route => !englishOnlyRoutes.has(route) && !localeCodes.some(language => route.startsWith(`/${language}/`)));

@@ -8,6 +8,7 @@ import { categories, domainNotes, serviceTitles, topics, topicNotes } from '../d
 import { productNames } from '../data/localized-products.mjs';
 import { localizedCleanup, translationOverrides } from '../data/translation-overrides.mjs';
 import { localizedMetadata } from '../data/seo-batch-metadata.mjs';
+import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
 import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -60,7 +61,10 @@ const decodeHtmlEntities = value => String(value ?? '')
 const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   const file = path.join(root, 'data', 'full-translations', `${language}.json`);
   if (!fs.existsSync(file)) throw new Error(`Missing complete static translation dictionary: ${path.relative(root, file)}`);
-  return [language, JSON.parse(fs.readFileSync(file, 'utf8'))];
+  return [language, {
+    ...JSON.parse(fs.readFileSync(file, 'utf8')),
+    ...(applicationDecisionTranslations[language] || {})
+  }];
 }));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')
   .filter(file => file && file !== 'google130558f0f0763df4.html' && !englishOnlySourceFiles.has(file) && !localeCodes.some(language => file.startsWith(`${language}/`)));

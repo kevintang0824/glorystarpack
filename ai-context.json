@@ -216,8 +216,24 @@
       "url": "https://www.glorystarpack.com/products/nail-polish-bottles/",
       "primaryIntent": "Source nail polish bottle packaging",
       "buyerStage": "Nail-care component and private-label selection",
-      "shortAnswer": "Compare square, round and slim rectangular bottles, UV black gel polish formats, brush caps, decoration, samples and private-label needs.",
+      "shortAnswer": "Compare square, round and slim rectangular bottles by formula, neck, wiper, brush, stem, cap, light exposure, decoration and production-intent samples.",
       "quoteInputs": ["formula type", "capacity", "bottle shape", "brush and cap", "decoration", "quantity per SKU", "samples"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/home-fragrance-packaging/",
+      "primaryIntent": "Source home fragrance and spa packaging",
+      "buyerStage": "Scent-format and coordinated-set selection",
+      "shortAnswer": "Compare candle jars, reed diffuser bottles, room-spray systems and spa or hotel amenity kits by formula contact, heat or pressure exposure, closure, decoration and export packing.",
+      "quoteInputs": ["scent format", "formula or fill state", "capacity", "closure", "decoration", "quantity per SKU", "destination", "packed route"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/hotel-amenity-packaging/",
+      "primaryIntent": "Source hotel amenity packaging",
+      "buyerStage": "Hospitality format, replenishment and rollout planning",
+      "shortAnswer": "Choose mini bottles, pouches or refillable dispensers by guest use, formula viscosity, hygiene and replenishment workflow, branding, carton count and destination requirements.",
+      "quoteInputs": ["program type", "products and fill volume", "closure", "branding", "quantity per SKU", "replenishment model", "destination", "timing"],
       "recommendedNextStep": "https://www.glorystarpack.com/contact/"
     },
     {
@@ -1151,7 +1167,19 @@
       "url": "https://www.glorystarpack.com/products/nail-polish-bottles/",
       "pageType": "product category",
       "primaryIntent": "glass nail polish bottles supplier",
-      "summary": "Square, round, UV black and slim rectangular glass nail polish bottles with brush, wiper, stem and cap matching."
+      "summary": "Square, round, UV black and slim rectangular glass nail polish bottles with brush, wiper, stem and cap matching, plus formula-fit, light-management, decoration and production-intent approval questions."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/home-fragrance-packaging/",
+      "pageType": "product category",
+      "primaryIntent": "home fragrance packaging supplier",
+      "summary": "Candle jars, reed diffuser bottles, room-spray systems, car diffusers, spa jars and hotel amenity kits organized by scent format, closure, decoration, sampling and export packing."
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/hotel-amenity-packaging/",
+      "pageType": "product category",
+      "primaryIntent": "hotel amenity packaging supplier",
+      "summary": "Mini bottles, jars, sachets, clear toiletry pouches and refill systems for hospitality programs, with guest-use, replenishment, branding, kit assembly and packed-route questions."
     },
     {
       "url": "https://www.glorystarpack.com/products/glass-packaging/",
@@ -1205,7 +1233,7 @@
       "url": "https://www.glorystarpack.com/products/beverage-bottles/",
       "pageType": "product category",
       "primaryIntent": "glass beverage bottle supplier",
-      "summary": "Glass and PET beverage bottle hub for beer, wine, spirits, sparkling drinks, mineral water, cold brew, juice and smoothies, with matched corks, caps, swing tops, decoration and export packing."
+      "summary": "Glass and PET beverage bottle hub for beer, wine, spirits, sparkling drinks, mineral water, cold brew, juice and smoothies, with matched closures, filling and pressure review, production-intent samples and export packing."
     },
     {
       "url": "https://www.glorystarpack.com/products/beer-bottles/",

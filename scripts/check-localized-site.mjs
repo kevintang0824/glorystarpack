@@ -80,6 +80,26 @@ for (const assetScript of ['assets/js/legacy-catalog.js', 'assets/js/product-dat
 }
 
 function body(source) { return source.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || ''; }
+function headMeta(source, attribute, value) {
+  const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return source.match(new RegExp(`<meta\\s+${attribute}="${escaped}"\\s+content="([^"]*)"`, 'i'))?.[1] || '';
+}
+function pageTitle(source) { return source.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].replace(/\s+/g, ' ').trim() || ''; }
+function faqEntries(source) {
+  const entries = [];
+  for (const match of source.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi)) {
+    let data;
+    try { data = JSON.parse(match[1]); } catch { continue; }
+    const graph = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+    for (const node of graph) {
+      if (node?.['@type'] === 'FAQPage' && Array.isArray(node.mainEntity)) entries.push(...node.mainEntity);
+    }
+  }
+  return entries;
+}
+function normalizedVisible(value) {
+  return String(value || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;|&apos;/g, "'").replace(/\s+/g, ' ').trim();
+}
 function visibleTextNodes(source) {
   source = body(source)
     .replace(/<details\b[^>]*class="gsp-language"[\s\S]*?<\/details>/gi, '')
@@ -122,6 +142,14 @@ for (const file of sourceFiles) {
     if (!fs.existsSync(target)) { failures.push(`${rel}: parity page is missing`); continue; }
     const localized = fs.readFileSync(target, 'utf8');
     const localizedText = visibleTextNodes(localized);
+    const localizedVisible = normalizedVisible(localizedText.join(' '));
+    const localizedFaq = faqEntries(localized);
+    const localizedTitle = pageTitle(localized);
+    const localizedDescription = headMeta(localized, 'name', 'description');
+    const localizedOgTitle = headMeta(localized, 'property', 'og:title');
+    const localizedOgDescription = headMeta(localized, 'property', 'og:description');
+    const englishTitle = pageTitle(english);
+    const englishDescription = headMeta(english, 'name', 'description');
     pages++;
     expect(localized.includes(`<html lang="${language}">`), `${rel}: incorrect document language`);
     expect(faviconHref(localized) === expectedFavicon, `${rel}: missing canonical GSP favicon`);
@@ -156,6 +184,16 @@ for (const file of sourceFiles) {
     }
     const noindex = /<meta name="robots" content="noindex/i.test(localized);
     expect(noindex === englishNoindex, `${rel}: indexability differs from English`);
+    if (!noindex) {
+      expect(localizedTitle && localizedTitle !== englishTitle, `${rel}: title still matches the English page`);
+      expect(localizedDescription && localizedDescription !== englishDescription, `${rel}: meta description still matches the English page`);
+      expect(localizedOgTitle === localizedTitle, `${rel}: og:title does not match the localized title`);
+      expect(localizedOgDescription === localizedDescription, `${rel}: og:description does not match the localized description`);
+      for (const question of localizedFaq) {
+        expect(localizedVisible.includes(normalizedVisible(question.name)), `${rel}: FAQ question is not visible in the localized body`);
+        expect(localizedVisible.includes(normalizedVisible(question.acceptedAnswer?.text).slice(0, 80)), `${rel}: FAQ answer is not visible in the localized body`);
+      }
+    }
     if (englishCanonical) {
       const expectedCanonical = `${site}${localePath(language, route)}`;
       expect(localized.match(/<link rel="canonical" href="([^"]+)"/)?.[1] === expectedCanonical, `${rel}: incorrect canonical URL`);

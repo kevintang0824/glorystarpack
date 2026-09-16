@@ -380,6 +380,24 @@ for (const record of pageRecords) {
   }
 }
 
+// Localized URLs should carry the same change signal as their corresponding
+// English route. A single stale date for every locale hides which localized
+// pages were actually updated and makes future recrawl diagnostics harder.
+const sitemapLastmods = new Map(
+  [...sitemapSource.matchAll(/<loc>(https:\/\/www\.glorystarpack\.com([^<]+))<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)]
+    .map(match => [match[1], { route: match[2], date: match[3] }])
+);
+for (const [, localized] of sitemapLastmods) {
+  const localeMatch = localized.route.match(/^\/(fr|es|pt|ru|zh-CN)(\/.*)?$/);
+  if (!localeMatch) continue;
+  const baseRoute = localeMatch[2] || '/';
+  const englishUrl = `${siteUrl}${baseRoute}`;
+  const english = sitemapLastmods.get(englishUrl);
+  if (english && english.date !== localized.date) {
+    errors.push(`localized sitemap lastmod does not match ${baseRoute}: ${localized.route}=${localized.date}, English=${english.date}`);
+  }
+}
+
 const retiredAirlessPage = pageRecords.find(record => record.rel === 'products/airless-bottles/index.html');
 if (!retiredAirlessPage) errors.push('missing noindex fallback for the redirected airless category');
 else if (retiredAirlessPage.indexable) errors.push(`${retiredAirlessPage.rel}: redirected fallback must be noindex`);

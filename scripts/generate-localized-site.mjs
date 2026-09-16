@@ -13,9 +13,9 @@ import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './l
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://www.glorystarpack.com';
 // Phase 2 adds FAQPage JSON-LD to the canonical English commercial pages.
-// The localization pipeline translates visible HTML but intentionally does not
-// machine-translate JSON-LD, so do not copy those new FAQ nodes into localized
-// pages where the visible questions would be in another language.
+// Localized pages either remove English-only FAQ nodes or rebuild each FAQ
+// answer from its translated visible h3/p pair so schema text stays aligned
+// with the content a user can actually read.
 const englishOnlyFaqRoutes = new Set([
   '/custom-cosmetic-packaging/',
   '/oem-cosmetic-packaging/',
@@ -184,6 +184,26 @@ function replaceTextPhrase(source, english, localized) {
 }
 
 function normalizedText(value) { return String(value || '').replace(/\s+/g, ' ').trim(); }
+
+function firstLeadText(source) {
+  const match = source.match(/<(?:p|div)\b[^>]*class=["'][^"']*\blead\b[^"']*["'][^>]*>([\s\S]*?)<\/(?:p|div)>/i);
+  return match ? decodeHtmlEntities(stripTags(match[1])) : '';
+}
+
+function compactMetaDescription(value) {
+  const text = normalizedText(value);
+  if (text.length <= 170) return text;
+  const sentences = text.split(/(?<=[.!?。！？])\s*/).filter(Boolean);
+  let result = '';
+  for (const sentence of sentences) {
+    const candidate = result ? `${result} ${sentence}` : sentence;
+    if (candidate.length > 170 && result) break;
+    result = candidate;
+    if (result.length >= 120) break;
+  }
+  if (result.length >= 80) return result;
+  return `${text.slice(0, 167).replace(/\s+\S*$/, '').replace(/[,:;\-–—/]\s*$/, '')}…`;
+}
 
 function englishH1(file) {
   if (!file || !fs.existsSync(path.join(root, file))) return '';
@@ -354,6 +374,65 @@ function removeEnglishOnlyFaqSchema(source, route) {
   });
 }
 
+function translateJsonLdText(value, language) {
+  const dictionary = translationDictionaries[language];
+  const candidates = [value, escapeHtml(value), decodeHtmlEntities(value)];
+  const key = candidates.find(candidate => Object.hasOwn(dictionary, candidate));
+  const overrideKey = candidates.find(candidate => Object.hasOwn(translationOverrides, candidate));
+  let localized = key
+    ? dictionary[key]
+    : overrideKey
+      ? translationOverrides[overrideKey][localeIndex(language)]
+      : value;
+  for (const [bad, good] of Object.entries(localizedCleanup[language] || {})) {
+    if (/^[A-Za-z][A-Za-z0-9]*(?: [A-Za-z][A-Za-z0-9]*)*$/.test(bad)) {
+      localized = localized.replace(new RegExp(`(?<![A-Za-z])${escapeRegExp(bad)}(?![A-Za-z])`, 'g'), good);
+    } else {
+      localized = localized.replaceAll(bad, good);
+    }
+  }
+  return localized;
+}
+
+function localizedFaqBodyPairs(source) {
+  return [...source.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>\s*<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map(match => ({
+      question: normalizedText(decodeHtmlEntities(stripTags(match[1]))),
+      answer: normalizedText(decodeHtmlEntities(stripTags(match[2])))
+    }));
+}
+
+function localizeFaqSchema(source, language, route) {
+  if (englishOnlyFaqRoutes.has(route)) return removeEnglishOnlyFaqSchema(source, route);
+  const bodyFaqs = localizedFaqBodyPairs(source);
+  return source.replace(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi, (block, rawJson) => {
+    let data;
+    try { data = JSON.parse(rawJson); } catch { return block; }
+    const graph = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+    let changed = false;
+    for (const node of graph) {
+      if (node?.['@type'] !== 'FAQPage' || !Array.isArray(node.mainEntity)) continue;
+      for (const question of node.mainEntity) {
+        let localizedName = question?.name ? translateJsonLdText(question.name, language) : '';
+        if (question?.name) {
+          if (localizedName !== question.name) { question.name = localizedName; changed = true; }
+        }
+        const answer = question?.acceptedAnswer;
+        if (answer?.text) {
+          // FAQ answers can contain inline links in the visible HTML, so the
+          // full source string is not always present in the translation
+          // dictionary. Reuse the translated h3/p pair when available; this
+          // keeps FAQPage text aligned with what a user can actually read.
+          const visibleFaq = bodyFaqs.find(entry => entry.question === normalizedText(decodeHtmlEntities(localizedName)));
+          const localizedAnswer = visibleFaq?.answer || translateJsonLdText(answer.text, language);
+          if (localizedAnswer !== answer.text) { answer.text = localizedAnswer; changed = true; }
+        }
+      }
+    }
+    return changed ? `<script type="application/ld+json">${JSON.stringify(data)}</script>` : block;
+  });
+}
+
 function syncLocalizedStructuredMetadata(source, name, description) {
   return source.replace(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/i, (block, rawJson) => {
     let data;
@@ -381,9 +460,10 @@ function pageLocalization(route, source, language) {
   else if (route === '/about/') { title = t('about', language); summary = t('footer', language); }
   else if (route === '/contact/') { title = t('start', language); summary = t('startCopy', language); }
   else if (route === '/products/product-index/') { title = t('catalog', language); summary = t('catalogIntro', language); }
-  else if (route === '/site-index/') { title = t('index', language); summary = t('catalogIntro', language); }
+  else if (route === '/site-index/') { title = t('index', language); summary = t('siteIndexIntro', language); }
   else if (route === '/insights/') { title = t('insights', language); summary = t('guideIntro', language); }
-  else if (route === '/cosmetic-packaging-guides/' || route === '/glass-bottle-buying-guides/') { title = t('guides', language); summary = t('guideIntro', language); }
+  else if (route === '/cosmetic-packaging-guides/') { title = t('guides', language); summary = t('guideIntro', language); }
+  else if (route === '/glass-bottle-buying-guides/') { title = t('glassGuides', language); summary = t('guideIntro', language); }
   else if (categories[slug]) { title = categories[slug][2][index]; summary = domainNotes[categories[slug][1]][index]; }
   else if (topics[slug]) { title = topics[slug][1][index]; summary = (topicNotes[topics[slug][0]] || domainNotes.cosmetic)[index]; }
   else if (serviceTitles[slug]) { title = serviceTitles[slug][index]; summary = t('startCopy', language); }
@@ -414,23 +494,33 @@ function localizePage(file, language) {
   source = translateStaticHtml(source, language);
   source = cleanLocalizedTerms(source, language);
   source = localizeLinks(source, language);
-  source = removeEnglishOnlyFaqSchema(source, route);
+  source = localizeFaqSchema(source, language, route);
   source = normalizeAssetPaths(source);
   source = installLanguageSwitcher(source, { language, route });
   source = source.replace(/<html lang="[^"]+">/, `<html lang="${language}">`);
+  // Use the translated, page-specific lead as the fallback description. The
+  // previous generic category/product summaries caused many localized URLs
+  // to share the same meta description or retain English metadata, weakening
+  // their search intent and indexation signals.
+  const localizedSummary = localizedMetadata[route]?.[language]?.description || firstLeadText(source) || summary;
+  const metaDescription = compactMetaDescription(localizedSummary);
   const renderedTitle = metaTitle || `${title} | GloryStarPack`;
   source = source.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(renderedTitle)}</title>`);
-  source = source.replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(renderedTitle)}">`);
-  source = source.replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${escapeHtml(renderedTitle)}">`);
+  source = source.replace(/(<meta\s+property="og:title"\s+content=")[^"]*("[^>]*>)/i, `$1${escapeHtml(renderedTitle)}$2`);
+  source = source.replace(/(<meta\s+name="twitter:title"\s+content=")[^"]*("[^>]*>)/i, `$1${escapeHtml(renderedTitle)}$2`);
   source = source.replaceAll('"inLanguage":"en"', `"inLanguage":"${language}"`);
-  source = source.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(summary)}">`);
-  source = source.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(summary)}">`);
-  source = source.replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${escapeHtml(summary)}">`);
-  source = syncLocalizedStructuredMetadata(source, renderedTitle, summary);
-  source = source.replace(/(<p\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>)[\s\S]*?(<\/p>)/i, `$1${escapeHtml(summary)}$2`);
+  // Some legacy commercial templates use XHTML-style `/>` tags. Preserve
+  // either ending so their localized metadata is updated as well.
+  source = source.replace(/(<meta\s+name="description"\s+content=")[^"]*("[^>]*>)/i, `$1${escapeHtml(metaDescription)}$2`);
+  source = source.replace(/(<meta\s+property="og:description"\s+content=")[^"]*("[^>]*>)/i, `$1${escapeHtml(metaDescription)}$2`);
+  source = source.replace(/(<meta\s+name="twitter:description"\s+content=")[^"]*("[^>]*>)/i, `$1${escapeHtml(metaDescription)}$2`);
+  source = syncLocalizedStructuredMetadata(source, renderedTitle, metaDescription);
+  if (localizedMetadata[route]?.[language]?.description) {
+    source = source.replace(/(<p\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>)[\s\S]*?(<\/p>)/i, `$1${escapeHtml(localizedSummary)}$2`);
+  }
   const canonical = `${site}${localePath(language, route)}`;
-  source = source.replace(/<link rel="canonical" href="[^"]+">/, `<link rel="canonical" href="${canonical}">`);
-  source = source.replace(/<meta property="og:url" content="[^"]+">/, `<meta property="og:url" content="${canonical}">`);
+  source = source.replace(/(<link\s+rel="canonical"\s+href=")[^"]*("[^>]*>)/i, `$1${canonical}$2`);
+  source = source.replace(/(<meta\s+property="og:url"\s+content=")[^"]*("[^>]*>)/i, `$1${canonical}$2`);
   if (!/<meta name="robots" content="noindex/i.test(source)) {
     source = source.replace(/<link\b[^>]*hreflang="[^"]+"[^>]*>\s*/g, '');
     source = source.replace(/<\/head>/i, `${alternateLanguageLinks(route)}\n</head>`);
@@ -448,7 +538,11 @@ for (const language of localeCodes) {
 let sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
 const englishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
   .filter(route => !englishOnlyRoutes.has(route) && !localeCodes.some(language => route.startsWith(`/${language}/`)));
-const localizedSitemap = localeCodes.flatMap(language => englishRoutes.map(route => `  <url>\n    <loc>${site}${localePath(language, route)}</loc>\n    <lastmod>2026-09-03</lastmod>\n  </url>`)).join('\n');
+const englishLastmodByRoute = new Map(
+  [...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>\s*<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)]
+    .map(match => [match[1], match[2]])
+);
+const localizedSitemap = localeCodes.flatMap(language => englishRoutes.map(route => `  <url>\n    <loc>${site}${localePath(language, route)}</loc>\n    <lastmod>${englishLastmodByRoute.get(route) || '2026-09-16'}</lastmod>\n  </url>`)).join('\n');
 const start = '<!-- BEGIN GENERATED LOCALIZED PAGES -->';
 const end = '<!-- END GENERATED LOCALIZED PAGES -->';
 sitemap = sitemap.replace(new RegExp(`${start}[\\s\\S]*?${end}`), `${start}\n${localizedSitemap}\n  ${end}`);

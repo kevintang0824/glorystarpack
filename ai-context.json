@@ -5,7 +5,7 @@
   "name": "GloryStarPack AI and Answer Engine Context",
   "description": "Machine-readable context for search engines, AI assistants and procurement answer engines to understand GloryStarPack's custom glass bottle, food, beverage and cosmetic packaging supplier pages, product categories and buyer-intent keywords.",
   "url": "https://www.glorystarpack.com/ai-context.json",
-  "dateModified": "2026-09-08",
+  "dateModified": "2026-09-17",
   "publisher": {
     "@type": "Organization",
     "@id": "https://www.glorystarpack.com/#organization",
@@ -258,6 +258,30 @@
       "buyerStage": "Spirit bottle and closure selection",
       "shortAnswer": "Compare heavy-base square, round, flask and mini whiskey bottles with bar-top or screw closures, decoration, samples and export packing.",
       "quoteInputs": ["capacity", "shape", "glass color", "base style", "closure", "decoration", "quantity", "destination"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/personal-care-packaging/",
+      "primaryIntent": "Choose personal care packaging by formula and use action",
+      "buyerStage": "Hair care, sun care, body care and travel format selection",
+      "shortAnswer": "Match the formula state, target dose, fill process, container, closure or applicator, product-contact materials, decoration and packed route before approving personal care samples.",
+      "quoteInputs": ["product or formula", "viscosity or fill state", "capacity", "target dose", "closure or applicator", "decoration", "quantity per SKU", "destination", "filling method"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/cosmetic-packaging-kits/",
+      "primaryIntent": "Build a one-stop cosmetic packaging kit",
+      "buyerStage": "Matched components, retail packing and approval planning",
+      "shortAnswer": "Specify the complete bill of materials for the filled product: container, closure or applicator, formula-contact parts, decoration, retail pack, insert and export carton.",
+      "quoteInputs": ["product formats", "formula or fill state", "capacity", "component list", "decoration", "retail-pack requirements", "quantity per SKU", "destination", "approval goals"],
+      "recommendedNextStep": "https://www.glorystarpack.com/contact/"
+    },
+    {
+      "url": "https://www.glorystarpack.com/products/cosmetic-sample-packaging/",
+      "primaryIntent": "Plan cosmetic sample and discovery-kit packaging",
+      "buyerStage": "Trial objective, sample format and kit assembly selection",
+      "shortAnswer": "Select vials, droppers, pumps, tubes, jars, sachets or pouches by trial objective, usable fill, formula or fragrance, labeling, assembly and distribution route.",
+      "quoteInputs": ["formula or fragrance", "sample volume", "number of uses", "container route", "closure or applicator", "artwork", "quantity", "kit assembly", "destination", "filling method"],
       "recommendedNextStep": "https://www.glorystarpack.com/contact/"
     }
   ],

@@ -6,6 +6,7 @@
   const siteOrigin = 'https://www.glorystarpack.com';
   const currentUrl = new URL(window.location.href);
   const currentPath = currentUrl.pathname;
+  const debugMode = currentUrl.searchParams.get('ga_debug') === '1';
   const firstTouchKey = 'gsp_first_touch_v1';
   const sessionTouchKey = 'gsp_session_touch_v1';
   const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
@@ -273,7 +274,8 @@
       inquiry_location: cleanText(link.dataset.inquiryLocation || 'page', 40),
       inquiry_topic: cleanText(pageTopic(), 100),
       page_path: cleanText(currentPath, 100),
-      landing_page_path: cleanText(landingPagePath, 100)
+      landing_page_path: cleanText(landingPagePath, 100),
+      ...(debugMode ? { debug_mode: true } : {})
     };
     const { event: eventName, ...eventParameters } = eventDetail;
     if (typeof window.gtag === 'function') {
@@ -343,12 +345,22 @@
     window.setTimeout(() => dock.classList.add('is-visible'), 700);
   }
 
+  function trackDebugSession() {
+    if (!debugMode || typeof window.gtag !== 'function') return;
+    window.gtag('event', 'gsp_debug_view', {
+      debug_mode: true,
+      page_path: cleanText(currentPath, 100),
+      page_title: cleanText(document.title, 160)
+    });
+  }
+
   function init() {
     enhanceContactLinks();
     enhanceDirectContactLinks();
     prefillContactBuilder();
     installTracking();
     buildDock();
+    trackDebugSession();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });

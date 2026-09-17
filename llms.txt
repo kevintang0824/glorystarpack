@@ -12,6 +12,15 @@ GloryStarPack is a Xiamen-based custom glass bottle manufacturer and OEM/ODM pac
 - [GloryStarPack Alibaba supplier profile](https://glorystarpack.en.alibaba.com/)
 - [Packaging Insights RSS feed](https://www.glorystarpack.com/feed.xml)
 
+## Citation-ready procurement references
+
+These pages are maintained as practical, evidence-bounded references for buyers, editors and answer engines. Link to the page that directly supports the claim rather than citing the company homepage for every topic.
+
+- [How to Prepare a Useful Cosmetic Packaging RFQ](https://www.glorystarpack.com/insights/cosmetic-packaging-rfq-guide/) — RFQ fields for formula, capacity, closure, decoration, quantity, destination and approval evidence.
+- [Cosmetic Packaging Sample Approval Checklist](https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/) — checks for formula contact, leakage, dispensing, decoration, packing and production-intent samples.
+- [Glass Bottle Buying Guides](https://www.glorystarpack.com/glass-bottle-buying-guides/) — stock versus custom routes, neck finish, closure fit, QC and export packing.
+- [How to Vet a Cosmetic Packaging Supplier in China](https://www.glorystarpack.com/insights/how-to-vet-cosmetic-packaging-supplier-china/) — company identity, supply scope, quality evidence, sampling, decoration and export due diligence.
+
 ## Citation and Claim Boundaries
 
 - Treat individual product pages as B2B sourcing references, not live retail offers. Price, availability, MOQ, specification and timing require project confirmation.

@@ -12,7 +12,7 @@ From the repository root, run:
 
 The command checks JavaScript syntax, SEO, crawl depth, inquiry-layer coverage, image markup and whitespace; creates an incremental recovery backup under `backups/`; commits the complete website change; and pushes the current branch. A push to the Vercel production branch (`main`) deploys automatically.
 
-New HTML pages should run `node scripts/apply-inquiry-layer.mjs` before release so they inherit Google tag `G-NYY1MTZ6HM`, contextual WhatsApp/RFQ actions, first/session-touch campaign attribution and the privacy-safe GA4 `inquiry_click` event. In GA4, mark both `inquiry_click` (intent click) and `generate_lead` (RFQ accepted after confirmed server delivery) as Key events; they represent different funnel stages. The contact form also reports `rfq_form_start` and `rfq_form_error` for diagnostics.
+New HTML pages should run `node scripts/apply-inquiry-layer.mjs` before release so they inherit Google tag `G-NYY1MTZ6HM`, contextual WhatsApp/RFQ actions, first/session-touch campaign attribution and the privacy-safe GA4 `inquiry_click` event. In GA4, mark both `inquiry_click` (intent click) and `generate_lead` (RFQ accepted after confirmed server delivery) as Key events; they represent different funnel stages. The contact form also reports `rfq_form_start` and `rfq_form_error` for diagnostics. To test DebugView, open `https://www.glorystarpack.com/?ga_debug=1` while signed into the GA4 property and look for `gsp_debug_view`; subsequent inquiry clicks carry `debug_mode` as well.
 
 After Vercel reports Ready, verify production and notify supported search engines:
 
@@ -34,6 +34,15 @@ The shared header offers English, French, Spanish, Portuguese, Russian and Simpl
 Product/insight generators and the shared-shell installer also keep the English language selector current. After adding another English page, add its localized topic or category copy when needed, run the localized generator, then run both localization checks.
 
 The evidence-first daily SEO/AEO workflow, quality gates, KPI definitions and publishing red lines are documented in [SEO_DAILY_OPERATING_SYSTEM.md](SEO_DAILY_OPERATING_SYSTEM.md).
+
+## Public procurement references
+
+The production site maintains evidence-bounded resources that can be cited by packaging buyers, editors and industry partners:
+
+- [Cosmetic packaging RFQ guide](https://www.glorystarpack.com/insights/cosmetic-packaging-rfq-guide/)
+- [Cosmetic packaging sample approval checklist](https://www.glorystarpack.com/cosmetic-packaging-sample-approval-checklist/)
+- [Glass bottle buying guides](https://www.glorystarpack.com/glass-bottle-buying-guides/)
+- [China cosmetic packaging supplier due-diligence guide](https://www.glorystarpack.com/insights/how-to-vet-cosmetic-packaging-supplier-china/)
 
 ## Phase 5 tracking
 

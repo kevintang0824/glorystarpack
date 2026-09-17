@@ -102,12 +102,16 @@ const document = {
 
 const window = {
   location: {
-    href: `${canonical}?utm_source=seo_test&utm_medium=organic&utm_campaign=attribution_regression&utm_term=SECRET_SEARCH_TERM&utm_content=SECRET_AD_CONTENT&gclid=SECRET_CLICK_ID`,
+    href: `${canonical}?utm_source=seo_test&utm_medium=organic&utm_campaign=attribution_regression&utm_term=SECRET_SEARCH_TERM&utm_content=SECRET_AD_CONTENT&gclid=SECRET_CLICK_ID&ga_debug=1`,
     origin: 'https://www.glorystarpack.com'
   },
   localStorage: new MemoryStorage(),
   sessionStorage: new MemoryStorage(),
   dataLayer: [],
+  gtagCalls: [],
+  gtag(...args) {
+    this.gtagCalls.push(args);
+  },
   setTimeout() {}
 };
 
@@ -169,6 +173,10 @@ expect(plainEmailUrl.searchParams.get('subject') === 'Sample request: Test Packa
 expect(plainEmailMessage.includes(`Website page: ${canonical}`), 'plain email: canonical page was not added');
 expect(!plainWhatsappMessage.includes('SECRET_CLICK_ID') && !plainEmailMessage.includes('SECRET_CLICK_ID'), 'plain drafts: advertising click IDs leaked into visible messages');
 expect(!plainWhatsappMessage.includes('SECRET_SEARCH_TERM') && !plainEmailMessage.includes('SECRET_AD_CONTENT'), 'plain drafts: detailed campaign data leaked into visible messages');
+
+const debugViewCalls = window.gtagCalls.filter(call => call[0] === 'event' && call[1] === 'gsp_debug_view');
+expect(debugViewCalls.some(call => call[2]?.debug_mode === true), 'DebugView: debug session event was not marked with debug_mode');
+expect(source.includes('...(debugMode ? { debug_mode: true } : {})'), 'DebugView: inquiry clicks are not wired with debug_mode');
 
 if (failures.length) {
   console.error(`Inquiry attribution checks failed (${failures.length}):`);

@@ -9,6 +9,7 @@ import { productNames } from '../data/localized-products.mjs';
 import { localizedCleanup, translationOverrides } from '../data/translation-overrides.mjs';
 import { localizedMetadata } from '../data/seo-batch-metadata.mjs';
 import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
+import { commercialApplicationTranslations } from '../data/commercial-application-translations.mjs';
 import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -63,7 +64,8 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   if (!fs.existsSync(file)) throw new Error(`Missing complete static translation dictionary: ${path.relative(root, file)}`);
   return [language, {
     ...JSON.parse(fs.readFileSync(file, 'utf8')),
-    ...(applicationDecisionTranslations[language] || {})
+    ...(applicationDecisionTranslations[language] || {}),
+    ...(commercialApplicationTranslations[language] || {})
   }];
 }));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')

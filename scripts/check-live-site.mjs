@@ -73,7 +73,7 @@ if (!homepage.body.includes(`window.gtag('config', '${googleTagId}')`)) {
 }
 
 const inquiryScript = await fetchText('/assets/js/inquiry-conversion.js');
-if (!inquiryScript.body.includes("window.gtag('event', eventName, eventParameters)")) {
+if (!inquiryScript.body.includes('emitEvent(eventName, eventParameters)') && !inquiryScript.body.includes("window.gtag('event', eventName, eventParameters)")) {
   errors.push('live inquiry tracking does not send inquiry_click through gtag');
 }
 for (const eventName of ['email_click', 'whatsapp_click']) {

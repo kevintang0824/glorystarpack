@@ -292,6 +292,19 @@
       const link = event.target.closest?.('[data-inquiry-channel]');
       if (link) trackInquiry(link);
     }, { capture: true });
+    document.addEventListener('gsp:inquiry-modal-open', event => {
+      const detail = event.detail || {};
+      const inquiryType = cleanText(detail.inquiryType, 40);
+      if (!['quote', 'sample'].includes(inquiryType)) return;
+      trackInquiry({
+        dataset: {
+          inquiryChannel: cleanText(detail.inquiryChannel || 'rfq-modal', 40),
+          inquiryType,
+          inquiryLocation: cleanText(detail.inquiryLocation || 'modal-open', 80)
+        },
+        textContent: inquiryType
+      });
+    });
   }
 
   function prefillContactBuilder() {

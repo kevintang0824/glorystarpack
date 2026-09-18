@@ -222,6 +222,13 @@ function openModal(type, productName) {
     if (input && productName) input.value = productName;
     refreshSampleRfqLinks();
   }
+  document.dispatchEvent(new CustomEvent('gsp:inquiry-modal-open', {
+    detail: {
+      inquiryChannel: 'rfq-modal',
+      inquiryType: type,
+      inquiryLocation: 'modal-open'
+    }
+  }));
   requestAnimationFrame(() => {
     const firstField = m.querySelector('input:not([type="hidden"]), select, textarea');
     if (firstField) firstField.focus();

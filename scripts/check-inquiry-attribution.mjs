@@ -73,6 +73,7 @@ const emailPrefilled = new FakeLink(
 const emailPlain = new FakeLink('mailto:kevin@glorystarpack.com', 'Email Samples', { inquiryType: 'sample' });
 const allLinks = [whatsappPrefilled, whatsappPlain, whatsappPrefilledWithoutPage, emailPrefilled, emailPlain];
 
+const documentListeners = new Map();
 const document = {
   readyState: 'complete',
   referrer: 'https://buyer.example/research?private=remove-me',
@@ -96,8 +97,14 @@ const document = {
   getElementById() {
     return null;
   },
-  addEventListener() {},
-  dispatchEvent() {}
+  addEventListener(type, listener) {
+    const listeners = documentListeners.get(type) || [];
+    listeners.push(listener);
+    documentListeners.set(type, listeners);
+  },
+  dispatchEvent(event) {
+    for (const listener of documentListeners.get(event.type) || []) listener(event);
+  }
 };
 
 const window = {
@@ -120,7 +127,12 @@ const context = vm.createContext({
   document,
   URL,
   URLSearchParams,
-  CustomEvent: class CustomEvent {},
+  CustomEvent: class CustomEvent {
+    constructor(type, options = {}) {
+      this.type = type;
+      this.detail = options.detail;
+    }
+  },
   console
 });
 
@@ -177,6 +189,15 @@ expect(!plainWhatsappMessage.includes('SECRET_SEARCH_TERM') && !plainEmailMessag
 const debugViewCalls = window.gtagCalls.filter(call => call[0] === 'event' && call[1] === 'gsp_debug_view');
 expect(debugViewCalls.some(call => call[2]?.debug_mode === true), 'DebugView: debug session event was not marked with debug_mode');
 expect(source.includes('...(debugMode ? { debug_mode: true } : {})'), 'DebugView: inquiry clicks are not wired with debug_mode');
+document.dispatchEvent(new context.CustomEvent('gsp:inquiry-modal-open', {
+  detail: {
+    inquiryChannel: 'rfq-modal',
+    inquiryType: 'quote',
+    inquiryLocation: 'modal-open'
+  }
+}));
+const modalInquiryCalls = window.gtagCalls.filter(call => call[0] === 'event' && call[1] === 'inquiry_click');
+expect(modalInquiryCalls.some(call => call[2]?.inquiry_channel === 'rfq-modal' && call[2]?.inquiry_type === 'quote' && call[2]?.inquiry_location === 'modal-open' && call[2]?.debug_mode === true), 'DebugView: opening an RFQ modal was not tracked as a debug inquiry click');
 for (const contactFile of ['contact/index.html', 'fr/contact/index.html', 'es/contact/index.html', 'pt/contact/index.html', 'ru/contact/index.html', 'zh-CN/contact/index.html']) {
   const contactSource = fs.readFileSync(path.join(rootDir, contactFile), 'utf8');
   expect(contactSource.includes("const gaDebugMode = new URL(window.location.href).searchParams.get('ga_debug') === '1';"), `${contactFile}: form DebugView flag is missing`);

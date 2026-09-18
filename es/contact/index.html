@@ -47,7 +47,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
         "name": "GloryStarPack",
         "legalName": "Xiamen GloryStar Packaging Co., Ltd.",
         "url": "https://www.glorystarpack.com/es/",
-        "sameAs": ["https://glorystarpack.en.alibaba.com/"],
+        "sameAs": ["https://glorystarpack.en.alibaba.com/","https://github.com/kevintang0824/glorystarpack"],
         "email": "kevin@glorystarpack.com",
         "telephone": "+86 195-7760-8248",
         "address": {
@@ -266,6 +266,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
   const startedAt = document.getElementById('rfq-started-at');
   let hasTrackedStart = false;
   let lastValidationErrorAt = 0;
+  const gaDebugMode = new URL(window.location.href).searchParams.get('ga_debug') === '1';
 
   function value(name) {
     return String(new FormData(form).get(name) || '').trim();
@@ -332,7 +333,8 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       inquiry_type: 'rfq_submit',
       inquiry_location: 'contact_form',
       inquiry_topic: analyticsTopic(),
-      ...parameters
+      ...parameters,
+      ...(gaDebugMode ? { debug_mode: true } : {})
     };
     if (typeof window.gtag === 'function') window.gtag('event', eventName, eventParameters);
     else {

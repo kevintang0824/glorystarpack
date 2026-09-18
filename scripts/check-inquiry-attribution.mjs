@@ -177,6 +177,11 @@ expect(!plainWhatsappMessage.includes('SECRET_SEARCH_TERM') && !plainEmailMessag
 const debugViewCalls = window.gtagCalls.filter(call => call[0] === 'event' && call[1] === 'gsp_debug_view');
 expect(debugViewCalls.some(call => call[2]?.debug_mode === true), 'DebugView: debug session event was not marked with debug_mode');
 expect(source.includes('...(debugMode ? { debug_mode: true } : {})'), 'DebugView: inquiry clicks are not wired with debug_mode');
+for (const contactFile of ['contact/index.html', 'fr/contact/index.html', 'es/contact/index.html', 'pt/contact/index.html', 'ru/contact/index.html', 'zh-CN/contact/index.html']) {
+  const contactSource = fs.readFileSync(path.join(rootDir, contactFile), 'utf8');
+  expect(contactSource.includes("const gaDebugMode = new URL(window.location.href).searchParams.get('ga_debug') === '1';"), `${contactFile}: form DebugView flag is missing`);
+  expect(contactSource.includes('...(gaDebugMode ? { debug_mode: true } : {})'), `${contactFile}: form events are not wired with debug_mode`);
+}
 
 if (failures.length) {
   console.error(`Inquiry attribution checks failed (${failures.length}):`);

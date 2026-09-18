@@ -21,6 +21,256 @@
       "source": "/products/",
       "destination": "/products/product-index/",
       "permanent": true
+    },
+    {
+      "source": "/fr/products/sunscreen-tube-packaging/",
+      "destination": "/products/sunscreen-tube-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/cosmetic-paper-packaging/",
+      "destination": "/products/cosmetic-paper-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/paper-boxes-retail-kits/",
+      "destination": "/products/paper-boxes-retail-kits/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/mailer-box-packaging/",
+      "destination": "/products/mailer-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/gift-box-packaging/",
+      "destination": "/products/gift-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/plastic-pump-bottles/",
+      "destination": "/products/plastic-pump-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/plastic-travel-packaging/",
+      "destination": "/products/plastic-travel-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/plastic-lotion-bottles/",
+      "destination": "/products/plastic-lotion-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/spa-body-care-packaging/",
+      "destination": "/products/spa-body-care-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/fr/products/candle-packaging/",
+      "destination": "/products/candle-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/sunscreen-tube-packaging/",
+      "destination": "/products/sunscreen-tube-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/cosmetic-paper-packaging/",
+      "destination": "/products/cosmetic-paper-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/paper-boxes-retail-kits/",
+      "destination": "/products/paper-boxes-retail-kits/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/mailer-box-packaging/",
+      "destination": "/products/mailer-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/gift-box-packaging/",
+      "destination": "/products/gift-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/plastic-pump-bottles/",
+      "destination": "/products/plastic-pump-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/plastic-travel-packaging/",
+      "destination": "/products/plastic-travel-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/plastic-lotion-bottles/",
+      "destination": "/products/plastic-lotion-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/spa-body-care-packaging/",
+      "destination": "/products/spa-body-care-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/es/products/candle-packaging/",
+      "destination": "/products/candle-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/sunscreen-tube-packaging/",
+      "destination": "/products/sunscreen-tube-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/cosmetic-paper-packaging/",
+      "destination": "/products/cosmetic-paper-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/paper-boxes-retail-kits/",
+      "destination": "/products/paper-boxes-retail-kits/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/mailer-box-packaging/",
+      "destination": "/products/mailer-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/gift-box-packaging/",
+      "destination": "/products/gift-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/plastic-pump-bottles/",
+      "destination": "/products/plastic-pump-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/plastic-travel-packaging/",
+      "destination": "/products/plastic-travel-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/plastic-lotion-bottles/",
+      "destination": "/products/plastic-lotion-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/spa-body-care-packaging/",
+      "destination": "/products/spa-body-care-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/candle-packaging/",
+      "destination": "/products/candle-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/sunscreen-tube-packaging/",
+      "destination": "/products/sunscreen-tube-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/cosmetic-paper-packaging/",
+      "destination": "/products/cosmetic-paper-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/paper-boxes-retail-kits/",
+      "destination": "/products/paper-boxes-retail-kits/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/mailer-box-packaging/",
+      "destination": "/products/mailer-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/gift-box-packaging/",
+      "destination": "/products/gift-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/plastic-pump-bottles/",
+      "destination": "/products/plastic-pump-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/plastic-travel-packaging/",
+      "destination": "/products/plastic-travel-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/plastic-lotion-bottles/",
+      "destination": "/products/plastic-lotion-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/spa-body-care-packaging/",
+      "destination": "/products/spa-body-care-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/ru/products/candle-packaging/",
+      "destination": "/products/candle-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/sunscreen-tube-packaging/",
+      "destination": "/products/sunscreen-tube-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/cosmetic-paper-packaging/",
+      "destination": "/products/cosmetic-paper-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/paper-boxes-retail-kits/",
+      "destination": "/products/paper-boxes-retail-kits/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/mailer-box-packaging/",
+      "destination": "/products/mailer-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/gift-box-packaging/",
+      "destination": "/products/gift-box-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/plastic-pump-bottles/",
+      "destination": "/products/plastic-pump-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/plastic-travel-packaging/",
+      "destination": "/products/plastic-travel-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/plastic-lotion-bottles/",
+      "destination": "/products/plastic-lotion-bottles/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/spa-body-care-packaging/",
+      "destination": "/products/spa-body-care-packaging/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/products/candle-packaging/",
+      "destination": "/products/candle-packaging/",
+      "permanent": true
     }
   ],
   "headers": [

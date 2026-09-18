@@ -196,6 +196,7 @@
     url.searchParams.set('source', currentPath);
     url.searchParams.set('topic', pageTopic());
     url.searchParams.set('intent', intent);
+    if (debugMode) url.searchParams.set('ga_debug', '1');
     return `${url.pathname}${url.search}`;
   }
 

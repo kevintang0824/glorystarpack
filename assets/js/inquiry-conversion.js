@@ -299,7 +299,24 @@
   function installTracking() {
     document.addEventListener('click', event => {
       const link = event.target.closest?.('[data-inquiry-channel]');
-      if (link) trackInquiry(link);
+      if (!link) return;
+      trackInquiry(link);
+      let isSameOriginContactLink = false;
+      try {
+        const targetUrl = new URL(link.href, window.location.href);
+        isSameOriginContactLink = targetUrl.origin === window.location.origin
+          && /^\/contact\/?$/.test(targetUrl.pathname)
+          && !link.target
+          && !event.metaKey
+          && !event.ctrlKey
+          && !event.shiftKey
+          && !event.altKey;
+      } catch {}
+      if (isSameOriginContactLink) {
+        event.preventDefault();
+        const destination = link.href;
+        window.setTimeout(() => { window.location.assign(destination); }, 250);
+      }
     }, { capture: true });
     document.addEventListener('gsp:inquiry-modal-open', event => {
       const detail = event.detail || {};

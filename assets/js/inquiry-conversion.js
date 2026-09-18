@@ -278,12 +278,20 @@
       ...(debugMode ? { debug_mode: true } : {})
     };
     const { event: eventName, ...eventParameters } = eventDetail;
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', eventName, eventParameters);
-    } else {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(eventDetail);
-    }
+    const emitEvent = (name, parameters) => {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', name, parameters);
+      } else {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: name, ...parameters });
+      }
+    };
+    emitEvent(eventName, eventParameters);
+    const channelEvent = {
+      email: 'email_click',
+      whatsapp: 'whatsapp_click'
+    }[eventDetail.inquiry_channel];
+    if (channelEvent) emitEvent(channelEvent, eventParameters);
     document.dispatchEvent(new CustomEvent('gsp:inquiry-click', { detail: eventDetail }));
   }
 

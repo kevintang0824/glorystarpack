@@ -1438,6 +1438,7 @@ function articlePage(article) {
   const relatedMarkup = relatedInsights(article)
     .map(item => `<a class="insight-card" href="${articlePath(item)}">${pictureMarkup(item, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.cat)} · ${escapeHtml(item.date)}</span></div></a>`)
     .join('');
+  const inquiryHref = intent => `/contact/?intent=${intent}&source=${encodeURIComponent(articlePath(article))}&topic=${encodeURIComponent(article.title)}`.replaceAll('&', '&amp;');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1498,7 +1499,7 @@ ${headerMarkup('guides')}
     </article>
     <aside class="article-sidebar" aria-label="Related procurement resources">
       <div class="card"><div class="eyebrow">Related resources</div><h2>Continue researching</h2><ul>${resourceMarkup}</ul></div>
-      <div class="card"><div class="eyebrow">Need a project answer?</div><h2>Build a useful RFQ</h2><p>Use the contact page to prepare a complete email or WhatsApp inquiry.</p><a href="/contact/">Open the RFQ builder →</a></div>
+      <div class="card"><div class="eyebrow">Ready to compare a configuration?</div><h2>Send packaging specifications</h2><p>Share application, capacity, component, quantity, destination and timing for a project-specific answer.</p><p><a class="btn" data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="insight-cta" href="${inquiryHref('quote')}">Send Packaging Specs →</a></p><p><a class="btn alt" data-inquiry-channel="rfq-builder" data-inquiry-type="sample" data-inquiry-location="insight-sample-cta" href="${inquiryHref('sample')}">Request Samples →</a></p></div>
     </aside>
   </div>
   <section class="wrap section">

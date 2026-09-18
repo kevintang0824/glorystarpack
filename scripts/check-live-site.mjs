@@ -76,6 +76,9 @@ const inquiryScript = await fetchText('/assets/js/inquiry-conversion.js');
 if (!inquiryScript.body.includes("window.gtag('event', eventName, eventParameters)")) {
   errors.push('live inquiry tracking does not send inquiry_click through gtag');
 }
+for (const eventName of ['email_click', 'whatsapp_click']) {
+  if (!inquiryScript.body.includes(`'${eventName}'`)) errors.push(`live inquiry tracking is missing ${eventName}`);
+}
 
 const contactForm = await fetchText('/contact/');
 if (!contactForm.body.includes('action="/api/inquiry/"')) errors.push('live contact form does not target /api/inquiry/');
@@ -141,6 +144,7 @@ if (keyFile.body.trim() !== indexNowKey) errors.push('live IndexNow key does not
 
 const missingPage = await fetchText('/release-verification-not-found-404/', 404);
 if (!missingPage.body.includes('Page not found')) errors.push('custom 404 page did not render');
+if (!missingPage.body.includes('page_not_found')) errors.push('custom 404 page is missing page_not_found analytics');
 
 if (errors.length) {
   console.error(`Live-site checks failed (${errors.length}):`);

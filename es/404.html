@@ -129,6 +129,22 @@ window.gtag('config', 'G-NYY1MTZ6HM');
   </div>
   <div class="gsp-footer-bottom"><span>© 2026 GloryStarPack. Las especificaciones del proyecto se confirman contra la configuración seleccionada.</span><span>Consultas B2B en todo el mundo</span></div>
 </footer>
+<script>
+(() => {
+  const url = new URL(window.location.href);
+  const parameters = {
+    requested_path: url.pathname.slice(0, 200),
+    requested_query: url.search.slice(0, 300),
+    referrer_page: document.referrer.slice(0, 500)
+  };
+  if (url.searchParams.get('ga_debug') === '1') parameters.debug_mode = true;
+  if (typeof window.gtag === 'function') window.gtag('event', 'page_not_found', parameters);
+  else {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'page_not_found', ...parameters });
+  }
+})();
+</script>
 <script src="/assets/js/inquiry-conversion.js?v=20260918-2" defer></script>
 </body>
 </html>

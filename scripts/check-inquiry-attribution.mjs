@@ -189,6 +189,8 @@ expect(!plainWhatsappMessage.includes('SECRET_SEARCH_TERM') && !plainEmailMessag
 const debugViewCalls = window.gtagCalls.filter(call => call[0] === 'event' && call[1] === 'gsp_debug_view');
 expect(debugViewCalls.some(call => call[2]?.debug_mode === true), 'DebugView: debug session event was not marked with debug_mode');
 expect(source.includes('...(debugMode ? { debug_mode: true } : {})'), 'DebugView: inquiry clicks are not wired with debug_mode');
+expect(source.includes("email: 'email_click'"), 'Conversion funnel: email clicks are not separated from inquiry_click');
+expect(source.includes("whatsapp: 'whatsapp_click'"), 'Conversion funnel: WhatsApp clicks are not separated from inquiry_click');
 document.dispatchEvent(new context.CustomEvent('gsp:inquiry-modal-open', {
   detail: {
     inquiryChannel: 'rfq-modal',

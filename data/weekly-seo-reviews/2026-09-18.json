@@ -113,10 +113,13 @@
       "eventsPrepared": [
         "gsp_debug_view",
         "inquiry_click",
+        "email_click",
+        "whatsapp_click",
         "rfq_form_start",
         "rfq_form_error",
         "generate_lead"
-      ]
+      ],
+      "conversionImplementation": "Email and WhatsApp intent clicks are now emitted as separate events while retaining inquiry_click; successful form submission remains generate_lead."
     }
   },
   "observedOpportunities": [
@@ -148,6 +151,8 @@
     }
   ],
   "nextIteration": [
+    "Use the new page_not_found event to identify the 12 observed 404 views by requested path and referrer, then add redirects or repair external references after the next GA4 refresh.",
+    "Compare rfq_form_start, rfq_form_error, generate_lead, email_click and whatsapp_click by landing page before changing the GA4 key-event configuration.",
     "Request a real, approved reference from a customer, filler, distributor, trade body or editorial publication; never purchase or automate links.",
     "Use the Google AI-feature pages above to select one evidence-backed content upgrade after enough page-level click data accumulates.",
     "Monitor the indexed-to-discovered ratio for the multilingual sitemap pages after Google refreshes the Page Indexing report; do not remove valid localized canonicals or hreflang solely to lower an exclusion count."

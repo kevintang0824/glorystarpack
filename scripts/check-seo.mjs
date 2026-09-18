@@ -1969,7 +1969,7 @@ if (!mainJsSource.includes('function enhanceKeyboardControls')) {
 if (!mainJsSource.includes('function currentWebsitePage') || !mainJsSource.includes('Website page: ${currentWebsitePage()}')) {
   errors.push('assets/js/main.js inquiry builders do not preserve the website-page source');
 }
-for (const requiredMarker of ['inquiry_click', "window.gtag('event'", 'dataLayer.push', 'data-source-page', 'gsp:inquiry-click']) {
+for (const requiredMarker of ['inquiry_click', 'email_click', 'whatsapp_click', "window.gtag('event'", 'dataLayer.push', 'data-source-page', 'gsp:inquiry-click']) {
   if (!inquiryJsSource.includes(requiredMarker)) errors.push(`assets/js/inquiry-conversion.js is missing ${requiredMarker}`);
 }
 for (const requiredMarker of ['gsp_first_touch_v1', 'gsp_session_touch_v1', 'landing_page_path']) {

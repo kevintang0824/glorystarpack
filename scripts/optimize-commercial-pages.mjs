@@ -86,7 +86,9 @@ const pages = {
     ]
   },
   'products/serum-dropper-bottles/index.html': {
-    description: 'Compare serum dropper bottles by formula, viscosity, neck finish, gasket, bulb, pipette, dose, leakage, light exposure and RFQ inputs.'
+    title: '30ml Serum Dropper Bottle Supplier China | Guide',
+    heading: '30ml Serum Dropper Bottle Supplier China',
+    description: 'Source 15ml, 30ml and 50ml serum dropper bottles from China with a documented 500-piece reference, samples and configuration-specific leak, dose and formula checks.'
   },
   'products/nail-polish-bottles/index.html': {
     description: 'Nail polish bottle supplier for square, round and slim rectangular glass bottles, UV black gel polish bottles, brush caps, samples and private label nail care.'

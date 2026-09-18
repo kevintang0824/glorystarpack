@@ -1,0 +1,152 @@
+{
+  "reviewDate": "2026-09-18",
+  "siteUrl": "https://www.glorystarpack.com",
+  "phase": 5,
+  "localBaseline": {
+    "htmlPagesChecked": 863,
+    "indexableSitemapUrls": 844,
+    "languages": [
+      "en",
+      "fr",
+      "es",
+      "pt",
+      "ru",
+      "zh-CN"
+    ],
+    "releaseChecks": {
+      "checkSeo": "passed",
+      "auditContent": "passed",
+      "checkLocalizedSite": "passed",
+      "checkInquiryAttribution": "passed",
+      "checkLiveSite": "passed"
+    }
+  },
+  "externalMetrics": {
+    "googleSearchConsole": {
+      "capturedOn": "2026-09-18",
+      "dateRange": "2026-06-16 to 2026-09-15",
+      "clicks": 143,
+      "impressionsDisplay": "1.62万 (the Search Console interface rounds this value)",
+      "ctrPercent": 0.9,
+      "averagePosition": 17.8,
+      "source": "Search Console Performance report UI"
+    },
+    "sitemaps": [
+      {
+        "url": "https://www.glorystarpack.com/sitemap.xml",
+        "status": "Success",
+        "lastReadOn": "2026-09-18",
+        "discoveredWebPages": 844
+      },
+      {
+        "url": "https://www.glorystarpack.com/image-sitemap.xml",
+        "status": "Success",
+        "lastReadOn": "2026-09-18",
+        "discoveredWebPages": 137
+      }
+    ],
+    "urlInspection": [
+      {
+        "url": "https://www.glorystarpack.com/",
+        "status": "Indexed",
+        "https": "Valid"
+      },
+      {
+        "url": "https://www.glorystarpack.com/cosmetic-packaging-supplier-china/",
+        "status": "Indexed",
+        "https": "Valid",
+        "breadcrumbStructuredData": "Valid"
+      }
+    ],
+    "structuredData": {
+      "capturedOn": "2026-09-16",
+      "unparsableStructuredDataInvalidItems": 0,
+      "productRichResultInvalidItems": 0,
+      "note": "No price, availability, review or aggregate-rating markup has been fabricated for B2B catalogue pages."
+    },
+    "googleSearchAIFeatures": {
+      "capturedOn": "2026-09-18",
+      "dateRange": "2026-06-16 to 2026-09-15",
+      "impressions": 2021,
+      "pagesWithImpressions": 230,
+      "topObservedPages": [
+        {
+          "path": "/insights/glass-bottle-neck-finish-closure-guide/",
+          "impressions": 87
+        },
+        {
+          "path": "/insights/dropper-bottle-leaking-seal-pipette-guide/",
+          "impressions": 85
+        },
+        {
+          "path": "/insights/glass-bottle-defects-quality-inspection-guide/",
+          "impressions": 79
+        },
+        {
+          "path": "/insights/how-to-ship-glass-bottles-without-breaking/",
+          "impressions": 68
+        },
+        {
+          "path": "/cosmetic-packaging-supplier-china/",
+          "impressions": 62
+        }
+      ],
+      "interpretation": "This measures visibility in Google's AI search features only. It does not measure a citation or ranking in ChatGPT, Gemini or Perplexity."
+    },
+    "bingWebmaster": {
+      "capturedOn": "2026-09-18",
+      "indexNow": "844 URLs accepted with HTTP 200",
+      "note": "Notification does not guarantee crawl or indexing."
+    },
+    "ga4": {
+      "propertyId": "548854103",
+      "dataStreamId": "15390447000",
+      "debugInstrumentation": "Verified in production code; DebugView receipt remains pending a consented live test visit.",
+      "eventsPrepared": [
+        "gsp_debug_view",
+        "inquiry_click",
+        "rfq_form_start",
+        "rfq_form_error",
+        "generate_lead"
+      ]
+    }
+  },
+  "observedOpportunities": [
+    {
+      "query": "aluminum cosmetic packaging",
+      "impressions": 71,
+      "averagePosition": 46.2,
+      "action": "Keep the existing dedicated commercial page; prioritize relevant earned references and supporting expert content over title churn."
+    },
+    {
+      "query": "private label cosmetics packaging selection",
+      "impressions": 62,
+      "averagePosition": 55.2,
+      "action": "Use the existing private-label hub as the conversion destination and develop evidence-backed selection content around it."
+    },
+    {
+      "query": "serum dropper",
+      "impressions": 47,
+      "averagePosition": 6,
+      "action": "Preserve the intent-match page and monitor for enough clicks and impressions before changing its snippet."
+    }
+  ],
+  "authorityActions": [
+    {
+      "channel": "Relevant third-party packaging guide",
+      "status": "citation observed, nofollow",
+      "destination": "https://www.glorystarpack.com/cosmetic-packaging-moq/",
+      "interpretation": "A topical reference is useful discovery evidence, but a nofollow link is not recorded as earned link equity."
+    }
+  ],
+  "nextIteration": [
+    "Request a real, approved reference from a customer, filler, distributor, trade body or editorial publication; never purchase or automate links.",
+    "Use the Google AI-feature pages above to select one evidence-backed content upgrade after enough page-level click data accumulates.",
+    "Run a consented GA4 DebugView visit to confirm receipt of gsp_debug_view and inquiry_click before treating production analytics as end-to-end verified."
+  ],
+  "evidenceNotes": [
+    "The primary sitemap was current and successful, so it was not redundantly resubmitted.",
+    "The inspected homepage and cosmetic-packaging supplier page were indexed, so no duplicate URL-indexing request was made.",
+    "Search Console Core Web Vitals could not be recorded in this review because its report did not render in the active account session; this is not a pass result."
+  ]
+}

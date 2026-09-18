@@ -9,6 +9,8 @@ Disallow: /*&q=
 Disallow: /*&sp=
 Disallow: /backups/
 Disallow: /tmp/
+# Form handlers accept POST requests only and are not search documents.
+Disallow: /api/
 
 User-agent: *
 Allow: /
@@ -24,6 +26,8 @@ Disallow: /*&q=
 Disallow: /*&sp=
 Disallow: /backups/
 Disallow: /tmp/
+# Form handlers accept POST requests only and are not search documents.
+Disallow: /api/
 Disallow: /glorystarpack%20(1).html
 
 Sitemap: https://www.glorystarpack.com/sitemap.xml

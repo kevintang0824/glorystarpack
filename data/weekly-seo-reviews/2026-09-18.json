@@ -101,7 +101,8 @@
     "ga4": {
       "propertyId": "548854103",
       "dataStreamId": "15390447000",
-      "debugInstrumentation": "Verified in production code; DebugView receipt remains pending a consented live test visit.",
+      "debugInstrumentation": "Verified in GA4 DebugView on 2026-09-18: gsp_debug_view and inquiry_click were received from the deployed homepage. inquiry_click carried debug_mode=1 and inquiry_channel=rfq-modal.",
+      "keyEventVerification": "inquiry_click is marked as a GA4 key event for the glorystarpack data stream. gsp_debug_view is intentionally not a key event.",
       "eventsPrepared": [
         "gsp_debug_view",
         "inquiry_click",
@@ -142,11 +143,12 @@
   "nextIteration": [
     "Request a real, approved reference from a customer, filler, distributor, trade body or editorial publication; never purchase or automate links.",
     "Use the Google AI-feature pages above to select one evidence-backed content upgrade after enough page-level click data accumulates.",
-    "Run a consented GA4 DebugView visit to confirm receipt of gsp_debug_view and inquiry_click before treating production analytics as end-to-end verified."
+    "Monitor the indexed-to-discovered ratio for the multilingual sitemap pages after Google refreshes the Page Indexing report; do not remove valid localized canonicals or hreflang solely to lower an exclusion count."
   ],
   "evidenceNotes": [
     "The primary sitemap was current and successful, so it was not redundantly resubmitted.",
     "The inspected homepage and cosmetic-packaging supplier page were indexed, so no duplicate URL-indexing request was made.",
-    "Search Console Core Web Vitals could not be recorded in this review because its report did not render in the active account session; this is not a pass result."
+    "Search Console Core Web Vitals could not be recorded in this review because its report did not render in the active account session; this is not a pass result.",
+    "Page Indexing was updated 2026-09-14: 515 indexed and 729 excluded. The 217 robots exclusions were catalog category query URLs; the one 4xx was the POST-only /api/inquiry/ endpoint; the one soft 404 was a historic ?q={search_term_string} URL already covered by robots rules. The discovered and crawled-not-indexed samples were localized canonical pages, not the inspected core English pages."
   ]
 }

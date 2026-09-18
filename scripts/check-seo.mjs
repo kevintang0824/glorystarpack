@@ -358,6 +358,11 @@ for (const blockedQuery of ['/*?category=', '/*?q=', '/*?sp=', '/*&category=', '
     errors.push(`robots.txt is missing dynamic URL rule: Disallow: ${blockedQuery}`);
   }
 }
+for (const blockedPath of ['/backups/', '/tmp/', '/api/']) {
+  if (!dynamicRobotsSource.split(/\r?\n/).some(line => line.trim() === `Disallow: ${blockedPath}`)) {
+    errors.push(`robots.txt is missing non-document URL rule: Disallow: ${blockedPath}`);
+  }
+}
 
 for (const url of sitemapUrls) {
   if (!url.startsWith(siteUrl)) {

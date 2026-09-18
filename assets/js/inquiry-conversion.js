@@ -302,6 +302,7 @@
       if (!link) return;
       trackInquiry(link);
       let isSameOriginContactLink = false;
+      let isMailtoLink = false;
       try {
         const targetUrl = new URL(link.href, window.location.href);
         isSameOriginContactLink = targetUrl.origin === window.location.origin
@@ -311,11 +312,19 @@
           && !event.ctrlKey
           && !event.shiftKey
           && !event.altKey;
+        isMailtoLink = /^mailto:/i.test(link.href)
+          && !event.metaKey
+          && !event.ctrlKey
+          && !event.shiftKey
+          && !event.altKey;
       } catch {}
-      if (isSameOriginContactLink) {
+      if (isSameOriginContactLink || isMailtoLink) {
         event.preventDefault();
         const destination = link.href;
-        window.setTimeout(() => { window.location.assign(destination); }, 250);
+        window.setTimeout(() => {
+          if (isMailtoLink) window.location.href = destination;
+          else window.location.assign(destination);
+        }, 250);
       }
     }, { capture: true });
     document.addEventListener('gsp:inquiry-modal-open', event => {

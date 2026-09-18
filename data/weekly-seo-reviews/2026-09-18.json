@@ -98,6 +98,13 @@
       "indexNow": "844 URLs accepted with HTTP 200",
       "note": "Notification does not guarantee crawl or indexing."
     },
+    "pageIndexingValidation": {
+      "capturedOn": "2026-09-18",
+      "status": "Started",
+      "issue": "由于遇到其他 4xx 问题而被屏蔽了",
+      "target": "https://www.glorystarpack.com/api/inquiry/",
+      "note": "Validation started after the deployed robots.txt update. Google re-crawl and validation are asynchronous."
+    },
     "ga4": {
       "propertyId": "548854103",
       "dataStreamId": "15390447000",

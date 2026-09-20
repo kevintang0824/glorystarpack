@@ -10,7 +10,7 @@ export const categories = {
   'sparkling-wine-bottles': ['wine-bottle','pressure',['Bouteilles de vin effervescent','Botellas para vino espumoso','Garrafas para vinho espumante','Бутылки для игристого вина','起泡酒瓶']],
   'skincare-packaging': ['glass-jar','cosmetic',['Emballages pour soins de la peau','Envases para el cuidado de la piel','Embalagens para cuidados da pele','Упаковка для ухода за кожей','护肤品包装']],
   'glass-cosmetic-bottles': ['glass','glass',['Flacons cosmétiques en verre','Frascos cosméticos de vidrio','Frascos cosméticos de vidro','Стеклянные косметические флаконы','化妆品玻璃瓶']],
-  'serum-dropper-bottles': ['glass-dropper','dropper',['Flacons compte-gouttes pour sérums','Frascos cuentagotas para sérums','Frascos conta-gotas para séruns','Флаконы с пипеткой для сывороток','精华滴管瓶']],
+  'serum-dropper-bottles': ['glass-dropper','dropper',['Flacons compte-gouttes pour sérum destinés aux marques de soins','Frascos cuentagotas para sérum para marcas de cuidado de la piel','Frascos conta-gotas para sérum para marcas de cuidados da pele','Флаконы-капельницы для сывороток для брендов ухода за кожей','护肤品牌用精华液滴管瓶']],
   'airless-pump-bottles': ['plastic-airless','pump',['Flacons à pompe airless','Frascos con bomba airless','Frascos com bomba airless','Вакуумные флаконы с помпой','真空泵瓶']],
   'airless-bottles': ['plastic-airless','pump',['Flacons airless','Frascos airless','Frascos airless','Вакуумные флаконы','真空瓶']],
   'glass-packaging': ['glass','glass',['Emballages en verre','Envases de vidrio','Embalagens de vidro','Стеклянная упаковка','玻璃包装']],

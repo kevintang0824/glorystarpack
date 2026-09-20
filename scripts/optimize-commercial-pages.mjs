@@ -86,9 +86,13 @@ const pages = {
     ]
   },
   'products/serum-dropper-bottles/index.html': {
-    title: '30ml Serum Dropper Bottle Supplier China | Guide',
-    heading: '30ml Serum Dropper Bottle Supplier China',
-    description: 'Source 15ml, 30ml and 50ml serum dropper bottles from China with a documented 500-piece reference, samples and configuration-specific leak, dose and formula checks.'
+    title: 'Serum Dropper Bottles | China Skincare Supplier',
+    heading: 'Serum Dropper Bottles for Skincare Brands',
+    description: 'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles. Review formula fit, dose, leakage, sample options and quotes.',
+    lead: 'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.',
+    legacyPhrases: [['Request 30ml Samples', 'Request Serum Dropper Samples']],
+    inquiryTopic: 'serum dropper bottles',
+    dateModified: '2026-09-20'
   },
   'products/nail-polish-bottles/index.html': {
     description: 'Nail polish bottle supplier for square, round and slim rectangular glass bottles, UV black gel polish bottles, brush caps, samples and private label nail care.'
@@ -165,6 +169,12 @@ function setHeading(source, heading) {
   return source.replace(/(<h1\b[^>]*>)[\s\S]*?(<\/h1>)/i, `$1${escapeHtml(heading)}$2`);
 }
 
+function setLead(source, lead) {
+  const pattern = /(<p\b[^>]*class="[^"]*\blead\b[^"]*"[^>]*>)[\s\S]*?(<\/p>)/i;
+  if (!pattern.test(source)) throw new Error('Missing page lead paragraph');
+  return source.replace(pattern, `$1${escapeHtml(lead)}$2`);
+}
+
 function replacePhrase(source, from, to) {
   const rawPattern = new RegExp(`${escapeRegExp(from)}(?!:)`, 'g');
   const escapedFrom = escapeHtml(from);
@@ -234,6 +244,22 @@ function syncStructuredDescription(source, description) {
   return source.replace(blockMatch[0], `<script type="application/ld+json">${JSON.stringify(data)}</script>`);
 }
 
+function syncStructuredDateModified(source, dateModified) {
+  const blockMatch = source.match(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/i);
+  if (!blockMatch) throw new Error('Missing JSON-LD block');
+  const data = JSON.parse(blockMatch[1]);
+  const graph = Array.isArray(data['@graph']) ? data['@graph'] : [data];
+  let changed = false;
+  for (const node of graph) {
+    if (node?.dateModified && node.dateModified !== dateModified) {
+      node.dateModified = dateModified;
+      changed = true;
+    }
+  }
+  if (!changed) return source;
+  return source.replace(blockMatch[0], `<script type="application/ld+json">${JSON.stringify(data)}</script>`);
+}
+
 let changed = 0;
 for (const [relativePath, config] of Object.entries(pages)) {
   const filePath = path.join(rootDir, relativePath);
@@ -248,6 +274,15 @@ for (const [relativePath, config] of Object.entries(pages)) {
     source = syncStructuredName(source, config.title);
   }
   if (config.heading) source = setHeading(source, config.heading);
+  if (config.lead) source = setLead(source, config.lead);
+  if (config.inquiryTopic) {
+    const encodedTopic = config.inquiryTopic.trim().split(/\s+/).map(encodeURIComponent).join('+');
+    source = source.replace(/topic=[^&"']+/g, `topic=${encodedTopic}`);
+  }
+  if (config.dateModified) {
+    source = syncStructuredDateModified(source, config.dateModified);
+    source = source.replace(/Page reviewed \d{4}-\d{2}-\d{2}/, `Page reviewed ${config.dateModified}`);
+  }
   source = setMeta(source, 'description', config.description);
   source = setMeta(source, 'og:description', config.description);
   source = setMeta(source, 'twitter:description', config.description);
@@ -258,6 +293,23 @@ for (const [relativePath, config] of Object.entries(pages)) {
     changed += 1;
     console.log(`optimized ${relativePath}`);
   }
+}
+
+let sitemap = fs.readFileSync(path.join(rootDir, 'sitemap.xml'), 'utf8');
+let sitemapChanged = false;
+for (const [relativePath, config] of Object.entries(pages)) {
+  if (!config.dateModified) continue;
+  const route = `${path.posix.dirname(relativePath)}/`;
+  const location = `https://www.glorystarpack.com/${route}`;
+  const pattern = new RegExp(`(<loc>${escapeRegExp(location)}</loc>\\s*<lastmod>)\\d{4}-\\d{2}-\\d{2}(</lastmod>)`);
+  if (!pattern.test(sitemap)) throw new Error(`Could not find sitemap lastmod for ${location}`);
+  const updated = sitemap.replace(pattern, `$1${config.dateModified}$2`);
+  if (updated !== sitemap) sitemapChanged = true;
+  sitemap = updated;
+}
+if (sitemapChanged) {
+  fs.writeFileSync(path.join(rootDir, 'sitemap.xml'), sitemap);
+  console.log('Updated sitemap lastmod dates for revised commercial pages.');
 }
 
 for (const relativePath of ['site-index/index.html', 'index.html']) {

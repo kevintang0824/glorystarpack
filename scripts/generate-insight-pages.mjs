@@ -417,7 +417,7 @@ const insightDefinitions = {
   '14': {
     slug: 'cosmetic-packaging-compatibility-testing-guide',
     seoTitle: 'Cosmetic Packaging Compatibility Testing Guide | GloryStarPack',
-    dateModified: '2026-08-21',
+    dateModified: '2026-09-20',
     decisionTable: {
       heading: 'Compatibility review matrix',
       intro: 'The responsible technical team should turn each row into project-specific conditions, checkpoints and acceptance criteria. The matrix is a record structure, not a universal pass/fail protocol.',
@@ -749,8 +749,8 @@ const insightDefinitions = {
   },
   '24': {
     slug: 'cosmetic-packaging-tamper-evident-seals-guide',
-    seoTitle: 'Cosmetic Packaging Tamper-Evident Seals | Guide',
-    dateModified: '2026-08-10',
+    seoTitle: 'Tamper-Evident Seals for Cosmetics | Selection Guide',
+    dateModified: '2026-09-20',
     decisionTable: {
       heading: 'Tamper-evidence format selection matrix',
       intro: 'Choose the evidence layer only after the finished product classification, container, filling route, consumer action and destination requirements are known.',
@@ -1509,7 +1509,7 @@ ${headerMarkup('guides')}
   </section>
 </main>
 ${footerMarkup(article.dateModified)}
-<script src="/assets/js/inquiry-conversion.js" defer></script>
+<script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer></script>
 </body>
 </html>
 `;
@@ -1596,7 +1596,7 @@ ${headerMarkup('guides')}
   <section class="section rfq"><div><div class="eyebrow">From research to sourcing</div><h2>Need an item-specific answer?</h2><p>Browse individual product pages or prepare a structured packaging inquiry.</p></div><div class="actions"><a class="btn" href="/products/product-index/">Product Index</a><a class="btn alt" href="/contact/">Build an RFQ</a></div></section>
 </main>
 ${footerMarkup(indexModifiedDate)}
-<script src="/assets/js/inquiry-conversion.js" defer></script>
+<script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer></script>
 </body>
 </html>
 `;
@@ -1770,7 +1770,7 @@ ${headerMarkup('guides')}
   </div>
 </main>
 ${footerMarkup(indexModifiedDate)}
-<script src="/assets/js/inquiry-conversion.js" defer></script>
+<script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer></script>
 </body>
 </html>
 `;

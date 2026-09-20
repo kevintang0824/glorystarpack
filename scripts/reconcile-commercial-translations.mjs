@@ -5,11 +5,20 @@ const rootDir = path.resolve(import.meta.dirname, '..');
 const languages = ['fr', 'es', 'pt', 'ru', 'zh-CN'];
 
 const obsolete = [
+  'Page reviewed 2026-08-10',
+  'Cosmetic Packaging Tamper-Evident Seals | Guide',
+  'Packaging compatibility is not a property of a bottle by itself. The formula, primary container, closure, liner or gasket, pump or applicator, decoration, label and shipping pack form one system. A useful review therefore starts with production-intent components and the actual formula, or a documented test fill selected by the responsible brand or formulator.',
+  'A missing seal can make a perfectly filled cosmetic look opened, returned or unsafe. Recent beauty and small-business discussions repeatedly ask why some jars, mascara packs and ecommerce orders arrive without visible tamper evidence, while other packs use several layers that feel excessive. For brands, the answer is not to add a random sticker. The feature has to match the product classification, container, filling process, retail route and destination-market requirements.',
+  '30ml Serum Dropper Bottle Supplier China',
+  '30ml Serum Dropper Bottle Supplier China | Guide',
+  'Request 30ml Samples',
+  'Compare 15ml, 30ml and 50ml glass serum dropper routes by formula, viscosity, neck, gasket, bulb, pipette, dose and approval evidence. One documented 30ml product route lists a 500-piece MOQ reference; confirm the exact configuration, samples and timing for your project.',
   'A practical selection guide and OEM supply service for beauty founders, skincare brands, contract fillers and distributors choosing bottles, jars, tubes, components and retail packaging.',
   'Beer bottle selection', 'Beverage bottle hub', 'Build a Dropper RFQ', 'Build an MOQ Quote',
   'Compare Dropper Routes', 'Compare glass bottle, neck, gasket, bulb, collar and pipette configurations by formula, viscosity, dose, leakage, light exposure and approval evidence.',
   'Continue from the RFQ field guide', 'Continue the fragrance sourcing cluster', 'Continue the glass bottle approval cluster',
   'Glass packaging', 'Glass packaging hub', 'Need a project answer?', 'Open the RFQ builder →',
+  'Compare 15ml, 30ml and 50ml glass serum dropper routes by formula, viscosity, neck, gasket, bulb, pipette, dose and approval evidence. One documented 30ml product route lists a 500-piece MOQ reference; confirm the exact configuration, samples and timing for your project.',
   'Pair the quality checklist with the glass, beverage, closure and project-brief pages that define the production-intent bottle and packed route.',
   'Serum Dropper Bottle Packaging | Selection Guide', 'Serum dropper system selection', 'Start OEM Project',
   'Use the contact page to prepare a complete email or WhatsApp inquiry.',
@@ -20,7 +29,11 @@ const obsolete = [
 
 const common = {
   '30ml Serum Dropper Bottle Supplier China | Guide': '30ml serum dropper bottle supplier in China | Guide',
+  'Serum Dropper Bottles | China Skincare Supplier': 'Serum Dropper Bottles | China Skincare Supplier',
+  'Serum Dropper Bottles for Skincare Brands': 'Serum Dropper Bottles for Skincare Brands',
   'China supplier route for serum packaging': 'China supplier route for serum packaging',
+  'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.': 'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.',
+  'Request Serum Dropper Samples': 'Request Serum Dropper Samples',
   'Choose stock or custom bottles, jars, tubes, components and retail packaging, then move from a clear brief to samples, decoration proof and a project-specific MOQ and timing review.': 'Choose stock or custom packaging, then move from a clear brief to samples, decoration proof and a project-specific MOQ and timing review.',
   'Compare 15ml, 30ml and 50ml glass serum dropper routes by formula, viscosity, neck, gasket, bulb, pipette, dose and approval evidence. One documented 30ml product route lists a 500-piece MOQ reference; confirm the exact configuration, samples and timing for your project.': 'Compare 15ml, 30ml and 50ml glass serum dropper routes by formula, viscosity, neck, gasket, bulb, pipette, dose and approval evidence. One documented 30ml route lists a 500-piece MOQ reference; confirm the exact configuration, samples and timing for your project.',
   'Get MOQ &amp; Lead Time': 'Get MOQ &amp; Lead Time',
@@ -86,11 +99,54 @@ const localized = {
   }
 };
 
+const serumTranslations = {
+  fr: {
+    'Serum Dropper Bottles | China Skincare Supplier': 'Flacons compte-gouttes pour sérum | Fournisseur chinois',
+    'Serum Dropper Bottles for Skincare Brands': 'Flacons compte-gouttes pour sérum destinés aux marques de soins',
+    'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.': 'Comparez les flacons compte-gouttes en verre de 15, 30 et 50 ml pour les soins de la peau. Adaptez le flacon, la poire et la pipette à votre formule, à la dose visée, à la décoration et au pays de destination ; le MOQ, les échantillons et les délais dépendent de la configuration retenue.',
+    'Request Serum Dropper Samples': 'Demander des échantillons de flacons compte-gouttes pour sérum'
+  },
+  es: {
+    'Serum Dropper Bottles | China Skincare Supplier': 'Frascos cuentagotas para sérum | Proveedor en China',
+    'Serum Dropper Bottles for Skincare Brands': 'Frascos cuentagotas para sérum para marcas de cuidado de la piel',
+    'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.': 'Compara frascos cuentagotas de vidrio de 15, 30 y 50 ml para el cuidado de la piel. Ajusta el frasco, la pera y la pipeta a la fórmula, dosis, decoración y destino; el MOQ, las muestras y los plazos dependen de la configuración elegida.',
+    'Request Serum Dropper Samples': 'Solicitar muestras de frascos cuentagotas para sérum'
+  },
+  pt: {
+    'Serum Dropper Bottles | China Skincare Supplier': 'Frascos conta-gotas para sérum | Fornecedor na China',
+    'Serum Dropper Bottles for Skincare Brands': 'Frascos conta-gotas para sérum para marcas de cuidados da pele',
+    'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.': 'Compare frascos conta-gotas de vidro de 15, 30 e 50 ml para cuidados da pele. Ajuste o frasco, a pera e a pipeta à fórmula, à dose, à decoração e ao destino; o MOQ, as amostras e os prazos dependem da configuração escolhida.',
+    'Request Serum Dropper Samples': 'Pedir amostras de frascos conta-gotas para sérum'
+  },
+  ru: {
+    'Serum Dropper Bottles | China Skincare Supplier': 'Флаконы-капельницы для сывороток | Поставщик из Китая',
+    'Serum Dropper Bottles for Skincare Brands': 'Флаконы-капельницы для сывороток для брендов ухода за кожей',
+    'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.': 'Сравните стеклянные флаконы-капельницы для сывороток объёмом 15, 30 и 50 мл. Подберите флакон, грушу и пипетку под формулу, дозу, оформление и страну назначения; MOQ, образцы и сроки зависят от выбранной конфигурации.',
+    'Request Serum Dropper Samples': 'Запросить образцы флаконов-капельниц для сывороток'
+  },
+  'zh-CN': {
+    'Serum Dropper Bottles | China Skincare Supplier': '精华液滴管瓶｜中国护肤包装供应商',
+    'Serum Dropper Bottles for Skincare Brands': '护肤品牌用精华液滴管瓶',
+    'Compare 15 ml, 30 ml and 50 ml glass serum dropper bottles for skincare. Match the bottle, bulb and pipette to your formula, target dose, decoration and destination; MOQ, sample options and timing depend on the selected configuration.': '比较适用于护肤品的15 ml、30 ml和50 ml玻璃精华液滴管瓶。根据配方、目标剂量、装饰和目的地匹配瓶身、胶帽与滴管；MOQ、样品选项和交期以所选配置为准。',
+    'Request Serum Dropper Samples': '申请精华液滴管瓶样品'
+  }
+};
+
+const tamperTitleTranslations = {
+  fr: 'Scellés inviolables pour cosmétiques | Guide de sélection',
+  es: 'Sellos de seguridad para cosméticos | Guía de selección',
+  pt: 'Lacres de inviolabilidade para cosméticos | Guia de seleção',
+  ru: 'Защитные пломбы для косметики | Руководство по выбору',
+  'zh-CN': '化妆品防拆封签｜选型指南'
+};
+
 for (const language of languages) {
   const filePath = path.join(rootDir, 'data', 'full-translations', `${language}.json`);
   const dictionary = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  Object.assign(dictionary, localized[language], serumTranslations[language], {
+    'Tamper-Evident Seals for Cosmetics | Selection Guide': tamperTitleTranslations[language]
+  });
   for (const key of obsolete) delete dictionary[key];
-  Object.assign(dictionary, localized[language]);
   fs.writeFileSync(filePath, `${JSON.stringify(dictionary, null, 2)}\n`);
 }
 console.log(`Reconciled commercial translation dictionaries for ${languages.length} languages.`);

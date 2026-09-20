@@ -447,6 +447,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
     submitButton.setAttribute('aria-busy', 'true');
     status.className = 'rfq-status is-pending';
     status.textContent = 'Sending your RFQ securely…';
+    trackEvent('rfq_form_submit', { method: 'website_form' });
 
     let responseStatus = 0;
     try {
@@ -460,8 +461,10 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       if (!response.ok || !result.ok) throw new Error(result.message || 'Delivery failed.');
 
       status.className = 'rfq-status is-success';
-      status.textContent = 'Thank you — your RFQ was delivered to our packaging sales team.';
-      trackEvent('generate_lead', { method: 'website_form' });
+      status.textContent = 'Thank you — your RFQ was submitted successfully.';
+      if (result.accepted === true) {
+        trackEvent('generate_lead', { method: 'website_form', lead_status: 'email_provider_accepted' });
+      }
       form.reset();
       hasTrackedStart = false;
       startedAt.value = String(Date.now());

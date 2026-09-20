@@ -146,8 +146,8 @@ module.exports = async function inquiryHandler(request, response) {
     Object.entries(fieldLimits).map(([field, limit]) => [field, clean(rawPayload[field], limit)])
   );
 
-  // Quietly accept honeypot submissions so automated senders receive no useful feedback.
-  if (payload.website) return sendJson(response, 200, { ok: true });
+  // Keep the honeypot response indistinguishable to bots, but do not report it as a lead.
+  if (payload.website) return sendJson(response, 200, { ok: true, accepted: false });
 
   const missingFields = ['name', 'email', 'country', 'product', 'quantity'].filter(field => !payload[field]);
   if (missingFields.length) {
@@ -192,7 +192,7 @@ module.exports = async function inquiryHandler(request, response) {
     if (!resendResponse.ok) {
       return sendJson(response, 502, { ok: false, message: 'The inquiry could not be delivered. Please use email or WhatsApp below.' });
     }
-    return sendJson(response, 200, { ok: true });
+    return sendJson(response, 200, { ok: true, accepted: true });
   } catch {
     return sendJson(response, 502, { ok: false, message: 'The inquiry could not be delivered. Please use email or WhatsApp below.' });
   }

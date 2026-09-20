@@ -380,7 +380,7 @@ const insightDefinitions = {
   '12': {
     slug: 'glass-bottle-neck-finish-closure-guide',
     seoTitle: 'Glass Bottle Neck Finish & Closure Guide | GloryStarPack',
-    dateModified: '2026-08-01',
+    dateModified: '2026-09-20',
     sources: references('astmClosureTorque', 'astmPackaging', 'astmGlass'),
     sourceNote: 'These references identify possible packaging and glass-container methods, not a universal neck-finish compatibility table. Use current drawings and test the exact bottle, closure, liner, process and packed product.',
     questions: [
@@ -391,6 +391,7 @@ const insightDefinitions = {
     note: 'Similar-looking finishes are not automatically interchangeable. Match and test the exact bottle, closure, seal and filling conditions intended for production.',
     resources: [
       ['/glass-bottle-buying-guides/', 'Glass Bottle Buying Guides'],
+      ['/products/glass-packaging/', 'Glass Packaging'],
       ['/products/beverage-bottles/', 'Beverage Bottles'],
       ['/products/cosmetic-pumps-closures/', 'Pumps and Closures']
     ]
@@ -869,7 +870,7 @@ const insightDefinitions = {
   '27': {
     slug: 'how-to-ship-glass-bottles-without-breaking',
     seoTitle: 'How to Ship Glass Bottles Without Breaking | Guide',
-    dateModified: '2026-08-13',
+    dateModified: '2026-09-20',
     decisionTable: {
       heading: 'Glass bottle shipping packaging checklist',
       intro: 'Approve the bottle and protective pack as one route-specific system. Empty bulk bottles, filled retail units and individual ecommerce parcels face different hazards and should not share an assumed universal packout.',

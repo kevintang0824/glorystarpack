@@ -1,0 +1,63 @@
+name: Daily Reddit packaging blog
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-reddit-packaging-blog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out production branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Research Reddit and generate one article
+        run: node scripts/publish-reddit-blog.mjs
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USER_AGENT: "web:glorystarpack-reddit-blog:v1 (contact: kevin@glorystarpack.com)"
+
+      - name: Run the existing publication quality gates
+        run: |
+          node scripts/generate-localized-site.mjs
+          node scripts/check-seo.mjs
+          node scripts/generate-seo-baseline.mjs
+          node scripts/apply-language-switcher.mjs --check
+          node scripts/check-localized-site.mjs
+          node scripts/audit-content.mjs
+          node scripts/apply-inquiry-layer.mjs --check
+          node scripts/check-inquiry-attribution.mjs
+          node scripts/enforce-accessible-colors.mjs --check
+          node scripts/optimize-image-tags.mjs
+          git diff --check
+
+      - name: Commit the article and updated publishing feeds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- data/reddit-blog-posts insights sitemap.xml image-sitemap.xml feed.xml llms.txt \
+            fr/insights/index.html es/insights/index.html pt/insights/index.html \
+            ru/insights/index.html zh-CN/insights/index.html
+          if git diff --cached --quiet; then
+            echo "No new article was generated."
+            exit 0
+          fi
+          git commit -m "content: publish Reddit-informed packaging blog"
+          git push origin HEAD:main

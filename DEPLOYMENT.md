@@ -27,6 +27,18 @@
 7. 执行 `node scripts/submit-indexnow.mjs --all`，通知支持 IndexNow 的搜索引擎。
 8. 内容较多时，在 Google Search Console 的 Sitemaps 报告提交或重新提交 `https://www.glorystarpack.com/sitemap.xml`；首页等少量重点 URL 可使用 URL Inspection 请求编入索引。
 
+## Reddit 主题博客定时发布
+
+`.github/workflows/daily-reddit-blog.yml` 每天北京时间 09:00（GitHub Actions 使用 UTC 01:00）运行一次。它从授权的 Reddit Data API 读取近期高互动讨论，围绕包装采购主题生成并发布一篇英文文章；同一天重复运行不会重复发文。文章会带 Reddit 讨论来源与用户名归属，并更新 Insights 索引、RSS、sitemap 和 `llms.txt`。推送到 `main` 后由现有 Vercel Git 集成部署。
+
+在 GitHub 仓库 **Settings → Secrets and variables → Actions** 添加以下 Repository secrets，定时任务才可生成文章：
+
+- `REDDIT_CLIENT_ID`：已获准用于该商业用途的 Reddit 应用 ID。
+- `REDDIT_CLIENT_SECRET`：对应的 Reddit 应用密钥。
+- `OPENAI_API_KEY`：用于生成文章的 OpenAI API 密钥。
+
+缺少凭据、未找到足够的新讨论或文章质量校验失败时，任务会失败且不会提交半成品。生成文章保存在 `data/reddit-blog-posts/`，后续静态生成和 SEO 检查会一并纳入；这些新增英文博客暂不自动翻译。
+
 Google 把 sitemap 提交视为发现提示，而不是收录保证。不要重复高频请求同一 URL；持续发布可抓取、原创且对采购者有用的内容更重要。
 
 ### 询盘转化与统计

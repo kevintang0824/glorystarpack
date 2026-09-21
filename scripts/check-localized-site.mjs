@@ -6,6 +6,7 @@ import { localeCodes } from '../data/site-locales.mjs';
 import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
 import { commercialApplicationTranslations } from '../data/commercial-application-translations.mjs';
 import { localePath } from './language-switcher.mjs';
+import { redditBlogRoutes } from './reddit-blog-content.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://www.glorystarpack.com';
@@ -19,7 +20,8 @@ const englishOnlyRoutes = new Set([
   '/products/plastic-travel-packaging/',
   '/products/plastic-lotion-bottles/',
   '/products/spa-body-care-packaging/',
-  '/products/candle-packaging/'
+  '/products/candle-packaging/',
+  ...redditBlogRoutes(root)
 ]);
 const englishOnlySourceFiles = new Set([...englishOnlyRoutes].map(route => `${route.replace(/^\//, '')}index.html`));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')

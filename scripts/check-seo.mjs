@@ -4,6 +4,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
+import { readRedditBlogRecords, redditBlogRoutes } from './reddit-blog-content.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(scriptDir, '..');
@@ -29,7 +30,8 @@ const englishOnlyRoutes = new Set([
   '/products/plastic-travel-packaging/',
   '/products/plastic-lotion-bottles/',
   '/products/spa-body-care-packaging/',
-  '/products/candle-packaging/'
+  '/products/candle-packaging/',
+  ...redditBlogRoutes(rootDir)
 ]);
 const errors = [];
 const warnings = [];
@@ -1630,7 +1632,7 @@ const approvedPrimarySourceHosts = new Set([
   'www.trade.gov',
   'label.averydennison.com'
 ]);
-const expectedInsightCount = Object.keys(INSIGHT_SOURCE).length;
+const expectedInsightCount = Object.keys(INSIGHT_SOURCE).length + readRedditBlogRecords(rootDir).length;
 if (insightArticles.length !== expectedInsightCount) {
   errors.push(`expected ${expectedInsightCount} generated insight articles, found ${insightArticles.length}`);
 }

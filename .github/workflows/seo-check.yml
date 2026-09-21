@@ -32,6 +32,8 @@ jobs:
           node --check assets/js/inquiry-conversion.js
           node --check api/inquiry.js
           node --check scripts/check-seo.mjs
+          node --check scripts/reddit-blog-content.mjs
+          node --check scripts/publish-reddit-blog.mjs
           node --check scripts/check-live-site.mjs
           node --check scripts/generate-seo-baseline.mjs
           node --check scripts/check-inquiry-attribution.mjs

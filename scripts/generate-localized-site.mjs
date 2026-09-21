@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { redditBlogRoutes } from './reddit-blog-content.mjs';
 import vm from 'node:vm';
 import { localeCodes, copy, t } from '../data/site-locales.mjs';
 import { categories, domainNotes, serviceTitles, topics, topicNotes } from '../data/localized-topics.mjs';
@@ -41,7 +42,8 @@ const englishOnlyRoutes = new Set([
   '/products/plastic-travel-packaging/',
   '/products/plastic-lotion-bottles/',
   '/products/spa-body-care-packaging/',
-  '/products/candle-packaging/'
+  '/products/candle-packaging/',
+  ...redditBlogRoutes(root)
 ]);
 const englishOnlySourceFiles = new Set([...englishOnlyRoutes].map(route => `${route.replace(/^\//, '')}index.html`));
 const localeIndex = language => localeCodes.indexOf(language);

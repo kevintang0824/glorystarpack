@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { INSIGHT_SOURCE } from '../data/insight-source.mjs';
+import { readRedditBlogRecords, toRedditInsight } from './reddit-blog-content.mjs';
 import { primaryNavigationMarkup } from './site-navigation.mjs';
 import { installLanguageSwitcher } from './language-switcher.mjs';
 
@@ -1173,7 +1174,7 @@ function xmlEscape(value) {
     .replace(/'/g, '&apos;');
 }
 
-const insights = Object.entries(insightDefinitions).map(([id, definition]) => {
+const staticInsights = Object.entries(insightDefinitions).map(([id, definition]) => {
   const article = INSIGHT_SOURCE[id];
   if (!article) throw new Error(`Missing NEWS article ${id}`);
   const imagePath = `/${article.img.replace(/^\/+/, '')}`;
@@ -1190,7 +1191,15 @@ const insights = Object.entries(insightDefinitions).map(([id, definition]) => {
     datePublished: isoDate(article.date),
     dateModified: definition.dateModified ?? modifiedDate
   };
-}).sort((left, right) => right.datePublished.localeCompare(left.datePublished) || Number(right.id) - Number(left.id));
+});
+const redditBlogHeroDimensions = imageDimensions('/assets/brand/factory-oem-quality-2026.jpg');
+const redditInsights = readRedditBlogRecords(rootDir)
+  .map(article => toRedditInsight(article, redditBlogHeroDimensions));
+const insights = [...staticInsights, ...redditInsights]
+  .sort((left, right) => right.datePublished.localeCompare(left.datePublished) || Number(right.id) - Number(left.id));
+const insightIndexModifiedDate = [indexModifiedDate, ...redditInsights.map(article => article.dateModified)]
+  .sort()
+  .at(-1);
 
 function articlePath(article) {
   return `/insights/${article.slug}/`;
@@ -1536,7 +1545,7 @@ function indexPage() {
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
         breadcrumb: { '@id': `${canonical}#breadcrumbs` },
-        dateModified: indexModifiedDate
+        dateModified: insightIndexModifiedDate
       },
       {
         '@type': 'ItemList',
@@ -1596,7 +1605,7 @@ ${headerMarkup('guides')}
   <div class="insight-grid">${cards}</div>
   <section class="section rfq"><div><div class="eyebrow">From research to sourcing</div><h2>Need an item-specific answer?</h2><p>Browse individual product pages or prepare a structured packaging inquiry.</p></div><div class="actions"><a class="btn" href="/products/product-index/">Product Index</a><a class="btn alt" href="/contact/">Build an RFQ</a></div></section>
 </main>
-${footerMarkup(indexModifiedDate)}
+${footerMarkup(insightIndexModifiedDate)}
 <script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer></script>
 </body>
 </html>
@@ -1836,13 +1845,13 @@ fs.writeFileSync(path.join(glassGuideHubDir, 'index.html'), installLanguageSwitc
 const sitemapEntries = [
   `  <url>
     <loc>${siteUrl}/glass-bottle-buying-guides/</loc>
-    <lastmod>${indexModifiedDate}</lastmod>
+    <lastmod>${insightIndexModifiedDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
   </url>`,
   `  <url>
     <loc>${siteUrl}/insights/</loc>
-    <lastmod>${indexModifiedDate}</lastmod>
+    <lastmod>${insightIndexModifiedDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
   </url>`,

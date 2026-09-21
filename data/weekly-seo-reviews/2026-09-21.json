@@ -31,6 +31,14 @@
       "boundary": "Existing bilingual/localized visible copy was retained because new translations lack native-language review."
     }
   ],
+  "releaseStatus": {
+    "commit": "58dd4c75",
+    "pushedToMain": true,
+    "build": "vercel build --prod passed",
+    "deployment": "blocked",
+    "deploymentReason": "vercel deploy --prebuilt --prod returned Not authorized on 2026-09-21; no production deployment or post-deployment live check was completed.",
+    "indexNow": "not sent because the changed build was not deployed"
+  },
   "externalMetrics": {
     "googleSearchConsole": {
       "status": "measured from dated export",

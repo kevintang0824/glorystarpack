@@ -2,7 +2,7 @@
 
 Date: 2026-09-08
 Site: https://www.glorystarpack.com
-Status: Completed locally; not published
+Status: Published; focused cluster iteration shipped 2026-09-21
 
 ## Scope
 
@@ -41,3 +41,14 @@ After publication and recrawl, compare the six cluster hubs and their linked com
 - Content audit: no low-word-count, low-inbound, deep/unreachable, missing-breadcrumb or unsized-image findings.
 - Inquiry layer and accessible color checks passed.
 - `git diff --check` passed.
+
+## Focused follow-up — 2026-09-21
+
+The 2026-09-20 Search Console review showed `/insights/how-to-ship-glass-bottles-without-breaking/` with 533 impressions, 3 clicks and average position 10.01 in the latest 28-day window. The beverage-bottle hub already links to this guide in its approval path, but the glass-packaging hub's visible cluster navigation and the machine-readable glass/beverage cluster maps did not.
+
+- Added the shipping guide to the glass-packaging hub's visible cluster navigation and its French, Spanish, Portuguese, Russian and Simplified Chinese equivalents.
+- Added the guide to the `glass-food-packaging` and `beverage-bottles` decision-guide lists in `ai-context.json`.
+- Updated the cluster optimizer so future configured links can extend an existing cluster section without repeating links already present in the page body.
+- Revalidated local SEO, content, inquiry-layer and accessible-color checks before publication.
+
+This is an internal-link coverage improvement, not evidence of a ranking or inquiry lift. Recheck the guide and its source hubs after Google recrawls the updated graph; compare impressions, clicks, query coverage, indexed status and qualified inquiry data when available.

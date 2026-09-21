@@ -28,7 +28,8 @@ const clusterPages = {
       ['/products/wine-bottles/', 'Wholesale glass wine bottles'],
       ['/products/liquor-bottles/', 'Liquor and spirit bottles'],
       ['/insights/glass-bottle-neck-finish-closure-guide/', 'Neck finish and closure guide'],
-      ['/insights/glass-bottle-sample-approval-qc-checklist/', 'Glass sample approval guide']
+      ['/insights/glass-bottle-sample-approval-qc-checklist/', 'Glass sample approval guide'],
+      ['/insights/how-to-ship-glass-bottles-without-breaking/', 'Glass bottle shipping guide']
     ]
   },
   'products/beverage-bottles/index.html': {
@@ -280,7 +281,25 @@ for (const [relativePath, config] of Object.entries(clusterPages)) {
   const filePath = path.join(rootDir, relativePath);
   if (!fs.existsSync(filePath)) throw new Error(`Missing cluster page: ${relativePath}`);
   let source = fs.readFileSync(filePath, 'utf8');
-  if (source.includes('class="gsp-theme-cluster"')) continue;
+  if (source.includes('class="gsp-theme-cluster"')) {
+    const sectionPattern = /(<section class="gsp-theme-cluster"[\s\S]*?<nav class="gsp-theme-cluster-links"[^>]*>)([\s\S]*?)(<\/nav>[\s\S]*?<\/section>)/i;
+    const section = source.match(sectionPattern);
+    if (!section) throw new Error(`Missing cluster link navigation: ${relativePath}`);
+    const contentWithoutShell = source
+      .replace(/<header\b[\s\S]*?<\/header>/i, '')
+      .replace(/<footer\b[\s\S]*?<\/footer>/i, '');
+    const missingLinks = config.links.filter(([href]) => (
+      !section[2].includes(`href="${href}"`)
+      && !contentWithoutShell.includes(`href="${href}"`)
+    ));
+    if (!missingLinks.length) continue;
+    const markup = missingLinks.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join('');
+    source = source.replace(sectionPattern, (_match, beforeLinks, existingLinks, afterLinks) => `${beforeLinks}${existingLinks}${markup}${afterLinks}`);
+    fs.writeFileSync(filePath, source);
+    changed += 1;
+    console.log(`cluster links extended ${relativePath}`);
+    continue;
+  }
   const markup = clusterMarkup(relativePath, config, source);
   if (!markup) {
     skipped += 1;

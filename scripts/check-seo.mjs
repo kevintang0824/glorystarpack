@@ -2127,7 +2127,7 @@ else {
     errors.push('OEM/ODM packaging page is missing the OEM-versus-ODM answer');
   }
   const oemSource = oemPackagingPage.source;
-  const oemDescription = 'Plan OEM or ODM cosmetic packaging by formula or application, component fit, decoration, samples, approval, packing and destination requirements.';
+  const oemDescription = 'Compare OEM vs ODM cosmetic packaging, from brief and component selection through samples, decoration approval, packing and project-specific MOQ.';
   for (const requiredFragment of [
     'Project-specific cosmetic packaging',
     'Can I request samples for an OEM or ODM project?',

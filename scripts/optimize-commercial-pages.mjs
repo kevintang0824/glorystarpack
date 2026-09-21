@@ -15,7 +15,13 @@ const pages = {
     ]
   },
   'oem-cosmetic-packaging/index.html': {
-    description: 'Plan OEM or ODM cosmetic packaging by formula or application, component fit, decoration, samples, approval, packing and destination requirements.',
+    legacyPhrases: [
+      ['OEM vs ODM Cosmetic Packaging: Process & Samples', 'OEM/ODM Cosmetic Packaging Service | GloryStarPack'],
+      ['OEM vs ODM Cosmetic Packaging: Process, Samples & Approval', 'OEM/ODM Cosmetic Packaging Service']
+    ],
+    description: 'Compare OEM vs ODM cosmetic packaging, from brief and component selection through samples, decoration approval, packing and project-specific MOQ.',
+    // Metadata and H1 refinement only; the locally reviewed page content date remains unchanged.
+    dateModified: '2026-08-31',
     faqs: [
       ['What is OEM cosmetic packaging?', 'OEM cosmetic packaging is manufacturing based on a buyer-approved specification for the container, closure, decoration, artwork and packing configuration.'],
       ['What is ODM cosmetic packaging?', 'ODM cosmetic packaging includes supplier-led component selection or development before samples and the final production specification are approved.'],
@@ -46,7 +52,13 @@ const pages = {
     ]
   },
   'cosmetic-packaging-moq/index.html': {
-    description: 'Plan cosmetic packaging MOQ and lead time by stock status, material, closure, decoration, testing and order mix. Use the RFQ checklist for comparable quotes.'
+    legacyPhrases: [
+      ['Cosmetic Packaging MOQ & Lead Time: What to Confirm', 'Cosmetic Packaging MOQ & Lead Time | Buyer Guide'],
+      ['Cosmetic Packaging MOQ and Lead Time: What to Confirm', 'Cosmetic Packaging MOQ &amp; Lead Time Guide']
+    ],
+    description: 'What is the MOQ for cosmetic packaging? Compare stock versus custom minimums, samples, tooling, decoration and lead-time dependencies before requesting a quote.',
+    // Metadata and H1 refinement only; the locally reviewed page content date remains unchanged.
+    dateModified: '2026-09-15'
   },
   'cosmetic-packaging-sample-approval-checklist/index.html': {
     description: 'Cosmetic packaging sample approval checklist covering formula compatibility, leakage, decoration, cap fit, pump output, carton protection and bulk sign-off.',

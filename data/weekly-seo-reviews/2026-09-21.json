@@ -1,0 +1,214 @@
+{
+  "reviewDate": "2026-09-21",
+  "siteUrl": "https://www.glorystarpack.com",
+  "phase": 5,
+  "localBaseline": {
+    "htmlPages": 152,
+    "sitemapUrls": 844,
+    "languages": [
+      "en",
+      "fr",
+      "es",
+      "pt",
+      "ru",
+      "zh-CN"
+    ],
+    "aiContextBytes": 95441,
+    "source": "2026-09-21 local baseline and production pre-release check",
+    "liveChecks": "Passed before release: 844 sitemap URLs, core pages, robots.txt, image-sitemap.xml, feed.xml, llms.txt, canonical/hreflang discovery, IndexNow key, custom 404 and inquiry endpoint."
+  },
+  "pageActions": [
+    {
+      "route": "/cosmetic-packaging-moq/",
+      "selectionEvidence": "GSC export, 2026-06-20 to 2026-09-17: 281 impressions, 1 click, 0.36% CTR, average position 11.83; visible exact-intent queries include ‘cosmetic packaging moq’ and ‘what is the moq for cosmetic packaging?’. ",
+      "change": "Rewrote the English description, Open Graph/Twitter descriptions and WebPage schema description to answer the buyer’s MOQ question and name the stock-versus-custom, sample, tooling, decoration and lead-time variables.",
+      "boundary": "No MOQ, sample-time, lead-time or price promise was added; existing FAQ remains configuration-specific."
+    },
+    {
+      "route": "/oem-cosmetic-packaging/",
+      "selectionEvidence": "GSC export, 2026-06-20 to 2026-09-17: 153 impressions, 0 clicks, 0% CTR, average position 16.52; visible queries include ‘odm cosmetic packaging’ and ‘oem cosmetic packaging’.",
+      "change": "Rewrote the English description, Open Graph/Twitter descriptions and CollectionPage schema description to state the OEM-versus-ODM decision path, samples, decoration approval, packing and project-specific MOQ.",
+      "boundary": "Existing bilingual/localized visible copy was retained because new translations lack native-language review."
+    }
+  ],
+  "externalMetrics": {
+    "googleSearchConsole": {
+      "status": "measured from dated export",
+      "dateRange": "2026-06-20 to 2026-09-17",
+      "clicks": 163,
+      "impressions": 18660,
+      "ctrPercent": 0.87,
+      "averagePosition": 16.95,
+      "latest28Days": {"dateRange": "2026-08-21 to 2026-09-17", "clicks": 123, "impressions": 16627, "ctrPercent": 0.74, "averagePosition": 14.65},
+      "source": "SEO_PHASE_1_GSC_*_20260620_20260917.csv and SEO_PHASE_1_LIVE_BASELINE_2026-09-20.md"
+    },
+    "bingWebmaster": {"status": "unmeasured", "reason": "No authorized current Bing Webmaster export or UI session was available."},
+    "ga4": {
+      "status": "measured from dated export",
+      "dateRange": "2026-06-20 to 2026-09-17",
+      "organicSessionsLatest28Days": 191,
+      "inquiryClickEvents90Days": 27,
+      "rfqFormStarts90Days": 2,
+      "rfqFormErrors90Days": 1,
+      "generateLeadEvents90Days": 0,
+      "source": "SEO_PHASE_1_GA4_INQUIRY_*_20260620_20260917.csv and SEO_PHASE_1_LIVE_BASELINE_2026-09-20.md",
+      "note": "Entry clicks are not accepted leads; no inquiry was sent or fabricated."
+    },
+    "referringDomains": null,
+    "aiMentionRate": null,
+    "note": "Referral, current Bing and reproducible AI-search observations were not accessible in this run; unmeasured is not zero."
+  },
+  "authorityActions": [
+    {
+      "status": "not executed",
+      "reason": "No external outreach, profile change, paid placement or publication was authorized; no reference is claimed."
+    }
+  ],
+  "aiCitationObservations": [
+    {
+      "id": "cosmetic-supplier-china",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "cosmetic-packaging-moq-lead-time",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "serum-dropper-selection",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "packaging-compatibility-testing",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "pump-closure-troubleshooting",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "glass-beverage-bottle-sourcing",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "perfume-bottle-small-brand",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "refill-hotel-amenity",
+      "platformLocales": [
+        "Google Search AI features / en-US",
+        "ChatGPT Search / en-US",
+        "Perplexity / en-US",
+        "Gemini / en-US"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "supplier-evidence-request",
+      "platformLocales": [
+        "Google Search AI features / zh-CN",
+        "ChatGPT Search / zh-CN",
+        "Perplexity / zh-CN",
+        "Gemini / zh-CN"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    },
+    {
+      "id": "serum-packaging-chinese",
+      "platformLocales": [
+        "Google Search AI features / zh-CN",
+        "ChatGPT Search / zh-CN",
+        "Perplexity / zh-CN",
+        "Gemini / zh-CN"
+      ],
+      "mentioned": null,
+      "citedUrls": [],
+      "checkedOn": null,
+      "notes": "Not measured yet."
+    }
+  ],
+  "nextIteration": [
+    "Inspect the current GSC query and snippet appearance for /insights/cosmetic-packaging-tamper-evident-seals-guide/ before changing its high-impression, position-6.78 result.",
+    "Use newly authorized Bing Webmaster data to record verification, sitemap processing, crawl, index, URL Inspection and IndexNow state.",
+    "Run the ten fixed AI prompts only through reproducible, permitted account/browser entries and attach dated evidence; otherwise retain unmeasured status."
+  ],
+  "releaseChecks": [
+    "node scripts/check-seo.mjs",
+    "node scripts/audit-content.mjs",
+    "node scripts/check-localized-site.mjs",
+    "node scripts/check-inquiry-attribution.mjs",
+    "node scripts/check-phase-5-tracker.mjs",
+    "git diff --check",
+    "vercel build --prod: passed",
+    "build output check: passed for both revised routes, robots.txt and sitemap.xml"
+  ]
+}

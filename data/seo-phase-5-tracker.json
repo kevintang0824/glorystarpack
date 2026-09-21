@@ -11,28 +11,52 @@
     "evidence": "Use a source URL, screenshot or export for every measured result. Keep unverified targets marked as unverified."
   },
   "currentBaseline": {
-    "capturedOn": "2026-09-08",
+    "capturedOn": "2026-09-21",
     "liveSiteChecks": "passed",
-    "htmlPages": 852,
-    "indexableSitemapUrls": 834,
+    "htmlPages": 862,
+    "htmlFilesTrackedTotal": 863,
+    "englishSourcePages": 152,
+    "localizedPages": 710,
+    "htmlPageCountScope": "All tracked content pages across English and five locales, excluding the root 404 page; tracked file total includes that 404 page.",
+    "indexableSitemapUrls": 844,
     "languages": ["en", "fr", "es", "pt", "ru", "zh-CN"],
     "indexNowAcceptedUrls": 834,
-    "gscRichResultValidation": "pending",
+    "indexNowLastObservedOn": "2026-09-08",
+    "gscRichResultValidation": "pending; last observed 2026-09-08",
     "externalMetrics": {
       "googleSearchConsole": {
-        "capturedOn": "2026-09-08",
-        "dateRange": "2026-06-06 to 2026-09-05",
-        "clicks": 66,
-        "impressions": 5850,
-        "ctrPercent": 1.1,
-        "averagePosition": 25.4,
-        "commercialPagesInspected": 15,
-        "commercialPagesIndexed": 15,
-        "commercialPagesWithImpressions": 15,
-        "commercialPagesWithClicks": 5,
-        "commercialPageClicks": 6,
-        "commercialPageImpressions": 1185,
-        "source": "Search Console performance and URL Inspection UI"
+        "capturedOn": "2026-09-20",
+        "dateRange": "2026-06-20 to 2026-09-17",
+        "clicks": 163,
+        "impressions": 18660,
+        "ctrPercent": 0.87,
+        "averagePosition": 16.95,
+        "latest28Days": {
+          "dateRange": "2026-08-21 to 2026-09-17",
+          "clicks": 123,
+          "impressions": 16627,
+          "ctrPercent": 0.74,
+          "averagePosition": 14.65
+        },
+        "queryReportCoverage": {
+          "90DayVisiblePageQueryPairs": 1105,
+          "90DayPages": 220,
+          "90DayClicksRepresented": 7,
+          "90DayImpressionsRepresented": 4297,
+          "latest28DayVisiblePageQueryPairs": 970,
+          "latest28DayPages": 216,
+          "latest28DayClicksRepresented": 7,
+          "latest28DayImpressionsRepresented": 3480,
+          "note": "Search Console hides some low-volume queries; visible page-query rows do not reconcile to sitewide totals."
+        },
+        "pageIndexingReport": {
+          "lastUpdated": "2026-09-14",
+          "indexed": 515,
+          "notIndexed": 729,
+          "submittedSitemapErrors": 0,
+          "submittedSitemapWarnings": 0
+        },
+        "source": "SEO_PHASE_1_LIVE_BASELINE_2026-09-20.md and dated Search Console exports"
       },
       "bingWebmaster": {
         "capturedOn": "2026-09-08",
@@ -49,21 +73,34 @@
         "source": "Bing Webmaster verification and Sitemaps report"
       },
       "ga4": {
-        "capturedOn": "2026-09-08",
+        "capturedOn": "2026-09-20",
         "property": "Glorystarpack",
         "propertyId": "548854103",
         "dataStream": "glorystarpack",
         "dataStreamId": "15390447000",
-        "last7DaysOrganicSearchSessions": 40,
-        "last7DaysAiAssistantSessions": 5,
+        "dateRange": "2026-06-20 to 2026-09-17",
+        "sessions90Days": {
+          "organicSearch": 209,
+          "aiAssistant": 40,
+          "direct": 373,
+          "organicSocial": 20
+        },
+        "latest28DaysOrganicSearchSessions": 191,
         "activeInquiryEvent": "inquiry_click",
-        "generateLeadObservedLast28Days": false,
+        "inquiryEvents90Days": {
+          "inquiryClick": 27,
+          "rfqFormStart": 2,
+          "rfqFormError": 1,
+          "generateLead": 0
+        },
+        "acceptedRFQsVerified": null,
         "gscAssociation": "created 2026-09-08",
-        "source": "Google Analytics UI"
+        "source": "SEO_PHASE_1_LIVE_BASELINE_2026-09-20.md and dated GA4 exports",
+        "note": "generateLead is an analytics event count, not a count of real leads; business inbox/CRM records were unavailable."
       },
       "referringDomains": null,
       "aiMentionRate": null,
-      "note": "GSC and GA4 values are dated observations; Bing is verified and its Sitemap is processing, while referring domains and AI citation measurements remain pending."
+      "note": "GSC and GA4 values are dated exports, not live dashboards. Bing status is last observed 2026-09-08; current Bing metrics, referring domains and reproducible AI citations remain unmeasured."
     }
   },
   "authorityTargets": [

@@ -57,3 +57,13 @@ Google states that generative-AI visibility still depends on indexing and eligib
 - [Google: Spam policies](https://developers.google.com/search/docs/essentials/spam-policies)
 - [Bing: IndexNow setup and verification](https://www.bing.com/indexnow/getstarted)
 - [Bing: Add and verify a site](https://www.bing.com/webmasters/help/add-and-verify-site-12184f8b)
+
+## Latest data refresh — 2026-09-21
+
+- The current source set has 152 English pages, 710 localized pages and 844 sitemap URLs; the 844-URL sitemap report has zero errors and warnings.
+- Search Console data through 2026-09-17 records 163 clicks, 18,660 impressions, 0.87% CTR and average position 16.95 over 90 days. The latest 28 days record 123 clicks, 16,627 impressions, 0.74% CTR and average position 14.65.
+- GA4 data through 2026-09-17 records 209 organic-search sessions and 40 AI Assistant sessions over 90 days. It records 27 inquiry-entry clicks, 2 form starts, 1 form error and 0 `generate_lead` events; accepted RFQs remain unverified because the business inbox/CRM is not connected.
+- The AI context now dates the dataset 2026-09-21 and lists the glass-bottle shipping guide as a citation resource. This improves source discovery; it does not establish that an AI platform cited the page.
+- Bing Webmaster is only verified as processing in the 2026-09-08 snapshot. Current Bing metrics, referring domains and reproducible AI citation observations remain unmeasured.
+
+The machine-readable baseline is maintained in `data/seo-phase-5-tracker.json`. The exact query-privacy and indexing caveats remain in `SEO_PHASE_1_LIVE_BASELINE_2026-09-20.md`.

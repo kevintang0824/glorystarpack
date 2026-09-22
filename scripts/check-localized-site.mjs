@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { localeCodes } from '../data/site-locales.mjs';
 import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
 import { commercialApplicationTranslations } from '../data/commercial-application-translations.mjs';
+import { translationOverrides } from '../data/translation-overrides.mjs';
 import { localePath } from './language-switcher.mjs';
 import { redditBlogRoutes } from './reddit-blog-content.mjs';
 
@@ -224,7 +225,10 @@ for (const file of sourceFiles) {
 expect(sourceFiles.length === 142, `expected 142 localized English interfaces, found ${sourceFiles.length}`);
 for (const language of localeCodes) {
   const keys = new Set(Object.keys(translationDictionaries[language]));
-  const missing = [...currentTranslationStrings].filter(value => !keys.has(value));
+  const languageIndex = localeCodes.indexOf(language);
+  const missing = [...currentTranslationStrings].filter(value => (
+    !keys.has(value) && !translationOverrides[value]?.[languageIndex]
+  ));
   const obsolete = [...keys].filter(value => !currentTranslationStrings.has(value));
   expect(!missing.length, `${language}: ${missing.length} current English strings are missing translations`);
   expect(!obsolete.length, `${language}: ${obsolete.length} obsolete translation strings should be rebuilt`);

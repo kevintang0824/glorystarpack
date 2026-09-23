@@ -85,6 +85,8 @@ if (!contactForm.body.includes('action="/api/inquiry/"')) errors.push('live cont
 if (!contactForm.body.includes("trackEvent('generate_lead'")) errors.push('live contact form is missing accepted-lead analytics');
 if (!contactForm.body.includes("trackEvent('rfq_form_start'")) errors.push('live contact form is missing RFQ start analytics');
 if (!contactForm.body.includes("trackEvent('rfq_form_error'")) errors.push('live contact form is missing RFQ error analytics');
+if (!contactForm.body.includes('responseErrorType = String(result.errorType')) errors.push('live contact form does not preserve the server error type');
+if (!contactForm.body.includes('responseErrorCode = String(result.errorCode')) errors.push('live contact form does not preserve the server error code');
 
 const inquiryMethodCheck = await fetchText('/api/inquiry/', 405);
 if (!inquiryMethodCheck.body.includes('Method not allowed')) errors.push('live RFQ endpoint did not reject GET requests');
@@ -99,6 +101,12 @@ const invalidInquiryResponse = await fetch(new URL('/api/inquiry/', baseUrl), {
   body: '{}'
 });
 if (invalidInquiryResponse.status !== 400) errors.push(`live RFQ validation expected HTTP 400, received ${invalidInquiryResponse.status}`);
+else {
+  const invalidInquiryBody = await invalidInquiryResponse.json().catch(() => ({}));
+  if (invalidInquiryBody.errorType !== 'validation' || invalidInquiryBody.errorCode !== 'required_fields') {
+    errors.push('live RFQ validation response is missing the expected privacy-safe diagnostic code');
+  }
+}
 
 for (const pathname of [
   '/about/',

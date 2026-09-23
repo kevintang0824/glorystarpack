@@ -22,7 +22,10 @@ node --check assets/js/site-language.js
 node --check assets/js/product-index.js
 node --check assets/js/legacy-catalog.js
 node --check assets/js/inquiry-conversion.js
+node --check api/inquiry.js
 node --check scripts/check-seo.mjs
+node --check scripts/check-inquiry-attribution.mjs
+node --check scripts/check-inquiry-api.mjs
 node --check scripts/generate-seo-baseline.mjs
 node --check scripts/apply-inquiry-layer.mjs
 node --check scripts/enforce-accessible-colors.mjs
@@ -50,6 +53,8 @@ node scripts/check-seo.mjs
 node scripts/generate-seo-baseline.mjs
 node scripts/audit-content.mjs
 node scripts/apply-inquiry-layer.mjs --check
+node scripts/check-inquiry-attribution.mjs
+node scripts/check-inquiry-api.mjs
 node scripts/enforce-accessible-colors.mjs --check
 node scripts/optimize-image-tags.mjs
 git diff --check

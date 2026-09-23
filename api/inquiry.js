@@ -38,6 +38,15 @@ function sendJson(response, statusCode, payload) {
   response.end(JSON.stringify(payload));
 }
 
+function sendError(response, statusCode, message, errorType, errorCode) {
+  return sendJson(response, statusCode, {
+    ok: false,
+    message,
+    errorType,
+    errorCode
+  });
+}
+
 function clean(value, limit) {
   return String(value ?? '')
     .replace(/\u0000/g, '')
@@ -124,22 +133,22 @@ function renderRows(payload) {
 module.exports = async function inquiryHandler(request, response) {
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST');
-    return sendJson(response, 405, { ok: false, message: 'Method not allowed.' });
+    return sendError(response, 405, 'Method not allowed.', 'request', 'method_not_allowed');
   }
 
   const contentLength = Number(request.headers?.['content-length'] || 0);
   if (contentLength > MAX_BODY_BYTES) {
-    return sendJson(response, 413, { ok: false, message: 'The inquiry is too large.' });
+    return sendError(response, 413, 'The inquiry is too large.', 'request', 'payload_too_large');
   }
   if (!isAllowedOrigin(request.headers?.origin)) {
-    return sendJson(response, 403, { ok: false, message: 'Request origin is not allowed.' });
+    return sendError(response, 403, 'Request origin is not allowed.', 'request', 'origin_not_allowed');
   }
 
   let rawPayload;
   try {
     rawPayload = parseBody(request);
   } catch {
-    return sendJson(response, 400, { ok: false, message: 'Invalid inquiry data.' });
+    return sendError(response, 400, 'Invalid inquiry data.', 'request', 'invalid_json');
   }
 
   const payload = Object.fromEntries(
@@ -151,19 +160,19 @@ module.exports = async function inquiryHandler(request, response) {
 
   const missingFields = ['name', 'email', 'country', 'product', 'quantity'].filter(field => !payload[field]);
   if (missingFields.length) {
-    return sendJson(response, 400, { ok: false, message: 'Please complete all required fields.' });
+    return sendError(response, 400, 'Please complete all required fields.', 'validation', 'required_fields');
   }
   if (!emailIsValid(payload.email)) {
-    return sendJson(response, 400, { ok: false, message: 'Please enter a valid business email.' });
+    return sendError(response, 400, 'Please enter a valid business email.', 'validation', 'invalid_email');
   }
 
   const startedAt = Number(rawPayload.startedAt || 0);
   if (startedAt && Date.now() - startedAt < 1_200) {
-    return sendJson(response, 429, { ok: false, message: 'Please review the inquiry details and try again.' });
+    return sendError(response, 429, 'Please review the inquiry details and try again.', 'rate_limit', 'submitted_too_fast');
   }
 
   if (!process.env.RESEND_API_KEY) {
-    return sendJson(response, 503, { ok: false, message: 'The inquiry service is temporarily unavailable.' });
+    return sendError(response, 503, 'The inquiry service is temporarily unavailable.', 'service', 'email_service_unavailable');
   }
 
   const rendered = renderRows(payload);
@@ -190,10 +199,10 @@ module.exports = async function inquiryHandler(request, response) {
     });
 
     if (!resendResponse.ok) {
-      return sendJson(response, 502, { ok: false, message: 'The inquiry could not be delivered. Please use email or WhatsApp below.' });
+      return sendError(response, 502, 'The inquiry could not be delivered. Please use email or WhatsApp below.', 'delivery', 'provider_rejected');
     }
     return sendJson(response, 200, { ok: true, accepted: true });
   } catch {
-    return sendJson(response, 502, { ok: false, message: 'The inquiry could not be delivered. Please use email or WhatsApp below.' });
+    return sendError(response, 502, 'The inquiry could not be delivered. Please use email or WhatsApp below.', 'delivery', 'provider_request_failed');
   }
 };

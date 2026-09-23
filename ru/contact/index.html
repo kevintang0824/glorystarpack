@@ -401,6 +401,7 @@ window.gtag('config', 'G-NYY1MTZ6HM');
     lastValidationErrorAt = now;
     trackEvent('rfq_form_error', {
       error_type: 'validation',
+      error_code: 'required_or_invalid',
       error_field: String(event.target.name || 'unknown').slice(0, 40)
     });
   }, true);
@@ -450,6 +451,8 @@ window.gtag('config', 'G-NYY1MTZ6HM');
     trackEvent('rfq_form_submit', { method: 'website_form' });
 
     let responseStatus = 0;
+    let responseErrorType = '';
+    let responseErrorCode = '';
     try {
       const response = await fetch('/api/inquiry/', {
         method: 'POST',
@@ -458,6 +461,8 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       });
       responseStatus = response.status;
       const result = await response.json().catch(() => ({}));
+      responseErrorType = String(result.errorType || '').slice(0, 40);
+      responseErrorCode = String(result.errorCode || '').slice(0, 60);
       if (!response.ok || !result.ok) throw new Error(result.message || 'Delivery failed.');
 
       status.className = 'rfq-status is-success';
@@ -473,8 +478,8 @@ window.gtag('config', 'G-NYY1MTZ6HM');
       status.className = 'rfq-status is-error';
       status.textContent = error.message || 'The RFQ could not be delivered. Please use email or WhatsApp below.';
       trackEvent('rfq_form_error', {
-        error_type: responseStatus ? 'delivery' : 'network',
-        error_code: String(responseStatus || 'network')
+        error_type: responseErrorType || (responseStatus ? 'delivery' : 'network'),
+        error_code: responseErrorCode || String(responseStatus || 'network')
       });
     } finally {
       submitButton.disabled = false;

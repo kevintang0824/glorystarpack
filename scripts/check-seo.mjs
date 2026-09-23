@@ -1291,6 +1291,8 @@ else {
   if (!contactPage.source.includes("trackEvent('generate_lead'")) errors.push('contact/index.html: accepted RFQs do not send generate_lead');
   if (!contactPage.source.includes("trackEvent('rfq_form_start'")) errors.push('contact/index.html: missing explicit RFQ form-start measurement');
   if (!contactPage.source.includes("trackEvent('rfq_form_error'")) errors.push('contact/index.html: missing RFQ error measurement');
+  if (!contactPage.source.includes("responseErrorType = String(result.errorType")) errors.push('contact/index.html: RFQ errors do not preserve the server error type');
+  if (!contactPage.source.includes("responseErrorCode = String(result.errorCode")) errors.push('contact/index.html: RFQ errors do not preserve the server error code');
   if (!contactPage.source.includes('campaignSource')) errors.push('contact/index.html: missing campaign attribution');
   if (!contactPage.source.includes('name="website"')) errors.push('contact/index.html: missing RFQ honeypot field');
   if (!contactPage.source.includes('id="rfq-status"')) errors.push('contact/index.html: missing accessible RFQ status message');
@@ -1403,6 +1405,20 @@ if (!fs.existsSync(inquiryApiPath)) {
     "request.method !== 'POST'"
   ]) {
     if (!inquiryApiSource.includes(requiredFragment)) errors.push(`api/inquiry.js is missing safeguard: ${requiredFragment}`);
+  }
+  for (const requiredErrorCode of [
+    'method_not_allowed',
+    'payload_too_large',
+    'origin_not_allowed',
+    'invalid_json',
+    'required_fields',
+    'invalid_email',
+    'submitted_too_fast',
+    'email_service_unavailable',
+    'provider_rejected',
+    'provider_request_failed'
+  ]) {
+    if (!inquiryApiSource.includes(`'${requiredErrorCode}'`)) errors.push(`api/inquiry.js is missing diagnostic error code: ${requiredErrorCode}`);
   }
 }
 

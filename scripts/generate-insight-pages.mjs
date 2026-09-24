@@ -488,8 +488,8 @@ const insightDefinitions = {
   },
   '16': {
     slug: 'airless-pump-bottle-vs-jar-skincare-packaging',
-    seoTitle: 'Airless Pump Bottle vs Jar for Skincare | Guide',
-    dateModified: '2026-08-21',
+    seoTitle: 'Airless Pump vs Jar for Skincare: Which Fits?',
+    dateModified: '2026-09-24',
     decisionTable: {
       heading: 'Airless pump bottle vs jar comparison',
       intro: 'Use this matrix to create a packaging shortlist, then test the actual formula and production-intent components. Neither format is automatically better for every cream or serum.',
@@ -1197,7 +1197,7 @@ const redditInsights = readRedditBlogRecords(rootDir)
   .map(article => toRedditInsight(article, redditBlogHeroDimensions));
 const insights = [...staticInsights, ...redditInsights]
   .sort((left, right) => right.datePublished.localeCompare(left.datePublished) || Number(right.id) - Number(left.id));
-const insightIndexModifiedDate = [indexModifiedDate, ...redditInsights.map(article => article.dateModified)]
+const insightIndexModifiedDate = [indexModifiedDate, ...insights.map(article => article.dateModified)]
   .sort()
   .at(-1);
 
@@ -1845,7 +1845,7 @@ fs.writeFileSync(path.join(glassGuideHubDir, 'index.html'), installLanguageSwitc
 const sitemapEntries = [
   `  <url>
     <loc>${siteUrl}/glass-bottle-buying-guides/</loc>
-    <lastmod>${insightIndexModifiedDate}</lastmod>
+    <lastmod>${indexModifiedDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
   </url>`,

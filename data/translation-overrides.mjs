@@ -1,6 +1,8 @@
 // Human-reviewed replacements for visible navigation, footer and packaging terms.
 // Each row is ordered fr, es, pt, ru, zh-CN.
 export const translationOverrides = {
+  'Updated September 24, 2026': ['Mis à jour le 24 septembre 2026','Actualizado el 24 de septiembre de 2026','Atualizado em 24 de setembro de 2026','Обновлено 24 сентября 2026 г.','更新于 2026 年 9 月 24 日'],
+  'Page reviewed 2026-09-24': ['Page vérifiée le 24 septembre 2026','Página revisada el 24 de septiembre de 2026','Página revista em 24 de setembro de 2026','Страница проверена 24 сентября 2026 г.','页面审核日期：2026 年 9 月 24 日'],
   'Imported Perfume Bottle Shapes': ['Formes de flacons de parfum importés','Formas de frascos de perfume importados','Formatos de frascos de perfume importados','Формы импортных флаконов для духов','进口香水瓶形状'],
   'Perfume Bottle Caps': ['Bouchons de flacons de parfum','Tapas de frascos de perfume','Tampas de frascos de perfume','Крышки флаконов для духов','香水瓶盖'],
   'Perfume Sprayer Heads': ['Têtes de pulvérisateur de parfum','Cabezas pulverizadoras de perfume','Cabeças pulverizadoras de perfume','Распылительные головки для духов','香水喷头'],

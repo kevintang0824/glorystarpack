@@ -22,6 +22,8 @@ const brandFontMarkup = `<link rel="preconnect" href="https://fonts.googleapis.c
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></noscript>`;
 const siteShellStylesheet = '<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260829-1">';
 const siteShellScript = '<script src="/assets/js/site-shell-navigation.js?v=20260829-1" defer></script>';
+const faviconMarkup = `<link rel="icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png?v=20260906" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/brand/glorystarpack-logo-favicon-2026.png" sizes="192x192">`;
 const modifiedDate = '2026-08-02';
 const productIndexModifiedDate = '2026-08-28';
 const productModifiedDates = new Map([
@@ -39,6 +41,7 @@ const productModifiedDates = new Map([
   ['p164', '2026-08-28'],
   ['p170', '2026-08-28'],
   ['p171', '2026-08-28'],
+  ['p181', '2026-09-27'],
   ['p289', '2026-08-28'],
   ['p294', '2026-08-28'],
   ['p357', '2026-08-28'],
@@ -87,6 +90,11 @@ const productSlugOverrides = new Map([
 ]);
 
 const applicationDetailOverrides = new Map([
+  ['p181', {
+    heading: 'How to match a perfume crimp pump and collar',
+    copy: 'Start with the exact bottle-neck drawing, not a nominal diameter alone. Match the crimp pump, ferrule, gasket, actuator, dip tube, decorative collar and cap as one assembly, then confirm the filling and crimping equipment. Before approval, test spray pattern and output, priming, fit, leakage, fragrance compatibility and packed transport performance on production-intent samples.',
+    terms: ['Bottle neck / finish drawing', 'Target spray output / pattern', 'Pump, collar and cap set', 'Filling / crimping equipment']
+  }],
   ['p171', {
     heading: 'Serum treatment pump applications',
     copy: 'This compact treatment pump family is planned for serum, essence, toner and lightweight lotion packaging. Buyers commonly compare 18/410, 20/410 and 24/410 treatment pumps by dose, actuator feel, overcap clearance, dip-tube length and collar finish. The final serum pump must be tested with the selected bottle neck and formula.',
@@ -132,6 +140,26 @@ const applicationDetailOverrides = new Map([
     copy: 'The lock-down lotion pump is planned for shampoo, conditioner, body lotion, hand wash and similar personal-care bottles. Compare 24/410 and 28/410 versions by output, down-lock travel, actuator clearance, viscosity range and dip-tube length, then test whether the locked pump remains secure through packing and transport.',
     terms: ['lock-down lotion pump', '24/410 shampoo pump', '28/410 conditioner pump', 'locking hand-wash pump']
   }]
+]);
+
+const productLeadOverrides = new Map([
+  ['p181', 'Choose a perfume crimp pump and collar as one matched system with the bottle neck, actuator, gasket, dip tube, decorative collar and cap. Confirm the exact finish drawing and filling or crimping process, then approve spray, fit, leakage and fragrance compatibility on production-intent samples before bulk production.']
+]);
+
+const productMetaDescriptionOverrides = new Map([
+  ['p181', 'Match a perfume crimp pump, collar, bottle neck, dip tube, actuator and cap as one system; confirm spray, fit and leakage on production-intent samples.']
+]);
+
+const rfqFieldOverrides = new Map([
+  ['p181', [
+    'Bottle neck / finish drawing',
+    'Target spray output / pattern',
+    'Pump, collar and cap set',
+    'Dip-tube length',
+    'Filling / crimping equipment',
+    'Estimated quantity',
+    'Destination country'
+  ]]
 ]);
 
 const productDataSource = fs.readFileSync(path.join(rootDir, 'assets/js/product-data.js'), 'utf8');
@@ -245,7 +273,12 @@ function pageTitle(product) {
 }
 
 function metaDescription(product) {
+  if (productMetaDescriptionOverrides.has(product.id)) return productMetaDescriptionOverrides.get(product.id);
   return truncateWords(`${product.desc} Sizes: ${product.size}. Request samples, specifications and a project quotation.`, 158);
+}
+
+function productLead(product) {
+  return productLeadOverrides.get(product.id) ?? product.desc;
 }
 
 const categoryDefinitions = [
@@ -476,7 +509,7 @@ function commonGraphNodes() {
       name: 'GloryStarPack',
       legalName: 'Xiamen GloryStar Packaging Co., Ltd.',
       url: `${siteUrl}/`,
-      sameAs: ['https://glorystarpack.en.alibaba.com/'],
+      sameAs: ['https://glorystarpack.en.alibaba.com/', 'https://github.com/kevintang0824/glorystarpack'],
       email: 'kevin@glorystarpack.com',
       telephone: '+86 195-7760-8248',
       address: {
@@ -610,8 +643,21 @@ function productPage(product) {
   const resources = resourceLinks(product);
   const name = productName(product);
   const applicationDetail = applicationDetailOverrides.get(product.id);
-  const quoteMessage = `Hello GloryStarPack, I need a quotation for ${name} (${product.id}).\n\nApplication / formula:\nCapacity:\nClosure or component:\nFinish / decoration:\nEstimated quantity:\nDestination country:\n\nProduct page: ${canonical}`;
-  const sampleMessage = `Hello GloryStarPack, I would like to request samples for ${name} (${product.id}).\n\nCapacity:\nClosure or component:\nFinish:\nDestination country:\n\nProduct page: ${canonical}`;
+  const fieldOverride = rfqFieldOverrides.get(product.id);
+  const quoteFields = fieldOverride ?? [
+    'Application / formula',
+    'Capacity',
+    'Closure or component',
+    'Finish / decoration',
+    'Estimated quantity',
+    'Destination country'
+  ];
+  const sampleFields = fieldOverride ?? ['Capacity', 'Closure or component', 'Finish', 'Destination country'];
+  const displayFields = fieldOverride ?? ['Application or formula', 'Capacity', 'Closure or component', 'Decoration', 'Quantity', 'Destination'];
+  const quotePrompt = quoteFields.map(field => `${field}:`).join('\n');
+  const samplePrompt = sampleFields.map(field => `${field}:`).join('\n');
+  const quoteMessage = `Hello GloryStarPack, I need a quotation for ${name} (${product.id}).\n\n${quotePrompt}\n\nProduct page: ${canonical}`;
+  const sampleMessage = `Hello GloryStarPack, I would like to request samples for ${name} (${product.id}).\n\n${samplePrompt}\n\nProduct page: ${canonical}`;
   const quoteText = encodeURIComponent(quoteMessage);
   const sampleText = encodeURIComponent(sampleMessage);
   const emailSubject = encodeURIComponent(`RFQ: ${name} (${product.id})`);
@@ -649,12 +695,15 @@ ${googleTagMarkup}
   <meta name="twitter:image" content="${siteUrl}${productImage(product)}">
   <script type="application/ld+json">${jsonLd(product, category, canonical, description)}</script>
 ${siteShellStylesheet}
-${siteShellScript}
 <link rel="stylesheet" href="/assets/css/inquiry-conversion.css">
+${siteShellScript}
+${faviconMarkup}
 </head>
 <body>
 ${headerMarkup('products')}
-<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"><div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><a href="${category.path}">${escapeHtml(category.label)}</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">${escapeHtml(name)}</span></div></nav>
+<nav class="gsp-breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb">
+  <div class="gsp-breadcrumbs-inner"><a href="/">Home</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><a href="${category.path}">${escapeHtml(category.label)}</a><span class="gsp-breadcrumb-separator" aria-hidden="true">/</span><span aria-current="page">${escapeHtml(name)}</span></div>
+</nav>
 <div class="gsp-main-anchor" id="main-content" tabindex="-1"></div>
 <main>
   <section class="hero">
@@ -662,7 +711,7 @@ ${headerMarkup('products')}
       <div>
         <div class="eyebrow">${escapeHtml(category.label)} · Product ${escapeHtml(product.id.toUpperCase())}</div>
         <h1>${escapeHtml(name)}</h1>
-        <p class="lead">${escapeHtml(product.desc)}</p>
+        <p class="lead">${escapeHtml(productLead(product))}</p>
         <div class="hero-facts">
           <div class="fact"><strong>${escapeHtml(product.size)}</strong><span>Capacity / size options</span></div>
           <div class="fact"><strong>${escapeHtml(product.mat)}</strong><span>Primary material</span></div>
@@ -703,7 +752,7 @@ ${applicationDetail ? `    <section class="section">
       <div class="rfq-list">${applicationDetail.terms.map(term => `<span>${escapeHtml(term)}</span>`).join('')}</div>
     </section>` : ''}
     <section class="section rfq" aria-labelledby="rfq-title">
-      <div><div class="eyebrow">Build a useful RFQ</div><h2 id="rfq-title">Confirm the exact packaging route</h2><p>Share enough project context for the bottle, closure, decoration and packing requirements to be reviewed together.</p><div class="rfq-list"><span>Application or formula</span><span>Capacity</span><span>Closure or component</span><span>Decoration</span><span>Quantity</span><span>Destination</span></div></div>
+      <div><div class="eyebrow">Build a useful RFQ</div><h2 id="rfq-title">Confirm the exact packaging route</h2><p>Share enough project context for the bottle, closure, decoration and packing requirements to be reviewed together.</p><div class="rfq-list">${displayFields.map(field => `<span>${escapeHtml(field)}</span>`).join('')}</div></div>
       <div class="actions"><a class="btn" data-inquiry-channel="whatsapp" data-inquiry-type="quote" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Send RFQ on WhatsApp</a><a class="btn alt" data-inquiry-channel="email" data-inquiry-type="quote" href="mailto:kevin@glorystarpack.com?subject=${emailSubject}&amp;body=${emailBody}">Send RFQ by Email</a></div>
     </section>
     <section class="section">
@@ -719,7 +768,7 @@ ${applicationDetail ? `    <section class="section">
   </div>
 </main>
 ${footerMarkup(productModifiedDate(product))}
-<script src="/assets/js/inquiry-conversion.js" defer></script>
+<script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer></script>
 </body>
 </html>
 `;

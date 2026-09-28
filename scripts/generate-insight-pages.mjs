@@ -363,7 +363,7 @@ const insightDefinitions = {
   '11': {
     slug: 'custom-glass-bottle-moq-stock-vs-custom-mold',
     seoTitle: 'Custom Glass Bottle MOQ: Stock vs Custom Mold | GloryStarPack',
-    dateModified: '2026-08-01',
+    dateModified: '2026-09-28',
     sources: references('astmGlass', 'iso2859', 'astmDistribution'),
     sourceNote: 'Technical standards can inform sampling and performance planning, but they do not set a supplier MOQ, mold charge or lead time. Those commercial inputs must be confirmed for the selected bottle, decoration, quantity and production route.',
     questions: [

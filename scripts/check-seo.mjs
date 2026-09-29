@@ -1852,6 +1852,13 @@ const specializedPumpPaths = [
 ];
 if (!closureCategory) errors.push('missing products/cosmetic-pumps-closures/index.html');
 else {
+  const closureCategoryH1 = closureCategory.source.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() ?? '';
+  if (/\bselection guide\b/i.test(closureCategory.title) || /\bselection guide\b/i.test(closureCategoryH1)) {
+    errors.push('products/cosmetic-pumps-closures/index.html: product range must not compete with the pump and closure selection guide');
+  }
+  if (!closureCategory.source.includes('href="/insights/cosmetic-pump-closure-selection-guide/"')) {
+    errors.push('products/cosmetic-pumps-closures/index.html: missing handoff to the distinct pump and closure selection guide');
+  }
   for (const productPath of [
     '/products/fine-mist-sprayer-pump-head-p169/',
     '/products/lotion-pump-dispenser-head-p170/',

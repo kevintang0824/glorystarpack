@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-09-29T14:50:38.244Z",
+  "siteUrl": "https://www.glorystarpack.com",
+  "scope": "Local static source audit; Search Console and GA4 metrics require account-side exports.",
+  "pages": {
+    "html": 862,
+    "indexable": 844,
+    "noindex": 18,
+    "withH1": 862,
+    "withHreflang": 834,
+    "withJsonLd": 856,
+    "totalBytes": 38106636,
+    "averageVisibleWords": 1002
+  },
+  "sitemap": {
+    "urls": 844,
+    "uniqueUrls": 844,
+    "indexableCanonicalsMissing": [],
+    "sitemapUrlsNotMatchingIndexableCanonical": []
+  },
+  "languages": {
+    "en": 152,
+    "es": 142,
+    "fr": 142,
+    "pt": 142,
+    "ru": 142,
+    "zh-CN": 142
+  },
+  "schemaTypes": {
+    "Organization": 546,
+    "PostalAddress": 546,
+    "ContactPoint": 540,
+    "AboutPage": 6,
+    "BreadcrumbList": 844,
+    "ListItem": 844,
+    "FAQPage": 153,
+    "Question": 153,
+    "Answer": 153,
+    "WebPage": 558,
+    "Thing": 384,
+    "ContactPage": 6,
+    "Service": 414,
+    "BusinessAudience": 342,
+    "Article": 18,
+    "CollectionPage": 262,
+    "ItemList": 156,
+    "OfferCatalog": 12,
+    "Offer": 12,
+    "ImageObject": 528,
+    "WebSite": 528,
+    "BlogPosting": 180,
+    "CreativeWork": 180,
+    "Brand": 324
+  },
+  "dynamicUrlLinks": {
+    "totalOccurrences": 52494,
+    "uniqueFirstParameters": 396,
+    "topPatterns": [
+      [
+        "/?category=perfume-bottle-shape",
+        142
+      ],
+      [
+        "/?category=perfume-bottle-caps",
+        142
+      ],
+      [
+        "/?category=perfume-sprayers",
+        142
+      ],
+      [
+        "/es/?category=perfume-bottle-shape",
+        142
+      ],
+      [
+        "/es/?category=perfume-bottle-caps",
+        142
+      ],
+      [
+        "/es/?category=perfume-sprayers",
+        142
+      ],
+      [
+        "/fr/?category=perfume-bottle-shape",
+        142
+      ],
+      [
+        "/fr/?category=perfume-bottle-caps",
+        142
+      ],
+      [
+        "/fr/?category=perfume-sprayers",
+        142
+      ],
+      [
+        "/pt/?category=perfume-bottle-shape",
+        142
+      ],
+      [
+        "/pt/?category=perfume-bottle-caps",
+        142
+      ],
+      [
+        "/pt/?category=perfume-sprayers",
+        142
+      ],
+      [
+        "/ru/?category=perfume-bottle-shape",
+        142
+      ],
+      [
+        "/ru/?category=perfume-bottle-caps",
+        142
+      ],
+      [
+        "/ru/?category=perfume-sprayers",
+        142
+      ],
+      [
+        "/zh-CN/?category=perfume-bottle-shape",
+        142
+      ],
+      [
+        "/zh-CN/?category=perfume-bottle-caps",
+        142
+      ],
+      [
+        "/zh-CN/?category=perfume-sprayers",
+        142
+      ],
+      [
+        "/?category=glass-food",
+        141
+      ],
+      [
+        "/?category=food-jar",
+        141
+      ]
+    ]
+  },
+  "externalMetrics": {
+    "googleSearchConsole": null,
+    "ga4": null,
+    "bingWebmaster": null,
+    "note": "Populate from Search Console / GA4 / Bing exports before making ranking or traffic claims."
+  }
+}

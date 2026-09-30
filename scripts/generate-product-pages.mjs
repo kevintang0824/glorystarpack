@@ -43,7 +43,7 @@ const productModifiedDates = new Map([
   ['p171', '2026-08-28'],
   ['p181', '2026-09-27'],
   ['p289', '2026-08-28'],
-  ['p294', '2026-08-28'],
+  ['p294', '2026-09-30'],
   ['p357', '2026-08-28'],
   ['p359', '2026-08-28']
 ]);
@@ -90,6 +90,11 @@ const productSlugOverrides = new Map([
 ]);
 
 const applicationDetailOverrides = new Map([
+  ['p294', {
+    heading: 'How to specify this PCR HDPE shampoo bottle family',
+    copy: 'Use this product family when you need 250ml, 300ml, 500ml or 750ml HDPE bottles for shampoo, conditioner or body wash with a disc cap or pump direction. Define the PCR percentage for the bottle itself, then confirm resin evidence, color tolerance, bottle stiffness, neck and closure fit, formula compatibility, decoration and filled-pack performance on the selected production-intent configuration.',
+    terms: ['250ml / 300ml / 500ml / 750ml', 'PCR percentage and resin evidence', 'Disc cap or pump configuration', 'Formula and filled-pack testing']
+  }],
   ['p181', {
     heading: 'How to match a perfume crimp pump and collar',
     copy: 'Start with the exact bottle-neck drawing, not a nominal diameter alone. Match the crimp pump, ferrule, gasket, actuator, dip tube, decorative collar and cap as one assembly, then confirm the filling and crimping equipment. Before approval, test spray pattern and output, priming, fit, leakage, fragrance compatibility and packed transport performance on production-intent samples.',
@@ -143,10 +148,12 @@ const applicationDetailOverrides = new Map([
 ]);
 
 const productLeadOverrides = new Map([
+  ['p294', 'Compare 250ml, 300ml, 500ml and 750ml PCR HDPE bottle configurations for shampoo, conditioner and body wash. Select the bottle capacity, PCR percentage, color route and disc cap or pump together, then validate resin evidence, formula compatibility, squeeze recovery, closure fit, decoration and filled-pack performance before approval.'],
   ['p181', 'Choose a perfume crimp pump and collar as one matched system with the bottle neck, actuator, gasket, dip tube, decorative collar and cap. Confirm the exact finish drawing and filling or crimping process, then approve spray, fit, leakage and fragrance compatibility on production-intent samples before bulk production.']
 ]);
 
 const productMetaDescriptionOverrides = new Map([
+  ['p294', 'Compare 250ml–750ml PCR HDPE shampoo bottles with disc cap or pump options; confirm resin evidence, closure fit and formula performance before approval.'],
   ['p181', 'Match a perfume crimp pump, collar, bottle neck, dip tube, actuator and cap as one system; confirm spray, fit and leakage on production-intent samples.']
 ]);
 
@@ -403,6 +410,22 @@ function resourceLinks(product) {
       description: 'Review fit, leakage, dispensing, decoration and packing before bulk.'
     }
   ];
+
+  if (product.id === 'p294') {
+    return [
+      {
+        path: '/insights/pcr-hdpe-personal-care-bottles/',
+        name: 'PCR HDPE Buyer Guide',
+        description: 'Define recycled-content evidence, appearance limits, formula checks and claim boundaries.'
+      },
+      {
+        path: '/products/personal-care-packaging/',
+        name: 'Personal Care Packaging',
+        description: 'Compare this bottle family with pumps, refill formats and other hair-care components.'
+      },
+      ...common
+    ];
+  }
 
   if (product.cats.includes('plastic-closure')) {
     return [

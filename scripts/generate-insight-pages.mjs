@@ -226,7 +226,7 @@ const insightDefinitions = {
   '6': {
     slug: 'pcr-hdpe-personal-care-bottles',
     seoTitle: 'PCR Plastic Cosmetic Packaging Buyer Guide | HDPE',
-    dateModified: '2026-08-09',
+    dateModified: '2026-09-30',
     decisionTable: {
       heading: 'PCR cosmetic packaging approval matrix',
       intro: 'Approve recycled content, package performance and claim wording together. A PCR declaration does not by itself establish visual consistency, formula compatibility, recyclability or filled-pack performance.',
@@ -249,7 +249,13 @@ const insightDefinitions = {
       'How will changes to resin source, blend, color, bottle weight, closure or decoration trigger notification and reapproval?'
     ],
     note: 'Do not infer recycled content from color or extend a bottle-level percentage to the whole package. Approve the exact PCR resin route, bottle, closure, formula, decoration, packing, evidence and claim language as one controlled configuration.',
+    commercialRoute: {
+      href: '/products/pcr-hdpe-shampoo-bottle-family-p294/',
+      label: '250ml to 750ml PCR HDPE shampoo bottle family',
+      copy: 'Use the commercial product page to compare the published capacity and closure directions; use this guide to define recycled-content evidence and approval controls.'
+    },
     resources: [
+      ['/products/pcr-hdpe-shampoo-bottle-family-p294/', 'PCR HDPE Shampoo Bottle Family'],
       ['/products/personal-care-packaging/', 'Personal Care Packaging'],
       ['/products/plastic-packaging/', 'Plastic Packaging'],
       ['/insights/cosmetic-packaging-compatibility-testing-guide/', 'Compatibility Testing Guide'],
@@ -1311,7 +1317,8 @@ function decisionTableMarkup(table) {
 function articleWordCount(article) {
   const sourceText = (article.sources ?? []).flat().join(' ');
   const discussionText = (article.discussionSignals ?? []).flat().join(' ');
-  return `${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${article.inquiryCopy ?? inquiryCopy} ${discussionText} ${sourceText} ${article.sourceNote ?? ''}`
+  const commercialRouteText = article.commercialRoute ? `${article.commercialRoute.label} ${article.commercialRoute.copy}` : '';
+  return `${commercialRouteText} ${article.body} ${decisionTableText(article.decisionTable)} ${article.consideration} ${article.questions.join(' ')} ${article.note} ${article.inquiryCopy ?? inquiryCopy} ${discussionText} ${sourceText} ${article.sourceNote ?? ''}`
     .replace(/<[^>]+>/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -1434,7 +1441,10 @@ function articlePage(article) {
   const referencesMarkup = sourcesMarkup
     ? `<h2>Primary references and scope</h2>\n      <ul>${sourcesMarkup}</ul>\n      <p>${escapeHtml(article.sourceNote)}</p>`
     : '';
-  const articleBody = addSectionAnchors(`${article.body}${article.decisionTable ? `\n      ${decisionTableMarkup(article.decisionTable)}` : ''}
+  const commercialRouteMarkup = article.commercialRoute
+    ? `<p><strong>Product route:</strong> <a href="${escapeHtml(article.commercialRoute.href)}">${escapeHtml(article.commercialRoute.label)}</a>. ${escapeHtml(article.commercialRoute.copy)}</p>`
+    : '';
+  const articleBody = addSectionAnchors(`${commercialRouteMarkup}${article.body}${article.decisionTable ? `\n      ${decisionTableMarkup(article.decisionTable)}` : ''}
       <h2>Selection considerations</h2>
       <p>${escapeHtml(article.consideration)}</p>
       <h2>Questions to resolve before sampling</h2>

@@ -2207,6 +2207,34 @@ for (const cannibalizingMap of [
   }
 }
 
+const pcrHdpeProductPath = '/products/pcr-hdpe-shampoo-bottle-family-p294/';
+const pcrHdpeGuidePath = '/insights/pcr-hdpe-personal-care-bottles/';
+const pcrHdpeProductPage = pageRecords.find(record => record.rel === 'products/pcr-hdpe-shampoo-bottle-family-p294/index.html');
+const pcrHdpeGuidePage = pageRecords.find(record => record.rel === 'insights/pcr-hdpe-personal-care-bottles/index.html');
+if (!pcrHdpeProductPage || !pcrHdpeGuidePage) {
+  errors.push('PCR HDPE product-and-guide route is incomplete');
+} else {
+  const pcrHdpeLead = firstMatch(pcrHdpeProductPage.source, /<p class="lead">([\s\S]*?)<\/p>/i);
+  const pcrHdpeLeadWords = pcrHdpeLead.match(/[A-Za-z0-9]+(?:[-’'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  if (pcrHdpeLeadWords < 40 || pcrHdpeLeadWords > 80) {
+    errors.push(`PCR HDPE product direct answer must contain 40-80 words, found ${pcrHdpeLeadWords}`);
+  }
+  if (!pcrHdpeProductPage.source.includes(`href="${pcrHdpeGuidePath}"`)) {
+    errors.push('PCR HDPE product page is missing its buyer-guide link');
+  }
+  if (!pcrHdpeGuidePage.source.includes(`href="${pcrHdpeProductPath}"`)) {
+    errors.push('PCR HDPE buyer guide is missing its commercial product route');
+  }
+  for (const page of [pcrHdpeProductPage, pcrHdpeGuidePage]) {
+    const route = page.rel.replace(/index\.html$/, '');
+    const modified = firstMatch(page.source, /"dateModified"\s*:\s*"(\d{4}-\d{2}-\d{2})/);
+    const sitemapModified = firstMatch(sitemapSource, new RegExp(`<loc>https:\\/\\/www\\.glorystarpack\\.com\\/${route}<\\/loc>\\s*<lastmod>(\\d{4}-\\d{2}-\\d{2})<\\/lastmod>`));
+    if (modified !== '2026-09-30' || modified !== sitemapModified) {
+      errors.push(`${page.rel}: structured and sitemap modified dates are not synchronized`);
+    }
+  }
+}
+
 for (const record of pageRecords) {
   for (const machineDirectedLabel of ['Short Answer for AI Search', 'Best citation for']) {
     if (record.source.includes(machineDirectedLabel)) {

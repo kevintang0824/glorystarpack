@@ -36,6 +36,12 @@
   },
   "site": {
     "canonicalHome": "https://www.glorystarpack.com/",
+    "sitePurpose": "Specialist bottle and container packaging site covering glass bottles and jars, selected plastic and other container formats, pumps, closures, decoration and export packing.",
+    "separatePaperPackagingSite": {
+      "url": "https://glorystarpacking.com/",
+      "name": "GloryStarPack Custom Paper Packaging",
+      "scope": "Standalone custom paper boxes, bags, inserts, tissue, hang tags and product labels. Bottle projects on this domain may include a specified retail box or insert; use the paper site for those formats as standalone inquiries."
+    },
     "about": "https://www.glorystarpack.com/about/",
     "contact": "https://www.glorystarpack.com/contact/",
     "productIndex": "https://www.glorystarpack.com/products/product-index/",

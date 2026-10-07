@@ -104,7 +104,7 @@ function renderRows(payload) {
     ['Capacity / size', payload.capacity || 'Not provided'],
     ['Closure / component', payload.closure || 'Not provided'],
     ['Decoration', payload.decoration || 'Not provided'],
-    ['Estimated quantity', payload.quantity],
+    ['Estimated quantity', payload.quantity || 'Not specified yet'],
     ['Destination country', payload.country],
     ['Formula / timeline / notes', payload.notes || 'Not provided'],
     ['Website page', payload.sourcePage || 'Not provided'],
@@ -158,7 +158,7 @@ module.exports = async function inquiryHandler(request, response) {
   // Keep the honeypot response indistinguishable to bots, but do not report it as a lead.
   if (payload.website) return sendJson(response, 200, { ok: true, accepted: false });
 
-  const missingFields = ['name', 'email', 'country', 'product', 'quantity'].filter(field => !payload[field]);
+  const missingFields = ['name', 'email', 'country', 'product'].filter(field => !payload[field]);
   if (missingFields.length) {
     return sendError(response, 400, 'Please complete all required fields.', 'validation', 'required_fields');
   }
@@ -177,7 +177,7 @@ module.exports = async function inquiryHandler(request, response) {
 
   const rendered = renderRows(payload);
   const productSubject = payload.product.replace(/[\r\n]+/g, ' ');
-  const quantitySubject = payload.quantity.replace(/[\r\n]+/g, ' ');
+  const quantitySubject = (payload.quantity || 'quantity TBD').replace(/[\r\n]+/g, ' ');
   const countrySubject = payload.country.replace(/[\r\n]+/g, ' ');
 
   try {

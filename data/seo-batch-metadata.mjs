@@ -83,5 +83,44 @@ export const localizedMetadata = {
       heading: '铝制化妆品包装：瓶、罐与软管',
       description: '比较铝瓶、铝罐、铝盒与铝管，重点确认配方接触层、内涂层、灌装、瓶盖、装饰工艺及询价信息。'
     }
+  },
+  '/products/serum-dropper-bottles/': {
+    fr: {
+      title: 'Flacons sérum en verre 15/30/50 ml | GloryStarPack',
+      description: 'Comparez des flacons compte-gouttes en verre de 15, 30 et 50 ml. Vérifiez l’adaptation à la formule, l’étanchéité, les échantillons et le devis.'
+    },
+    es: {
+      title: 'Frascos cuentagotas de vidrio 15/30/50 ml | GloryStarPack',
+      description: 'Compara frascos cuentagotas de vidrio de 15, 30 y 50 ml. Revisa la compatibilidad, las fugas, las muestras y solicita una cotización.'
+    },
+    pt: {
+      title: 'Frascos conta-gotas de vidro 15/30/50 ml | GloryStarPack',
+      description: 'Compare frascos conta-gotas de vidro de 15, 30 e 50 ml. Avalie a compatibilidade, fugas, amostras e peça um orçamento.'
+    },
+    ru: {
+      title: 'Стеклянные флаконы-капельницы 15/30/50 мл | GloryStarPack',
+      description: 'Сравните стеклянные флаконы-капельницы объёмом 15, 30 и 50 мл. Уточните совместимость, герметичность, образцы и запросите расчёт.'
+    },
+    'zh-CN': {
+      title: '玻璃精华液滴管瓶｜15、30、50 ml｜GloryStarPack',
+      description: '比较 15、30 和 50 ml 玻璃精华液滴管瓶，了解配方适用性、瓶身与滴管匹配、渗漏检查，并申请样品或报价。'
+    }
+  },
+  '/contact/': {
+    fr: {
+      description: 'Demandez un devis ou des échantillons d’emballage. Précisez l’usage, la contenance, la fermeture et la destination ; la quantité peut être confirmée plus tard.'
+    },
+    es: {
+      description: 'Solicite una cotización o muestras de envases. Indique la aplicación, capacidad, cierre y destino; puede confirmar la cantidad más adelante.'
+    },
+    pt: {
+      description: 'Solicite um orçamento ou amostras de embalagens. Informe a aplicação, capacidade, fechamento e destino; a quantidade pode ser definida depois.'
+    },
+    ru: {
+      description: 'Запросите расчёт стоимости или образцы упаковки. Укажите назначение, объём, тип крышки и страну доставки; количество можно сообщить позже.'
+    },
+    'zh-CN': {
+      description: '申请包装报价或样品，请提供产品用途、容量、瓶盖/配件和目的地；采购数量暂未确定也可以。'
+    }
   }
 };

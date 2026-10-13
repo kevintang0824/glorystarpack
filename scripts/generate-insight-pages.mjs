@@ -369,7 +369,19 @@ const insightDefinitions = {
   '11': {
     slug: 'custom-glass-bottle-moq-stock-vs-custom-mold',
     seoTitle: 'Custom Glass Bottle MOQ: Stock vs Custom Mold | GloryStarPack',
-    dateModified: '2026-09-28',
+    dateModified: '2026-10-13',
+    decisionTable: {
+      heading: 'Compare the full first-order commitment',
+      intro: 'A low bottle unit price can still require more cash, storage and time than a brand can use. Compare stock and custom routes using the same finished-bottle specification and delivery destination.',
+      caption: 'Inputs for comparing stock and custom glass bottle orders',
+      columns: ['Cost or risk', 'Stock bottle route', 'Custom mold route'],
+      rows: [
+        ['Minimum commitment', 'Confirm available bottle quantity, closure minimum and any decoration batch minimum.', 'Confirm tooling, pilot samples, production minimum and the quantity required for the chosen color and finish.'],
+        ['Delivered cost', 'Price the bottle, compatible closure, decoration, protective pack, freight, duties and local delivery together.', 'Price the same delivered components plus mold development, pilot approval and any added packing requirements.'],
+        ['Inventory and cash', 'Estimate how long the order will sit in storage and whether the stock model can be reordered.', 'Estimate storage, cash tied up in a larger run and how design changes could affect unused stock.'],
+        ['Timing and continuity', 'Ask whether stock is physically available now and what happens if that item is discontinued.', 'Confirm drawing approval, mold ownership, lead-time assumptions, change control and repeat-order terms.']
+      ]
+    },
     sources: references('astmGlass', 'iso2859', 'astmDistribution'),
     sourceNote: 'Technical standards can inform sampling and performance planning, but they do not set a supplier MOQ, mold charge or lead time. Those commercial inputs must be confirmed for the selected bottle, decoration, quantity and production route.',
     questions: [
@@ -387,7 +399,19 @@ const insightDefinitions = {
   '12': {
     slug: 'glass-bottle-neck-finish-closure-guide',
     seoTitle: 'Glass Bottle Neck Finish & Closure Guide | GloryStarPack',
-    dateModified: '2026-09-20',
+    dateModified: '2026-10-13',
+    decisionTable: {
+      heading: 'Bottle and closure fit: what to check first',
+      intro: 'Use the exact bottle and closure versions intended for production. A shared nominal diameter is a starting clue, not evidence that the seal or dispensing system will work.',
+      caption: 'Checks to request when matching a glass bottle to its closure',
+      columns: ['Buyer question', 'Ask the supplier for', 'Verify with production-intent samples'],
+      rows: [
+        ['What is this neck finish?', 'Bottle item code, current finish drawing, thread or bead profile, sealing land and tolerances.', 'Compare the drawing with the proposed cap, pump, sprayer or stopper specification.'],
+        ['Will this closure leak?', 'Exact liner, gasket or plug material; application method; and intended product or formula.', 'Filled-pack leakage, opening force and closure retention under the planned handling and distribution conditions.'],
+        ['Will a fragrance sprayer work?', 'Pump, crimp collar, gasket and dip-tube versions plus the filling and crimping setup.', 'Crimp fit, spray pattern, actuation and leakage on the filled, decorated bottle.'],
+        ['Can we reorder the same fit?', 'Approved component codes, drawings, sample IDs and change-notice rules.', 'Record the signed combination and repeat the relevant checks when a component or process changes.']
+      ]
+    },
     sources: references('astmClosureTorque', 'astmPackaging', 'astmGlass'),
     sourceNote: 'These references identify possible packaging and glass-container methods, not a universal neck-finish compatibility table. Use current drawings and test the exact bottle, closure, liner, process and packed product.',
     questions: [

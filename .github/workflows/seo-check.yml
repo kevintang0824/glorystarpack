@@ -53,6 +53,7 @@ jobs:
       - name: Confirm generated site content is current
         run: |
           node scripts/generate-insight-pages.mjs
+          node scripts/optimize-theme-clusters.mjs
           node scripts/generate-localized-site.mjs
 
       - name: Run SEO and content audits

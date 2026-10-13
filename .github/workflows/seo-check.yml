@@ -46,6 +46,8 @@ jobs:
           node --check data/localized-topics.mjs
           node --check data/localized-products.mjs
           node --check scripts/generate-insight-pages.mjs
+          node --check scripts/generate-perfume-catalog-pages.mjs
+          node --check data/perfume-catalog-pages.mjs
           node --check scripts/generate-localized-site.mjs
           node --check scripts/check-localized-site.mjs
           node --check scripts/extract-dynamic-translation-strings.mjs
@@ -54,6 +56,7 @@ jobs:
         run: |
           node scripts/generate-insight-pages.mjs
           node scripts/optimize-theme-clusters.mjs
+          node scripts/generate-perfume-catalog-pages.mjs
           node scripts/generate-localized-site.mjs
 
       - name: Run SEO and content audits

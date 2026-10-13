@@ -44,6 +44,7 @@ node --check scripts/check-bdxsp-catalog-import.mjs
 node --check scripts/extract-dynamic-translation-strings.mjs
 node scripts/generate-insight-pages.mjs
 node scripts/optimize-theme-clusters.mjs
+node scripts/generate-perfume-catalog-pages.mjs
 node scripts/apply-language-switcher.mjs --check
 node scripts/generate-localized-site.mjs
 node scripts/check-localized-site.mjs

@@ -7,6 +7,8 @@ import { localeCodes } from '../data/site-locales.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ignored = new Set(['.git', '.vercel', '.wrangler', 'backups', 'node_modules', 'tmp', ...localeCodes]);
 const englishOnlyRoutes = new Set([
+  '/products/screw-neck-perfume-bottles-b737-b738-b739/',
+  '/products/50ml-glass-perfume-bottle-b573/',
   '/products/sunscreen-tube-packaging/',
   '/products/cosmetic-paper-packaging/',
   '/products/paper-boxes-retail-kits/',

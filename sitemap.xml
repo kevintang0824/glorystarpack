@@ -134,7 +134,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/products/perfume-bottles/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -989,7 +989,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/fr/products/perfume-bottles/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/fr/products/cosmetic-tubes/</loc>
@@ -1545,7 +1545,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/es/products/perfume-bottles/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/es/products/cosmetic-tubes/</loc>
@@ -2101,7 +2101,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/pt/products/perfume-bottles/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/pt/products/cosmetic-tubes/</loc>
@@ -2657,7 +2657,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/ru/products/perfume-bottles/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/ru/products/cosmetic-tubes/</loc>
@@ -3213,7 +3213,7 @@
   </url>
   <url>
     <loc>https://www.glorystarpack.com/zh-CN/products/perfume-bottles/</loc>
-    <lastmod>2026-09-15</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://www.glorystarpack.com/zh-CN/products/cosmetic-tubes/</loc>
@@ -3680,4 +3680,16 @@
     <lastmod>2026-08-28</lastmod>
   </url>
   <!-- END GENERATED LOCALIZED PAGES -->
+  <url>
+    <loc>https://www.glorystarpack.com/products/screw-neck-perfume-bottles-b737-b738-b739/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.76</priority>
+  </url>
+  <url>
+    <loc>https://www.glorystarpack.com/products/50ml-glass-perfume-bottle-b573/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.76</priority>
+  </url>
 </urlset>

@@ -12,6 +12,8 @@ import { redditBlogRoutes } from './reddit-blog-content.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://www.glorystarpack.com';
 const englishOnlyRoutes = new Set([
+  '/products/screw-neck-perfume-bottles-b737-b738-b739/',
+  '/products/50ml-glass-perfume-bottle-b573/',
   '/products/sunscreen-tube-packaging/',
   '/products/cosmetic-paper-packaging/',
   '/products/paper-boxes-retail-kits/',

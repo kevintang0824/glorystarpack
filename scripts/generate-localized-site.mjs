@@ -33,6 +33,8 @@ const englishOnlyFaqRoutes = new Set([
 // These English-first commercial hubs are deliberately not cloned into every
 // locale until there is human-reviewed localized copy for each page.
 const englishOnlyRoutes = new Set([
+  '/products/screw-neck-perfume-bottles-b737-b738-b739/',
+  '/products/50ml-glass-perfume-bottle-b573/',
   '/products/sunscreen-tube-packaging/',
   '/products/cosmetic-paper-packaging/',
   '/products/paper-boxes-retail-kits/',

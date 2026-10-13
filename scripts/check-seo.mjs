@@ -21,6 +21,8 @@ const ignoredDirectories = new Set(['.git', '.vercel', 'backups', 'node_modules'
 const ignoredFiles = new Set(['glorystarpack (1).html']);
 const localeCodes = ['fr', 'es', 'pt', 'ru', 'zh-CN'];
 const englishOnlyRoutes = new Set([
+  '/products/screw-neck-perfume-bottles-b737-b738-b739/',
+  '/products/50ml-glass-perfume-bottle-b573/',
   '/products/sunscreen-tube-packaging/',
   '/products/cosmetic-paper-packaging/',
   '/products/paper-boxes-retail-kits/',

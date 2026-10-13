@@ -208,7 +208,7 @@
   padding-left: 18px;
 }
 
-.article-sidebar a {
+.article-sidebar a:not(.btn) {
   color: var(--gold-dark);
   font-weight: 700;
   text-decoration: none;

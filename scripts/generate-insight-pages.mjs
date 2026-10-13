@@ -1501,7 +1501,7 @@ ${googleTagMarkup}
   <link rel="preload" as="image" href="${responsiveImagePath(article.imagePath, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 1160px" fetchpriority="high">
   ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20261013">
   <meta property="og:type" content="article">
   <meta property="og:title" content="${escapeHtml(article.seoTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
@@ -1615,7 +1615,7 @@ ${googleTagMarkup}
   <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="GloryStarPack Packaging Insights">
   ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20261013">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Packaging Insights &amp; Procurement Notes | GloryStarPack">
   <meta property="og:description" content="Practical notes for packaging RFQs, samples, materials, closures, decoration and complete sourcing systems.">
@@ -1747,7 +1747,7 @@ ${googleTagMarkup}
   <link rel="preload" as="image" href="${responsiveImagePath(heroImage, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(heroImage, 640)} 640w, ${responsiveImagePath(heroImage, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 470px" fetchpriority="high">
   ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20260811">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20261013">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Glass Bottle Buying Guides | GloryStarPack">
   <meta property="og:description" content="${escapeHtml(description)}">

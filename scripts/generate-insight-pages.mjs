@@ -1520,7 +1520,7 @@ ${googleTagMarkup}
   <link rel="preload" as="image" href="${responsiveImagePath(article.imagePath, 1280)}" type="image/avif" imagesrcset="${responsiveImagePath(article.imagePath, 640)} 640w, ${responsiveImagePath(article.imagePath, 1280)} 1280w" imagesizes="(max-width:760px) calc(100vw - 40px), 1160px" fetchpriority="high">
   ${brandFontMarkup}
   <link rel="stylesheet" href="/assets/css/product-page.css">
-  <link rel="stylesheet" href="/assets/css/insight-page.css?v=20261013">
+  <link rel="stylesheet" href="/assets/css/insight-page.css?v=${article.buyerRoute ? '20261015' : '20261013'}">
   <meta property="og:type" content="article">
   <meta property="og:title" content="${escapeHtml(article.seoTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">

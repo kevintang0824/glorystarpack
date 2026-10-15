@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://www.glorystarpack.com';
-const lastmod = '2026-09-19';
+const defaultLastmod = '2026-09-19';
 
 const pages = [
   {
@@ -169,6 +169,7 @@ const pages = [
   },
   {
     route: '/products/plastic-pump-bottles/',
+    lastmod: '2026-10-15',
     title: 'Plastic Pump Bottles | Lotion, Foam & Treatment',
     heading: 'Plastic Pump Bottles for Lotion, Foam & Treatment',
     description: 'Compare plastic pump bottles for lotion, foam and treatment formulas by resin, dose, actuator, dip tube, filling and compatibility requirements.',
@@ -193,6 +194,7 @@ const pages = [
     ],
     buyer: 'A pump-bottle RFQ should include formula viscosity, target dose, fill volume, resin preference, closure or pump style, decoration, quantity and destination. For foaming or active formulas, include testing conditions and the expected number of pumps per use so the component recommendation is grounded in the actual application.',
     related: [
+      ['/products/plastic-lotion-bottles/', 'Compare plastic lotion bottle materials'],
       ['/products/personal-care-packaging/', 'Personal-care packaging'],
       ['/products/airless-pump-bottles/', 'Airless pump bottles'],
       ['/products/cosmetic-pumps-closures/', 'Pumps and closures'],
@@ -233,6 +235,7 @@ const pages = [
   },
   {
     route: '/products/plastic-lotion-bottles/',
+    lastmod: '2026-10-15',
     title: 'Plastic Lotion Bottles | PET, HDPE & PCR',
     heading: 'Plastic Lotion Bottles: PET, HDPE & PCR',
     description: 'Compare PET, HDPE and PCR plastic lotion bottles by formula, stiffness, dispensing, decoration, recycled content and filling-line requirements.',
@@ -256,6 +259,20 @@ const pages = [
       'Label, screen print, sleeve, MOQ and export packing'
     ],
     buyer: 'For a lotion-bottle quote, provide formula viscosity, fill volume, resin or PCR target, closure preference, dose, decoration, quantity and destination. If the bottle will run on an existing filling line, include the neck finish and line constraints so the recommended format can be checked early.',
+    examples: [
+      {
+        name: 'PCR HDPE bottle family (P294)',
+        details: 'A catalog starting point in 250, 300, 500 and 750 ml with disc-cap or pump directions. Confirm the chosen formula, recycled-content evidence, color tolerance and filled-pack performance before approving a lotion application.',
+        href: '/products/pcr-hdpe-shampoo-bottle-family-p294/',
+        link: 'Review the PCR HDPE bottle family'
+      },
+      {
+        name: 'Lock-down lotion pump (P387)',
+        details: 'A separate pump component with 24/410 and 28/410 neck options. Match its output, dip-tube length and neck fit to the selected bottle and formula; a matching thread alone does not establish compatibility.',
+        href: '/products/lock-down-lotion-pump-p387/',
+        link: 'Review the lotion pump component'
+      }
+    ],
     related: [
       ['/products/personal-care-packaging/', 'Personal-care packaging'],
       ['/products/plastic-pump-bottles/', 'Plastic pump bottles'],
@@ -265,6 +282,7 @@ const pages = [
   },
   {
     route: '/products/spa-body-care-packaging/',
+    lastmod: '2026-10-15',
     title: 'Spa & Body Care Packaging | Bottles, Jars & Tubes',
     heading: 'Spa & Body Care Packaging',
     description: 'Plan spa and body care packaging with bottles, jars, tubes, pumps and refill options matched to formula, dose, use setting and decoration.',
@@ -289,6 +307,7 @@ const pages = [
     ],
     buyer: 'Share the formula, fill volume, use setting, expected dose, closure preference, decoration, refill goal, quantity and destination. A spa or hotel project should also state whether the package is guest-facing, staff-refilled or installed in a dispenser system.',
     related: [
+      ['/products/plastic-lotion-bottles/', 'Plastic lotion bottle materials'],
       ['/products/personal-care-packaging/', 'Personal-care packaging'],
       ['/products/plastic-pump-bottles/', 'Plastic pump bottles'],
       ['/products/cosmetic-tubes/', 'Cosmetic tubes'],
@@ -338,6 +357,7 @@ const escapeHtml = value => String(value ?? '')
 const pagePath = page => path.join(root, page.route.replace(/^\//, ''), 'index.html');
 const renderLinks = links => links.map(([href, label]) => `<a href="${href}">${escapeHtml(label)}</a>`).join('');
 const renderRows = rows => rows.map(([format, use, checks, href, label]) => `<tr><th scope="row">${escapeHtml(format)}</th><td>${escapeHtml(use)}</td><td>${escapeHtml(checks)} <a href="${href}">${escapeHtml(label)}</a></td></tr>`).join('');
+const renderExamples = examples => !examples?.length ? '' : `<section class="traffic-section"><div class="traffic-card"><h2>Catalog components to evaluate</h2><p>These are starting points for a production-intent sample, not a pre-approved bottle and pump combination. Confirm the selected parts against your formula and filling line.</p><div class="traffic-grid">${examples.map(example => `<article><h3>${escapeHtml(example.name)}</h3><p>${escapeHtml(example.details)}</p><p><a href="${example.href}">${escapeHtml(example.link)}</a></p></article>`).join('')}</div></div></section>\n`;
 const inquiryHref = (page, intent) => `/contact/?intent=${intent}&source=${encodeURIComponent(page.route)}&topic=${encodeURIComponent(page.heading)}`.replaceAll('&', '&amp;');
 
 function renderPage(page) {
@@ -381,7 +401,7 @@ function renderPage(page) {
 <div class="gsp-main-anchor" id="main-content" tabindex="-1"></div><div class="gsp-main-landmark" role="main"><section class="traffic-hero"><div class="traffic-wrap traffic-hero-grid"><div><p class="traffic-eyebrow">${escapeHtml(page.eyebrow)}</p><h1>${escapeHtml(page.heading)}</h1><p class="traffic-lead">${escapeHtml(page.intro)}</p><div class="traffic-actions"><a class="traffic-button" data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="traffic-hero" href="${inquiryHref(page, 'quote')}">Send Packaging Specs</a><a class="traffic-button secondary" data-inquiry-channel="rfq-builder" data-inquiry-type="sample" data-inquiry-location="traffic-hero" href="${inquiryHref(page, 'sample')}">Request Samples</a></div></div><div class="traffic-hero-image"><img src="${page.image}" width="${page.imageWidth}" height="${page.imageHeight}" alt="${escapeHtml(page.imageAlt)}" decoding="async" fetchpriority="high"></div></div></section>
 <div class="traffic-wrap"><section class="traffic-section traffic-grid"><article class="traffic-card"><h2>How to choose the format</h2><p>${escapeHtml(page.answer)}</p><p>When a project has more than one viable route, compare the component, closure, decoration and shipping assumptions together. A short, production-intent sample brief usually creates a better decision than choosing a container from a product photo alone.</p></article><aside class="traffic-card"><h2>RFQ checklist</h2><ul>${page.bullets.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></aside></section>
 <section class="traffic-section"><div class="traffic-card"><h2>Packaging routes to compare</h2><div class="traffic-table-wrap"><table class="traffic-table"><caption>Format, application and early approval checks</caption><thead><tr><th scope="col">Format</th><th scope="col">Typical use</th><th scope="col">Check before sampling</th></tr></thead><tbody>${renderRows(page.rows)}</tbody></table></div></div></section>
-<section class="traffic-section traffic-grid"><article class="traffic-card traffic-rfq"><h2>Make the quote comparable</h2><p>${escapeHtml(page.buyer)}</p><p>Share the brief through the <a data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="traffic-rfq" href="${inquiryHref(page, 'quote')}">structured RFQ page</a> and include a reference photo or drawing when shape, fit or decoration matters.</p><p><strong>Ask us to confirm:</strong> the selected configuration, MOQ by SKU, sample scope, lead-time milestones, QC checkpoints and export-packing assumptions before ordering.</p><p><a data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="traffic-rfq" href="${inquiryHref(page, 'quote')}">Get MOQ &amp; Lead Time</a> · <a data-inquiry-channel="rfq-builder" data-inquiry-type="sample" data-inquiry-location="traffic-sample-cta" href="${inquiryHref(page, 'sample')}">Request Samples</a></p></article><aside class="traffic-card"><h2>Continue researching</h2><ul class="traffic-links">${renderLinks(page.related).replaceAll('<a ', '<li><a ').replaceAll('</a>', '</a></li>')}</ul></aside></section></div></div>
+${renderExamples(page.examples)}<section class="traffic-section traffic-grid"><article class="traffic-card traffic-rfq"><h2>Make the quote comparable</h2><p>${escapeHtml(page.buyer)}</p><p>Share the brief through the <a data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="traffic-rfq" href="${inquiryHref(page, 'quote')}">structured RFQ page</a> and include a reference photo or drawing when shape, fit or decoration matters.</p><p><strong>Ask us to confirm:</strong> the selected configuration, MOQ by SKU, sample scope, lead-time milestones, QC checkpoints and export-packing assumptions before ordering.</p><p><a data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="traffic-rfq" href="${inquiryHref(page, 'quote')}">Get MOQ &amp; Lead Time</a> · <a data-inquiry-channel="rfq-builder" data-inquiry-type="sample" data-inquiry-location="traffic-sample-cta" href="${inquiryHref(page, 'sample')}">Request Samples</a></p></article><aside class="traffic-card"><h2>Continue researching</h2><ul class="traffic-links">${renderLinks(page.related).replaceAll('<a ', '<li><a ').replaceAll('</a>', '</a></li>')}</ul></aside></section></div></div>
 <footer class="site-footer gsp-site-footer traffic-footer"><div class="traffic-footer-inner"><span>© 2026 GloryStarPack. Packaging specifications are confirmed against the selected configuration.</span><span><a href="/products/product-index/">Product Index</a> · <a href="/cosmetic-packaging-guides/">Buyer Guides</a> · <a href="/contact/">Request a Quote</a></span></div></footer><script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer="defer"></script></body></html>`;
 }
 
@@ -404,11 +424,11 @@ for (const relative of ['products/product-index/index.html', 'custom-cosmetic-pa
 }
 
 let sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
-const entries = pages.map(page => `  <url>\n    <loc>${site}${page.route}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.80</priority>\n  </url>`).join('\n');
+const entries = pages.map(page => `  <url>\n    <loc>${site}${page.route}</loc>\n    <lastmod>${page.lastmod || defaultLastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.80</priority>\n  </url>`).join('\n');
 const sitemapMarker = '<!-- BEGIN GENERATED LOCALIZED PAGES -->';
 for (const page of pages) {
   const escapedRoute = page.route.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&');
-  sitemap = sitemap.replace(new RegExp(`(<loc>${site.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')}${escapedRoute}<\\/loc>\\s*<lastmod>)\\d{4}-\\d{2}-\\d{2}`), `$1${lastmod}`);
+  sitemap = sitemap.replace(new RegExp(`(<loc>${site.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')}${escapedRoute}<\\/loc>\\s*<lastmod>)\\d{4}-\\d{2}-\\d{2}`), `$1${page.lastmod || defaultLastmod}`);
 }
 if (!sitemap.includes(`${site}${pages[0].route}`)) sitemap = sitemap.replace(sitemapMarker, `${entries}\n${sitemapMarker}`);
 fs.writeFileSync(path.join(root, 'sitemap.xml'), sitemap);

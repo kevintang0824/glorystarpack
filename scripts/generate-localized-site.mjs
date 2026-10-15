@@ -11,6 +11,7 @@ import { localizedCleanup, translationOverrides } from '../data/translation-over
 import { localizedMetadata } from '../data/seo-batch-metadata.mjs';
 import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
 import { commercialApplicationTranslations } from '../data/commercial-application-translations.mjs';
+import { inquiryOptimizationTranslations } from '../data/inquiry-optimization-translations.mjs';
 import { alternateLanguageLinks, installLanguageSwitcher, localePath } from './language-switcher.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -69,7 +70,8 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   return [language, {
     ...JSON.parse(fs.readFileSync(file, 'utf8')),
     ...(applicationDecisionTranslations[language] || {}),
-    ...(commercialApplicationTranslations[language] || {})
+    ...(commercialApplicationTranslations[language] || {}),
+    ...(inquiryOptimizationTranslations[language] || {})
   }];
 }));
 const sourceFiles = execFileSync('git', ['ls-files', '*.html'], { cwd: root, encoding: 'utf8' }).trim().split('\n')
@@ -90,7 +92,7 @@ for (const file of sourceFiles) {
     const value = String(match[1]).replace(/\s+/g, ' ').trim();
     if (value && isSeedableTranslationString(value)) currentSourceStrings.add(value);
   }
-  for (const match of source.matchAll(/\b(?:alt|aria-label|placeholder|title|data-label)=(?:"([^"]*)"|'([^']*)')/gi)) {
+  for (const match of source.matchAll(/\b(?:alt|aria-label|placeholder|title|data-label|data-inquiry-product)=(?:"([^"]*)"|'([^']*)')/gi)) {
     const value = String(match[1] ?? match[2] ?? '').replace(/\s+/g, ' ').trim();
     if (value && isSeedableTranslationString(value)) currentSourceStrings.add(value);
   }
@@ -281,7 +283,7 @@ function translateStaticHtml(source, language) {
     const trailing = raw.match(/\s*$/)?.[0] || '';
     return `>${leading}${escapeText(decodeHtmlEntities(translated))}${trailing}<`;
   });
-  source = source.replace(/\b(alt|aria-label|placeholder|title|data-label)=("([^"]*)"|'([^']*)')/gi, (match, name, quoted, doubleValue, singleValue) => {
+  source = source.replace(/\b(alt|aria-label|placeholder|title|data-label|data-inquiry-product)=("([^"]*)"|'([^']*)')/gi, (match, name, quoted, doubleValue, singleValue) => {
     const raw = doubleValue ?? singleValue ?? '';
     const translated = dictionary[normalizedText(raw)];
     if (!translated || translated === normalizedText(raw)) return match;

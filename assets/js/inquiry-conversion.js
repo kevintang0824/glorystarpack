@@ -6,6 +6,9 @@
   const siteOrigin = 'https://www.glorystarpack.com';
   const currentUrl = new URL(window.location.href);
   const currentPath = currentUrl.pathname;
+  const localePrefix = currentPath.match(/^\/(?:fr|es|pt|ru|zh-CN)(?=\/|$)/)?.[0] || '';
+  const contactPath = `${localePrefix}/contact/`;
+  const isContactPath = path => /^\/(?:(?:fr|es|pt|ru|zh-CN)\/)?contact\/?$/.test(path);
   const debugMode = currentUrl.searchParams.get('ga_debug') === '1';
   const firstTouchKey = 'gsp_first_touch_v1';
   const sessionTouchKey = 'gsp_session_touch_v1';
@@ -138,7 +141,7 @@
 
   function pageTopic() {
     const attributedTopic = cleanText(currentUrl.searchParams.get('topic'));
-    if (/^\/contact\/?$/.test(currentPath)) return attributedTopic || 'packaging project';
+    if (isContactPath(currentPath)) return attributedTopic || 'packaging project';
     return cleanText(
       document.querySelector('meta[name="gsp-inquiry-topic"]')?.content
       || document.querySelector('h1')?.textContent
@@ -191,11 +194,12 @@
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(inquiryMessage(intent))}`;
   }
 
-  function contactHref(intent = 'quote') {
-    const url = new URL('/contact/', siteOrigin);
+  function contactHref(intent = 'quote', product = '') {
+    const url = new URL(contactPath, siteOrigin);
     url.searchParams.set('source', currentPath);
     url.searchParams.set('topic', pageTopic());
     url.searchParams.set('intent', intent);
+    if (product) url.searchParams.set('product', cleanText(product, 180));
     if (debugMode) url.searchParams.set('ga_debug', '1');
     return `${url.pathname}${url.search}`;
   }
@@ -207,7 +211,7 @@
   }
 
   function enhanceContactLinks() {
-    if (currentPath === '/contact/' || currentPath === '/contact') return;
+    if (isContactPath(currentPath)) return;
     document.querySelectorAll('a[href]').forEach(link => {
       const rawHref = link.getAttribute('href') || '';
       let url;
@@ -216,9 +220,9 @@
       } catch {
         return;
       }
-      if (url.origin !== window.location.origin || !/^\/contact\/?$/.test(url.pathname)) return;
+      if (url.origin !== window.location.origin || !isContactPath(url.pathname)) return;
       const intent = inquiryTypeForLink(link);
-      link.href = contactHref(intent);
+      link.href = contactHref(intent, link.dataset.inquiryProduct || '');
       link.dataset.inquiryChannel ||= 'rfq-builder';
       link.dataset.inquiryType ||= intent;
       link.dataset.inquiryLocation ||= link.closest('section.hero, .hero') ? 'hero-cta' : 'contact-link';
@@ -306,7 +310,7 @@
       try {
         const targetUrl = new URL(link.href, window.location.href);
         isSameOriginContactLink = targetUrl.origin === window.location.origin
-          && /^\/contact\/?$/.test(targetUrl.pathname)
+          && isContactPath(targetUrl.pathname)
           && !link.target
           && !event.metaKey
           && !event.ctrlKey
@@ -343,13 +347,14 @@
   }
 
   function prefillContactBuilder() {
-    if (!/^\/contact\/?$/.test(currentPath)) return;
+    if (!isContactPath(currentPath)) return;
     const params = currentUrl.searchParams;
     const topic = cleanText(params.get('topic'));
+    const product = cleanText(params.get('product'), 180);
     const intent = cleanText(params.get('intent'), 30);
     const sourcePath = safeSourcePath(params.get('source'));
     const productField = document.getElementById('rfq-product');
-    if (productField && topic && !productField.value.trim()) productField.value = topic;
+    if (productField && (product || topic) && !productField.value.trim()) productField.value = product || topic;
 
     if (sourcePath) {
       const form = document.getElementById('rfq-form');
@@ -364,7 +369,7 @@
   }
 
   function shouldShowDock() {
-    if (/^\/(?:$|contact\/?$)/.test(currentPath)) return false;
+    if (currentPath === '/' || isContactPath(currentPath)) return false;
     if (/\.(?:xml|json|txt)$/i.test(currentPath)) return false;
     return document.querySelector('main, article, section.hero, .hero') !== null;
   }

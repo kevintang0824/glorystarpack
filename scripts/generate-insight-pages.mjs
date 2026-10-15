@@ -449,7 +449,15 @@ const insightDefinitions = {
   '14': {
     slug: 'cosmetic-packaging-compatibility-testing-guide',
     seoTitle: 'Cosmetic Packaging Compatibility Testing Guide | GloryStarPack',
-    dateModified: '2026-09-20',
+    dateModified: '2026-10-15',
+    buyerRoute: {
+      title: 'Choosing packaging for an active formula?',
+      copy: 'Compare container and dispensing options, then share the application, capacity, quantity and destination for a component shortlist. Your technical team approves compatibility with the final formula.',
+      productHref: '/products/skincare-packaging/',
+      productLabel: 'Compare skincare packaging',
+      inquiryProduct: 'Skincare packaging components',
+      quoteLabel: 'Request a component quote'
+    },
     decisionTable: {
       heading: 'Compatibility review matrix',
       intro: 'The responsible technical team should turn each row into project-specific conditions, checkpoints and acceptance criteria. The matrix is a record structure, not a universal pass/fail protocol.',
@@ -1030,7 +1038,15 @@ const insightDefinitions = {
   '30': {
     slug: 'glass-bottle-defects-quality-inspection-guide',
     seoTitle: 'Glass Bottle Defects & Quality Inspection Guide',
-    dateModified: '2026-08-20',
+    dateModified: '2026-10-15',
+    buyerRoute: {
+      title: 'Sourcing glass bottles for a project?',
+      copy: 'Compare bottle formats, then share the application, capacity, closure, quantity and destination for a project-specific sample or quote. Inspection limits are agreed against the selected bottle.',
+      productHref: '/products/glass-packaging/',
+      productLabel: 'Compare glass bottles',
+      inquiryProduct: 'Glass bottles',
+      quoteLabel: 'Request a bottle quote'
+    },
     decisionTable: {
       heading: 'Glass bottle inspection control matrix',
       intro: 'Define each observation by location, consequence and written acceptance criteria. A defect name alone does not establish whether a bottle is safe, functional or acceptable for a specific project.',
@@ -1483,6 +1499,9 @@ function articlePage(article) {
     .map(item => `<a class="insight-card" href="${articlePath(item)}">${pictureMarkup(item, { sizes: '(max-width:520px) calc(100vw - 40px), 340px', loading: 'lazy' })}<div><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.cat)} · ${escapeHtml(item.date)}</span></div></a>`)
     .join('');
   const inquiryHref = intent => `/contact/?intent=${intent}&source=${encodeURIComponent(articlePath(article))}&topic=${encodeURIComponent(article.title)}`.replaceAll('&', '&amp;');
+  const buyerRouteMarkup = article.buyerRoute
+    ? `<section class="insight-buyer-route" aria-label="For active projects"><div><div class="eyebrow">For active projects</div><h2>${escapeHtml(article.buyerRoute.title)}</h2><p>${escapeHtml(article.buyerRoute.copy)}</p></div><div class="insight-buyer-actions"><a class="btn alt" href="${escapeHtml(article.buyerRoute.productHref)}">${escapeHtml(article.buyerRoute.productLabel)}</a><a class="btn" data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="insight-hero-route" data-inquiry-product="${escapeHtml(article.buyerRoute.inquiryProduct)}" href="${inquiryHref('quote')}">${escapeHtml(article.buyerRoute.quoteLabel)}</a></div></section>`
+    : '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1534,7 +1553,7 @@ ${headerMarkup('guides')}
     <h1>${escapeHtml(article.title)}</h1>
     <p class="lead">${escapeHtml(article.excerpt)}</p>
     <div class="article-meta"><time datetime="${publishedDateTime}">Published ${escapeHtml(displayDate(article.datePublished))}</time>${updatedDateMarkup}<span>${escapeHtml(articleReadTime(article))}</span><span>By <a href="/about/#packaging-desk">GloryStarPack Packaging Desk</a></span></div>
-    <figure class="article-figure">${pictureMarkup(article, { sizes: '(max-width:760px) calc(100vw - 40px), 1160px', priority: true })}</figure>
+    ${buyerRouteMarkup ? `${buyerRouteMarkup}\n    ` : ''}<figure class="article-figure">${pictureMarkup(article, { sizes: '(max-width:760px) calc(100vw - 40px), 1160px', priority: true })}</figure>
   </header>
   <div class="wrap main article-shell">
     <article class="article-body">
@@ -1553,7 +1572,7 @@ ${headerMarkup('guides')}
   </section>
 </main>
 ${footerMarkup(article.dateModified)}
-<script src="/assets/js/inquiry-conversion.js?v=20260919-3" defer></script>
+<script src="/assets/js/inquiry-conversion.js?v=${article.buyerRoute ? '20261015-1' : '20260919-3'}" defer></script>
 </body>
 </html>
 `;

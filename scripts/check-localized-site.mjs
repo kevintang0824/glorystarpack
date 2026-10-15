@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { localeCodes } from '../data/site-locales.mjs';
 import { applicationDecisionTranslations } from '../data/application-decision-translations.mjs';
 import { commercialApplicationTranslations } from '../data/commercial-application-translations.mjs';
+import { inquiryOptimizationTranslations } from '../data/inquiry-optimization-translations.mjs';
 import { translationOverrides } from '../data/translation-overrides.mjs';
 import { localePath } from './language-switcher.mjs';
 import { redditBlogRoutes } from './reddit-blog-content.mjs';
@@ -37,7 +38,8 @@ const translationDictionaries = Object.fromEntries(localeCodes.map(language => {
   return [language, {
     ...(fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {}),
     ...(applicationDecisionTranslations[language] || {}),
-    ...(commercialApplicationTranslations[language] || {})
+    ...(commercialApplicationTranslations[language] || {}),
+    ...(inquiryOptimizationTranslations[language] || {})
   }];
 }));
 const sitemapEnglishRoutes = [...new Set([...sitemap.matchAll(/<loc>https:\/\/www\.glorystarpack\.com([^<]+)<\/loc>/g)].map(match => match[1]))]
@@ -61,7 +63,7 @@ for (const file of sourceFiles) {
     const value = normalizedTranslationSource(match[1]);
     if (shouldTranslate(value)) currentTranslationStrings.add(value);
   }
-  for (const match of source.matchAll(/\b(?:alt|aria-label|placeholder|title)=(?:"([^"]*)"|'([^']*)')/gi)) {
+  for (const match of source.matchAll(/\b(?:alt|aria-label|placeholder|title|data-inquiry-product)=(?:"([^"]*)"|'([^']*)')/gi)) {
     const value = normalizedTranslationSource(match[1] ?? match[2]);
     if (shouldTranslate(value)) currentTranslationStrings.add(value);
   }

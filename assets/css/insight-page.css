@@ -7,6 +7,41 @@
   overflow-wrap: anywhere;
 }
 
+.insight-buyer-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 0 24px;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.insight-buyer-route h2 {
+  margin: 0 0 6px;
+  font-size: clamp(21px, 2.5vw, 27px);
+}
+
+.insight-buyer-route p {
+  max-width: 660px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.insight-buyer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .insight-buyer-route { display: block; }
+  .insight-buyer-actions { margin-top: 16px; }
+}
+
 .article-meta {
   display: flex;
   flex-wrap: wrap;

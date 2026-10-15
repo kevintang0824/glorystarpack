@@ -790,7 +790,7 @@ const insightDefinitions = {
   '24': {
     slug: 'cosmetic-packaging-tamper-evident-seals-guide',
     seoTitle: 'Tamper-Evident Seals for Cosmetics | Selection Guide',
-    dateModified: '2026-09-20',
+    dateModified: '2026-10-15',
     decisionTable: {
       heading: 'Tamper-evidence format selection matrix',
       intro: 'Choose the evidence layer only after the finished product classification, container, filling route, consumer action and destination requirements are known.',

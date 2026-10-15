@@ -4,6 +4,7 @@ assets/**/*.png
 !assets/brand/glorystarpack-logo-*.png
 backups/
 tmp/
+seo-research/
 glorystarpack (1).html
 
 # Logs

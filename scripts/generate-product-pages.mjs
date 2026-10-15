@@ -29,7 +29,7 @@ const productIndexModifiedDate = '2026-08-28';
 const productModifiedDates = new Map([
   ['p1', '2026-08-28'],
   ['p2', '2026-08-28'],
-  ['p4', '2026-08-28'],
+  ['p4', '2026-10-15'],
   ['p7', '2026-08-28'],
   ['p18', '2026-08-28'],
   ['p34', '2026-08-28'],
@@ -90,6 +90,11 @@ const productSlugOverrides = new Map([
 ]);
 
 const applicationDetailOverrides = new Map([
+  ['p4', {
+    heading: 'What is included in a frosted perfume bottle quote?',
+    copy: 'For the selected 30ml, 50ml or 100ml bottle, ask for an itemized configuration showing whether the fine-mist pump, collar, overcap, decoration and export packing are included. Match the pump assembly to the exact neck drawing. Review frosting appearance, spray, fragrance contact, leakage and carton protection on production-intent samples before approval. Availability, MOQ and timing are confirmed for the selected configuration.',
+    terms: ['Selected capacity and neck drawing', 'Pump, collar and cap scope', 'Frosting and decoration', 'Quantity and destination']
+  }],
   ['p294', {
     heading: 'How to specify this PCR HDPE shampoo bottle family',
     copy: 'Use this product family when you need 250ml, 300ml, 500ml or 750ml HDPE bottles for shampoo, conditioner or body wash with a disc cap or pump direction. Define the PCR percentage for the bottle itself, then confirm resin evidence, color tolerance, bottle stiffness, neck and closure fit, formula compatibility, decoration and filled-pack performance on the selected production-intent configuration.',
@@ -153,6 +158,7 @@ const productLeadOverrides = new Map([
 ]);
 
 const productMetaDescriptionOverrides = new Map([
+  ['p4', 'Compare 30ml, 50ml and 100ml frosted glass perfume bottles with fine-mist pump options. Check neck, pump and collar fit; request samples or a quote.'],
   ['p294', 'Compare 250ml–750ml PCR HDPE shampoo bottles with disc cap or pump options; confirm resin evidence, closure fit and formula performance before approval.'],
   ['p181', 'Match a perfume crimp pump, collar, bottle neck, dip tube, actuator and cap as one system; confirm spray, fit and leakage on production-intent samples.']
 ]);
@@ -276,6 +282,7 @@ function truncateWords(value, maxLength) {
 }
 
 function pageTitle(product) {
+  if (product.id === 'p4') return 'Frosted Glass Perfume Bottle with Pump | 30, 50 & 100 ml';
   return `${productName(product)} | GloryStarPack`;
 }
 
@@ -740,7 +747,7 @@ ${headerMarkup('products')}
           <div class="fact"><strong>${escapeHtml(product.mat)}</strong><span>Primary material</span></div>
           <div class="fact"><strong>${escapeHtml(product.moq)} pcs</strong><span>${planningLabel}; confirm by project</span></div>
         </div>
-        <div class="actions"><a class="btn" data-inquiry-channel="whatsapp" data-inquiry-type="quote" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Request Project Quote</a><a class="btn alt" data-inquiry-channel="whatsapp" data-inquiry-type="sample" href="https://wa.me/8619577608248?text=${sampleText}" target="_blank" rel="noopener">Request Samples</a></div>
+        <div class="actions"><a class="btn" data-inquiry-channel="whatsapp" data-inquiry-type="quote" href="https://wa.me/8619577608248?text=${quoteText}" target="_blank" rel="noopener">Request Project Quote</a><a class="btn alt" data-inquiry-channel="whatsapp" data-inquiry-type="sample" href="https://wa.me/8619577608248?text=${sampleText}" target="_blank" rel="noopener">Request Samples</a>${product.id === 'p4' ? `<a class="btn alt" data-inquiry-channel="rfq-builder" data-inquiry-type="quote" data-inquiry-location="product-hero" data-inquiry-product="${escapeHtml(name)}" href="/contact/?intent=quote&amp;topic=${encodeURIComponent(name)}">Send Packaging Specs</a>` : ''}</div>
       </div>
       <div class="hero-media"><picture><source type="image/avif" srcset="${productImageVariant(product, 480)} 480w, ${productImageVariant(product, 960)} 960w" sizes="(max-width:760px) calc(100vw - 40px), 470px"><img src="${productImage(product)}" width="${product.imageWidth}" height="${product.imageHeight}" fetchpriority="high" decoding="async" alt="${escapeHtml(name)} packaging product"></picture></div>
     </div>

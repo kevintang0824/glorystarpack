@@ -8137,7 +8137,6 @@
   "Surface treatment, adhesive, ink, barcode contrast and resistance to squeeze and formula exposure.": "表面处理,粘合剂,墨水,条码对比和抗挤和配方接触.",
   "to define drawing approval, tooling scope, ownership, samples and project-specific MOQ and timing.": "界定绘图批准、工具范围、所有权、样本和具体项目的MOQ和时间安排。",
   "Who fills, labels, assembles and inspects every component, insert and outer pack in the final kit?": "由谁填充、贴标签、组装和检查最后包包中的每个组件、插入和外包?",
-  "Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.": "对 库存样品通常需要7-10个工作日。 定制样品通常需要15-20个工作日.",
   "18/410, 20/410, 24/410 and 28/410 directions for toner, body mist, hair mist and fragrance samples.": "18/410,20/410,24/410和28/410 方向为色纳,体雾,毛雾和香味样品.",
   "A quote covers one print pass but excludes coating, extra colors, reject allowance or repeat setup.": "报价包括一张打印通行证,但不包括涂层、额外颜色、拒绝备抵或重复设置。",
   "Amber craft bottles and 50ml to 375ml minis for tasting, gift, hospitality and travel retail packs.": "琥珀工艺瓶和50毫升至375毫升的迷你车,用于品尝,赠送,招待和旅行零售包.",
@@ -13427,5 +13426,8 @@
   "Quantity and destination": "数量与目的地",
   "MOQ confirmation": "起订量确认",
   "Confirmed for the selected specification and quantity": "根据所选规格和数量确认",
-  "MOQ depends on the selected item, decoration and quantity. Send your target volume and destination to confirm the available configuration before budgeting.": "起订量取决于所选产品、装饰工艺和数量。请提供目标采购量与目的国，以便在预算前确认可供应的配置。"
+  "MOQ depends on the selected item, decoration and quantity. Send your target volume and destination to confirm the available configuration before budgeting.": "起订量取决于所选产品、装饰工艺和数量。请提供目标采购量与目的国，以便在预算前确认可供应的配置。",
+  "Yes. Sample availability, scope, charges and timing are confirmed after the selected packaging, decoration and destination are defined.": "可以。确定包装、装饰工艺和目的国后，再确认样品供应情况、范围、费用和时间。",
+  "Page reviewed 2026-10-16": "页面复核于 2026 年 10 月 16 日",
+  "Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.": "对 库存样品通常需要7-10个工作日。 定制样品通常需要15-20个工作日."
 }

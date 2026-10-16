@@ -10,7 +10,7 @@ const pages = {
     description: 'Custom cosmetic packaging manufacturer for OEM/ODM bottles, jars, tubes, pumps and caps. Compare stock, decoration, custom molds, samples, MOQ and quote inputs.',
     faqs: [
       ['What custom cosmetic packaging services are available?', 'GloryStarPack supports custom molds, logo printing, hot stamping, UV printing, frosting, color coating, electroplating, laser engraving, cap matching, retail boxes and packaging inserts.'],
-      ['Can I request samples?', 'Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.'],
+      ['Can I request samples?', 'Yes. Sample availability, scope, charges and timing are confirmed after the selected packaging, decoration and destination are defined.'],
       ['What information is needed for a quote?', 'Please share product type, capacity, material, decoration, quantity, destination country and any reference photos or drawings.']
     ]
   },

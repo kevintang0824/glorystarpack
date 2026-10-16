@@ -8137,7 +8137,6 @@
   "Surface treatment, adhesive, ink, barcode contrast and resistance to squeeze and formula exposure.": "Обработка поверхности, клей, чернила, контраст штрих-кода и устойчивость к сжатию и воздействию состава продукта.",
   "to define drawing approval, tooling scope, ownership, samples and project-specific MOQ and timing.": "для определения официального утверждения чертежа, объема инструментария для пресс-формы, владения, образцов и MOQ и сроков проекта.",
   "Who fills, labels, assembles and inspects every component, insert and outer pack in the final kit?": "Кто заполняет, маркирует, собирает и проверяет каждый компонент, вставляет и наружный пакет в комплект?",
-  "Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.": "Да. Запасные образцы обычно занимают 7-10 рабочих дней. Запасные образцы обычно занимают 15-20 рабочих дней.",
   "18/410, 20/410, 24/410 and 28/410 directions for toner, body mist, hair mist and fragrance samples.": "18/410, 20/410, 24/410 и 28/410 направления для образцов тонера, тумана тела, тумана волос и аромата.",
   "A quote covers one print pass but excludes coating, extra colors, reject allowance or repeat setup.": "Цена котировки покрывает один пропуск печати, но исключает покрытие, дополнительные цвета, отклонить надбавку или повторную настройку.",
   "Amber craft bottles and 50ml to 375ml minis for tasting, gift, hospitality and travel retail packs.": "Янтарные бутылки и 50- 375 мл мини для дегустации, подарков, гостеприимства и путешествий.",
@@ -13427,5 +13426,8 @@
   "Quantity and destination": "Количество и страна назначения",
   "MOQ confirmation": "Подтверждение минимального заказа",
   "Confirmed for the selected specification and quantity": "Подтверждается для выбранной спецификации и количества",
-  "MOQ depends on the selected item, decoration and quantity. Send your target volume and destination to confirm the available configuration before budgeting.": "Минимальный заказ зависит от выбранного изделия, оформления и количества. Укажите планируемый объём и страну назначения, чтобы уточнить доступную комплектацию до расчёта бюджета."
+  "MOQ depends on the selected item, decoration and quantity. Send your target volume and destination to confirm the available configuration before budgeting.": "Минимальный заказ зависит от выбранного изделия, оформления и количества. Укажите планируемый объём и страну назначения, чтобы уточнить доступную комплектацию до расчёта бюджета.",
+  "Yes. Sample availability, scope, charges and timing are confirmed after the selected packaging, decoration and destination are defined.": "Да. Доступность, состав, стоимость и сроки образцов подтверждаются после выбора упаковки, оформления и страны назначения.",
+  "Page reviewed 2026-10-16": "Страница проверена 16 октября 2026 г.",
+  "Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.": "Да. Запасные образцы обычно занимают 7-10 рабочих дней. Запасные образцы обычно занимают 15-20 рабочих дней."
 }

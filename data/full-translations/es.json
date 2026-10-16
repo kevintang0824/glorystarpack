@@ -8137,7 +8137,6 @@
   "Surface treatment, adhesive, ink, barcode contrast and resistance to squeeze and formula exposure.": "Tratamiento superficial, adhesivo, tinta, contraste de códigos de barras y resistencia a la expresión y la exposición a fórmulas.",
   "to define drawing approval, tooling scope, ownership, samples and project-specific MOQ and timing.": "para definir la aprobación del dibujo, el alcance de la herramienta, la propiedad, las muestras y el MOQ específico del proyecto y el tiempo.",
   "Who fills, labels, assembles and inspects every component, insert and outer pack in the final kit?": "¿Quién llena, etiqueta, monta e inspecciona cada componente, inserta y empaque exterior en el kit final?",
-  "Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.": "Sí. Las muestras de stock suelen tomar 7-10 días hábiles. Las muestras personalizadas suelen tomar 15-20 días laborables.",
   "18/410, 20/410, 24/410 and 28/410 directions for toner, body mist, hair mist and fragrance samples.": "18/410, 20/410, 24/410 y 28/410 direcciones para toner, niebla corporal, niebla de pelo y muestras de fragancia.",
   "A quote covers one print pass but excludes coating, extra colors, reject allowance or repeat setup.": "Una cotización de precio cubre un pase de impresión pero excluye el revestimiento, colores extras, la asignación de rechazo o la configuración de repetición.",
   "Amber craft bottles and 50ml to 375ml minis for tasting, gift, hospitality and travel retail packs.": "Botellas de artesanía ámbar y minis de 50ml a 375ml para degustación, regalo, hospitalidad y paquetes de viaje.",
@@ -13427,5 +13426,8 @@
   "Quantity and destination": "Cantidad y destino",
   "MOQ confirmation": "Confirmación del MOQ",
   "Confirmed for the selected specification and quantity": "Se confirma según la especificación y cantidad seleccionadas",
-  "MOQ depends on the selected item, decoration and quantity. Send your target volume and destination to confirm the available configuration before budgeting.": "El MOQ depende del artículo, la decoración y la cantidad seleccionados. Indique el volumen previsto y el país de destino para confirmar la configuración disponible antes de presupuestar."
+  "MOQ depends on the selected item, decoration and quantity. Send your target volume and destination to confirm the available configuration before budgeting.": "El MOQ depende del artículo, la decoración y la cantidad seleccionados. Indique el volumen previsto y el país de destino para confirmar la configuración disponible antes de presupuestar.",
+  "Yes. Sample availability, scope, charges and timing are confirmed after the selected packaging, decoration and destination are defined.": "Sí. La disponibilidad, el alcance, los costes y los plazos de las muestras se confirman una vez definidos el envase, la decoración y el país de destino.",
+  "Page reviewed 2026-10-16": "Página revisada el 16 de octubre de 2026",
+  "Yes. Stock samples usually take 7-10 working days. Custom samples usually take 15-20 working days.": "Sí. Las muestras de stock suelen tomar 7-10 días hábiles. Las muestras personalizadas suelen tomar 15-20 días laborables."
 }
